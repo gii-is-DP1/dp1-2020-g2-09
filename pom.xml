@@ -36,6 +36,7 @@
  <developer>
  <id>ser</id>
  <name>serfiggom</name>
+
  <email>servandofg12@gmail.com</email>
  <url></url>
  <roles>
@@ -56,6 +57,7 @@
  <properties>
  <picUrl></picUrl>
  </properties>
+
  </developer>
  <developer>
  <id>jesrolcad</id>
@@ -68,9 +70,14 @@
  </properties>
  </developer>
  <developer>
+
 <id>alvsangon2</id>
 <name>Alvaro</name>
 </developer>
+		<id>alvsangon2</id>
+		<name>Alvaro</name>
+		</developer>
+
  </developers>
 
     <dependencies>
