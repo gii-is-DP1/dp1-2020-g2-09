@@ -31,7 +31,18 @@
         <spring-format.version>0.0.19</spring-format.version>
 
     </properties>
-
+	<developers>
+ <developer>
+ <id>jesrolcad</id>
+ <name>Jesús</name>
+ <email>jesrolcad@alum.us.es</email>
+ <roles>
+ <role>Member</role>
+ </roles>
+ <properties>
+ </properties>
+ </developer>
+ </developers>
     <dependencies>
         <!-- Spring and Spring Boot dependencies -->
         <dependency>
