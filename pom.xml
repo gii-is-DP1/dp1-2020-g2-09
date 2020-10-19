@@ -57,6 +57,28 @@
  <developer>
  <id>ser</id>
  <name>serfiggom</name>
+
+ <email>servandofg12@gmail.com</email>
+ <url></url>
+ <roles>
+ <role>team member</role>
+ </roles>
+ <properties>
+ <picUrl></picUrl>
+ </properties>
+ </developer>
+ <developer>
+ <id>raupargor </id>
+ <name>raul</name>
+ <email>raul-pg@hotmail.com</email>
+ <url></url>
+ <roles>
+ <role>team member</role>
+ </roles>
+ <properties>
+ <picUrl></picUrl>
+ </properties>
+
  </developer>
  <developer>
  <id>jesrolcad</id>
@@ -70,9 +92,13 @@
  </developer>
  <developer>
 
+<id>alvsangon2</id>
+<name>Alvaro</name>
+</developer>
 		<id>alvsangon2</id>
 		<name>Alvaro</name>
 		</developer>
+
  </developers>
     <dependencies>
         <!-- Spring and Spring Boot dependencies -->
