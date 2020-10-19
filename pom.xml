@@ -31,6 +31,17 @@
         <spring-format.version>0.0.19</spring-format.version>
 
     </properties>
+    
+    	<developers>
+		<developer>
+			<id>margarcac1</id>
+			<name>Maria Garcia Caceres </name>
+			<email>margarcac1@alum.us.es</email>
+			<roles>
+				<role>member</role>
+			</roles>
+		</developer>
+	</developers>
 
 <developers>
 <developer>
