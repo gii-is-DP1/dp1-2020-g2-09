@@ -33,6 +33,16 @@
     </properties>
 
 <developers>
+<developer>
+<id>luctorgom</id>
+<name>LuciaTG</name>
+<email>luctorgom@alum.us.es</email>
+<roles>
+<role>member</role>
+</roles>
+<properties>
+</properties>
+</developer>
  <developer>
  <id>ser</id>
  <name>serfiggom</name>
@@ -53,7 +63,6 @@
 		<name>Alvaro</name>
 		</developer>
  </developers>
-
     <dependencies>
         <!-- Spring and Spring Boot dependencies -->
         <dependency>
