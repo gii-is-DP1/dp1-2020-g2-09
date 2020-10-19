@@ -7,6 +7,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <petclinic:layout pageName="home">
     <h2><fmt:message key="welcome"/></h2>
+    <spring:url value="/resources/images/logoPNG_3.png" htmlEscape="true" var="logoImage"/>
+            <img class="img-responsive" src="${logoImage}"/>
     <div class="row">
     	<h2>Project ${title}</h2>
     	<p><h2>Group ${group}</h2></p>	
