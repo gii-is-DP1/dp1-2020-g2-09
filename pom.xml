@@ -94,11 +94,12 @@
 
 <id>alvsangon2</id>
 <name>Alvaro</name>
+<roles>
+ <role>Member</role>
+ </roles>
+ <properties>
+ </properties>
 </developer>
-		<id>alvsangon2</id>
-		<name>Alvaro</name>
-		</developer>
-
  </developers>
     <dependencies>
         <!-- Spring and Spring Boot dependencies -->
