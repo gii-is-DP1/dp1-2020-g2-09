@@ -31,7 +31,20 @@
         <spring-format.version>0.0.19</spring-format.version>
 
     </properties>
-	<developers>
+
+<developers>
+ <developer>
+ <id>ser</id>
+ <name>serfiggom</name>
+ <email>servandofg12@gmail.com</email>
+ <url></url>
+ <roles>
+ <role>team member</role>
+ </roles>
+ <properties>
+ <picUrl></picUrl>
+ </properties>
+ </developer>
  <developer>
  <id>jesrolcad</id>
  <name>Jesús</name>
@@ -43,6 +56,7 @@
  </properties>
  </developer>
  <developer>
+
 		<id>alvsangon2</id>
 		<name>Alvaro</name>
 		</developer>
