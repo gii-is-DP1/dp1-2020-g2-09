@@ -7,10 +7,13 @@ INSERT INTO authorities(id,username,authority) VALUES (2,'owner1','owner');
 -- One vet user, named vet1 with passwor v3t
 INSERT INTO users(username,password,enabled) VALUES ('vet1','v3t',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
--- Two owner user, named luctorgom with password luctorgom
+-- One owner user, named luctorgom with password luctorgom
 INSERT INTO users(username,password,enabled) VALUES ('luctorgom','luctorgom',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (4,'luctorgom','owner');
--- Two owner user, named margarcac1 with password margarcac1
+-- One owner user, named raupargor with password raupargor
+INSERT INTO users(username,password,enabled) VALUES ('raupargor','raupargor',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (5,'raupargor','owner');
+-- One owner user, named margarcac1 with password margarcac1
 INSERT INTO users(username,password,enabled) VALUES ('margarcac1','margarcac1',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (6,'margarcac1','owner');
 
