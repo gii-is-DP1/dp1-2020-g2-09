@@ -1,50 +1,22 @@
 package org.springframework.samples.petclinic.model;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import com.sun.xml.txw2.annotation.XmlElement;
 
-import com.sun.istack.NotNull;
+@XmlRootElement
+public class Cuentas {
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
-@Data
-@EqualsAndHashCode(callSuper=false)
-@Entity
-@Table(name = "Cuentas")
-public class Cuentas extends BaseEntity {
+private List<Cuenta> cuentasList;
 	
-	@Column(name = "nombre")
-	@NotNull
-	private String nombre;
-	
-	@Column(name = "apellidos")
-	@NotNull
-	private String apellidos;
-	
-	@Column(name = "fecha_nacimiento")
-	@NotNull
-	private LocalDate fechaNacimiento;
-	
-	@Column(name = "telefono")
-	@NotNull
-	private Integer telefono;
-	
-	@Column(name = "nombre_usuario")
-	@NotNull
-	private String nombreUsuario;
-	
-	@Column(name = "contraseña")
-	@NotNull
-	private String contraseña;
-	
-	@Column(name = "email")
-	@NotNull
-	private String email;
-	
-
+	@XmlElement
+	public List<Cuenta> getCuentasList() {
+		if (cuentasList == null) {
+			cuentasList = new ArrayList<>();
+		}
+		return cuentasList;
+	}
 }

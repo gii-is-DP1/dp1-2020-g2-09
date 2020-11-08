@@ -1,23 +1,22 @@
 package org.springframework.samples.petclinic.model;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import com.sun.istack.NotNull;
+import com.sun.xml.txw2.annotation.XmlElement;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+@XmlRootElement
+public class Clientes {
 
-@Data
-@EqualsAndHashCode(callSuper=false)
-@Entity
-@Table(name = "Clientes")
-public class Clientes extends Cuentas {
-
-	@Column(name = "fechaAlta")
-	@NotNull
-	private LocalDate fechaAlta;
+	private List<Cliente> clientesList;
+	
+	@XmlElement
+	public List<Cliente> getClientesList() {
+		if (clientesList == null) {
+			clientesList = new ArrayList<>();
+		}
+		return clientesList;
+	}
 }
