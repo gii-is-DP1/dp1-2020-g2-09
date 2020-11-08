@@ -6,11 +6,14 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Clientes;
+import org.springframework.samples.petclinic.model.Cuenta;
+import org.springframework.samples.petclinic.service.CuentaService;
 import org.springframework.samples.petclinic.service.ClienteService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,10 +21,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class ClienteController {
 	
 		private final ClienteService clienteService;
+		private final CuentaService cuentaService;
 
 		@Autowired
-		public ClienteController(ClienteService clienteService) {
+		public ClienteController(ClienteService clienteService, CuentaService cuentaService) {
 			this.clienteService = clienteService;
+			this.cuentaService = cuentaService;
 		}
 
 		@InitBinder
@@ -56,4 +61,10 @@ public class ClienteController {
 			mav.addObject(this.clienteService.findClienteByNombreUsuario(clienteNombreUsuario));
 			return mav;
 		}
+		
+		@ModelAttribute("cuentaPorId")
+		public Cuenta findCuentaById(@PathVariable("cuentaId") int cuentaId) {
+			return this.cuentaService.findCuentaById(cuentaId);
+		}
+
 }
