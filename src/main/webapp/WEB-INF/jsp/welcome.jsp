@@ -18,7 +18,7 @@
     </div>    
     
     <div>
-     <a href="/cuentas">Prueba 1: dar click</a>
+     <a href="/allCuentas">Prueba 1: dar click</a>
     </div>
     
     <div class="row">
