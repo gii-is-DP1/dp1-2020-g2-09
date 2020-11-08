@@ -4,6 +4,7 @@ import java.util.Map;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Clientes;
 import org.springframework.samples.petclinic.service.ClienteService;
 import org.springframework.stereotype.Controller;
@@ -27,12 +28,20 @@ public class ClienteController {
 		public void setAllowedFields(WebDataBinder dataBinder) {
 			dataBinder.setDisallowedFields("id");
 		}
+		
+		@GetMapping(value = { "/clientes" })
+		public String showClientList(Map<String, Object> model) {
+			Clientes clientes = new Clientes();
+			clientes.getClientesList().addAll(this.clienteService.findClientes());
+			model.put("clientes", clientes);
+			return "clientes/clientesList";
+		}
 
 
 		@GetMapping(value = "/clientes/find")
 		public String initFindForm(Map<String, Object> model) {
-			model.put("cliente", new Clientes());
-			return "clientes/findClientes";
+			model.put("cliente", new Cliente());
+			return "cliente/clientesList/findClientePorUsuario";
 		}
 
 
@@ -43,7 +52,7 @@ public class ClienteController {
 		 */
 		@GetMapping("/clientes/{clienteNombreUsuario}")
 		public ModelAndView showCliente(@PathVariable("clienteNombreUsuario") String clienteNombreUsuario) {
-			ModelAndView mav = new ModelAndView("owners/ownerDetails");
+			ModelAndView mav = new ModelAndView("cliente/findClientePorUsuario");
 			mav.addObject(this.clienteService.findClienteByNombreUsuario(clienteNombreUsuario));
 			return mav;
 		}
