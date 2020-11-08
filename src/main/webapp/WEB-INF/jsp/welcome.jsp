@@ -19,6 +19,10 @@
     	</ul></p>	
     </div>    
     
+    <div>
+     <a href="cliente/findClientePorNombreUsuario">Prueba 1: dar click</a>
+    </div>
+    
     <div class="row">
         <div class="col-md-12">
             <spring:url value="/resources/images/pets.png" htmlEscape="true" var="petsImage"/>
