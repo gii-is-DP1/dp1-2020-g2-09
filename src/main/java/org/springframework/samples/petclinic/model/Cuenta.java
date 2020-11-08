@@ -5,7 +5,8 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Size;
 
 import com.sun.istack.NotNull;
 
@@ -20,6 +21,7 @@ public class Cuenta extends BaseEntity {
 	
 	@Column(name = "nombre")
 	@NotNull
+	@Size(min = 2, max = 10)
 	private String nombre;
 	
 	@Column(name = "apellidos")
