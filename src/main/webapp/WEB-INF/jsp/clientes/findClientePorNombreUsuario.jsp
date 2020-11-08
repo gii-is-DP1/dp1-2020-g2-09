@@ -7,15 +7,11 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>  
 <!-- LA SIGUIENTE LINEA ES IMPRESCINDIBLE SINO NO SALDRIA EL C:FOREACH -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<petclinic:layout pageName="Ejemplo">
+<petclinic:layout pageName="clientes">
 <head>
-<meta charset="ISO-8859-1">
 <title>Busca un Cliente por su Nombre de Usuario</title>
 </head>
 <body>
 	<p>TEXTO DE EJEMPLO xd</p>
 </body>
 </petclinic:layout>
-</html>
