@@ -41,6 +41,9 @@
              		<c:out value=""></c:out>
              	</td>
              	<td>
+             		<spring:url value="/cuentas/{cuentaId}/edit" var="cuentaUrl">
+	                        <spring:param name="cuentaId" value="${cuenta.id}"/>
+	                </spring:url>
    					<a href="${fn:escapeXml(cuentaUrl)}" class="btn btn-default">Editar</a>
              	</td>
             </tr>

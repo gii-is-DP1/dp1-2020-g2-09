@@ -2,20 +2,20 @@ package org.springframework.samples.petclinic.web;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Cuenta;
 import org.springframework.samples.petclinic.model.Cuentas;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.service.CuentaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 
 @Controller
@@ -55,9 +55,32 @@ public class CuentaController {
 		return "clientes/createOrUpdateCuentaForm";
 	}
 	
-	@ModelAttribute("cuenta")
-	public Cuenta findOwner(@PathVariable("cuentaId") int cuentaId) {
-		return this.cuentaService.findCuentaById(cuentaId);
+//	@PostMapping(value = "/owners/{ownerId}/edit")
+//	public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result,
+//			@PathVariable("ownerId") int ownerId) {
+//		if (result.hasErrors()) {
+//			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+//		}
+//		else {
+//			owner.setId(ownerId);
+//			this.ownerService.saveOwner(owner);
+//			return "redirect:/owners/{ownerId}";
+//		}
+//	}
+	
+	@PostMapping(value = "/cuentas/{cuentaId}/edit")
+	public String processUpdateCuentaForm(@Valid Cuenta cuenta, BindingResult result,
+			@PathVariable("cuentaId") int cuentaId) {
+		if (result.hasErrors()) {
+			return "clientes/createOrUpdateCuentaForm";
+		}
+		else {
+			cuenta.setId(cuentaId);
+			this.cuentaService.saveCuenta(cuenta);
+			return "redirect:/allCuentas";
+		}
 	}
+	
+
 
 }
