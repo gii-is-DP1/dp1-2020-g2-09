@@ -113,7 +113,7 @@ public class OwnerController {
 	public String initUpdateOwnerForm(@PathVariable("ownerId") int ownerId, Model model) {
 		Owner owner = this.ownerService.findOwnerById(ownerId);
 		model.addAttribute(owner);
-		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+		return "owners/createOrUpdateOwnerForm";
 	}
 
 	@PostMapping(value = "/owners/{ownerId}/edit")
