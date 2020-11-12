@@ -22,7 +22,7 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
-                    <c:when test="${Nueva['new']}">
+                    <c:when test="${cuenta['new']}">
                         <button class="btn btn-default" type="submit">Añadir cliente</button>
                     </c:when>
                     <c:otherwise>
