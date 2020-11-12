@@ -21,29 +21,29 @@
         <a href="/cuentas/new" class="btn btn-default">Añadir cliente</a>
         </thead>
         <tbody>
-        <c:forEach items="${cuentas.cuentasList}" var="cuenta">
+        <c:forEach items="${clientes.clientesList}" var="cliente">
             <tr>
                 <td>
-                    <c:out value="${cuenta.nombre}"/>
+                    <c:out value="${cliente.nombre}"/>
                 </td>
                 <td>
-                	<c:out value="${cuenta.apellidos}"/>
+                	<c:out value="${cliente.apellidos}"/>
              	</td>
              	<td>
-             		<c:out value="${cuenta.fechaNacimiento}"/>
+             		<c:out value="${cliente.fechaNacimiento}"/>
              	</td>
              	<td>
-             		<c:out value="${cuenta.nombreUsuario}"/>
+             		<c:out value="${cliente.nombreUsuario}"/>
              	</td>
              	<td>
-             		<c:out value="${cuenta.email}"/>
+             		<c:out value="${cliente.email}"/>
              	</td>
              	<!-- <td>
              		<c:out value="${cuenta.id}"></c:out>
              	</td> -->
              	<td>
              		<spring:url value="/cuentas/{cuentaId}/edit" var="cuentaUrl">
-	                        <spring:param name="cuentaId" value="${cuenta.id}"/>
+	                        <spring:param name="cuentaId" value="${cliente.id}"/>
 	                </spring:url>
    					<a href="${fn:escapeXml(cuentaUrl)}" class="btn btn-default">Editar</a>
              	</td>
