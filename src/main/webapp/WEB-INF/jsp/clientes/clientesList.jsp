@@ -18,6 +18,7 @@
             <th>Nombre de usuario</th>
             <th>Email</th>
         </tr>
+        <a href="/cuentas/new" class="btn btn-default">Añadir cliente</a>
         </thead>
         <tbody>
         <c:forEach items="${cuentas.cuentasList}" var="cuenta">
@@ -37,17 +38,19 @@
              	<td>
              		<c:out value="${cuenta.email}"/>
              	</td>
-             	<td>
-             		<c:out value=""></c:out>
-             	</td>
+             	<!-- <td>
+             		<c:out value="${cuenta.id}"></c:out>
+             	</td> -->
              	<td>
              		<spring:url value="/cuentas/{cuentaId}/edit" var="cuentaUrl">
 	                        <spring:param name="cuentaId" value="${cuenta.id}"/>
 	                </spring:url>
    					<a href="${fn:escapeXml(cuentaUrl)}" class="btn btn-default">Editar</a>
              	</td>
+             	
             </tr>
         </c:forEach>
+        
         </tbody>
     </table>
 </petclinic:layout>

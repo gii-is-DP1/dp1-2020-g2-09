@@ -41,13 +41,27 @@ public class CuentaController {
 		return "clientes/clientesList";
 	}
 
+	//crear nuevo cliente
+	@GetMapping(value = "/cuentas/new")
+	public String initCreationForm(Map<String, Object> model) {
+		Cuenta cuenta = new Cuenta();
+		model.put("cuenta", cuenta);
+		return "clientes/createOrUpdateCuentaForm";
+	}
 
-//	@GetMapping(value = "/cuentas/find")
-//	public String initFindForm(Map<String, Object> model) {
-//		model.put("cliente", new Cliente());
-//		return "clientes/clientesList/findClienteById";
-//	}
+	//mandar nuevo cliente
+	@PostMapping(value = "/cuentas/new")
+	public String processCreationForm(@Valid Cuenta cuenta, BindingResult result) {
+		if (result.hasErrors()) {
+			return "clientes/createOrUpdateCuentaForm";
+		}
+		else {
+			this.cuentaService.saveCuenta(cuenta);
+			return "redirect:/allCuentas";
+		}
+	}
 
+	//iniciar actualizacion
 	@GetMapping(value = "/cuentas/{cuentaId}/edit")
 	public String initUpdateForm(@PathVariable("cuentaId") int cuentaId, ModelMap model) {
 		Cuenta cuenta = this.cuentaService.findCuentaById(cuentaId);
@@ -55,19 +69,7 @@ public class CuentaController {
 		return "clientes/createOrUpdateCuentaForm";
 	}
 	
-//	@PostMapping(value = "/owners/{ownerId}/edit")
-//	public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result,
-//			@PathVariable("ownerId") int ownerId) {
-//		if (result.hasErrors()) {
-//			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
-//		}
-//		else {
-//			owner.setId(ownerId);
-//			this.ownerService.saveOwner(owner);
-//			return "redirect:/owners/{ownerId}";
-//		}
-//	}
-	
+	//mandar actualizacion
 	@PostMapping(value = "/cuentas/{cuentaId}/edit")
 	public String processUpdateCuentaForm(@Valid Cuenta cuenta, BindingResult result,
 			@PathVariable("cuentaId") int cuentaId) {
