@@ -37,4 +37,9 @@ public class ClienteService {
 		clienteRepository.save(cliente);		
 	}	
 	
+	@Transactional
+	public void deleteCliente(Cliente cliente) throws DataAccessException {
+		clienteRepository.delete(cliente);		
+	}	
+	
 }

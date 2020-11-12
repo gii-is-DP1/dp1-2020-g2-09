@@ -109,3 +109,8 @@ VALUES ('Jesús','Roldán Cadena','2000-08-07','632145879','jesrolcad','JesusRol
 
 INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,nombre_usuario,contraseña,email) 
 VALUES ('Lucía','Torres Gómez','2000-03-30','614589725','luctorgom','LuciaTorres30','luctorgom@alum.us.es');
+
+INSERT INTO cocineros(nombre,apellidos,fecha_nacimiento,telefono,nombre_usuario,contraseña,email) 
+VALUES ('Paco','Pérez Maldonado','1998-12-29','777777777','PaquitoelChocolatero','PacoPacoPacoDeMiPaco','paquitorechulon@gmail.com');
+
+
