@@ -83,4 +83,7 @@ VALUES ('Lucía','Torres Gómez','2000-03-30','614589725','luctorgom','LuciaTorr
 INSERT INTO cocineros(nombre,apellidos,fecha_nacimiento,telefono,nombre_usuario,contraseña,email) 
 VALUES ('Paco','Pérez Maldonado','1998-12-29','777777777','PaquitoelChocolatero','PacoPacoPacoDeMiPaco','paquitorechulon@gmail.com');
 
+INSERT INTO cocineros(nombre,apellidos,fecha_nacimiento,telefono,nombre_usuario,contraseña,email) 
+VALUES ('Marmona','Jimenez Ronaldinha','1997-12-29','777555555','MarianaRajoy','aroaroaro','mariana@gmail.com');
+
 

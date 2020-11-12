@@ -6,7 +6,7 @@
 
 <petclinic:layout pageName="cocineros">
     <h2>
-        <c:if test="${cocinero['new']}">Nuevo/a </c:if> Cocinero/a
+        <c:if test="${cocina['new']}">Nuevo/a </c:if> Cocinero/a
     </h2>
     <!-- Si pongo modelAttribute=cocinero me deja editar pero no crear y si pongo cocina al reves -->
     <form:form modelAttribute="cocinero" class="form-horizontal" id="add-owner-form">
@@ -23,7 +23,7 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
-                    <c:when test="${cocinero['new']}">
+                    <c:when test="${cuenta['new']}">
                         <button class="btn btn-default" type="submit">Añadir cocinero</button>
                     </c:when>
                     <c:otherwise>
