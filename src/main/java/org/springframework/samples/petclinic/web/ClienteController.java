@@ -15,10 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ClienteController {
@@ -84,5 +82,19 @@ public class ClienteController {
 			return "redirect:/allCuentas";
 		}
 	}
+	
+	//borrar cliente
+	@GetMapping(value = "/cuentas/{cuentaId}/delete")
+	public String initDeleteCuenta(@PathVariable("cuentaId") int cuentaId, ModelMap model) {
+		Cliente cliente = this.clienteService.findCuentaById(cuentaId);
+		this.clienteService.deleteCliente(cliente);
+		return "redirect:/allCuentas";
+	}
 
+//	@DeleteMapping(value = "/cuentas/{cuentaId}/delete")
+//	public String deleteCuenta(@PathVariable("cuentaId") int cuentaId) {
+//		Cliente cliente = this.clienteService.findCuentaById(cuentaId);
+//		this.clienteService.deleteCliente(cliente);
+//		return "redirect:/allCuentas";
+//	}
 }
