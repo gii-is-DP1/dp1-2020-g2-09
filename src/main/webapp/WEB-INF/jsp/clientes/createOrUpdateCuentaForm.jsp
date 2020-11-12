@@ -6,7 +6,7 @@
 
 <petclinic:layout pageName="clientes">
     <h2>
-        <c:if test="${cuenta['new']}">New </c:if> Cuenta
+        <c:if test="${cuenta['new']}">Nueva </c:if> Cuenta
     </h2>
     <form:form modelAttribute="cuenta" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
@@ -17,15 +17,16 @@
             <petclinic:inputField label="Nombre de usuario" name="nombreUsuario"/>
             <petclinic:inputField label="Contraseña" name="contraseña"/>
             <petclinic:inputField label="Email" name="email" />
+            <!--<petclinic:inputField label="Id" name="id" />-->
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
-                    <c:when test="${owner['new']}">
-                        <button class="btn btn-default" type="submit">Add Owner</button>
+                    <c:when test="${Nueva['new']}">
+                        <button class="btn btn-default" type="submit">Añadir cliente</button>
                     </c:when>
                     <c:otherwise>
-                        <button class="btn btn-default" type="submit">Update Owner</button>
+                        <button class="btn btn-default" type="submit">Actualizar cliente</button>
                     </c:otherwise>
                 </c:choose>
             </div>
