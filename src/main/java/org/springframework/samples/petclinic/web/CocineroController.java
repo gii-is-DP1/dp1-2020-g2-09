@@ -10,6 +10,7 @@ import org.springframework.samples.petclinic.model.Clientes;
 import org.springframework.samples.petclinic.model.Cocina;
 import org.springframework.samples.petclinic.model.Cocinas;
 import org.springframework.samples.petclinic.model.Cuenta;
+import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.service.CocineroService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -48,7 +50,7 @@ public class CocineroController {
 	@GetMapping(value = "/cocineros/new")
 	public String initCreationForm(Map<String, Object> model) {
 		Cocina cocina = new Cocina();
-		model.put("cocina", cocina);
+		model.put("cocinero", cocina);
 		return "cocineros/createOrUpdateCocinaForm";
 	}
 
@@ -93,4 +95,9 @@ public class CocineroController {
 		this.cocineroService.deleteCocinero(cocinero);
 		return "redirect:/allCocineros";
 	}
+	
+//	@ModelAttribute("cocinero")
+//	public Cocina findCocinero(@PathVariable("cocineroId") int cocineroId) {
+//		return this.findCocinero(cocineroId);
+//	}
 }
