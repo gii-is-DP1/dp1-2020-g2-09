@@ -36,9 +36,9 @@ public class Cuenta extends BaseEntity {
 	@NotNull
 	private Integer telefono;
 	
-	@Column(name = "nombre_usuario")
+	@Column(name = "usuario")
 	@NotNull
-	private String nombreUsuario;
+	private String usuario;
 	
 	@Column(name = "contraseña")
 	@NotNull

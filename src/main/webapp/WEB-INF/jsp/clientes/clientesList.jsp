@@ -18,7 +18,7 @@
             <th>Nombre de usuario</th>
             <th>Email</th>
         </tr>
-        <a href="/cuentas/new" class="btn btn-default">Añadir cliente</a>
+        <a href="/cuentas/new" class="btn btn-default">Aï¿½adir cliente</a>
         </thead>
         <tbody>
         <c:forEach items="${clientes.clientesList}" var="cliente">
@@ -33,7 +33,7 @@
              		<c:out value="${cliente.fechaNacimiento}"/>
              	</td>
              	<td>
-             		<c:out value="${cliente.nombreUsuario}"/>
+             		<c:out value="${cliente.usuario}"/>
              	</td>
              	<td>
              		<c:out value="${cliente.email}"/>
