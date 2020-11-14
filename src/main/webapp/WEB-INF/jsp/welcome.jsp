@@ -20,7 +20,10 @@
     </div>    
     
     <div>
-     <a href="/allCuentas">Prueba 1: dar click</a>
+     <a href="/allCuentas">Prueba 1: muestreo, post, edit y eliminación de clientes</a>
+    </div>
+    <div>
+     <a href="/allCocineros">Prueba 2: muestreo, post y edit de cocineros(sería igual para empleados)</a>
     </div>
     
     <div class="row">
