@@ -33,7 +33,9 @@
     <div>
      <a href="allAdministradores">Prueba 4: muestreo, post, edit y eliminación de administradores</a>
     </div>
-    
+    <div>
+     <a href="/allMesas">Prueba 3: muestreo, post y edit de mesas :)</a>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <spring:url value="/resources/images/pets.png" htmlEscape="true" var="petsImage"/>
