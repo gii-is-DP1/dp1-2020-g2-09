@@ -7,9 +7,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <petclinic:layout pageName="clientes">
-    <h2>Clientes</h2>
+    <h2>Cocineros</h2>
 
-    <table id="clientesTable" class="table table-striped">
+    <table id="cocinerosTable" class="table table-striped">
         <thead>
         <tr>
             <th>Nombre</th>
@@ -18,40 +18,40 @@
             <th>Nombre de usuario</th>
             <th>Email</th>
         </tr>
-        <a href="/cuentas/new" class="btn btn-default">Añadir cliente</a>
+        <a href="/cocineros/new" class="btn btn-default">Añadir cocinero</a>
         </thead>
         <tbody>
-        <c:forEach items="${clientes.clientesList}" var="cliente">
+        <c:forEach items="${cocineros.cocinerosList}" var="cocinero">
             <tr>
                 <td>
-                    <c:out value="${cliente.nombre}"/>
+                    <c:out value="${cocinero.nombre}"/>
                 </td>
                 <td>
-                	<c:out value="${cliente.apellidos}"/>
+                	<c:out value="${cocinero.apellidos}"/>
              	</td>
              	<td>
-             		<c:out value="${cliente.fechaNacimiento}"/>
+             		<c:out value="${cocinero.fechaNacimiento}"/>
              	</td>
              	<td>
-             		<c:out value="${cliente.usuario}"/>
+             		<c:out value="${cocinero.usuario}"/>
              	</td>
              	<td>
-             		<c:out value="${cliente.email}"/>
+             		<c:out value="${cocinero.email}"/>
              	</td>
              	<!-- <td>
              		<c:out value="${cuenta.id}"></c:out>
              	</td> -->
              	<td>
-             		<spring:url value="/cuentas/{cuentaId}/edit" var="cuentaUrl">
-	                        <spring:param name="cuentaId" value="${cliente.id}"/>
+             		<spring:url value="/cocineros/{cocineroId}/edit" var="cocineroUrl">
+	                        <spring:param name="cocineroId" value="${cocinero.id}"/>
 	                </spring:url>
-   					<a href="${fn:escapeXml(cuentaUrl)}" class="btn btn-default">Editar</a>
+   					<a href="${fn:escapeXml(cocineroUrl)}" class="btn btn-default">Editar</a>
              	</td>
              	<td>
-             		<spring:url value="/cuentas/{cuentaId}/delete" var="cuentaUrl2">
-	                        <spring:param name="cuentaId" value="${cliente.id}"/>
+             		<spring:url value="/cocineros/{cocineroId}/delete" var="cocineroUrl2">
+	                        <spring:param name="cocineroId" value="${cocinero.id}"/>
 	                </spring:url>
-             		<a href="${fn:escapeXml(cuentaUrl2)}" class="btn btn-default">Eliminar</a>
+             		<a href="${fn:escapeXml(cocineroUrl2)}" class="btn btn-default">Eliminar</a>
              	</td>
              	
             </tr>

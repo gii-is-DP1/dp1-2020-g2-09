@@ -6,11 +6,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<petclinic:layout pageName="clientes">
+<petclinic:layout pageName="administradores">
     <h2>
-        <c:if test="${cuenta['new']}">Nueva </c:if> Cuenta
+        <c:if test="${administradores['new']}">Nuevo </c:if> Administrador
     </h2>
-    <form:form modelAttribute="cuenta" class="form-horizontal" id="add-owner-form">
+    <form:form modelAttribute="administradores" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre" name="nombre"/>
             <petclinic:inputField label="Apellidos" name="apellidos"/>
@@ -24,11 +24,11 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
-                    <c:when test="${cuenta['new']}">
-                        <button class="btn btn-default" type="submit">Añadir cliente</button>
+                    <c:when test="${administradores['new']}">
+                        <button class="btn btn-default" type="submit">Añadir administrador</button>
                     </c:when>
                     <c:otherwise>
-                        <button class="btn btn-default" type="submit">Actualizar cliente</button>
+                        <button class="btn btn-default" type="submit">Actualizar administrador</button>
                     </c:otherwise>
                 </c:choose>
             </div>

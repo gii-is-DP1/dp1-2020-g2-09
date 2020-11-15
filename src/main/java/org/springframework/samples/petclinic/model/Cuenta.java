@@ -4,9 +4,12 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.sun.istack.NotNull;
 
@@ -15,8 +18,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-@Entity
-@Table(name = "Cuentas")
+@MappedSuperclass
 public class Cuenta extends BaseEntity {
 	
 	@Column(name = "nombre")
@@ -29,6 +31,7 @@ public class Cuenta extends BaseEntity {
 	private String apellidos;
 	
 	@Column(name = "fecha_nacimiento")
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@NotNull
 	private LocalDate fechaNacimiento;
 	
@@ -36,9 +39,9 @@ public class Cuenta extends BaseEntity {
 	@NotNull
 	private Integer telefono;
 	
-	@Column(name = "nombre_usuario")
+	@Column(name = "usuario")
 	@NotNull
-	private String nombreUsuario;
+	private String usuario;
 	
 	@Column(name = "contraseña")
 	@NotNull

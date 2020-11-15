@@ -92,20 +92,50 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (2, 8, '2013-01-02',
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03', 'neutered');
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
 
-INSERT INTO cuentas(dtype,nombre,apellidos,fecha_nacimiento,telefono,nombre_usuario,contraseña,email) 
-VALUES ('Cuenta','María','García Cáceres','2000-01-01','654123987','margarcar','MariaGarcia15','margarcar@alum.us.es');
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email) 
+VALUES ('María','García Cáceres','2000-01-01','654123987','margarcar','MariaGarcia15','margarcar@alum.us.es');
 
-INSERT INTO cuentas(dtype,nombre,apellidos,fecha_nacimiento,telefono,nombre_usuario,contraseña,email) 
-VALUES ('Cuenta','Servando','Figueroa Gómez','2000-08-12','698745213','serfiggom','ServandoFigueroa78','serfiggom@alum.us.es');
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email) 
+VALUES ('Servando','Figueroa Gómez','2000-08-12','698745213','serfiggom','ServandoFigueroa78','serfiggom@alum.us.es');
 
-INSERT INTO cuentas(dtype,nombre,apellidos,fecha_nacimiento,telefono,nombre_usuario,contraseña,email) 
-VALUES ('Cuenta','Raúl','Parrado Gordón','2000-05-29','717548963','raupargor','RaulParrado74','raupargor@alum.us.es');
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email) 
+VALUES ('Raúl','Parrado Gordón','2000-05-29','717548963','raupargor','RaulParrado74','raupargor@alum.us.es');
 
-INSERT INTO cuentas(dtype,nombre,apellidos,fecha_nacimiento,telefono,nombre_usuario,contraseña,email) 
-VALUES ('Cuenta','Álvaro','Sánchez González','2000-01-30','687452196','alvsangon','AlvaroSanchez65','alvsangon@alum.us.es');
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email) 
+VALUES ('Álvaro','Sánchez González','2000-01-30','687452196','alvsangon','AlvaroSanchez65','alvsangon@alum.us.es');
 
-INSERT INTO cuentas(dtype,nombre,apellidos,fecha_nacimiento,telefono,nombre_usuario,contraseña,email) 
-VALUES ('Cuenta','Jesús','Roldán Cadena','2000-08-07','632145879','jesrolcad','JesusRoldan16','jesrolcad@alum.us.es');
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email) 
+VALUES ('Jesús','Roldán Cadena','2000-08-07','632145879','jesrolcad','JesusRoldan16','jesrolcad@alum.us.es');
 
-INSERT INTO cuentas(dtype,nombre,apellidos,fecha_nacimiento,telefono,nombre_usuario,contraseña,email) 
-VALUES ('Cuenta','Lucía','Torres Gómez','2000-03-30','614589725','luctorgom','LuciaTorres30','luctorgom@alum.us.es');
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email) 
+VALUES ('Lucía','Torres Gómez','2000-03-30','614589725','luctorgom','LuciaTorres30','luctorgom@alum.us.es');
+
+INSERT INTO cocineros(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email) 
+VALUES ('Paco','Pérez Maldonado','1998-12-29','777777777','PaquitoelChocolatero','PacoPacoPacoDeMiPaco','paquitorechulon@gmail.com');
+
+INSERT INTO cocineros(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email) 
+VALUES ('Marmona','Jimenez Ronaldinha','1997-12-29','777555555','MarianaRajoy','aroaroaro','mariana@gmail.com');
+
+
+INSERT INTO repartidores(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email)
+VALUES ('Minguito','Gutiérrez Ronaldo','1998-11-03','682547321','ErMingui','aroaroaro','minguitoo@gmail.com');
+
+INSERT INTO repartidores(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email)
+VALUES ('Pepa','Cansado Levante','1995-09-13','985432158','CansadoEstoy','jejejeje','cansado_levante@gmail.com');
+
+
+INSERT INTO administradores(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email)
+VALUES ('Juan','Pérez Ruíz','1990-01-01','863838343','Pereez28','peresitoConFlow','perez_ruiz@gmail.com');
+
+INSERT INTO administradores(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email)
+VALUES ('Rodolfa','Abduzcan Play','1996-07-22','685390102','Auroner1','daleAlPlay','abduzcan_1@gmail.com');
+
+
+INSERT INTO TIPO_RESERVA VALUES(0,'ALMUERZO');
+INSERT INTO TIPO_RESERVA VALUES(1,'CENA');
+
+INSERT INTO RESERVAS VALUES(0,'2020-05-29',5);
+INSERT INTO RESERVAS VALUES(1,'2020-07-12',2);
+
+
+
