@@ -15,7 +15,7 @@
             <petclinic:inputField label="Apellidos" name="apellidos"/>
             <petclinic:inputField label="Fecha Nacimiento" name="fechaNacimiento"/>
             <petclinic:inputField label="Telefono" name="telefono"/>
-            <petclinic:inputField label="Nombre de usuario" name="nombreUsuario"/>
+            <petclinic:inputField label="Nombre de usuario" name="usuario"/>
             <petclinic:inputField label="Contraseña" name="contraseña"/>
             <petclinic:inputField label="Email" name="email" />
             <!--<petclinic:inputField label="Id" name="id" />-->
