@@ -20,5 +20,5 @@ public class Carta extends BaseEntity{
 	@Column(name = "fecha")
 	@NotNull
 	private LocalDate fecha;
-
+	//hay que poner algo de los productos?
 }
