@@ -1,10 +1,10 @@
 package org.springframework.samples.petclinic.model;
 
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 
 import com.sun.istack.NotNull;
 
@@ -14,12 +14,11 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper=false)
 @Entity
-@Table(name = "Mesas")
-public class Mesa extends BaseEntity{
+@Table(name = "Cartas")
+public class Carta extends BaseEntity{
 	
-	@Column(name = "capacidad")
+	@Column(name = "fecha")
 	@NotNull
-	@Min(0)
-	private Integer capacidad;
+	private LocalDate fecha;
 
 }
