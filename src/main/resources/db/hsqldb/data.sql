@@ -117,6 +117,20 @@ INSERT INTO cocineros(nombre,apellidos,fecha_nacimiento,telefono,usuario,contras
 VALUES ('Marmona','Jimenez Ronaldinha','1997-12-29','777555555','MarianaRajoy','aroaroaro','mariana@gmail.com');
 
 
+INSERT INTO repartidores(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email)
+VALUES ('Minguito','Gutiérrez Ronaldo','1998-11-03','682547321','ErMingui','aroaroaro','minguitoo@gmail.com');
+
+INSERT INTO repartidores(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email)
+VALUES ('Pepa','Cansado Levante','1995-09-13','985432158','CansadoEstoy','jejejeje','cansado_levante@gmail.com');
+
+
+INSERT INTO administradores(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email)
+VALUES ('Juan','Pérez Ruíz','1990-01-01','863838343','Pereez28','peresitoConFlow','perez_ruiz@gmail.com');
+
+INSERT INTO administradores(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email)
+VALUES ('Rodolfa','Abduzcan Play','1996-07-22','685390102','Auroner1','daleAlPlay','abduzcan_1@gmail.com');
+
+
 INSERT INTO TIPO_RESERVA VALUES(0,'ALMUERZO');
 INSERT INTO TIPO_RESERVA VALUES(1,'CENA');
 

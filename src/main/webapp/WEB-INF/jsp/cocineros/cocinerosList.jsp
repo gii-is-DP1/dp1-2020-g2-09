@@ -4,8 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <petclinic:layout pageName="clientes">
     <h2>Cocineros</h2>
 
@@ -18,7 +18,7 @@
             <th>Nombre de usuario</th>
             <th>Email</th>
         </tr>
-        <a href="/cocineros/new" class="btn btn-default">Añadir cocinero</a>
+        <a href="/cocineros/new" class="btn btn-default">AÃ±adir cocinero</a>
         </thead>
         <tbody>
         <c:forEach items="${cocineros.cocinerosList}" var="cocinero">
