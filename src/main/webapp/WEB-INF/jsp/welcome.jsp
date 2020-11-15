@@ -25,6 +25,10 @@
     <div>
      <a href="/allCocineros">Prueba 2: muestreo, post y edit de cocineros(sería igual para empleados)</a>
     </div>
+    <div>
+     <a href="/allPedidos">Prueba 3: muestreo de pedidos</a>
+    </div>
+    
     
     <div class="row">
         <div class="col-md-12">

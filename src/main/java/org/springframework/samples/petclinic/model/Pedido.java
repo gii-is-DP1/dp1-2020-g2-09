@@ -33,6 +33,4 @@ public class Pedido extends BaseEntity{
 	@NotNull
 	private LocalDate fechaPedido;
 	
-
-
 }

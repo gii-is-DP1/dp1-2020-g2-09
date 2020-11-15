@@ -116,6 +116,16 @@ VALUES ('Paco','Pérez Maldonado','1998-12-29','777777777','PaquitoelChocolatero
 INSERT INTO cocineros(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email) 
 VALUES ('Marmona','Jimenez Ronaldinha','1997-12-29','777555555','MarianaRajoy','aroaroaro','mariana@gmail.com');
 
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido)
+VALUES ('30','3','C/Ferrara, 5, 7b', '2020-11-15');
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido)
+VALUES ('29','3','C/Ferrara, 5, 7b', '2020-11-16');
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido)
+VALUES ('50','2','C/Ferrara, 5, 7b', '2020-11-18');
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido)
+VALUES ('57','2','C/Ferrara, 5, 7b', '2020-11-30');
+
+
 
 INSERT INTO TIPO_RESERVA VALUES(0,'ALMUERZO');
 INSERT INTO TIPO_RESERVA VALUES(1,'CENA');
