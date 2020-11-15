@@ -37,8 +37,24 @@ public class WelcomeController {
 		  persona3.setId(3);
 		  persona3.setLastName("Torres Gómez");
 		  grupo.add(persona3);
+		  Person persona4 = new Person();
+		  persona4.setFirstName("María ");
+		  persona4.setId(4);
+		  persona4.setLastName("García Cáceres");
+		  grupo.add(persona4);
+		  Person persona5 = new Person();
+		  persona5.setFirstName("Raúl ");
+		  persona5.setId(5);
+		  persona5.setLastName("Parrado Gordón");
+		  grupo.add(persona5);
+		  Person persona6 = new Person();
+		  persona6.setFirstName("Álvaro ");
+		  persona6.setId(6);
+		  persona6.setLastName("Sánchez González");
+		  grupo.add(persona6);
 		  
-		  //asi con todos
+		  //asi con todos Raúl Parrado Gordón
+		  //Álvaro Sánchez González
 		  model.put("persons", grupo);
 		  model.put("tittle", "My project");
 		  model.put("group", "Members:");

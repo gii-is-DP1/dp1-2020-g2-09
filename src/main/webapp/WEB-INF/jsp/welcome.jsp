@@ -19,6 +19,13 @@
     	</ul></p>	
     </div>    
     
+    <div>
+     <a href="/allCuentas">Prueba 1: muestreo, post, edit y eliminación de clientes</a>
+    </div>
+    <div>
+     <a href="/allCocineros">Prueba 2: muestreo, post y edit de cocineros(sería igual para empleados)</a>
+    </div>
+    
     <div class="row">
         <div class="col-md-12">
             <spring:url value="/resources/images/pets.png" htmlEscape="true" var="petsImage"/>
