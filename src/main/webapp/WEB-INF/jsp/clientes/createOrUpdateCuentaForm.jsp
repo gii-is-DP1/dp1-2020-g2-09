@@ -15,7 +15,7 @@
             <petclinic:inputField label="Fecha Nacimiento" name="fechaNacimiento"/>
             <petclinic:inputField label="Telefono" name="telefono"/>
             <petclinic:inputField label="Nombre de usuario" name="usuario"/>
-            <petclinic:inputField label="ContraseÃ±a" name="contraseÃ±a"/>
+            <petclinic:inputField label="Contraseña" name="contraseña"/>
             <petclinic:inputField label="Email" name="email" />
             <!--<petclinic:inputField label="Id" name="id" />-->
         </div>
@@ -23,7 +23,7 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
                     <c:when test="${cuenta['new']}">
-                        <button class="btn btn-default" type="submit">Aï¿½adir cliente</button>
+                        <button class="btn btn-default" type="submit">Añadir cliente</button>
                     </c:when>
                     <c:otherwise>
                         <button class="btn btn-default" type="submit">Actualizar cliente</button>
