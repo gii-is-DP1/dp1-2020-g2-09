@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -33,9 +36,9 @@ public class Reserva extends BaseEntity {
 	@NotNull
 	private LocalDate fechaReserva;
 	
-//	@Column
-//	@JoinColumn(name = "tipo_reserva_id",referencedColumnName="id")
-//	private tipoReserva tipoReserva;
+	@Enumerated(EnumType.ORDINAL)
+	//@JoinColumn(name = "tipo_reserva", referencedColumnName="id", table = "tipo_reserva"  )
+	private tipoReserva2 tipoReserva;
 	
 //	@ManyToOne(cascade = CascadeType.ALL)
 //	@JoinColumn(name = "usuario",referencedColumnName="usuario")
