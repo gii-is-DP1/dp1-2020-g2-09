@@ -25,7 +25,9 @@
     <div>
      <a href="/allCocineros">Prueba 2: muestreo, post y edit de cocineros(sería igual para empleados)</a>
     </div>
-    
+    <div>
+     <a href="/allMesas">Prueba 3: muestreo, post y edit de mesas :)</a>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <spring:url value="/resources/images/pets.png" htmlEscape="true" var="petsImage"/>
