@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.sun.istack.NotNull;
 
 import lombok.Data;
@@ -21,6 +23,7 @@ import lombok.EqualsAndHashCode;
 public class Cliente extends Cuenta {
 
 	@Column(name = "fechaAlta")
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@NotNull
 	private LocalDate fechaAlta;
 	

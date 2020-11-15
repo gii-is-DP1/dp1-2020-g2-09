@@ -6,12 +6,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<petclinic:layout pageName="cocineros">
+<petclinic:layout pageName="clientes">
     <h2>
-        <c:if test="${cocina['new']}">Nuevo/a </c:if> Cocinero/a
+        <c:if test="${repartidor['new']}">Nuevo </c:if> Repartidor
     </h2>
-    <!-- Si pongo modelAttribute=cocinero me deja editar pero no crear y si pongo cocina al reves -->
-    <form:form modelAttribute="cocinero" class="form-horizontal" id="add-owner-form">
+    <form:form modelAttribute="repartidores" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre" name="nombre"/>
             <petclinic:inputField label="Apellidos" name="apellidos"/>
@@ -25,11 +24,11 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
-                    <c:when test="${cuenta['new']}">
-                        <button class="btn btn-default" type="submit">Añadir cocinero</button>
+                    <c:when test="${repartidor['new']}">
+                        <button class="btn btn-default" type="submit">Añadir repartidor</button>
                     </c:when>
                     <c:otherwise>
-                        <button class="btn btn-default" type="submit">Actualizar cocinero</button>
+                        <button class="btn btn-default" type="submit">Actualizar repartidor</button>
                     </c:otherwise>
                 </c:choose>
             </div>

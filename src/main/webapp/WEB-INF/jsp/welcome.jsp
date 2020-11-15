@@ -2,7 +2,9 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>  
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%> 
 <!-- LA SIGUIENTE LINEA ES IMPRESCINDIBLE SINO NO SALDRIA EL C:FOREACH -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <petclinic:layout pageName="home">
@@ -20,10 +22,16 @@
     </div>    
     
     <div>
-     <a href="/allCuentas">Prueba 1: muestreo, post, edit y eliminaci髇 de clientes</a>
+     <a href="/allCuentas">Prueba 1: muestreo, post, edit y eliminaci贸n de clientes</a>
     </div>
     <div>
-     <a href="/allCocineros">Prueba 2: muestreo, post y edit de cocineros(ser韆 igual para empleados)</a>
+     <a href="/allCocineros">Prueba 2: muestreo, post, edit y eliminaci贸n de cocineros</a>
+    </div>
+    <div>
+     <a href="allRepartidores">Prueba 3: muestreo, post, edit y eliminaci贸n de repartidores</a>
+    </div>
+    <div>
+     <a href="allAdministradores">Prueba 4: muestreo, post, edit y eliminaci贸n de administradores</a>
     </div>
     <div>
      <a href="/allMesas">Prueba 3: muestreo, post y edit de mesas :)</a>
