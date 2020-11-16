@@ -20,10 +20,13 @@
     </div>    
     
     <div>
-     <a href="/allCuentas">Prueba 1: muestreo, post, edit y eliminación de clientes</a>
+     <a href="/allCuentas">Prueba 1: muestreo, post, edit y eliminaciï¿½n de clientes</a>
     </div>
     <div>
-     <a href="/allCocineros">Prueba 2: muestreo, post y edit de cocineros(sería igual para empleados)</a>
+     <a href="/allCocineros">Prueba 2: muestreo, post y edit de cocineros(serÃ­a igual para empleados)</a>
+    </div>
+     <div>
+     <a href="/allReservas">Prueba 5: muestreo, post y edit de reservas</a>
     </div>
     
     <div class="row">
