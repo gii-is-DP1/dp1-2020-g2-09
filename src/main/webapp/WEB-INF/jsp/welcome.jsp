@@ -36,6 +36,9 @@
     <div>
      <a href="/allMesas">Prueba 3: muestreo, post y edit de mesas :)</a>
     </div>
+    <div>
+     <a href="/allReclamaciones">Prueba 5: muestreo, post y edit de reclamaciones uwu</a>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <spring:url value="/resources/images/pets.png" htmlEscape="true" var="petsImage"/>

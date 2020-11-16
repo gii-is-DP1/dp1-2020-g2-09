@@ -137,5 +137,11 @@ INSERT INTO TIPO_RESERVA VALUES(1,'CENA');
 INSERT INTO RESERVAS VALUES(0,'2020-05-29',5);
 INSERT INTO RESERVAS VALUES(1,'2020-07-12',2);
 
+INSERT INTO RECLAMACIONES(fecha_reclamacion, observacion)
+VALUES('2020-06-27', 'Había un hueso de aceituna en mi pizza. ¿Qué tipo de broma es esta?');
+
+INSERT INTO RECLAMACIONES(fecha_reclamacion, observacion)
+VALUES('2020-11-15', 'Mi pizza carbonara llevaba 1 sola unidad de champiñón.');
+
 
 
