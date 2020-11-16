@@ -28,6 +28,12 @@
      <a href="/allCocineros">Prueba 2: muestreo, post, edit y eliminación de cocineros</a>
     </div>
     <div>
+<<<<<<< HEAD
+     <a href="/allPedidos">Prueba 3: muestreo de pedidos</a>
+    </div>
+    
+    
+=======
      <a href="allRepartidores">Prueba 3: muestreo, post, edit y eliminación de repartidores</a>
     </div>
     <div>
@@ -39,6 +45,7 @@
     <div>
      <a href="/allReclamaciones">Prueba 5: muestreo, post y edit de reclamaciones uwu</a>
     </div>
+>>>>>>> refs/remotes/origin/master
     <div class="row">
         <div class="col-md-12">
             <spring:url value="/resources/images/pets.png" htmlEscape="true" var="petsImage"/>
