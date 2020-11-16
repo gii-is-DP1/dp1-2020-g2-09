@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
@@ -20,10 +22,10 @@ public class Pedido extends BaseEntity{
 	
 	@Column(name = "precio")
 	@NotNull
-	private Integer precio;
+	private Double precio;
 	
 	@Column(name = "gastos_envio")
-	private Integer gastosEnvio;
+	private Double gastosEnvio;
 	
 	@Column(name = "direccion")
 	@NotNull
@@ -32,5 +34,17 @@ public class Pedido extends BaseEntity{
 	@Column(name = "fecha_pedido")
 	@NotNull
 	private LocalDate fechaPedido;
+	
+	@ManyToOne
+	@JoinColumn(name = "estado_pedido")
+	private EstadoPedido estadoPedido;
+	
+	@ManyToOne
+	@JoinColumn(name = "tipo_pago")
+	private TipoPago tipoPago;
+	
+	@ManyToOne
+	@JoinColumn(name = "tipo_envio")
+	private TipoEnvio tipoEnvio;
 	
 }

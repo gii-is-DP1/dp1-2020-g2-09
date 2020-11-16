@@ -116,23 +116,6 @@ VALUES ('Paco','Pérez Maldonado','1998-12-29','777777777','PaquitoelChocolatero
 INSERT INTO cocineros(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email) 
 VALUES ('Marmona','Jimenez Ronaldinha','1997-12-29','777555555','MarianaRajoy','aroaroaro','mariana@gmail.com');
 
-INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido)
-VALUES ('30','3','C/Ferrara, 5, 7b', '2020-11-15');
-INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido)
-VALUES ('29','3','C/Ferrara, 5, 7b', '2020-11-16');
-INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido)
-VALUES ('50','2','C/Ferrara, 5, 7b', '2020-11-18');
-INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido)
-VALUES ('57','2','C/Ferrara, 5, 7b', '2020-11-30');
-
-
-
-INSERT INTO TIPO_RESERVA VALUES(0,'ALMUERZO');
-INSERT INTO TIPO_RESERVA VALUES(1,'CENA');
-
-INSERT INTO RESERVAS VALUES(0,'2020-05-29',5);
-INSERT INTO RESERVAS VALUES(1,'2020-07-12',2);
-
 INSERT INTO TIPO_PAGO VALUES(0,'EFECTIVO');
 INSERT INTO TIPO_PAGO VALUES(1,'TARJETA');
 
@@ -141,8 +124,25 @@ INSERT INTO ESTADO_PEDIDO VALUES(1,'PREPARADO');
 INSERT INTO ESTADO_PEDIDO VALUES(2,'EN REPARTO');
 INSERT INTO ESTADO_PEDIDO VALUES(3,'ENTREGADO');
 
-
 INSERT INTO TIPO_ENVIO VALUES(0,'DOMICILIO');
 INSERT INTO TIPO_ENVIO VALUES(1,'RECOGER EN TIENDA');
+
+/*INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio)
+VALUES ('30','3.5','C/Ferrara, 5, 7b', '2020-11-15', 0, 1,0);
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio)
+VALUES ('29','3','C/Ferrara, 5, 7b', '2020-11-16',3,1,1);
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio)
+VALUES ('50','2.30','C/Ferrara, 5, 7b', '2020-11-18',2,0,1);
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio)
+VALUES ('57','2','C/Ferrara, 5, 7b', '2020-11-30',4,1,0);*/
+
+
+INSERT INTO TIPO_RESERVA VALUES(0,'ALMUERZO');
+INSERT INTO TIPO_RESERVA VALUES(1,'CENA');
+
+INSERT INTO RESERVAS VALUES(0,'2020-05-29',5);
+INSERT INTO RESERVAS VALUES(1,'2020-07-12',2);
+
+
 
 
