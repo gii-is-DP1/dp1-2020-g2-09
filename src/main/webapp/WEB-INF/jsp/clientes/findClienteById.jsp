@@ -7,6 +7,8 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>  
 <!-- LA SIGUIENTE LINEA ES IMPRESCINDIBLE SINO NO SALDRIA EL C:FOREACH -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <petclinic:layout pageName="owners">
     <h2>Owners</h2>
 

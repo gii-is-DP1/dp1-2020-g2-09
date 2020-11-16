@@ -9,6 +9,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.sun.istack.NotNull;
 
 import lombok.Data;
@@ -29,6 +31,7 @@ public class Cuenta extends BaseEntity {
 	private String apellidos;
 	
 	@Column(name = "fecha_nacimiento")
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@NotNull
 	private LocalDate fechaNacimiento;
 	
