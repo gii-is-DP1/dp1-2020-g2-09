@@ -16,6 +16,9 @@
             <th>Gastos de Envio</th>
             <th>Direccion</th>
             <th>Fecha de pedido</th>
+            <th>Estado pedido</th>
+            <th>Tipo Envio</th>
+            <th>Tipo Pago</th>
         </tr>
         </thead>
         <tbody>
@@ -33,9 +36,15 @@
              	<td>
              		<c:out value="${pedido.fechaPedido}"/>
              	</td>
-             	<!-- <td>
-             		<c:out value="${pedido.id}"></c:out>
-             	</td> -->
+             	<td>
+             		<c:out value="${pedido.estadoPedido}"></c:out>
+             	</td> 
+             	<td>
+             		<c:out value="${pedido.tipoEnvio}"></c:out>
+             	</td>
+             	<td>
+             		<c:out value="${pedido.tipoPago}"></c:out>
+             	</td>
              	<td>
              		<spring:url value="/pedidos/{pedidoId}/edit" var="pedidoUrl">
 	                        <spring:param name="pedidoId" value="${pedido.id}"/>
