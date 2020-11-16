@@ -35,10 +35,10 @@ public class Reserva extends BaseEntity {
 	@Column(name = "fecha_reserva")
 	@NotNull
 	private LocalDate fechaReserva;
-	
-	@Enumerated(EnumType.ORDINAL)
-	//@JoinColumn(name = "tipo_reserva", referencedColumnName="id", table = "tipo_reserva"  )
-	private tipoReserva2 tipoReserva;
+		
+	@ManyToOne
+	@JoinColumn(name = "tipo_reserva_id")
+	private tipoReserva tipoReserva;
 	
 //	@ManyToOne(cascade = CascadeType.ALL)
 //	@JoinColumn(name = "usuario",referencedColumnName="usuario")
