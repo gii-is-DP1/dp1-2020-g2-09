@@ -3,12 +3,17 @@ package org.springframework.samples.petclinic.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -41,7 +46,11 @@ public class Reserva extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "tipo_reserva_id")
 	private tipoReserva tipoReserva;
-
+	
+	@ManyToMany
+	@JoinTable(name = "reservaAsociada", joinColumns =@JoinColumn(name= "mesasReservadas"))
+	private Collection<Reserva> reserva;	
+	
 //	@ManyToOne(cascade = CascadeType.ALL)
 //	@JoinColumn(name = "usuario",referencedColumnName="usuario")
 //	private Cliente cliente;

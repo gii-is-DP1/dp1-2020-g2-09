@@ -20,7 +20,7 @@ public interface ReservaRepository extends CrudRepository<Reserva, Integer>{
 
     List<Reserva> findAll() throws DataAccessException;
 
-    Reserva findReservaById(int reserva_id) throws DataAccessException;
+    Reserva findById(int reserva_id) throws DataAccessException;
 
 
 
