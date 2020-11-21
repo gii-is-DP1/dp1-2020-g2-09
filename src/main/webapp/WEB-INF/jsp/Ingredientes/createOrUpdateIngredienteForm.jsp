@@ -5,6 +5,14 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="Ingredientes">
+	<jsp:attribute name="customScript">
+        <script>
+            $(function () {
+                $("#fechaCaducidad").datepicker({dateFormat: 'yy/mm/dd'});
+            });
+        </script>
+    </jsp:attribute>
+    <jsp:body>
     <h2>
         <c:if test="${Ingrediente['new']}">Nuevo </c:if> Ingrediente
     </h2>
@@ -13,6 +21,7 @@
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre" name="nombre"/>
             <petclinic:inputField label="Tipo" name="tipo"/>
+            <petclinic:inputField label="Fecha de Caducidad" name="fechaCaducidad"/>
             <form:checkbox value="Cereales que contengan gluten" path="alergenos" label=" Cereales que contengan gluten"/><br/>
             <form:checkbox value="Crustáceos y productos a base de crustáceos" path="alergenos" label=" Crustáceos y productos a base de crustáceos"/><br/>
             <form:checkbox value="Huevos y productos a base de huevo" path="alergenos" label=" Huevos y productos a base de huevo"/><br/>
@@ -42,4 +51,5 @@
             </div>
         </div>
     </form:form>
+    </jsp:body>
 </petclinic:layout>
