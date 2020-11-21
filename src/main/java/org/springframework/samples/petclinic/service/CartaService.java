@@ -13,34 +13,34 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class CartaService {
 
-	private CartaRepository CartaRepository;
+	private CartaRepository cartaRepository;
 
 	@Autowired
 	public CartaService(CartaRepository CartaRepository) {
-		this.CartaRepository = CartaRepository;
+		this.cartaRepository = CartaRepository;
 	}		
 
 	@Transactional(readOnly = true)	
 	public List<Carta> findCartas() throws DataAccessException {
-		return CartaRepository.findAll();
+		return cartaRepository.findAll();
 	}	
 	
 	@Transactional(readOnly = true)
-	public Carta findCartaById(int CartaId) throws DataAccessException {
-		return CartaRepository.findCartaById(CartaId);
+	public Carta findCartaById(int cartaId) throws DataAccessException {
+		return cartaRepository.findCartaById(cartaId);
 	}
 	
 	@Transactional(readOnly = true)
-	public Carta findCartaByFecga(LocalDate CartaFecha) throws DataAccessException {
-		return CartaRepository.findCartaByFecha(CartaFecha);
+	public Carta findCartaByFecha(LocalDate cartaFecha) throws DataAccessException {
+		return cartaRepository.findCartaByFecha(cartaFecha);
 	}
-	@Transactional
-	public void saveCarta(Carta Carta) throws DataAccessException {
-		CartaRepository.save(Carta);		
+	/*@Transactional
+	public void saveCarta(Carta carta) throws DataAccessException {
+		cartaRepository.save(carta);		
 	}	
 	
 	@Transactional
-	public void deleteCarta(Carta Carta) throws DataAccessException {
-		CartaRepository.delete(Carta);		
-	}	
+	public void deleteCarta(Carta carta) throws DataAccessException {
+		cartaRepository.delete(carta);		
+	}	*/
 }

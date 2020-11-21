@@ -10,7 +10,7 @@ import com.sun.xml.txw2.annotation.XmlElement;
 @XmlRootElement
 public class Cartas {
 
-	private List<Carta> cartasList;
+	/*private List<Carta> cartasList;
 	
 	@XmlElement
 	public List<Carta> getCartasList() {
@@ -18,5 +18,5 @@ public class Cartas {
 			cartasList = new ArrayList<>();
 		}
 		return cartasList;
-	}
+	}*/
 }

@@ -8,5 +8,5 @@
 #    #  #    #   #   #    #     #    #    #      #  #      #     #    # 
 #     #  ####    #    ####       ####     #      # ###### ###### #    # 
 
-:: Built with Spring Boot :: ${spring-boot.version}
 
+:: Built with Spring Boot :: ${spring-boot.version}
