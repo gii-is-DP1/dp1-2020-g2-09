@@ -13,32 +13,32 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ReservaService {
 
-	private ReservaRepository reservaRepository;
+    private ReservaRepository reservaRepository;
 
 
-	@Autowired
-	public ReservaService(ReservaRepository reservaRepository) {
-		this.reservaRepository = reservaRepository;
-	}		
+    @Autowired
+    public ReservaService(ReservaRepository reservaRepository) {
+        this.reservaRepository = reservaRepository;
+    }
 
-	@Transactional(readOnly = true)	
-	public List<Reserva> findReservas() throws DataAccessException {
-		return reservaRepository.findAll();
-	}	
-	
-	@Transactional(readOnly = true)
-	public Reserva findReservaById(int reservaId) throws DataAccessException {
-		return reservaRepository.findReservaById(reservaId);
-	}
-	
-	@Transactional
-	public void saveReserva(Reserva reserva) throws DataAccessException {
-		reservaRepository.save(reserva);		
-	}	
-	
-	@Transactional
-	public void deleteReserva(Reserva reserva) throws DataAccessException {
-		reservaRepository.delete(reserva);		
-	}	
-	
+    @Transactional(readOnly = true)
+    public List<Reserva> findReservas() throws DataAccessException {
+        return reservaRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Reserva findReservaById(int reservaId) throws DataAccessException {
+        return reservaRepository.findReservaById(reservaId);
+    }
+
+    @Transactional
+    public void saveReserva(Reserva reserva) throws DataAccessException {
+        reservaRepository.save(reserva);
+    }
+
+    @Transactional
+    public void deleteReserva(Reserva reserva) throws DataAccessException {
+        reservaRepository.delete(reserva);
+    }
+
 }

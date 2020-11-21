@@ -22,7 +22,7 @@ public class OtrosService {
 	}		
 
 	@Transactional(readOnly = true)	
-	public List<Otros> findOtross() throws DataAccessException {
+	public List<Otros> findOtros() throws DataAccessException {
 		return OtrosRepository.findAll();
 	}	
 	

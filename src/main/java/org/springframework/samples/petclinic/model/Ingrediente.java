@@ -1,9 +1,13 @@
 package org.springframework.samples.petclinic.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.sun.istack.NotNull;
 
@@ -24,8 +28,11 @@ public class Ingrediente extends BaseEntity {
 	@NotNull
 	private String tipo;
 	
+	@Column(name = "fechaCaducudad")        
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	private LocalDate fechaCaducidad;
+	
 	@Column(name = "alergenos")
 	private String [] alergenos;
 	
-
 }

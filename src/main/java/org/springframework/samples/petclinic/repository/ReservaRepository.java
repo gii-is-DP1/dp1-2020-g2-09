@@ -13,15 +13,15 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ReservaRepository extends CrudRepository<Reserva, Integer>{
 
-	
-//	//filtrar Reserva 
-//	@Query("SELECT DISTINCT nombreCliente FROM Reserva JOIN cliente WHERE cliente.reserva = :reserva_id%")
-//	public Collection<Reserva> findByNombreCliente(@Param("nombreCliente") String nombre_cliente);
-	
-	List<Reserva> findAll() throws DataAccessException;
-	
-	Reserva findReservaById(int reserva_id) throws DataAccessException;
-	
-	
-	
+
+//    //filtrar Reserva 
+//    @Query("SELECT DISTINCT nombreCliente FROM Reserva JOIN cliente WHERE cliente.reserva = :reserva_id%")
+//    public Collection<Reserva> findByNombreCliente(@Param("nombreCliente") String nombre_cliente);
+
+    List<Reserva> findAll() throws DataAccessException;
+
+    Reserva findReservaById(int reserva_id) throws DataAccessException;
+
+
+
 }

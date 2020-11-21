@@ -13,7 +13,7 @@
         
         	<!-- La fecha de reclamación no la debería poner el cliente, 
         	debería rellenarse automáticamente. -->
-            <!--  petclinic:inputField label="fechaReclamacion" name="fechaReclamacion"/>-->
+            <petclinic:inputField label="fechaReclamacion" name="fechaReclamacion"/>
             <petclinic:inputField label="observacion" name="observacion"/>
         </div>
         <div class="form-group">
