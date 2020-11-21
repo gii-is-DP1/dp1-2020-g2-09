@@ -14,6 +14,7 @@
         <tr>
             <th>Nombre</th>
             <th>Tipo</th>
+            <th>Fecha de Caducidad</th>
             <th>Alergenos</th>
         </tr>
         <a href="/Ingredientes/new" class="btn btn-default">Añadir ingrediente</a>
@@ -26,6 +27,9 @@
                 </td>
                 <td>
                 	<c:out value="${ingrediente.tipo}"/>
+             	</td>
+             	<td>
+                	<c:out value="${ingrediente.fechaCaducidad}"/>
              	</td>
              	<td>
              	<ul>

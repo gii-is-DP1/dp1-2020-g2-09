@@ -5,7 +5,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "nivel_socio")
-public class NivelSocio extends BaseEntity{
+public class NivelSocio extends NamedEntity{
 	
 
 }
