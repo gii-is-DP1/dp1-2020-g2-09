@@ -116,6 +116,26 @@ VALUES ('Paco','Pérez Maldonado','1998-12-29','777777777','PaquitoelChocolatero
 INSERT INTO cocineros(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email) 
 VALUES ('Marmona','Jimenez Ronaldinha','1997-12-29','777555555','MarianaRajoy','aroaroaro','mariana@gmail.com');
 
+INSERT INTO TIPO_PAGO VALUES(0,'EFECTIVO');
+INSERT INTO TIPO_PAGO VALUES(1,'TARJETA');
+
+INSERT INTO ESTADO_PEDIDO VALUES(0,'EN COCINA');
+INSERT INTO ESTADO_PEDIDO VALUES(1,'PREPARADO');
+INSERT INTO ESTADO_PEDIDO VALUES(2,'EN REPARTO');
+INSERT INTO ESTADO_PEDIDO VALUES(3,'ENTREGADO');
+
+INSERT INTO TIPO_ENVIO VALUES(0,'DOMICILIO');
+INSERT INTO TIPO_ENVIO VALUES(1,'RECOGER EN TIENDA');
+
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio)
+VALUES ('30','3.5','C/Ferrara, 5, 7b', '2020-11-15', 0, 1,0);
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio)
+VALUES ('29','3','C/Ferrara, 5, 7b', '2020-11-16',3,1,1);
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio)
+VALUES ('50','2.30','C/Ferrara, 5, 7b', '2020-11-18',2,0,1);
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio)
+VALUES ('57','2','C/Ferrara, 5, 7b', '2020-11-30',3,1,0);
+
 
 INSERT INTO repartidores(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email)
 VALUES ('Minguito','Gutiérrez Ronaldo','1998-11-03','682547321','ErMingui','aroaroaro','minguitoo@gmail.com');
@@ -134,8 +154,16 @@ VALUES ('Rodolfa','Abduzcan Play','1996-07-22','685390102','Auroner1','daleAlPla
 INSERT INTO TIPO_RESERVA VALUES(0,'ALMUERZO');
 INSERT INTO TIPO_RESERVA VALUES(1,'CENA');
 
-INSERT INTO RESERVAS VALUES(0,'2020-05-29',5);
-INSERT INTO RESERVAS VALUES(1,'2020-07-12',2);
+INSERT INTO RESERVAS VALUES(0,'2020-05-29','10:34:09',5,0);
+INSERT INTO RESERVAS VALUES(1,'2020-07-12','20:34:09',2,1);
+
+INSERT INTO RECLAMACIONES(fecha_reclamacion, observacion)
+VALUES('2020-06-27', 'Había un hueso de aceituna en mi pizza. ¿Qué tipo de broma es esta?');
+
+INSERT INTO RECLAMACIONES(fecha_reclamacion, observacion)
+VALUES('2020-11-15', 'Mi pizza carbonara llevaba 1 sola unidad de champiñón.');
+
+
 
 
 

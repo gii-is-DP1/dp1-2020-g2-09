@@ -22,12 +22,26 @@
     </div>    
     
     <div>
+
+     <a href="/allCuentas">Prueba 1: muestreo, post, edit y eliminaci�n de clientes</a>
+    </div>
+    <div>
+     <a href="/allCocineros">Prueba 2: muestreo, post y edit de cocineros(sería igual para empleados)</a>
+    </div>
+     <div>
+     <a href="/allReservas">Prueba 5: muestreo, post y edit de reservas</a>
+
      <a href="/allCuentas">Prueba 1: muestreo, post, edit y eliminación de clientes</a>
     </div>
     <div>
      <a href="/allCocineros">Prueba 2: muestreo, post, edit y eliminación de cocineros</a>
+
     </div>
     <div>
+
+     <a href="/allPedidos">Prueba 3: muestreo de pedidos</a>
+    </div>
+    
      <a href="allRepartidores">Prueba 3: muestreo, post, edit y eliminación de repartidores</a>
     </div>
     <div>
@@ -36,6 +50,10 @@
     <div>
      <a href="/allMesas">Prueba 3: muestreo, post y edit de mesas :)</a>
     </div>
+    <div>
+     <a href="/allReclamaciones">Prueba 5: muestreo, post y edit de reclamaciones uwu</a>
+    </div>
+
     <div class="row">
         <div class="col-md-12">
             <spring:url value="/resources/images/pets.png" htmlEscape="true" var="petsImage"/>
