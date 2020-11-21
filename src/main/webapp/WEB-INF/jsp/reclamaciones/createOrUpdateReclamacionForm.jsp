@@ -19,7 +19,7 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
-                    <c:when test="${Reclamacion['new']}">
+                    <c:when test="${reclamacion['new']}">
                         <button class="btn btn-default" type="submit">Añadir reclamación</button>
                     </c:when>
                     <c:otherwise>
