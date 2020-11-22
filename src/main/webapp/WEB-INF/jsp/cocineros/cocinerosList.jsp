@@ -43,9 +43,18 @@
              	<td>
              		<c:out value="${cocinero.fechaInicioContrato}"/>
              	</td>
-             	<td>
-             		<c:out value="${cocinero.fechaFinContrato}"/>
-             	</td>
+             		<c:choose>
+                <c:when test="${empty cocinero.fechaFinContrato}">
+                    <td>
+                        <c:out value=" "/>
+                      </td>
+                </c:when>
+              <c:otherwise>
+                <td>
+                  <c:out value="${cocinero.fechaInicioContrato}"/>
+                </td>
+    					</c:otherwise>
+					</c:choose>
              	<!-- <td>
              		<c:out value="${cuenta.id}"></c:out>
              	</td> -->
@@ -60,6 +69,20 @@
 	                        <spring:param name="cocineroId" value="${cocinero.id}"/>
 	                </spring:url>
              		<a href="${fn:escapeXml(cocineroUrl2)}" class="btn btn-default">Eliminar</a>
+             	</td>
+             	<td>
+             		<spring:url value="/cocineros/{cocineroId}/altaobaja" var="cocineroUrl3">
+	                        <spring:param name="cocineroId" value="${cocinero.id}"/>
+	                </spring:url>
+	                <c:choose>
+    					<c:when test="${empty cocinero.fechaFinContrato}">
+       						<a href="${fn:escapeXml(cocineroUrl3)}" class="btn btn-default">Dar de Baja</a>
+    					</c:when>
+    					<c:otherwise>
+        					<a href="${fn:escapeXml(cocineroUrl3)}" class="btn btn-default">Dar de Alta</a>
+    					</c:otherwise>
+					</c:choose>
+             		
              	</td>
              	
             </tr>

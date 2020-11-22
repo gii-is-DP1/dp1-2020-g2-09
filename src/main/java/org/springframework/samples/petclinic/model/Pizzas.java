@@ -7,16 +7,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.sun.xml.txw2.annotation.XmlElement;
 
-@XmlRootElement
-public class Cartas {
 
-	/*private List<Carta> cartasList;
+@XmlRootElement
+public class Pizzas {
+
+	private List<Pizza> pizzasList;
 	
 	@XmlElement
-	public List<Carta> getCartasList() {
-		if (cartasList == null) {
-			cartasList = new ArrayList<>();
+	public List<Pizza> getPizzasList() {
+		if (pizzasList == null) {
+			pizzasList = new ArrayList<>();
 		}
-		return cartasList;
-	}*/
+		return pizzasList;
+	}
 }
