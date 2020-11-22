@@ -69,7 +69,7 @@ public class ClienteController {
 		}
 	}
 	
-	
+	//para ver los datos de mi perfil de cliente
 	@GetMapping("/cuentas/{cuentaId}")
 	public ModelAndView showCliente(@PathVariable("cuentaId") int cuentaId) {
 		ModelAndView mav = new ModelAndView("clientes/clienteDetails");

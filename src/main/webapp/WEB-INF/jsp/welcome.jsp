@@ -21,8 +21,11 @@
     	</ul></p>	
     </div>    
     <div>
-    	<a href="/cuentas/{cuentaId}">Aquí encontrará sus datos si ha iniciado sesión</a>
+    	<sec:authorize access="isAuthenticated()">
+    		<a href="/cuentas/{cuentaId}">Aquí encontrará sus datos si ha iniciado sesión</a>
+    	</sec:authorize>
     </div>
+    <div>
      <a href="/allCuentas">Prueba 1: muestreo, post, edit y eliminación de clientes</a>
     </div>
     <div>
@@ -31,32 +34,26 @@
      <div>
      <a href="/allReservas">Prueba 3: muestreo, post y edit de reservas</a>
 	</div>
-	<div>
-     <a href="/allCuentas">Prueba 4: muestreo, post, edit y eliminación de clientes</a>
+    <div>
+     <a href="/allPedidos">Prueba 4: muestreo de pedidos</a>
     </div>
     <div>
-     <a href="/allCocineros">Prueba 5: muestreo, post, edit y eliminación de cocineros</a>
+     <a href="allRepartidores">Prueba 5: muestreo, post, edit y eliminación de repartidores</a>
     </div>
     <div>
-     <a href="/allPedidos">Prueba 6: muestreo de pedidos</a>
+     <a href="allAdministradores">Prueba 6: muestreo, post, edit y eliminación de administradores</a>
     </div>
     <div>
-     <a href="allRepartidores">Prueba 7: muestreo, post, edit y eliminación de repartidores</a>
+     <a href="/allMesas">Prueba 7: muestreo, post y edit de mesas :)</a>
     </div>
     <div>
-     <a href="allAdministradores">Prueba 8: muestreo, post, edit y eliminación de administradores</a>
-    </div>
-    <div>
-     <a href="/allMesas">Prueba 9: muestreo, post y edit de mesas :)</a>
-    </div>
-    <div>
-     <a href="/allReclamaciones">Prueba 10: muestreo, post y edit de reclamaciones uwu</a>
+     <a href="/allReclamaciones">Prueba 8: muestreo, post y edit de reclamaciones uwu</a>
     </div>
 
     <div class="row">
         <div class="col-md-12">
-            <spring:url value="/resources/images/pets.png" htmlEscape="true" var="petsImage"/>
-            <img class="img-responsive" src="${petsImage}"/>
+            <spring:url value="/resources/images/pizza.jpg" htmlEscape="true" var="pizzaImagen"/>
+            <img class="img-responsive" src="${pizzaImagen}"/>
         </div>
     </div>
 </petclinic:layout>

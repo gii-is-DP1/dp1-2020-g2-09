@@ -25,7 +25,7 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
                     <c:when test="${cuenta['new']}">
-                        <button class="btn btn-default" type="submit">Añadir cliente</button>
+                        <button class="btn btn-default" type="submit">Registrarse</button>
                     </c:when>
                     <c:otherwise>
                         <button class="btn btn-default" type="submit">Actualizar cliente</button>

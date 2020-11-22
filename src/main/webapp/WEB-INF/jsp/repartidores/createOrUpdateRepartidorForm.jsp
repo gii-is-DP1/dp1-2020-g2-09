@@ -8,7 +8,7 @@
 
 <petclinic:layout pageName="clientes">
     <h2>
-        <c:if test="${repartidor['new']}">Nuevo </c:if> Repartidor
+        <c:if test="${repartidores['new']}">Nuevo </c:if> Repartidor
     </h2>
     <form:form modelAttribute="repartidores" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
@@ -24,7 +24,7 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
-                    <c:when test="${repartidor['new']}">
+                    <c:when test="${repartidores['new']}">
                         <button class="btn btn-default" type="submit">Añadir repartidor</button>
                     </c:when>
                     <c:otherwise>
