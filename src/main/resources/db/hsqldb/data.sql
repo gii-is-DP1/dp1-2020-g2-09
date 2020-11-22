@@ -1,6 +1,6 @@
 -- One admin user, named admin1 with passwor 4dm1n and authority admin
 INSERT INTO users(username,password,enabled) VALUES ('admin1','4dm1n',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (1,'admin1','admin');
+INSERT INTO authorities(id,username,authority) VALUES (1,'admin1','administrador');
 -- One owner user, named owner1 with passwor 0wn3r
 INSERT INTO users(username,password,enabled) VALUES ('owner1','0wn3r',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (2,'owner1','owner');
@@ -22,6 +22,8 @@ INSERT INTO authorities(id,username,authority) VALUES (5,'raupargor','owner');
 INSERT INTO users(username,password,enabled) VALUES ('margarcac1','margarcac1',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (6,'margarcac1','owner');
 
+INSERT INTO users(username,password,enabled) VALUES ('serfiggom','serfiggom',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (8, 'serfiggom','administrador');
 
 INSERT INTO vets VALUES (1, 'James', 'Carter');
 INSERT INTO vets VALUES (2, 'Helen', 'Leary');
@@ -92,29 +94,34 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (2, 8, '2013-01-02',
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03', 'neutered');
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
 
-INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email) 
-VALUES ('María','García Cáceres','2000-01-01','654123987','margarcar','MariaGarcia15','margarcar@alum.us.es');
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email) 
+VALUES ('María','García Cáceres','2000-01-01',654123987,'margarcar@alum.us.es');
 
-INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email) 
-VALUES ('Servando','Figueroa Gómez','2000-08-12','698745213','serfiggom','ServandoFigueroa78','serfiggom@alum.us.es');
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email) 
+VALUES ('Servando','Figueroa Gómez','2000-08-12','698745213','serfiggom@alum.us.es');
 
-INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email) 
-VALUES ('Raúl','Parrado Gordón','2000-05-29','717548963','raupargor','RaulParrado74','raupargor@alum.us.es');
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email) 
+VALUES ('Raúl','Parrado Gordón','2000-05-29','717548963','raupargor@alum.us.es');
 
-INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email) 
-VALUES ('Álvaro','Sánchez González','2000-01-30','687452196','alvsangon','AlvaroSanchez65','alvsangon@alum.us.es');
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email) 
+VALUES ('Álvaro','Sánchez González','2000-01-30','687452196','alvsangon@alum.us.es');
 
-INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email) 
-VALUES ('Jesús','Roldán Cadena','2000-08-07','632145879','jesrolcad','JesusRoldan16','jesrolcad@alum.us.es');
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email) 
+VALUES ('Jesús','Roldán Cadena','2000-08-07','632145879','jesrolcad@alum.us.es');
 
-INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email) 
-VALUES ('Lucía','Torres Gómez','2000-03-30','614589725','luctorgom','LuciaTorres30','luctorgom@alum.us.es');
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email) 
+VALUES ('Lucía','Torres Gómez','2000-03-30','614589725','luctorgom@alum.us.es');
 
-INSERT INTO cocineros(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email) 
-VALUES ('Paco','Pérez Maldonado','1998-12-29','777777777','PaquitoelChocolatero','PacoPacoPacoDeMiPaco','paquitorechulon@gmail.com');
+INSERT INTO cocineros(nombre,apellidos,fecha_nacimiento,telefono,email, fecha_inicio_contrato) 
+VALUES ('Paco','Pérez Maldonado','1998-12-29','777777777','paquitorechulon@gmail.com', '2020-10-01');
 
-INSERT INTO cocineros(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email) 
-VALUES ('Marmona','Jimenez Ronaldinha','1997-12-29','777555555','MarianaRajoy','aroaroaro','mariana@gmail.com');
+INSERT INTO cocineros(nombre,apellidos,fecha_nacimiento,telefono,email,usuario, fecha_inicio_contrato) 
+VALUES ('Marmona','Jimenez Ronaldinha','1997-12-29','777555555','mariana@gmail.com','margarcac1', '2020-09-30');
+
+
+/*DATETIME fecha_actual = DATETIME.NOW() -> No funciona*/
+INSERT INTO repartidores(nombre,apellidos,fecha_nacimiento,telefono,email, fecha_inicio_contrato)
+VALUES ('Minguito','Gutiérrez Ronaldo','1998-11-03','682547321','minguitoo@gmail.com', '2019-12-12');
 
 INSERT INTO TIPO_PAGO VALUES(0,'EFECTIVO');
 INSERT INTO TIPO_PAGO VALUES(1,'TARJETA');
@@ -136,19 +143,19 @@ VALUES ('50','2.30','C/Ferrara, 5, 7b', '2020-11-18',2,0,1);
 INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio)
 VALUES ('57','2','C/Ferrara, 5, 7b', '2020-11-30',3,1,0);
 
-
-INSERT INTO repartidores(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email)
-VALUES ('Minguito','Gutiérrez Ronaldo','1998-11-03','682547321','ErMingui','aroaroaro','minguitoo@gmail.com');
-
-INSERT INTO repartidores(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email)
-VALUES ('Pepa','Cansado Levante','1995-09-13','985432158','CansadoEstoy','jejejeje','cansado_levante@gmail.com');
+INSERT INTO repartidores(nombre,apellidos,fecha_nacimiento,telefono,email, fecha_inicio_contrato)
+VALUES ('Pepa','Cansado Levante','1995-09-13','985432158','cansado_levante@gmail.com', '2020-11-22');
 
 
-INSERT INTO administradores(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email)
-VALUES ('Juan','Pérez Ruíz','1990-01-01','863838343','Pereez28','peresitoConFlow','perez_ruiz@gmail.com');
+INSERT INTO administradores(nombre,apellidos,fecha_nacimiento,telefono,email)
+VALUES ('Juan','Pérez Ruíz','1990-01-01','863838343','perez_ruiz@gmail.com');
 
-INSERT INTO administradores(nombre,apellidos,fecha_nacimiento,telefono,usuario,contraseña,email)
-VALUES ('Rodolfa','Abduzcan Play','1996-07-22','685390102','Auroner1','daleAlPlay','abduzcan_1@gmail.com');
+INSERT INTO administradores(nombre,apellidos,fecha_nacimiento,telefono,email)
+VALUES ('Rodolfa','Abduzcan Play','1996-07-22','685390102','abduzcan_1@gmail.com');
+
+INSERT INTO administradores(nombre,apellidos,fecha_nacimiento,telefono,email, usuario)
+VALUES ('Servando','Figueroa','1990-01-01','863838343','perez_ruiz@gmail.com', 'serfiggom');
+
 
 
 INSERT INTO TIPO_RESERVA VALUES(0,'ALMUERZO');
@@ -170,8 +177,6 @@ VALUES('2020-06-27', 'Había un hueso de aceituna en mi pizza. ¿Qué tipo de br
 
 INSERT INTO RECLAMACIONES(fecha_reclamacion, observacion)
 VALUES('2020-11-15', 'Mi pizza carbonara llevaba 1 sola unidad de champiñón.');
-
-
 
 INSERT INTO MESAS VALUES(1,6);
 INSERT INTO MESAS VALUES(2,6);
@@ -197,8 +202,3 @@ INSERT INTO TAMANO_PRODUCTO VALUES(1,'GRANDE');
 INSERT INTO NIVEL_SOCIO VALUES(0,'ORO');
 INSERT INTO NIVEL_SOCIO VALUES(1,'PLATA');
 INSERT INTO NIVEL_SOCIO VALUES(2,'BRONCE');
-
-
-
-
-

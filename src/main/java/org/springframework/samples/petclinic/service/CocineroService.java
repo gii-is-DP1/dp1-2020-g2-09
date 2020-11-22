@@ -14,6 +14,11 @@ public class CocineroService {
 
 	private CocineroRepository cocineroRepository;
 
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private AuthoritiesService authoritiesService;
 
 	@Autowired
 	public CocineroService(CocineroRepository cocineroRepository) {
@@ -32,7 +37,11 @@ public class CocineroService {
 	
 	@Transactional
 	public void saveCocinero(Cocina cocinero) throws DataAccessException {
-		cocineroRepository.save(cocinero);		
+		cocineroRepository.save(cocinero);	
+		//creating user
+		userService.saveUser(cocinero.getUser());
+		//creating authorities
+		authoritiesService.saveAuthorities(cocinero.getUser().getUsername(), "cocinero");
 	}	
 	
 	@Transactional

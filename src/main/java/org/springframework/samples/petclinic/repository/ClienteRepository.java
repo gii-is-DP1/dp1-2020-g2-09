@@ -17,7 +17,7 @@ public interface ClienteRepository extends CrudRepository<Cliente, Integer>{
 	
 	List<Cliente> findAll() throws DataAccessException;
 	
-	Cliente findCuentaById(int clienteId) throws DataAccessException;
+	Cliente findById(int clienteId) throws DataAccessException;
 	
 	
 	

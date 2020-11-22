@@ -17,9 +17,8 @@
             <th>Fecha Nacimiento</th>
             <th>Nombre de usuario</th>
             <th>Email</th>
-            <th>Fecha Alta</th>
-            <th>Fecha Baja</th>
-            
+            <th>Fecha de Alta</th>
+            <th>Fecha de Baja</th>
         </tr>
         <a href="/cocineros/new" class="btn btn-default">Añadir cocinero</a>
         </thead>
@@ -36,7 +35,7 @@
              		<c:out value="${cocinero.fechaNacimiento}"/>
              	</td>
              	<td>
-             		<c:out value="${cocinero.usuario}"/>
+             		<c:out value="${cocinero.user.username}"/>
              	</td>
              	<td>
              		<c:out value="${cocinero.email}"/>
@@ -45,15 +44,15 @@
              		<c:out value="${cocinero.fechaInicioContrato}"/>
              	</td>
              		<c:choose>
-    					<c:when test="${empty cocinero.fechaFinContrato}">
-       						<td>
-             					<c:out value=" "/>
-             				</td>
-    					</c:when>
-    					<c:otherwise>
-        					<td>
-             					<c:out value="${cocinero.fechaInicioContrato}"/>
-             				</td>
+                <c:when test="${empty cocinero.fechaFinContrato}">
+                    <td>
+                        <c:out value=" "/>
+                      </td>
+                </c:when>
+              <c:otherwise>
+                <td>
+                  <c:out value="${cocinero.fechaInicioContrato}"/>
+                </td>
     					</c:otherwise>
 					</c:choose>
              	<!-- <td>

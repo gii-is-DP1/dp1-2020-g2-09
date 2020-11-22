@@ -20,10 +20,10 @@
     	</c:forEach>
     	</ul></p>	
     </div>    
-    
     <div>
-
-     <a href="/allCuentas">Prueba 1: muestreo, post, edit y eliminaci�n de clientes</a>
+    	<a href="/cuentas/{cuentaId}">Aquí encontrará sus datos si ha iniciado sesión</a>
+    </div>
+     <a href="/allCuentas">Prueba 1: muestreo, post, edit y eliminación de clientes</a>
     </div>
     <div>
      <a href="/allCocineros">Prueba 2: muestreo, post y edit de cocineros(sería igual para empleados)</a>

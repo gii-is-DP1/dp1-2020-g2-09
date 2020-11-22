@@ -2,13 +2,19 @@ package org.springframework.samples.petclinic.model;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Table;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.sun.istack.NotNull;
@@ -28,6 +34,7 @@ public class Cuenta extends BaseEntity {
 	
 	@Column(name = "apellidos")
 	@NotNull
+	@Size(min = 2, max = 20)
 	private String apellidos;
 	
 	@Column(name = "fecha_nacimiento")
@@ -37,18 +44,16 @@ public class Cuenta extends BaseEntity {
 	
 	@Column(name = "telefono")
 	@NotNull
+	//@Length(min = 9, max = 9)
 	private Integer telefono;
 	
-	@Column(name = "usuario")
-	@NotNull
-	private String usuario;
-	
-	@Column(name = "contraseña")
-	@NotNull
-	private String contraseña;
+	@OneToOne(cascade = CascadeType.ALL)//crea un usuario para una sola cuenta
+    @JoinColumn(name = "usuario", referencedColumnName = "username")
+	private User user;
 	
 	@Column(name = "email")
 	@NotNull
+	@Email
 	private String email;
 	
 

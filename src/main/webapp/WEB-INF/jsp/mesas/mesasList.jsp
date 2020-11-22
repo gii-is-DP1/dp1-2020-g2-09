@@ -24,9 +24,9 @@
                <td>
              		<c:out value="${mesa.capacidad}"></c:out>
              	</td>
-             	<!--   <td>
-             		<c:out value="${mesa.id}"></c:out>
-             	</td>-->
+             	<td>
+             		<!--<c:out value="${mesa.id}"></c:out>-->
+             	</td>
              	<td>
              		<spring:url value="/mesas/{mesaId}/edit" var="mesaUrl">
 	                        <spring:param name="mesaId" value="${mesa.id}"/>

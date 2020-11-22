@@ -17,6 +17,8 @@
             <th>Fecha Nacimiento</th>
             <th>Nombre de usuario</th>
             <th>Email</th>
+            <th>Fecha de Alta</th>
+            <th>Fecha de Baja</th>
         </tr>
         <a href="/repartidores/new" class="btn btn-default">Añadir repartidor</a>
         </thead>
@@ -33,10 +35,16 @@
              		<c:out value="${repartidor.fechaNacimiento}"/>
              	</td>
              	<td>
-             		<c:out value="${repartidor.usuario}"/>
+             		<c:out value="${repartidor.user.username}"/>
              	</td>
              	<td>
              		<c:out value="${repartidor.email}"/>
+             	</td>
+             	<td>
+             		<c:out value="${repartidor.fechaInicioContrato}"/>
+             	</td>
+             	<td>
+             		<c:out value="${repartidor.fechaFinContrato}"/>
              	</td>
              	<!-- <td>
              		<c:out value="${cuenta.id}"></c:out>
