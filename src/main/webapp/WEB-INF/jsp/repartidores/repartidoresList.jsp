@@ -61,6 +61,20 @@
 	                </spring:url>
              		<a href="${fn:escapeXml(repartidorUrl2)}" class="btn btn-default">Eliminar</a>
              	</td>
+             	<td>
+             		<spring:url value="/repartidores/{repartidorId}/altaobaja" var="repartidorUrl3">
+	                        <spring:param name="repartidorId" value="${repartidor.id}"/>
+	                </spring:url>
+	                <c:choose>
+    					<c:when test="${empty repartidor.fechaFinContrato}">
+       						<a href="${fn:escapeXml(repartidorUrl3)}" class="btn btn-default">Dar de Baja</a>
+    					</c:when>
+    					<c:otherwise>
+        					<a href="${fn:escapeXml(repartidorUrl3)}" class="btn btn-default">Dar de Alta</a>
+    					</c:otherwise>
+					</c:choose>
+             		
+             	</td>
              	
             </tr>
         </c:forEach>
