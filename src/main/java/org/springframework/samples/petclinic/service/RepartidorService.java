@@ -16,6 +16,11 @@ public class RepartidorService {
 
 	private RepartidorRepository repartidorRepository;
 
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private AuthoritiesService authoritiesService;
 
 	@Autowired
 	public RepartidorService(RepartidorRepository repartidorRepository) {
@@ -34,7 +39,11 @@ public class RepartidorService {
 	
 	@Transactional
 	public void saveRepartidor(Repartidor repartidor) throws DataAccessException {
-		repartidorRepository.save(repartidor);		
+		repartidorRepository.save(repartidor);	
+		//creating user
+		userService.saveUser(repartidor.getUser());
+		//creating authorities
+		authoritiesService.saveAuthorities(repartidor.getUser().getUsername(), "repartidor");
 	}	
 	
 	@Transactional

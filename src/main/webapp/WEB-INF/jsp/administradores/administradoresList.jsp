@@ -33,7 +33,7 @@
              		<c:out value="${administrador.fechaNacimiento}"/>
              	</td>
              	<td>
-             		<c:out value="${administrador.usuario}"/>
+             		<c:out value="${administrador.user.username}"/>
              	</td>
              	<td>
              		<c:out value="${administrador.email}"/>

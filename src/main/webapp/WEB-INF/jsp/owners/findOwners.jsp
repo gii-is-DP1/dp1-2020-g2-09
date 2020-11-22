@@ -33,7 +33,7 @@
     </form:form>
 
     <br/> 
-    <sec:authorize access="hasAuthority('admin')">
+    <sec:authorize access="hasAuthority('administrador')">
 		<a class="btn btn-default" href='<spring:url value="/owners/new" htmlEscape="true"/>'>Add Owner</a>
 	</sec:authorize>
 	

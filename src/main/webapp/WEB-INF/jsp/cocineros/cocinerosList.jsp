@@ -17,6 +17,8 @@
             <th>Fecha Nacimiento</th>
             <th>Nombre de usuario</th>
             <th>Email</th>
+            <th>Fecha de Alta</th>
+            <th>Fecha de Baja</th>
         </tr>
         <a href="/cocineros/new" class="btn btn-default">Añadir cocinero</a>
         </thead>
@@ -33,10 +35,16 @@
              		<c:out value="${cocinero.fechaNacimiento}"/>
              	</td>
              	<td>
-             		<c:out value="${cocinero.usuario}"/>
+             		<c:out value="${cocinero.user.username}"/>
              	</td>
              	<td>
              		<c:out value="${cocinero.email}"/>
+             	</td>
+             	<td>
+             		<c:out value="${cocinero.fechaInicioContrato}"/>
+             	</td>
+             	<td>
+             		<c:out value="${cocinero.fechaFinContrato}"/>
              	</td>
              	<!-- <td>
              		<c:out value="${cuenta.id}"></c:out>

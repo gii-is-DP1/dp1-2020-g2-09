@@ -20,24 +20,26 @@
     	</c:forEach>
     	</ul></p>	
     </div>    
-    
     <div>
-     <a href="/allCuentas">Prueba 1: muestreo, post, edit y eliminación de clientes</a>
+    	<a href="/cuentas/{cuentaId}">Aquí encontrará sus datos si ha iniciado sesión</a>
     </div>
     <div>
-     <a href="/allCocineros">Prueba 2: muestreo, post, edit y eliminación de cocineros</a>
+    	<a href="/allCuentas">Prueba 1: muestreo, post, edit y eliminación de clientes</a>
     </div>
     <div>
-     <a href="allRepartidores">Prueba 3: muestreo, post, edit y eliminación de repartidores</a>
+    	<a href="/allCocineros">Prueba 2: muestreo, post, edit y eliminación de cocineros</a>
     </div>
     <div>
-     <a href="allAdministradores">Prueba 4: muestreo, post, edit y eliminación de administradores</a>
+    	<a href="allRepartidores">Prueba 3: muestreo, post, edit y eliminación de repartidores</a>
     </div>
     <div>
-     <a href="/allMesas">Prueba 3: muestreo, post y edit de mesas :)</a>
+    	<a href="allAdministradores">Prueba 4: muestreo, post, edit y eliminación de administradores</a>
     </div>
     <div>
-     <a href="/allReclamaciones">Prueba 5: muestreo, post y edit de reclamaciones uwu</a>
+    	<a href="/allMesas">Prueba 3: muestreo, post y edit de mesas :)</a>
+    </div>
+    <div>
+    	<a href="/allReclamaciones">Prueba 5: muestreo, post y edit de reclamaciones uwu</a>
     </div>
     <div class="row">
         <div class="col-md-12">
