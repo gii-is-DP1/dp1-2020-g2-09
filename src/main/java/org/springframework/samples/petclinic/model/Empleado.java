@@ -21,5 +21,5 @@ public class Empleado extends Cuenta{
 	
 	@Column(name = "fecha_fin_contrato")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
-	private LocalDate fechaFinContrato;
+	private LocalDate fechaFinContrato = null;
 }
