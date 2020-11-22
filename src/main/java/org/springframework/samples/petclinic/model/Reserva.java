@@ -44,7 +44,7 @@ public class Reserva extends BaseEntity {
 	private LocalTime hora;
 
 	@ManyToOne
-	@JoinColumn(name = "tipo_reserva")
+	@JoinColumn(name = "tipo_reserva_id")
 	private tipoReserva tipoReserva;
 	
 	@ManyToMany
