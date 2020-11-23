@@ -8,7 +8,7 @@
 	<jsp:attribute name="customScript">
         <script>
             $(function () {
-                $("#fechaCaducidad").datepicker({dateFormat: 'yy/mm/dd'});
+                $("#fechaCaducidad").datepicker({dateFormat: 'yyyy/mm/dd'});
             });
         </script>
     </jsp:attribute>

@@ -8,6 +8,14 @@
     pageEncoding="ISO-8859-1"%>
 <petclinic:layout pageName="Ingredientes">
     <h2>Ingredientes</h2>
+    
+    <jsp:attribute name="customScript">
+        <script>
+            $(function () {
+                $("#fechaCaducidad").datepicker({dateFormat: 'yyyy/mm/dd'});
+            });
+        </script>
+    </jsp:attribute>
 
     <table id="IngredientesTable" class="table table-striped">
         <thead>
