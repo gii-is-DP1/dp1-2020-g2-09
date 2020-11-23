@@ -38,16 +38,17 @@
         </tr>
     </table>
 
-    <spring:url value="{ownerId}/edit" var="editUrl">
-        <spring:param name="ownerId" value="${owner.id}"/>
+    <spring:url value="/cuentas/{cuentaId}/edit" var="cuentaUrl">
+        <spring:param name="cuentaId" value="${cliente.id}"/>
     </spring:url>
-    <a href="${fn:escapeXml(editUrl)}" class="btn btn-default">Edit Owner</a>
+    <a href="${fn:escapeXml(cuentaUrl)}" class="btn btn-default">Editar perfil</a>
 
-    <spring:url value="{ownerId}/pets/new" var="addUrl">
+    <!-- <spring:url value="{ownerId}/pets/new" var="addUrl">
         <spring:param name="ownerId" value="${owner.id}"/>
     </spring:url>
     <a href="${fn:escapeXml(addUrl)}" class="btn btn-default">Add New Pet</a>
-
+-->
+<!--  
     <br/>
     <br/>
     <br/>
@@ -102,6 +103,6 @@
             </tr>
 
         </c:forEach>
-    </table>
+    </table>-->
 
 </petclinic:layout>

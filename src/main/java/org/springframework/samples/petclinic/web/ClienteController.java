@@ -9,13 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Clientes;
 import org.springframework.samples.petclinic.model.Cuenta;
+import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.ClienteService;
 import org.springframework.samples.petclinic.service.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,12 +31,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class ClienteController {
 	
 	private final ClienteService clienteService;
-	//private final UserService userService;
+	private final UserService userService;
 
 	@Autowired
 	public ClienteController(ClienteService clienteService, UserService userService,
 			AuthoritiesService authoritiesService) {
 		this.clienteService = clienteService;
+		this.userService =  userService;
 	}
 
 	@InitBinder
@@ -68,10 +74,15 @@ public class ClienteController {
 	}
 	
 	//para ver los datos de mi perfil de cliente
-	@GetMapping("/cuentas/{cuentaId}")
-	public ModelAndView showCliente(@PathVariable("cuentaId") int cuentaId) {
+	@GetMapping("/cuentas/DetallesPerfil")
+	public ModelAndView showCliente() {
 		ModelAndView mav = new ModelAndView("clientes/clienteDetails");
-		mav.addObject(this.clienteService.findCuentaById(cuentaId));
+		Authentication auth = SecurityContextHolder
+	            .getContext()
+	            .getAuthentication();
+	    UserDetails userDetail = (UserDetails) auth.getPrincipal();
+	    User usuario = this.userService.findUser(userDetail.getUsername()).get();
+	    mav.addObject(this.clienteService.findCuentaByUser(usuario));
 		return mav;
 	}
 	
