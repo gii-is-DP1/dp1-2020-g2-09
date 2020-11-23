@@ -7,12 +7,24 @@
     pageEncoding="UTF-8"%>
 
 <petclinic:layout pageName="ofertas">
+	<jsp:attribute name="customScript">
+        <script>
+            $(function () {
+                $("#fechaInicial").datepicker({dateFormat: 'yy/mm/dd'});
+            });
+        </script>
+        <script>
+            $(function () {
+                $("#fechaFinal").datepicker({dateFormat: 'yy/mm/dd'});
+            });
+        </script>
+    </jsp:attribute>
+   <jsp:body>
     <h2>
         <c:if test="${oferta['new']}">Nueva </c:if> Oferta
     </h2>
     <form:form modelAttribute="oferta" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
-<%--             <petclinic:inputField label="Tamaño producto" name="tamanoProducto"/> --%>
             <petclinic:inputField label="Coste" name="coste"/>
             <petclinic:inputField label="Fecha Inicial" name="fechaInicial"/>
             <petclinic:inputField label="Fecha Final" name="fechaFinal"/>
@@ -34,4 +46,5 @@
             </div>
         </div>
     </form:form>
+     </jsp:body>
 </petclinic:layout>

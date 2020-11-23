@@ -6,9 +6,9 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.NivelSocio;
 import org.springframework.samples.petclinic.model.Oferta;
 import org.springframework.samples.petclinic.model.Ofertas;
-import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.TamanoProducto;
 import org.springframework.samples.petclinic.service.OfertaService;
 import org.springframework.stereotype.Controller;
@@ -39,6 +39,11 @@ public class OfertaController {
 	@ModelAttribute("tamanoProducto")
 	public Collection<TamanoProducto> populateTamanoProducto() {
 		return this.ofertaService.findTamanoProducto();
+	}
+	
+	@ModelAttribute("nivelSocio")
+	public Collection<NivelSocio> populateNivelSocio() {
+		return this.ofertaService.findNivelSocio();
 	}
 	
 	@GetMapping(value = { "/allOfertas" })
