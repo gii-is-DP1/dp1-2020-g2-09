@@ -42,5 +42,13 @@ public class Oferta extends BaseEntity{
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@NotNull
 	private LocalDate fechaFinal;
+	
+	public TamanoProducto getTamanoProducto() {
+		return this.tamanoProducto;
+	}
+
+	public void setType(TamanoProducto type) {
+		this.tamanoProducto = tamanoProducto;
+	}
 
 }

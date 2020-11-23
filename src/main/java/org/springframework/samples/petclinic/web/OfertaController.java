@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.Collection;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -7,6 +8,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Oferta;
 import org.springframework.samples.petclinic.model.Ofertas;
+import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.model.TamanoProducto;
 import org.springframework.samples.petclinic.service.OfertaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -30,6 +34,11 @@ public class OfertaController {
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
+	}
+	
+	@ModelAttribute("tamanoProducto")
+	public Collection<TamanoProducto> populateTamanoProducto() {
+		return this.ofertaService.findTamanoProducto();
 	}
 	
 	@GetMapping(value = { "/allOfertas" })
@@ -61,11 +70,11 @@ public class OfertaController {
 	}
 
 	//iniciar actualizacion oferta
-	@GetMapping(value = "/ofertas/{ofertasId}/edit")
+	@GetMapping(value = "/ofertas/{ofertaId}/edit")
 	public String initUpdateForm(@PathVariable("ofertaId") int ofertaId, ModelMap model) {
 		Oferta oferta = this.ofertaService.findOfertaById(ofertaId);
-		model.put("ofertas", oferta);
-		return "oferta/createOrUpdateOfertaForm";
+		model.put("oferta", oferta);
+		return "ofertas/createOrUpdateOfertaForm";
 	}
 	
 	//mandar actualizacion

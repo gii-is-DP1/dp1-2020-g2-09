@@ -16,11 +16,10 @@
             <petclinic:inputField label="Coste" name="coste"/>
             <petclinic:inputField label="Fecha Inicial" name="fechaInicial"/>
             <petclinic:inputField label="Fecha Final" name="fechaFinal"/>
-            <%-- <petclinic:inputField label="Nivel Socio" name="nivelSocio"/> --%>
-            <div class="control-group">
-              <petclinic:selectField name="tamanoProducto" label="Tamaño producto" names="${tamano_producto}" size="2"/>
-              <petclinic:selectField name="nivelSocio" label="Nivel Socio" names="${nivel_socio}" size="3"/>
-        	</div>
+			<div class="control-group">
+			<petclinic:selectField name="tamanoProducto" label="Tamaño producto" names="${tamanoProducto}" size="2"/>
+			<petclinic:selectField name="nivelSocio" label="Nivel Socio" names="${nivelSocio}" size="3"/>
+            </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
