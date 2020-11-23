@@ -11,7 +11,7 @@ INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
 
 -- One owner user, named luctorgom with password luctorgom
 INSERT INTO users(username,password,enabled) VALUES ('luctorgom','luctorgom',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (4,'luctorgom','owner');
+INSERT INTO authorities(id,username,authority) VALUES (4,'luctorgom','administrador');
 -- One owner user, named raupargor with password raupargor
 INSERT INTO users(username,password,enabled) VALUES ('raupargor','raupargor',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (5,'raupargor','owner');
@@ -84,19 +84,17 @@ INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (10, 'Mulligan', '2
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (11, 'Freddy', '2010-03-09', 5, 9);
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (12, 'Lucky', '2010-06-24', 2, 10);
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (13, 'Sly', '2012-06-08', 1, 10);
-
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (17, 'Luka', '2020-09-15', 2, 14);
-
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (14, 'Flamenka', '2020-01-16', 6, 11);
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (16, 'Periqui', '2019-09-11', 5, 13);
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (15, 'Illo', '2000-05-29', 1, 12);
-
 
 
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (1, 7, '2013-01-01', 'rabies shot');
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (2, 8, '2013-01-02', 'rabies shot');
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03', 'neutered');
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
+
 
 INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
 VALUES ('María','García Cáceres','2000-01-01',654123987,'margarcar@alum.us.es', 'margarcac1');
@@ -161,6 +159,9 @@ VALUES ('Rodolfa','Abduzcan Play','1996-07-22','685390102','abduzcan_1@gmail.com
 INSERT INTO administradores(nombre,apellidos,fecha_nacimiento,telefono,email, usuario)
 VALUES ('Servando','Figueroa','1990-01-01','863838343','perez_ruiz@gmail.com', 'serfiggom');
 
+INSERT INTO administradores(nombre,apellidos,fecha_nacimiento,telefono,email, usuario)
+VALUES ('Lucia','Torres','2000-01-01','654789654','luciatg30@gmail.com', 'luctorgom');
+
 
 INSERT INTO TIPO_RESERVA VALUES(0,'ALMUERZO');
 INSERT INTO TIPO_RESERVA VALUES(1,'CENA');
@@ -206,3 +207,12 @@ INSERT INTO TAMANO_PRODUCTO VALUES(1,'GRANDE');
 INSERT INTO NIVEL_SOCIO VALUES(0,'ORO');
 INSERT INTO NIVEL_SOCIO VALUES(1,'PLATA');
 INSERT INTO NIVEL_SOCIO VALUES(2,'BRONCE');
+
+INSERT INTO OFERTAS(TAMANO_PRODUCTO,COSTE,FECHA_INICIAL,NIVEL_SOCIO,FECHA_FINAL) values
+(1,58.6,'2020-01-05',0,'2020-01-31');
+INSERT INTO OFERTAS(TAMANO_PRODUCTO,COSTE,FECHA_INICIAL,NIVEL_SOCIO,FECHA_FINAL) values
+(1,60.6,'2020-02-05',0,'2020-02-28');
+INSERT INTO OFERTAS(TAMANO_PRODUCTO,COSTE,FECHA_INICIAL,NIVEL_SOCIO,FECHA_FINAL) values
+(1,15.8,'2020-03-05',0,'2020-03-31');
+INSERT INTO OFERTAS(TAMANO_PRODUCTO,COSTE,FECHA_INICIAL,NIVEL_SOCIO,FECHA_FINAL) values
+(1,38.9,'2020-04-05',0,'2020-04-30');
