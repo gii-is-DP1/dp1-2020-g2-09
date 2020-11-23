@@ -28,7 +28,7 @@
              		<c:out value="${reclamacion.observacion}"></c:out>
              		</td>
              	<td>
-             		<spring:url value="/reclamaciones/{reclamacionId}/edit" var="reclamacionUrl">
+             		<%-- <spring:url value="/reclamaciones/{reclamacionId}/edit" var="reclamacionUrl">
 	                        <spring:param name="reclamacionId" value="${reclamacion.id}"/>
 	                </spring:url>
    					<a href="${fn:escapeXml(reclamacionUrl)}" class="btn btn-default">Editar</a>
@@ -38,7 +38,7 @@
 	                        <spring:param name="reclamacionId" value="${reclamacion.id}"/>
 	                </spring:url>
              		<a href="${fn:escapeXml(reclamacionUrl2)}" class="btn btn-default">Eliminar</a>
-             	</td>
+             	</td> --%>
              	
             </tr>
         </c:forEach>
