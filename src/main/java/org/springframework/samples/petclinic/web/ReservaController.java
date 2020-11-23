@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.constant.ViewConstant;
 import org.springframework.samples.petclinic.model.Mesa;
 import org.springframework.samples.petclinic.model.Reserva;
 import org.springframework.samples.petclinic.model.Reservas;
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class ReservaController {
 	
-	public static final String RESERVA_VIEW="reservas/reservasList";
 	
 	@Autowired
 	private  ReservaService reservaService;
@@ -41,7 +41,7 @@ public class ReservaController {
 	public String showReservaList(Map<String, Object> model) {
 		List<Reserva> reservas=reservaService.findReservas();
 		model.put("reservas", reservas);
-		return RESERVA_VIEW;
+		return ViewConstant.RESERVA_VIEW;
 	}
 
 	//crear nueva reserva
