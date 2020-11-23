@@ -3,7 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <petclinic:layout pageName="reservas">
     <h2>Reservas</h2>
 
@@ -12,8 +14,11 @@
         <tr>
             <th>Numero de Personas</th>
             <th>Fecha de la reserva</th>
+            <th>Tipo de la reserva</th>
             <th>Hora de la reserva</th>
-            <th>Hora de la reserva</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+            
         </tr>
         </thead>
         <tbody>
@@ -31,6 +36,18 @@
                 <td>
                     <c:out value="${reserva.hora}"/>
                 </td>
+                <td>
+             		<spring:url value="/reservas/{reservaId}/edit" var="reservaUrl">
+	                        <spring:param name="reservaId" value="${reserva.id}"/>
+	                </spring:url>
+   					<a href="${fn:escapeXml(reservaUrl)}" class="btn btn-default">Editar</a>
+             	</td>
+             	<td>
+             		<spring:url value="/reservas/{reservaId}/delete" var="reservaUrl2">
+	                        <spring:param name="reservaId" value="${reserva.id}"/>
+	                </spring:url>
+             		<a href="${fn:escapeXml(reservaUrl2)}" class="btn btn-default">Eliminar</a>
+             	</td>
             </tr>
         </c:forEach>
         </tbody>

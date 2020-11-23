@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import com.sun.istack.NotNull;
@@ -42,5 +40,22 @@ public class Oferta extends BaseEntity{
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@NotNull
 	private LocalDate fechaFinal;
+	
+	public TamanoProducto getTamanoProducto() {
+		return this.tamanoProducto;
+	}
+
+	public void setTamanoProducto(TamanoProducto tamanoProducto) {
+		this.tamanoProducto = tamanoProducto;
+	}
+	
+	public NivelSocio getNivelSocio() {
+		return this.nivelSocio;
+	}
+
+	public void setNivelSocio(NivelSocio nivelSocio) {
+		this.nivelSocio = nivelSocio;
+	}
+	
 
 }

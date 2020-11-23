@@ -12,4 +12,5 @@ import lombok.EqualsAndHashCode;
 @Table(name = "Administradores")
 public class Administrador extends Cuenta {
 
+	
 }

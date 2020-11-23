@@ -50,11 +50,6 @@ public class ClienteService {
 	@Transactional
 	public void deleteCliente(Cliente cliente) throws DataAccessException {
 		clienteRepository.delete(cliente);	
-		//creating user
-//		userService.deleteUser(cliente.getUser());
-		//creating authorities
-//		authoritiesService.deleteAuthorities(cliente.getUser().getAuthorities());
-		
 	}	
 	
 }
