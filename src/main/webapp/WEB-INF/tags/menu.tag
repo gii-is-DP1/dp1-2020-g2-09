@@ -51,6 +51,12 @@
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span>Ver carta</span>
 				</petclinic:menuItem> 
+				
+				<petclinic:menuItem active="${name eq 'cartas'}" url="/reclamaciones/new"
+					title="Carta">
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					<span>Escribir reclamación</span>
+				</petclinic:menuItem> 
 
 				<petclinic:menuItem active="${name eq 'error'}" url="/oups"
 					title="trigger a RuntimeException to see how it is handled">

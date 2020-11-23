@@ -56,10 +56,11 @@ public class ReclamacionController {
 			}
 			else {
 				this.reclamacionService.saveReclamacion(reclamacion);
-				return "redirect:/allReclamaciones";
-			}
+				return "exito";
+			} 
 		}
 		
+	/*	
 		//iniciar actualizacion
 		@GetMapping(value = "/reclamaciones/{reclamacionId}/edit")
 		public String initUpdateForm(@PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
@@ -88,7 +89,7 @@ public class ReclamacionController {
 			Reclamacion reclamacion = this.reclamacionService.findReclamacionById(reclamacionId);
 			this.reclamacionService.deleteReclamacion(reclamacion);
 			return "redirect:/allReclamaciones";
-		}
+		} */
 		
 //		@ModelAttribute("reclamacion")
 //		public Reclamacion findReclamacion(@PathVariable("reclamacionId") int reclamacionId) {

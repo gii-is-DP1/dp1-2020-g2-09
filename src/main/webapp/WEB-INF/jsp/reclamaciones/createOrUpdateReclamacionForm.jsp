@@ -13,19 +13,19 @@
         
         	<!-- La fecha de reclamación no la debería poner el cliente, 
         	debería rellenarse automáticamente. -->
-            <petclinic:inputField label="fechaReclamacion" name="fechaReclamacion"/>
-            <petclinic:inputField label="observacion" name="observacion"/>
+            <petclinic:inputField label="fecha de incidencia" name="fechaReclamacion"/>
+            <petclinic:inputField label="observación" name="observacion"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <c:choose>
-                    <c:when test="${reclamacion['new']}">
+           <%--      <c:choose>
+                    <c:when test="${reclamacion['new']}"> --%>
                         <button class="btn btn-default" type="submit">Añadir reclamación</button>
-                    </c:when>
+                    <%-- /c:when>
                     <c:otherwise>
                         <button class="btn btn-default" type="submit">Actualizar reclamación</button>
                     </c:otherwise>
-                </c:choose>
+                </c:choose> --%>
             </div>
         </div>
     </form:form>
