@@ -57,13 +57,13 @@ public class UserController {
 	public String initCreationForm(Map<String, Object> model) {
 		Owner owner = new Owner();
 		model.put("owner", owner);
-		return VIEWS_OWNER_CREATE_FORM;
+		return "users/createOwnerForm";
 	}
 
 	@PostMapping(value = "/users/new")
 	public String processCreationForm(@Valid Owner owner, BindingResult result) {
 		if (result.hasErrors()) {
-			return VIEWS_OWNER_CREATE_FORM;
+			return "users/createOwnerForm";
 		}
 		else {
 			//creating owner, user, and authority

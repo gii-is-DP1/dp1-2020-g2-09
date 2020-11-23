@@ -1,10 +1,12 @@
 package org.springframework.samples.petclinic.web;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Cocina;
 import org.springframework.samples.petclinic.model.Repartidor;
 import org.springframework.samples.petclinic.model.Repartidores;
 import org.springframework.samples.petclinic.service.RepartidorService;
@@ -91,5 +93,18 @@ public class RepartidorController {
 		return "redirect:/allRepartidores";
 	}
 	
-	
+	//Alta y baja
+		@GetMapping(value = "/repartidores/{repartidorId}/altaobaja")
+		public String darAltayBaja(@PathVariable("repartidorId") int repartidorId, ModelMap model) {
+			Repartidor repartidor = this.repartidorService.findRepartidorById(repartidorId);
+			if(repartidor.getFechaFinContrato()!=null) {
+				repartidor.setFechaInicioContrato(LocalDate.now());
+				repartidor.setFechaFinContrato(null);
+			}else {
+				repartidor.setFechaFinContrato(LocalDate.now());
+			}
+			this.repartidorService.saveRepartidor(repartidor);
+			return "redirect:/allRepartidores";
+		}
+		
 }

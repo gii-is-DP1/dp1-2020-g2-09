@@ -27,8 +27,8 @@ public class ReservaService {
     }
 
     @Transactional(readOnly = true)
-    public Reserva findReservaById(int reservaId) throws DataAccessException {
-        return reservaRepository.findReservaById(reservaId);
+    public Reserva findById(int reservaId) throws DataAccessException {
+        return reservaRepository.findById(reservaId);
     }
 
     @Transactional

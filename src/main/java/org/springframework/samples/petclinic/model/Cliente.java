@@ -22,7 +22,7 @@ public class Cliente extends Cuenta {
 	@Column(name = "fechaAlta")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@NotNull
-	private LocalDate fechaAlta;
+	private LocalDate fechaAlta = LocalDate.now();
 	
 	
 }

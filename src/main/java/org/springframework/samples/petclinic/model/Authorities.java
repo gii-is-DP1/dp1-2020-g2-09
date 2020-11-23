@@ -14,10 +14,10 @@ import lombok.Data;
 public class Authorities extends BaseEntity{
 	
 	@ManyToOne
-	@JoinColumn(name = "username")
+	@JoinColumn(name = "username")//nombre del usuario
 	User user;
 	
-	@Size(min = 3, max = 50)
+	@Size(min = 3, max = 50)//si es admin, owner, etc
 	String authority;
 	
 	

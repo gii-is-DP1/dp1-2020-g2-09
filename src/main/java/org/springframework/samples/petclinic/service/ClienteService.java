@@ -15,6 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class ClienteService {
 
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private AuthoritiesService authoritiesService;
 
 
 	@Autowired
@@ -29,17 +35,26 @@ public class ClienteService {
 	
 	@Transactional(readOnly = true)
 	public Cliente findCuentaById(int cuentaId) throws DataAccessException {
-		return clienteRepository.findCuentaById(cuentaId);
+		return clienteRepository.findById(cuentaId);
 	}
 	
 	@Transactional
 	public void saveCliente(Cliente cliente) throws DataAccessException {
-		clienteRepository.save(cliente);		
+		clienteRepository.save(cliente);				
+		//creating user
+		userService.saveUser(cliente.getUser());
+		//creating authorities
+		authoritiesService.saveAuthorities(cliente.getUser().getUsername(), "cliente");
 	}	
 	
 	@Transactional
 	public void deleteCliente(Cliente cliente) throws DataAccessException {
-		clienteRepository.delete(cliente);		
+		clienteRepository.delete(cliente);	
+		//creating user
+//		userService.deleteUser(cliente.getUser());
+		//creating authorities
+//		authoritiesService.deleteAuthorities(cliente.getUser().getAuthorities());
+		
 	}	
 	
 }

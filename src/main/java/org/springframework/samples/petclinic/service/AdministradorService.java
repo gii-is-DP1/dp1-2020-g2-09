@@ -15,6 +15,12 @@ public class AdministradorService {
 	private AdministradorRepository administradorRepository;
 	
 	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private AuthoritiesService authoritiesService;
+	
+	@Autowired
 	public AdministradorService(AdministradorRepository administradorRepository) {
 		this.administradorRepository = administradorRepository;
 	}		
@@ -31,7 +37,11 @@ public class AdministradorService {
 	
 	@Transactional
 	public void saveAdministrador(Administrador administrador) throws DataAccessException {
-		this.administradorRepository.save(administrador);		
+		this.administradorRepository.save(administrador);	
+		//creating user
+		userService.saveUser(administrador.getUser());
+		//creating authorities
+		authoritiesService.saveAuthorities(administrador.getUser().getUsername(), "administrador");
 	}	
 	
 	@Transactional

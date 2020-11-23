@@ -56,7 +56,7 @@ public class WelcomeController {
 		  //asi con todos Raúl Parrado Gordón
 		  //Álvaro Sánchez González
 		  model.put("persons", grupo);
-		  model.put("tittle", "My project");
+		  model.put("tittle", "Pizzeria Roto's");
 		  model.put("group", "Members:");
 	    return "welcome";
 	  }

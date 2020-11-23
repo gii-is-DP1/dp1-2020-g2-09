@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Map;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -8,24 +9,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Clientes;
 import org.springframework.samples.petclinic.model.Cuenta;
+import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.service.ClienteService;
+import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ClienteController {
 	
 	private final ClienteService clienteService;
+	private final UserService userService;
 
 	@Autowired
-	public ClienteController(ClienteService clienteService) {
+	public ClienteController(ClienteService clienteService, UserService userService) {
 		this.clienteService = clienteService;
+		this.userService = userService;
 	}
 
 	@InitBinder
@@ -57,15 +65,28 @@ public class ClienteController {
 		}
 		else {
 			this.clienteService.saveCliente(cliente);
-			return "redirect:/allCuentas";
+			return "redirect:/";
 		}
 	}
+	
+	//para ver los datos de mi perfil de cliente
+	@GetMapping("/cuentas/{cuentaId}")
+	public ModelAndView showCliente(@PathVariable("cuentaId") int cuentaId) {
+		ModelAndView mav = new ModelAndView("clientes/clienteDetails");
+		mav.addObject(this.clienteService.findCuentaById(cuentaId));
+		return mav;
+	}
+	
+//	@ModelAttribute("cuenta")
+//	public Cliente findCliente(@PathVariable("cuentaId") int cuentaId) {
+//		return this.clienteService.findCuentaById(cuentaId);
+//	}
 
 	//iniciar actualizacion
 	@GetMapping(value = "/cuentas/{cuentaId}/edit")
 	public String initUpdateForm(@PathVariable("cuentaId") int cuentaId, ModelMap model) {
-		Cliente cliente = this.clienteService.findCuentaById(cuentaId);
-		model.put("cuenta", cliente);
+		Cliente cuenta = this.clienteService.findCuentaById(cuentaId);
+		model.put("cuenta", cuenta);
 		return "clientes/createOrUpdateCuentaForm";
 	}
 	

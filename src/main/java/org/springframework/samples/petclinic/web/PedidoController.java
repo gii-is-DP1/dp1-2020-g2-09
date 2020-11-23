@@ -65,7 +65,7 @@ public class PedidoController {
 	public String initUpdateForm(@PathVariable("pedidoId") int pedidoId, ModelMap model) {
 		Pedido pedido = this.pedidoService.findPedidoById(pedidoId);
 		model.put("pedidos", pedido);
-		return "pedido/createOrUpdateCuentaForm";
+		return "pedido/createOrUpdatePedidoForm";
 	}
 	
 	//mandar actualizacion
@@ -73,7 +73,7 @@ public class PedidoController {
 	public String processUpdatePedidoForm(@Valid Pedido pedido, BindingResult result,
 			@PathVariable("pedidoId") int pedidoId) {
 		if (result.hasErrors()) {
-			return "pedidos/createOrUpdateCuentaForm";
+			return "pedidos/createOrUpdatePedidoForm";
 		}
 		else {
 			pedido.setId(pedidoId);

@@ -64,7 +64,7 @@ public class MesaController {
 	//iniciar actualizacion
 	@GetMapping(value = "/mesas/{mesaId}/edit")
 	public String initUpdateForm(@PathVariable("mesaId") int mesaId, ModelMap model) {
-		Mesa mesa = this.mesaService.findMesaById(mesaId);
+		Mesa mesa = this.mesaService.findById(mesaId);
 		model.put("mesa", mesa);
 		return "mesas/createOrUpdateMesaForm";
 	}
@@ -86,11 +86,11 @@ public class MesaController {
 	//borrar mesa
 	@GetMapping(value = "/mesas/{mesaId}/delete")
 	public String initDeleteMesa(@PathVariable("mesaId") int mesaId, ModelMap model) {
-		Mesa mesa = this.mesaService.findMesaById(mesaId);
+		Mesa mesa = this.mesaService.findById(mesaId);
 		this.mesaService.deleteMesa(mesa);
 		return "redirect:/allMesas";
 	}
-	
+
 //	@ModelAttribute("mesa")
 //	public Mesa findMesa(@PathVariable("mesaId") int mesaId) {
 //		return this.findMesa(mesaId);
