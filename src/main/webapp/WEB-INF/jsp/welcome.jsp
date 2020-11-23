@@ -21,15 +21,15 @@
     	</ul></p>	
     </div>    
     <div>
-    	<sec:authorize access="isAuthenticated()">
-    		<a href="/cuentas/{cuentaId}">Aquí encontrará sus datos si ha iniciado sesión</a>
+    	<sec:authorize access="isAuthenticated()" >
+    		<a href="/cuentas/DetallesPerfil">Aquí encontrará sus datos si ha iniciado sesión</a>
     	</sec:authorize>
     </div>
     <div>
      <a href="/allCuentas">Prueba 1: muestreo, post, edit y eliminación de clientes</a>
     </div>
     <div>
-     <a href="/allCocineros">Prueba 2: muestreo, post y edit de cocineros(sería igual para empleados)</a>
+     <a href="/allCocineros">Prueba 2: muestreo, post y edit de cocineros</a>
     </div>
      <div>
      <a href="/allReservas">Prueba 3: muestreo, post y edit de reservas</a>
