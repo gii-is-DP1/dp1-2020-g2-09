@@ -1,7 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
+
 import java.util.Map;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -9,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Clientes;
 import org.springframework.samples.petclinic.model.Cuenta;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.User;
+import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.ClienteService;
 import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,12 +26,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class ClienteController {
 	
 	private final ClienteService clienteService;
-	private final UserService userService;
+	//private final UserService userService;
 
 	@Autowired
-	public ClienteController(ClienteService clienteService, UserService userService) {
+	public ClienteController(ClienteService clienteService, UserService userService,
+			AuthoritiesService authoritiesService) {
 		this.clienteService = clienteService;
-		this.userService = userService;
 	}
 
 	@InitBinder

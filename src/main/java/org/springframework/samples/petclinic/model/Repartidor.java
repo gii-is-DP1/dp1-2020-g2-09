@@ -7,4 +7,5 @@ import javax.persistence.Table;
 @Table(name = "Repartidores")
 public class Repartidor extends Empleado {
 
+	
 }
