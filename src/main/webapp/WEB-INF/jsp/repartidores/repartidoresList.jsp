@@ -17,6 +17,8 @@
             <th>Fecha Nacimiento</th>
             <th>Nombre de usuario</th>
             <th>Email</th>
+            <th>Fecha de Alta</th>
+            <th>Fecha de Baja</th>
         </tr>
         <a href="/repartidores/new" class="btn btn-default">Añadir repartidor</a>
         </thead>
@@ -33,10 +35,16 @@
              		<c:out value="${repartidor.fechaNacimiento}"/>
              	</td>
              	<td>
-             		<c:out value="${repartidor.usuario}"/>
+             		<c:out value="${repartidor.user.username}"/>
              	</td>
              	<td>
              		<c:out value="${repartidor.email}"/>
+             	</td>
+             	<td>
+             		<c:out value="${repartidor.fechaInicioContrato}"/>
+             	</td>
+             	<td>
+             		<c:out value="${repartidor.fechaFinContrato}"/>
              	</td>
              	<!-- <td>
              		<c:out value="${cuenta.id}"></c:out>
@@ -52,6 +60,20 @@
 	                        <spring:param name="repartidorId" value="${repartidor.id}"/>
 	                </spring:url>
              		<a href="${fn:escapeXml(repartidorUrl2)}" class="btn btn-default">Eliminar</a>
+             	</td>
+             	<td>
+             		<spring:url value="/repartidores/{repartidorId}/altaobaja" var="repartidorUrl3">
+	                        <spring:param name="repartidorId" value="${repartidor.id}"/>
+	                </spring:url>
+	                <c:choose>
+    					<c:when test="${empty repartidor.fechaFinContrato}">
+       						<a href="${fn:escapeXml(repartidorUrl3)}" class="btn btn-default">Dar de Baja</a>
+    					</c:when>
+    					<c:otherwise>
+        					<a href="${fn:escapeXml(repartidorUrl3)}" class="btn btn-default">Dar de Alta</a>
+    					</c:otherwise>
+					</c:choose>
+             		
              	</td>
              	
             </tr>

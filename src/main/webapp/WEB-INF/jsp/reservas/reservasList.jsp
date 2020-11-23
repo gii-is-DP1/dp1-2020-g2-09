@@ -17,19 +17,19 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${Reservas.reservasList}" var="reserva">
+        <c:forEach items="${reservas}" var="reserva">
             <tr>
                 <td>
-                    <c:out value="${Reservas.numeroPersonas}"/>
+                    <c:out value="${reserva.numeroPersonas}"/>
                 </td>
                 <td>
-                    <c:out value="${Reservas.fecha_reserva}"/>
+                    <c:out value="${reserva.fechaReserva}"/>
                 </td>
                 <td>
-                    <c:out value="${Reservas.tipo_reserva_id}"/>
+                    <c:out value="${reserva.tipoReserva}"/>
                 </td>
                 <td>
-                    <c:out value="${Reservas.hora_reserva}"/>
+                    <c:out value="${reserva.hora}"/>
                 </td>
             </tr>
         </c:forEach>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Mesa;
+import org.springframework.samples.petclinic.model.Reserva;
 import org.springframework.samples.petclinic.repository.MesaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,10 +27,13 @@ public class MesaService {
 	}	
 	
 	@Transactional(readOnly = true)
-	public Mesa findMesaById(int mesaId) throws DataAccessException {
-		return mesaRepository.findMesaById(mesaId);
+	public Mesa findById(int mesaId) throws DataAccessException {
+		return mesaRepository.findById(mesaId);
 	}
-	
+	@Transactional(readOnly = true)
+	public List<Mesa> findByReserva(int reserva) throws DataAccessException {
+		return mesaRepository.findByReserva(reserva);
+	}
 	@Transactional
 	public void saveMesa(Mesa mesa) throws DataAccessException {
 		mesaRepository.save(mesa);		
@@ -39,4 +43,6 @@ public class MesaService {
 	public void deleteMesa(Mesa mesa) throws DataAccessException {
 		mesaRepository.delete(mesa);		
 	}	
+	
+	
 }

@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -56,6 +57,7 @@ public class CocineroController {
 			return "cocineros/createOrUpdateCocinaForm";
 		}
 		else {
+			cocinero.setFechaInicioContrato(LocalDate.now());
 			this.cocineroService.saveCocinero(cocinero);
 			return "redirect:/allCocineros";
 		}
@@ -91,8 +93,17 @@ public class CocineroController {
 		return "redirect:/allCocineros";
 	}
 	
-//	@ModelAttribute("cocinero")
-//	public Cocina findCocinero(@PathVariable("cocineroId") int cocineroId) {
-//		return this.findCocinero(cocineroId);
-//	}
+	//Alta y baja
+	@GetMapping(value = "/cocineros/{cocineroId}/altaobaja")
+	public String darAltayBaja(@PathVariable("cocineroId") int cocineroId, ModelMap model) {
+		Cocina cocinero = this.cocineroService.findCocineroById(cocineroId);
+		if(cocinero.getFechaFinContrato()!=null) {
+			cocinero.setFechaInicioContrato(LocalDate.now());
+			cocinero.setFechaFinContrato(null);
+		}else {
+			cocinero.setFechaFinContrato(LocalDate.now());
+		}
+		this.cocineroService.saveCocinero(cocinero);
+		return "redirect:/allCocineros";
+	}
 }

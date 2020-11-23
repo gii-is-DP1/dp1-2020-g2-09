@@ -20,44 +20,40 @@
     	</c:forEach>
     	</ul></p>	
     </div>    
-    
     <div>
-
-     <a href="/allCuentas">Prueba 1: muestreo, post, edit y eliminaci�n de clientes</a>
+    	<sec:authorize access="isAuthenticated()">
+    		<a href="/cuentas/{cuentaId}">Aquí encontrará sus datos si ha iniciado sesión</a>
+    	</sec:authorize>
+    </div>
+    <div>
+     <a href="/allCuentas">Prueba 1: muestreo, post, edit y eliminación de clientes</a>
     </div>
     <div>
      <a href="/allCocineros">Prueba 2: muestreo, post y edit de cocineros(sería igual para empleados)</a>
     </div>
      <div>
-     <a href="/allReservas">Prueba 5: muestreo, post y edit de reservas</a>
-
-     <a href="/allCuentas">Prueba 1: muestreo, post, edit y eliminación de clientes</a>
+     <a href="/allReservas">Prueba 3: muestreo, post y edit de reservas</a>
+	</div>
+    <div>
+     <a href="/allPedidos">Prueba 4: muestreo de pedidos</a>
     </div>
     <div>
-     <a href="/allCocineros">Prueba 2: muestreo, post, edit y eliminación de cocineros</a>
-
+     <a href="allRepartidores">Prueba 5: muestreo, post, edit y eliminación de repartidores</a>
     </div>
     <div>
-
-     <a href="/allPedidos">Prueba 3: muestreo de pedidos</a>
-    </div>
-    
-     <a href="allRepartidores">Prueba 3: muestreo, post, edit y eliminación de repartidores</a>
+     <a href="allAdministradores">Prueba 6: muestreo, post, edit y eliminación de administradores</a>
     </div>
     <div>
-     <a href="allAdministradores">Prueba 4: muestreo, post, edit y eliminación de administradores</a>
+     <a href="/allMesas">Prueba 7: muestreo, post y edit de mesas :)</a>
     </div>
     <div>
-     <a href="/allMesas">Prueba 3: muestreo, post y edit de mesas :)</a>
-    </div>
-    <div>
-     <a href="/allReclamaciones">Prueba 5: muestreo, post y edit de reclamaciones uwu</a>
+     <a href="/allReclamaciones">Prueba 8: muestreo, post y edit de reclamaciones uwu</a>
     </div>
 
     <div class="row">
         <div class="col-md-12">
-            <spring:url value="/resources/images/pets.png" htmlEscape="true" var="petsImage"/>
-            <img class="img-responsive" src="${petsImage}"/>
+            <spring:url value="/resources/images/pizza.jpg" htmlEscape="true" var="pizzaImagen"/>
+            <img class="img-responsive" src="${pizzaImagen}"/>
         </div>
     </div>
 </petclinic:layout>

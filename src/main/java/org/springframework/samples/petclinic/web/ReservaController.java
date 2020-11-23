@@ -1,13 +1,15 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.samples.petclinic.model.Mesa;
 import org.springframework.samples.petclinic.model.Reserva;
 import org.springframework.samples.petclinic.model.Reservas;
+import org.springframework.samples.petclinic.service.MesaService;
 import org.springframework.samples.petclinic.service.ReservaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,13 +24,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class ReservaController {
 	
-	private final ReservaService reservaService;
+	public static final String RESERVA_VIEW="reservas/reservasList";
+	
+	@Autowired
+	private  ReservaService reservaService;
 
 	@Autowired
-	public ReservaController(ReservaService reservaService) {
-		this.reservaService = reservaService;
-	}
-
+	private MesaService mesaService;
+	
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
@@ -36,10 +39,9 @@ public class ReservaController {
 	
 	@GetMapping(value = { "/allReservas" })
 	public String showReservaList(Map<String, Object> model) {
-		Reservas reservas = new Reservas();
-		reservas.getReservasList().addAll(this.reservaService.findReservas());
+		List<Reserva> reservas=reservaService.findReservas();
 		model.put("reservas", reservas);
-		return "reservas/reservasList";
+		return RESERVA_VIEW;
 	}
 
 	//crear nueva reserva
@@ -65,7 +67,7 @@ public class ReservaController {
 	//iniciar actualizacion
 	@GetMapping(value = "/reserva/{reservaId}/edit")
 	public String initUpdateForm(@PathVariable("reservaId") int reservaId, ModelMap model) {
-		Reserva reserva = this.reservaService.findReservaById(reservaId);
+		Reserva reserva = this.reservaService.findById(reservaId);
 		model.put("reserva", reserva);
 		return "reservas/createOrUpdateReservaForm";
 	}
@@ -87,10 +89,17 @@ public class ReservaController {
 	//borrar reserva
 	@GetMapping(value = "/reservas/{reservaId}/delete")
 	public String initDeleteReserva(@PathVariable("reservaId") int reservaId, ModelMap model) {
-		Reserva reserva = this.reservaService.findReservaById(reservaId);
+		Reserva reserva = this.reservaService.findById(reservaId);
 		this.reservaService.deleteReserva(reserva);
 		return "redirect:/allReservas";
 	}
+	//buscar mesas de la reserva
+		@GetMapping(value = "/reservas/mesas/{reservaId}")
+		public String initReserva(@PathVariable("reservaId") int reservaId, ModelMap model) {
+			List<Mesa> lista= mesaService.findByReserva(reservaId);
+			model.put("mesas", lista);
+			return "redirect:/allReservas";
+		}
 
 //	@DeleteMapping(value = "/reserva/{reservaId}/delete")
 //	public String deleteReserva(@PathVariable("reservaId") int reservaId) {
@@ -99,4 +108,3 @@ public class ReservaController {
 //		return "redirect:/allReservas";
 //	}
 }
-

@@ -33,14 +33,19 @@ public class CartaController {
 		dataBinder.setDisallowedFields("id");
 	}
 	
-	@GetMapping(value = { "/allCartas" })
+	/*@GetMapping(value = { "/allCartas" })
 	public String showCartaList(Map<String, Object> model) {
 		Cartas Cartas = new Cartas();
 		Cartas.getCartasList().addAll(this.CartaService.findCartas());
 		model.put("Cartas", Cartas);
 		return "Cartas/CartasList";
-	}
-
+	}*/
+	
+	
+	
+/*
+ * 
+ * 
 	//añadir una Carta nueva
 	@GetMapping(value = "/Cartas/new")
 	public String initCreationForm(Map<String, Object> model) {
@@ -90,6 +95,9 @@ public class CartaController {
 		this.CartaService.deleteCarta(Carta);
 		return "redirect:/allCartas";
 	}
+	
+	*
+	*/
 	
 //	@ModelAttribute("Carta")
 //	public Carta findCarta(@PathVariable("CartaId") int CartaId) {

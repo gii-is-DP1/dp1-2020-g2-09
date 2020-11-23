@@ -17,6 +17,7 @@ package org.springframework.samples.petclinic.service;
 
 
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -61,6 +62,11 @@ public class AuthoritiesService {
 		}else
 			throw new DataAccessException("User '"+username+"' not found!") {};
 	}
+	
+//	@Transactional
+//	public void deleteAuthorities(Set<Authorities> aut) throws DataAccessException {
+//		authoritiesRepository.delete(aut);
+//	}
 
 
 }
