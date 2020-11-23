@@ -1,8 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<%--
-PetClinic :: a Spring Framework demonstration
---%>
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -11,10 +8,10 @@ PetClinic :: a Spring Framework demonstration
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags --%>
 
-    <spring:url value="/resources/images/favicon.png" var="favicon"/>
-    <link rel="shortcut icon" type="image/x-icon" href="${favicon}">
+    <spring:url value="/resources/images/logo_definitivo.png" var="pizza"/>
+    <link rel="shortcut icon" type="image/x-icon" href="${pizza}">
 
-    <title>PetClinic :: a Spring Framework demonstration</title>
+    <title>Roto's Pizza</title>
 
     <%-- CSS generated from LESS --%>
     <spring:url value="/resources/css/petclinic.css" var="petclinicCss"/>
