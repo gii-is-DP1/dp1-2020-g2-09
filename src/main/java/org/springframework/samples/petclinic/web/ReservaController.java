@@ -65,7 +65,7 @@ public class ReservaController {
 	}
 
 	//iniciar actualizacion
-	@GetMapping(value = "/reserva/{reservaId}/edit")
+	@GetMapping(value = "/reservas/{reservaId}/edit")
 	public String initUpdateForm(@PathVariable("reservaId") int reservaId, ModelMap model) {
 		Reserva reserva = this.reservaService.findById(reservaId);
 		model.put("reserva", reserva);
@@ -73,7 +73,7 @@ public class ReservaController {
 	}
 	
 	//mandar actualizacion
-	@PostMapping(value = "/reservaId/{reservaId}/edit")
+	@PostMapping(value = "/reservas/{reservaId}/edit")
 	public String processUpdateReservaForm(@Valid Reserva reserva, BindingResult result,
 			@PathVariable("reservaId") int reservaId) {
 		if (result.hasErrors()) {
@@ -101,10 +101,10 @@ public class ReservaController {
 			return "redirect:/allReservas";
 		}
 
-//	@DeleteMapping(value = "/reserva/{reservaId}/delete")
-//	public String deleteReserva(@PathVariable("reservaId") int reservaId) {
-//		Reserva reserva = this.reservaService.findReservaById(reservaId);
-//		this.reservaService.deleteReserva(reserva);
-//		return "redirect:/allReservas";
-//	}
+	@DeleteMapping(value = "/reserva/{reservaId}/delete")
+	public String deleteReserva(@PathVariable("reservaId") int reservaId) {
+		Reserva reserva = this.reservaService.findById(reservaId);
+		this.reservaService.deleteReserva(reserva);
+		return "redirect:/allReservas";
+	}
 }
