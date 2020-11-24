@@ -23,14 +23,14 @@ public class WelcomeController {
 
 		  List<Person> grupo = new ArrayList<>();
 		  Person persona1 = new Person();
-		  persona1.setFirstName("Jesus ");
+		  persona1.setFirstName("Jesús ");
 		  persona1.setId(1);
-		  persona1.setLastName("Roldan Cadena");
+		  persona1.setLastName("Roldán Cadena");
 		  grupo.add(persona1);
 		  Person persona2 = new Person();
 		  persona2.setFirstName("Servando ");
 		  persona2.setId(2);
-		  persona2.setLastName("Figueroa Gomez");
+		  persona2.setLastName("Figueroa Gómez");
 		  grupo.add(persona2);
 		  Person persona3 = new Person();
 		  persona3.setFirstName("Lucía ");
@@ -52,12 +52,10 @@ public class WelcomeController {
 		  persona6.setId(6);
 		  persona6.setLastName("Sánchez González");
 		  grupo.add(persona6);
-		  
-		  //asi con todos Raúl Parrado Gordón
-		  //Álvaro Sánchez González
+
 		  model.put("persons", grupo);
 		  model.put("tittle", "Pizzeria Roto's");
-		  model.put("group", "Members:");
+		 // model.put("group", "Members:");
 	    return "welcome";
 	  }
 }
