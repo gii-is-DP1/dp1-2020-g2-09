@@ -4,21 +4,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <petclinic:layout pageName="ofertas">
     <h2>Ofertas</h2>
 
     <table id="ofertasTable" class="table table-striped">
         <thead>
         <tr>
-            <th>Tamaño producto</th>
+            <th>TamaÃ±o producto</th>
             <th>Coste</th>
             <th>Fecha inicial</th>
             <th>Fecha final</th>
             <th>Nivel Socio</th>
         </tr>
-        <a href="/ofertas/new" class="btn btn-default">Añadir ofertas</a>
+        <a href="/ofertas/new" class="btn btn-default">AÃ±adir ofertas</a>
         </thead>
         <tbody>
         <c:forEach items="${ofertas.ofertasList}" var="oferta">
