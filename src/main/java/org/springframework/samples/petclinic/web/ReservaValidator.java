@@ -32,3 +32,4 @@ public class ReservaValidator {
 		return Reserva.class.isAssignableFrom(clazz);
 	}
 }
+

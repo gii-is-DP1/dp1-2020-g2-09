@@ -49,6 +49,12 @@
     <div>
      <a href="/allReclamaciones">Prueba 8: muestreo, post y edit de reclamaciones uwu</a>
     </div>
+       <div>
+     <a href="/allPizzas">Prueba 9: muestreo, post y edit de pizzas </a>
+    </div>
+       <div>
+     <a href="/allBebidas">Prueba 10: muestreo, post y edit de bebidas</a>
+    </div>
 
     <div class="row">
         <div class="col-md-12">

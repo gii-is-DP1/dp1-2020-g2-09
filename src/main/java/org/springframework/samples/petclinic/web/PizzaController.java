@@ -37,22 +37,22 @@ public class PizzaController {
 		Pizzas Pizzas = new Pizzas();
 		Pizzas.getPizzasList().addAll(this.PizzaService.findPizzas());
 		model.put("Pizzas", Pizzas);
-		return "Pizzas/PizzasList";
+		return "pizzas/pizzasList";
 	}
 
 	// crear nuevo Pizza
-	@GetMapping(value = "/s/new")
+	@GetMapping(value = "/pizzas/new")
 	public String initCreationForm(Map<String, Object> model) {
 		Pizza pizza = new Pizza();
 		model.put("pizza", pizza);
-		return "Pizzas/createOrUpdatePizzaForm";
+		return "pizzas/createOrUpdatePizzaForm";
 	}
 
 	// mandar nuevo Pizza
 	@PostMapping(value = "/pizzas/new")
 	public String processCreationForm(@Valid Pizza Pizza, BindingResult result) {
 		if (result.hasErrors()) {
-			return "Pizzas/createOrUpdatePizzaForm";
+			return "pizzas/createOrUpdatePizzaForm";
 		} else {
 			this.PizzaService.savePizza(Pizza);
 			return "redirect:/allPizzas";
@@ -64,7 +64,7 @@ public class PizzaController {
 	public String initUpdateForm(@PathVariable("Id") int pizzaId, ModelMap model) {
 		Pizza Pizza = this.PizzaService.findPizzaById(pizzaId);
 		model.put("pizza", Pizza);
-		return "Pizzas/createOrUpdatePizzaForm";
+		return "pizzas/createOrUpdatePizzaForm";
 	}
 
 	// mandar actualizacion
@@ -72,11 +72,11 @@ public class PizzaController {
 	public String processUpdatePizzaForm(@Valid Pizza Pizza, BindingResult result,
 			@PathVariable("pizzaId") int pizzaId) {
 		if (result.hasErrors()) {
-			return "Pizzas/createOrUpdatePizzaForm";
+			return "pizzas/createOrUpdatePizzaForm";
 		} else {
 			Pizza.setId(pizzaId);
 			this.PizzaService.savePizza(Pizza);
-			return "redirect:/alls";
+			return "redirect:/allPizzas";
 		}
 	}
 
