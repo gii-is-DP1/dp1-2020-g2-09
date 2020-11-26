@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Pedidos;
+import org.springframework.samples.petclinic.model.Reclamacion;
 import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -39,26 +40,28 @@ public class PedidoController {
 		model.put("pedidos", pedidos);
 		return "pedidos/pedidosList";
 	}
-
-	/*//crear nuevo cliente
-	@GetMapping(value = "/cuentas/new")
-	public String initCreationForm(Map<String, Object> model) {
-		Cuenta cuenta = new Cuenta();
-		model.put("cuenta", cuenta);
-		return "clientes/createOrUpdateCuentaForm";
-	}
-
-	//mandar nuevo cliente
-	@PostMapping(value = "/cuentas/new")
-	public String processCreationForm(@Valid Cliente cliente, BindingResult result) {
-		if (result.hasErrors()) {
-			return "clientes/createOrUpdateCuentaForm";
+	
+	/*//añadir una reclamacion nueva
+		@GetMapping(value = "{pedidoId}/reclamaciones/new")
+		public String initCreationForm(@PathVariable("pedidoId") int pedidoId, Map<String, Object> model) {
+			Pedido pedido= this.pedidoService.findPedidoById(pedidoId);
+			Reclamacion reclamacion = new Reclamacion();
+			model.put("reclamacion", reclamacion);
+			return "reclamaciones/createOrUpdateReclamacionForm";	
 		}
-		else {
-			this.clienteService.saveCliente(cliente);
-			return "redirect:/allCuentas";
-		}
-	}*/
+		
+	//mandar nueva reclamacion
+		@PostMapping(value = "{pedidoId}/reclamaciones/new")
+		public String processCreationForm(@Valid Reclamacion reclamacion, BindingResult result) {
+			if (result.hasErrors()) {
+				return "reclamaciones/createOrUpdateReclamacionForm";
+			}
+			else {
+				this.reclamacionService.saveReclamacion(reclamacion);
+				return "exito";
+			} 
+		}	
+	*/
 
 	//iniciar actualizacion pedido
 	@GetMapping(value = "/pedidos/{pedidoId}/edit")
