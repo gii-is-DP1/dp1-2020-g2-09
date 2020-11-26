@@ -38,10 +38,10 @@
      <a href="/allPedidos">Prueba 4: muestreo de pedidos</a>
     </div>
     <div>
-     <a href="allRepartidores">Prueba 5: muestreo, post, edit y eliminación de repartidores</a>
+     <a href="/allRepartidores">Prueba 5: muestreo, post, edit y eliminación de repartidores</a>
     </div>
     <div>
-     <a href="allAdministradores">Prueba 6: muestreo, post, edit y eliminación de administradores</a>
+     <a href="/allAdministradores">Prueba 6: muestreo, post, edit y eliminación de administradores</a>
     </div>
     <div>
      <a href="/allMesas">Prueba 7: muestreo, post y edit de mesas :)</a>
@@ -55,7 +55,9 @@
        <div>
      <a href="/allBebidas">Prueba 10: muestreo, post y edit de bebidas</a>
     </div>
-
+	<div>
+     <a href="/allCartas">Prueba 11: muestreo, post y edit de cartas</a>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <spring:url value="/resources/images/pizza.jpg" htmlEscape="true" var="pizzaImagen"/>

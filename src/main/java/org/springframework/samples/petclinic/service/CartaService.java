@@ -3,6 +3,8 @@ package org.springframework.samples.petclinic.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Carta;
@@ -34,7 +36,7 @@ public class CartaService {
 	public Carta findCartaByFecha(LocalDate cartaFecha) throws DataAccessException {
 		return cartaRepository.findCartaByFecha(cartaFecha);
 	}
-	/*@Transactional
+	@Transactional
 	public void saveCarta(Carta carta) throws DataAccessException {
 		cartaRepository.save(carta);		
 	}	
@@ -42,5 +44,7 @@ public class CartaService {
 	@Transactional
 	public void deleteCarta(Carta carta) throws DataAccessException {
 		cartaRepository.delete(carta);		
-	}	*/
+	}	
+
+
 }
