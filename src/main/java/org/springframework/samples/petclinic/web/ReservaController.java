@@ -32,6 +32,11 @@ public class ReservaController {
 	@Autowired
 	private MesaService mesaService;
 	
+	@Autowired
+	public ReservaController(ReservaService reservaService) {
+		this.reservaService = reservaService;
+	}
+	
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");

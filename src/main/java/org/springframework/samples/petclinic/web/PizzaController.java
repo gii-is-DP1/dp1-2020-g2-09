@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class PizzaController {
 
-	private final PizzaService PizzaService;
+	private final PizzaService pizzaService;
 
 	@Autowired
 	public PizzaController(PizzaService PizzaService) {
-		this.PizzaService = PizzaService;
+		this.pizzaService = PizzaService;
 	}
 
 	@InitBinder
@@ -35,7 +35,7 @@ public class PizzaController {
 	@GetMapping(value = { "/allPizzas" })
 	public String showPizzaList(Map<String, Object> model) {
 		Pizzas Pizzas = new Pizzas();
-		Pizzas.getPizzasList().addAll(this.PizzaService.findPizzas());
+		Pizzas.getPizzasList().addAll(this.pizzaService.findPizzas());
 		model.put("Pizzas", Pizzas);
 		return "pizzas/pizzasList";
 	}
@@ -54,7 +54,7 @@ public class PizzaController {
 		if (result.hasErrors()) {
 			return "pizzas/createOrUpdatePizzaForm";
 		} else {
-			this.PizzaService.savePizza(Pizza);
+			this.pizzaService.savePizza(Pizza);
 			return "redirect:/allPizzas";
 		}
 	}
@@ -62,7 +62,7 @@ public class PizzaController {
 	// iniciar actualizacion
 	@GetMapping(value = "/pizzas/{pizzaId}/edit")
 	public String initUpdateForm(@PathVariable("Id") int pizzaId, ModelMap model) {
-		Pizza Pizza = this.PizzaService.findPizzaById(pizzaId);
+		Pizza Pizza = this.pizzaService.findPizzaById(pizzaId);
 		model.put("pizza", Pizza);
 		return "pizzas/createOrUpdatePizzaForm";
 	}
@@ -75,7 +75,7 @@ public class PizzaController {
 			return "pizzas/createOrUpdatePizzaForm";
 		} else {
 			Pizza.setId(pizzaId);
-			this.PizzaService.savePizza(Pizza);
+			this.pizzaService.savePizza(Pizza);
 			return "redirect:/allPizzas";
 		}
 	}
@@ -83,8 +83,8 @@ public class PizzaController {
 	// borrar Pizza
 	@GetMapping(value = "/pizzas/{pizzaId}/delete")
 	public String initDeletePizza(@PathVariable("pizzaId") int pizzaId, ModelMap model) {
-		Pizza Pizza = this.PizzaService.findPizzaById(pizzaId);
-		this.PizzaService.deletePizza(Pizza);
+		Pizza Pizza = this.pizzaService.findPizzaById(pizzaId);
+		this.pizzaService.deletePizza(Pizza);
 		return "redirect:/allPizzas";
 	}
 
