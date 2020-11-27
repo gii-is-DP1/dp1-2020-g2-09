@@ -17,27 +17,26 @@
             <th>Coste</th>
             <th>Tipo Masa</th>
             <th>Ingredientes</th>
-            <th>Alérgenos</th>
             
 
         </tr>
-        <a href="/pizzas/new" class="btn btn-default">Añadir pizzas</a>
+        <a href="/pizzas/new" class="btn btn-default">Añadir pizza</a>
         </thead>
         <tbody>
-        <c:forEach items="${pizzas.pizzasList}" var="bebida">
+        <c:forEach items="${pizzas.pizzasList}" var="pizza">
             <tr>
                 <td>
                     <c:out value="${pizza.nombre}"/>
                 </td>
-                <td>
+                <!-- <td>
                 	<c:out value="${pizza.tamaño}"/>
              	</td>
              	<td>
              		<c:out value="${pizza.coste}"/>
              	</td>
-             	<td>
+             	 <td>
              		<c:out value="${pizza.tipoMasa}"/>
-             	</td>
+             	</td>-->
 
              	<td>
              		<spring:url value="/pizzas/{pizzaId}/edit" var="pizzaUrl">

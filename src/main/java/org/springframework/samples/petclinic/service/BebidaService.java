@@ -1,12 +1,11 @@
 package org.springframework.samples.petclinic.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Bebida;
-import org.springframework.samples.petclinic.model.Pizza;
+import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.repository.BebidaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,7 +32,7 @@ public class BebidaService {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<Bebida> findByCarta(int carta) throws DataAccessException {
+	public List<Bebida> findByCarta(Carta carta) throws DataAccessException {
 		return bebidaRepository.findByCartaDeBebidas(carta);
 	}
 	

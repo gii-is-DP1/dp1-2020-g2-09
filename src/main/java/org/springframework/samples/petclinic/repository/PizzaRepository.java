@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +16,7 @@ public interface PizzaRepository extends CrudRepository<Pizza, Integer> {
 	
 	Pizza findPizzaById(int pizzaId) throws DataAccessException;
 
-	List<Pizza> findByCartaDePizzas(int cartaId) throws DataAccessException;
+	List<Pizza> findByCartaDePizzas(Carta carta) throws DataAccessException;
 	
 	
 }

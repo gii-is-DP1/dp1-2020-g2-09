@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Mesa;
+import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.repository.PizzaRepository;
 import org.springframework.stereotype.Service;
@@ -32,17 +32,17 @@ public class PizzaService {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<Pizza> findByCarta(int carta) throws DataAccessException {
+	public List<Pizza> findByCarta(Carta carta) throws DataAccessException {
 		return pizzaRepository.findByCartaDePizzas(carta);
 	}
 	
 	@Transactional
-	public void savePizza(Pizza Pizza) throws DataAccessException {
-		pizzaRepository.save(Pizza);		
+	public void savePizza(Pizza pizza) throws DataAccessException {
+		pizzaRepository.save(pizza);		
 	}	
 	
 	@Transactional
-	public void deletePizza(Pizza Pizza) throws DataAccessException {
-		pizzaRepository.delete(Pizza);		
+	public void deletePizza(Pizza pizza) throws DataAccessException {
+		pizzaRepository.delete(pizza);		
 	}
 }
