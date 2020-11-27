@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Clientes;
 import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.Pizzas;
 import org.springframework.samples.petclinic.service.PizzaService;
@@ -34,9 +35,9 @@ public class PizzaController {
 
 	@GetMapping(value = { "/allPizzas" })
 	public String showPizzaList(Map<String, Object> model) {
-		Pizzas Pizzas = new Pizzas();
-		Pizzas.getPizzasList().addAll(this.pizzaService.findPizzas());
-		model.put("Pizzas", Pizzas);
+		Pizzas pizzas = new Pizzas();
+		pizzas.getPizzasList().addAll(this.pizzaService.findPizzas());
+		model.put("Pizzas", pizzas);  //si pongo Pizzas me pone la tabla vacia, si pongo pizza me da un error de tamaño
 		return "pizzas/pizzasList";
 	}
 
@@ -62,8 +63,8 @@ public class PizzaController {
 	// iniciar actualizacion
 	@GetMapping(value = "/pizzas/{pizzaId}/edit")
 	public String initUpdateForm(@PathVariable("Id") int pizzaId, ModelMap model) {
-		Pizza Pizza = this.pizzaService.findPizzaById(pizzaId);
-		model.put("pizza", Pizza);
+		Pizza pizza = this.pizzaService.findPizzaById(pizzaId);
+		model.put("pizza", pizza);
 		return "pizzas/createOrUpdatePizzaForm";
 	}
 
@@ -83,8 +84,8 @@ public class PizzaController {
 	// borrar Pizza
 	@GetMapping(value = "/pizzas/{pizzaId}/delete")
 	public String initDeletePizza(@PathVariable("pizzaId") int pizzaId, ModelMap model) {
-		Pizza Pizza = this.pizzaService.findPizzaById(pizzaId);
-		this.pizzaService.deletePizza(Pizza);
+		Pizza pizza = this.pizzaService.findPizzaById(pizzaId);
+		this.pizzaService.deletePizza(pizza);
 		return "redirect:/allPizzas";
 	}
 

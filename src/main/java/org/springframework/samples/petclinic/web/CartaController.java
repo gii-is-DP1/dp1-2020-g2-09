@@ -102,16 +102,16 @@ public class CartaController {
 	
 	//buscar pizzas de la carta
 	@GetMapping(value = "/cartas/pizzas/{cartaId}")
-	public String initCartaPizza(@PathVariable("cartaId") int cartaId, ModelMap model) {
-		List<Pizza> lista= PizzaService.findByCarta(cartaId);
+	public String initCartaPizza(@PathVariable("cartaId") Carta carta, ModelMap model) {
+		List<Pizza> lista= PizzaService.findByCarta(carta);
 		model.put("pizzas", lista);
 		return "redirect:/allCartas";
 	}
 	
 	//buscar bebidas de la carta
 		@GetMapping(value = "/cartas/bebidas/{cartaId}")
-		public String initCartaBebida(@PathVariable("cartaId") int cartaId, ModelMap model) {
-			List<Bebida> lista= BebidaService.findByCarta(cartaId);
+		public String initCartaBebida(@PathVariable("cartaId") Carta carta, ModelMap model) {
+			List<Bebida> lista= BebidaService.findByCarta(carta);
 			model.put("bebidas", lista);
 			return "redirect:/allCartas";
 		}

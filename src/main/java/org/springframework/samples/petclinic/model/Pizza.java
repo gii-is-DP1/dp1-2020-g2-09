@@ -16,7 +16,7 @@ public class Pizza extends Producto {
 
 	@ManyToOne
 	@JoinColumn(name = "tamaño")
-	private tamaño tamaño;
+	private TamanoProducto tamanyo;
 
 	@ManyToOne
 	@JoinColumn(name = "tipoMasa")

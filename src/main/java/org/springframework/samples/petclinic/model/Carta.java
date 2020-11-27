@@ -27,15 +27,16 @@ public class Carta extends BaseEntity{
 	@NotNull
 	private LocalDate fecha;
 	
+	@Column(name = "Pizza")
 	@ManyToMany (cascade = CascadeType.REMOVE)
 	@JoinTable(name = "composicionCarta", joinColumns =@JoinColumn(name= "pizzasEnCarta" ))
-	private Collection<Carta> cartaDePizzas;
+	private Collection<Pizza> cartaDePizzas;
 	
 	@ManyToMany (cascade = CascadeType.REMOVE)
 	@JoinTable(name = "composicionCarta", joinColumns =@JoinColumn(name= "bebidasEnCarta" ))
-	private Collection<Carta> cartaDeBebidas;
+	private Collection<Bebida> cartaDeBebidas;
 	
 	@ManyToMany (cascade = CascadeType.REMOVE)
 	@JoinTable(name = "composicionCarta", joinColumns =@JoinColumn(name= "otrosEnCarta" ))
-	private Collection<Carta> cartaDeOtros;
+	private Collection<Otros> cartaDeOtros;
 }

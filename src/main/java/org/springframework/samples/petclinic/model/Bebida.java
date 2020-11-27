@@ -19,7 +19,7 @@ public class Bebida extends Producto {
 
 	@ManyToOne
 	@JoinColumn(name = "tamaño")
-	private tamaño tamaño;
+	private TamanoProducto tamaño;
 
 	@Column(name = "es_carbonatada")
 	@NotNull
