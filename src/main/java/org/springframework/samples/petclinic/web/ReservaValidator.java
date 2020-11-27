@@ -6,12 +6,18 @@ import java.time.LocalTime;
 import org.springframework.samples.petclinic.model.Reserva;
 import org.springframework.samples.petclinic.model.tipoReserva;
 import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
-public class ReservaValidator {
+public class ReservaValidator implements Validator {
 
 	private static final String REQUIRED = "required";
+	
+	public boolean supports(Class<?> clazz) {
+		return Reserva.class.isAssignableFrom(clazz);
+	}
 
-	public void reservaValidate(Object obj, Errors errors) {
+	@Override
+	public void validate(Object obj, Errors errors) {
 		Reserva reserva1 = (Reserva) obj;
 		Integer numeroPersonas = reserva1.getNumeroPersonas();
 		LocalDate fechaReserva= reserva1.getFechaReserva();
@@ -26,10 +32,7 @@ public class ReservaValidator {
 		if (numeroPersonas == null || fechaReserva==null || hora== null || tipoReserva==null) {
 			errors.rejectValue("No puede introducir una reserva con valores nulos.", REQUIRED, REQUIRED);
 		}
-	}
-	
-	public boolean supports(Class<?> clazz) {
-		return Reserva.class.isAssignableFrom(clazz);
+		
 	}
 }
 

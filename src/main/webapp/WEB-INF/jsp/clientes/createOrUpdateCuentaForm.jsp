@@ -3,8 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+
 
 <petclinic:layout pageName="clientes">
     <h2>
@@ -12,6 +11,7 @@
     </h2>
     <form:form modelAttribute="cuenta" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
+        	<input type="hidden" name="id" value="${cuenta.id}"/>
             <petclinic:inputField label="Nombre" name="nombre"/>
             <petclinic:inputField label="Apellidos" name="apellidos"/>
             <petclinic:inputField label="Fecha Nacimiento" name="fechaNacimiento"/>
