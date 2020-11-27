@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.model;
 
+import java.time.LocalDate;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -9,7 +10,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@Data
+@EqualsAndHashCode(callSuper=false)
 @Entity
 @Table(name = "Pizzas")
 public class Pizza extends Producto {

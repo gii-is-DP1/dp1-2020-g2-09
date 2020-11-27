@@ -23,20 +23,20 @@
         <a href="/pizzas/new" class="btn btn-default">Añadir pizza</a>
         </thead>
         <tbody>
-        <c:forEach items="${pizzas.pizzasList}" var="pizza">
+        <c:forEach items="${Pizzas.pizzasList}" var="pizza">
             <tr>
                 <td>
                     <c:out value="${pizza.nombre}"/>
                 </td>
-                <!-- <td>
-                	<c:out value="${pizza.tamaño}"/>
+               <td>
+                	<c:out value="${pizza.tamanyo}"/>
              	</td>
              	<td>
              		<c:out value="${pizza.coste}"/>
              	</td>
              	 <td>
              		<c:out value="${pizza.tipoMasa}"/>
-             	</td>-->
+             	</td>
 
              	<td>
              		<spring:url value="/pizzas/{pizzaId}/edit" var="pizzaUrl">

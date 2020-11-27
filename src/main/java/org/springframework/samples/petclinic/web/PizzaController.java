@@ -38,6 +38,7 @@ public class PizzaController {
 		Pizzas pizzas = new Pizzas();
 		pizzas.getPizzasList().addAll(this.pizzaService.findPizzas());
 		model.put("Pizzas", pizzas);  //si pongo Pizzas me pone la tabla vacia, si pongo pizza me da un error de tamaño
+	
 		return "pizzas/pizzasList";
 	}
 
