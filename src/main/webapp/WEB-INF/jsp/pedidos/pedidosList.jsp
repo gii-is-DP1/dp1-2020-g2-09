@@ -45,17 +45,11 @@
              	<td>
              		<c:out value="${pedido.tipoPago}"></c:out>
              	</td>
-             	<%-- <td>
+             	<td>
              		<spring:url value="/pedidos/{pedidoId}/edit" var="pedidoUrl">
 	                        <spring:param name="pedidoId" value="${pedido.id}"/>
 	                </spring:url>
    					<a href="${fn:escapeXml(pedidoUrl)}" class="btn btn-default">Editar</a>
-             	</td> --%>
-             	<td>
-             		<spring:url value="/reclamaciones/new/{pedidoid}" var="pedidoreclamacionUrl">
-	                        <spring:param name="pedidoId" value="${pedido.id}"/>
-	                </spring:url>
-   					<a href=" ${fn:escapeXml(pedidoreclamacionUrl)}" class="btn btn-default">Nueva reclamacion</a>
              	</td>
              	<td>
              		<spring:url value="/pedidos/{pedidoId}/delete" var="pedidoUrl2">

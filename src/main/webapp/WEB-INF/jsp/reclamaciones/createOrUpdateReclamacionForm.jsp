@@ -13,7 +13,6 @@
         
         	<!-- La fecha de reclamación no la debería poner el cliente, 
         	debería rellenarse automáticamente. -->
-        	<petclinic:inputField type="hidden" name="pedidoid" id="pedidoid" value= "${pedidoid}"/>
             <petclinic:inputField label="fecha de incidencia" name="fechaReclamacion"/>
             <petclinic:inputField label="observación" name="observacion"/>
         </div>
