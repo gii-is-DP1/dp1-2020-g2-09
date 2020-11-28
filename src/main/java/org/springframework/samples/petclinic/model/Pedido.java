@@ -2,20 +2,15 @@ package org.springframework.samples.petclinic.model;
 
 import java.time.LocalDate;
 import java.util.Collection;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import com.sun.istack.NotNull;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -48,15 +43,15 @@ public class Pedido extends BaseEntity{
 	private Collection<Pedido> pedidosConOferta;
 	
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "estado_pedido")
 	private EstadoPedido estadoPedido;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "tipo_pago")
 	private TipoPago tipoPago;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "tipo_envio")
 	private TipoEnvio tipoEnvio;
 	

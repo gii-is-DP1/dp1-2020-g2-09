@@ -22,7 +22,7 @@ public class PedidoServiceTests {
 	protected PedidoService pedidoService;
 	
 	
-	/*@Test
+/*	@Test
 	void shouldFindPedidoByUser() {
 		Cliente cliente = new Cliente();
 		cliente.setNombre("Paco");
@@ -52,16 +52,16 @@ public class PedidoServiceTests {
 		Cuenta clienteEncontrado = this.clienteService.findCuentaByUser(usuario);
 		assertThat(clienteEncontrado.getUser().getUsername()).isEqualTo("margarcac1");
 //		System.out.println("Cliente: " + clienteEncontrado.getUser().getUsername());
-	}
+	}*/
 	
-	/*@Test
+	@Test
 	@Transactional
 	public void shouldInsertPedido() {
 		Pedido pedido = new Pedido();
-		/*TipoPago pago = new TipoPago();
+		TipoPago pago = new TipoPago();
 		TipoEnvio envio = new TipoEnvio();
-		EstadoPedido estado = new EstadoPedido();*/
-		/*Cliente cliente=new Cliente();
+		EstadoPedido estado = new EstadoPedido();
+		Cliente cliente=new Cliente();
 		cliente.setNombre("Paco");
 		cliente.setApellidos("Florentino");
 		cliente.setTelefono(683020234);
@@ -70,29 +70,28 @@ public class PedidoServiceTests {
 		pedido.setDireccion("C/Ferrara 4, 9A");
 		pedido.setPrecio(50.65);
 		pedido.setGastosEnvio(3.5);
-		//pedido.setEstadoPedido(estado);
-		//pedido.setFechaPedido(LocalDate.of(2020, 11, 9));
-		//pedido.setCliente(cliente);
-		//pedido.setTipoEnvio(envio);
-		//pedido.setTipoPago(pago);              
+		pedido.setEstadoPedido(estado);
+		pedido.setFechaPedido(LocalDate.of(2020, 11, 9));
+		pedido.setCliente(cliente);
+		pedido.setTipoEnvio(envio);
+		pedido.setTipoPago(pago);              
 		this.pedidoService.savePedido(pedido);
 		Pedido pedidoEncontrado = this.pedidoService.findPedidoById(pedido.getId());
 		assertThat(pedido).isEqualTo(pedidoEncontrado);
-	}*/
+	}
 	
-	/*@Test
+	@Test
 	@Transactional
 	void shouldUpdatePedido() {
-		Pedido pedido = this.pedidoService.findCuentaById(1);
-		String oldNombre = cliente.getNombre();
-		String newNombre = oldNombre+"Yeah";
+		Pedido pedido = this.pedidoService.findPedidoById(2);
+		Double newPrecio=55.2;
 		
-		pedido.setNombre(newNombre);
+		pedido.setPrecio(newPrecio);
 		this.pedidoService.savePedido(pedido);
 
-		pedido = this.pedidoService.findPedidoById(1);
-		assertThat(pedido.getNombre()).isEqualTo(newNombre);
-	}*/
+		pedido = this.pedidoService.findPedidoById(2);
+		assertThat(pedido.getPrecio()).isEqualTo(newPrecio);
+	}
 	
 	@Test
 	@Transactional
