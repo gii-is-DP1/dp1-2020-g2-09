@@ -25,4 +25,5 @@ public class Otros extends Producto {
 	@ManyToMany(cascade = CascadeType.REMOVE)
 	@JoinTable(name = "composicionCartaOtros", joinColumns =@JoinColumn(name= "otrosEnCarta"))
 	private Collection<Carta> cartaDeOtros;
+	
 }

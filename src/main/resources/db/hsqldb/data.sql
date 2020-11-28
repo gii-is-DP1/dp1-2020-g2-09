@@ -263,5 +263,14 @@ INSERT INTO BEBIDAS values (3, 1, 10, 'fanta', false ,1);
 INSERT INTO BEBIDAS values (4, 1, 15, 'fanta limon', true ,2);
 INSERT INTO BEBIDAS values (5, 2, 19, 'agua', false ,1);
 
+
+/*INSERT INTO INGREDIENTE values (1, 'gluten','2020/01/01' , 'pan', 'Rico en carbohidratos');
+INSERT INTO INGREDIENTE values (2, 'lactosa','2020/02/02' , 'queso', 'Rico en proteinas');
+INSERT INTO INGREDIENTE values (3, 'fructosa','2020/03/03' , 'tomate', 'Verduras y frutas');
+INSERT INTO INGREDIENTE values (1, 'pescado','2020/04/04' , 'anchoas', 'Rico en proteinas');
+INSERT INTO INGREDIENTE values (2, 'atopia','2020/05/05' , 'huevo', 'Rico en proteinas');
+INSERT INTO INGREDIENTE values (3, 'fructosa','2020/06/06' , 'manzana', 'Verduras y frutas');*/
+
 INSERT INTO CARTAS(fecha) values ('2020-04-30');
 INSERT INTO CARTAS(fecha) values ('2020-11-20');
+
