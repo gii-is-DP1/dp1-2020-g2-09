@@ -17,7 +17,7 @@ public class BebidaValidator implements Validator {
 		Bebida bebida = (Bebida) obj;
 		String nombre = bebida.getNombre();
 		Boolean carbonatada = bebida.getEsCarbonatada();
-		TamanoProducto tamaño = bebida.getTamaño();
+		TamanoProducto tamaño = bebida.getTamano();
 		Integer coste = bebida.getCoste();
 		
 		// nombre validation
