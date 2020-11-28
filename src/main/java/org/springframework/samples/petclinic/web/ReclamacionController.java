@@ -1,7 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Map;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +15,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+//@RequestMapping("/reclamaciones")
 public class ReclamacionController {
 
 	private final ReclamacionService reclamacionService;
@@ -41,10 +42,12 @@ public class ReclamacionController {
 	}
 	
 	//añadir una reclamacion nueva
-		@GetMapping(value = "/reclamaciones/new")
-		public String initCreationForm(Map<String, Object> model) {
+		@GetMapping("/reclamaciones/new/{pedidoid}")
+		public String initCreationForm(@PathVariable("pedidoid") String pedidoid, Map<String, Object> model) {
+			Integer pedidoId=Integer.valueOf(pedidoid);
 			Reclamacion reclamacion = new Reclamacion();
 			model.put("reclamacion", reclamacion);
+			model.put("pedidoId", pedidoId);
 			return "reclamaciones/createOrUpdateReclamacionForm";
 		}
 		

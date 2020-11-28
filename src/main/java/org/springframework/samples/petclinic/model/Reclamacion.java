@@ -1,9 +1,11 @@
 package org.springframework.samples.petclinic.model;
 
 import java.time.LocalDate;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -28,6 +30,10 @@ public class Reclamacion extends BaseEntity {
 	@Column(name = "observacion")
 	@NotNull
 	private String observacion;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "pedido_id")
+	private Pedido pedido;
 	
 	
 
