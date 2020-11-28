@@ -8,15 +8,15 @@
 
 <petclinic:layout pageName="bebidas">
     <h2>
-        <c:if test="${pizza['new']}">Nueva </c:if> Bebida
+        <c:if test="${bebida['new']}">Nueva </c:if> Bebida
     </h2>
-    <form:form modelAttribute="pizza" class="form-horizontal" id="add-owner-form">
+    <form:form modelAttribute="bebida" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre de la bebida" name="nombre"/>
             
              <select label="esCarbonatada" name="esCarbonatada">
-			  <option value="CARBONATADA">Carbonatada</option> 
-			  <option value="NOCARBONATADA" selected>No carbonatada</option>
+			  <option value="true">Carbonatada</option> 
+			  <option value="false" selected>No carbonatada</option>
 			</select>
 			 <select label="tamaño" name="tamaño">
 			  <option value="NORMAL">Normal</option> 
