@@ -18,7 +18,6 @@
              <select label="tipoReserva" name="tipoReserva">
 			  <option value="ALMUERZO">Almuerzo</option> 
 			  <option value="CENA" selected>Cena</option>
-			  <option value="MERIENDA">Merienda</option>
 			</select>
             
             <petclinic:inputField label="Hora de la reserva" name="hora"/>

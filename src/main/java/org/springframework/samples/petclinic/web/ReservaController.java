@@ -15,6 +15,7 @@ import org.springframework.samples.petclinic.service.ReservaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -69,6 +70,8 @@ public class ReservaController {
 			return "reservas/createOrUpdateReservaForm";
 		}
 		else {
+			ReservaValidator reservaValidator = new ReservaValidator();
+			ValidationUtils.invokeValidator(reservaValidator, reserva, result);
 			this.reservaService.saveReserva(reserva);
 			return "redirect:/allReservas";
 		}
