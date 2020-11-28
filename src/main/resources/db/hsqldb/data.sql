@@ -140,14 +140,14 @@ INSERT INTO ESTADO_PEDIDO VALUES(3,'ENTREGADO');
 INSERT INTO TIPO_ENVIO VALUES(2,'DOMICILIO');
 INSERT INTO TIPO_ENVIO VALUES(1,'RECOGER EN TIENDA');
 
-INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio)
-VALUES ('30','3.5','C/Ferrara, 5, 7b', '2020-11-15', 2, 1,1);
-INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio)
-VALUES ('29','3','C/Ferrara, 5, 7b', '2020-11-16',3,1,1);
-INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio)
-VALUES ('50','2.30','C/Ferrara, 5, 7b', '2020-11-18',2,1,1);
-INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio)
-VALUES ('57','2','C/Ferrara, 5, 7b', '2020-11-30',3,1,1);
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio, pedidocliente)
+VALUES ('30','3.5','C/Ferrara, 5, 7b', '2020-11-15', 2, 1,1, '1');
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio,pedidocliente)
+VALUES ('29','3','C/Ferrara, 5, 7b', '2020-11-16',3,1,1, '1');
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio,pedidocliente)
+VALUES ('50','2.30','C/Ferrara, 5, 7b', '2020-11-18',2,1,1,'2');
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio,pedidocliente)
+VALUES ('57','2','C/Ferrara, 5, 7b', '2020-11-30',3,1,1, '3');
 
 
 INSERT INTO administradores(nombre,apellidos,fecha_nacimiento,telefono,email, usuario)
@@ -196,10 +196,10 @@ INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (2,1);
 INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (3,2);
 INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (4,2);
 INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (5,6);
-INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (6,8);
-INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (1,8);
-INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (2,9);
-INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (5,10);
+INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (6,6);
+INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (1,4);
+INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (2,2);
+INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (5,4);
 
 INSERT INTO TAMANO_PRODUCTO VALUES(1,'NORMAL');
 INSERT INTO TAMANO_PRODUCTO VALUES(2,'GRANDE');
@@ -224,6 +224,22 @@ INSERT INTO TIPO_MASA VALUES(2,'RELLENA');
 /*INSERT INTO TAMAÑO VALUES(1,'GRANDE');
 INSERT INTO TAMAÑO VALUES(3,'PEQUEÑA');
 INSERT INTO TAMAÑO VALUES(2,'MEDIANA');*/
+
+INSERT INTO Alergenos VALUES(1,'Crustaceos y productos a base de crustaceos');
+INSERT INTO Alergenos VALUES(2,'Cereales que contengan gluten');
+INSERT INTO Alergenos VALUES(3,'Huevos y productos a base de huevo');
+INSERT INTO Alergenos VALUES(4,'Pescado y productos a base de pescado');
+INSERT INTO Alergenos VALUES(5,'Cacahuetes y productos a base de cacahuetes');
+INSERT INTO Alergenos VALUES(6,'Soja y productos a base de soja');
+INSERT INTO Alergenos VALUES(7,'Leche y sus derivados');
+INSERT INTO Alergenos VALUES(8,'Frutos de cascara');
+INSERT INTO Alergenos VALUES(9,'Apio y productos derivados');
+INSERT INTO Alergenos VALUES(10,'Mostaza y productos derivados');
+INSERT INTO Alergenos VALUES(11,'Granos de sesamo');
+INSERT INTO Alergenos VALUES(12,'Dioxido de azufre y sulfitos');
+INSERT INTO Alergenos VALUES(13,'Altramuces y productos a base de altramuces');
+INSERT INTO Alergenos VALUES(14,'Moluscos y productos a base de moluscos');
+
 
 INSERT INTO PIZZAS values (1, 1, 20, 'PROSCIUTTO E FUNGHI', 1 ,2);
 INSERT INTO PIZZAS values (2, 1, 22, 'PROSCIUTTO', 2 ,3);
@@ -256,5 +272,14 @@ INSERT INTO COMPOSICION_CARTA_PIZZA(PIZZAS_EN_CARTA, CARTA_DE_PIZZAS_ID) VALUES 
 INSERT INTO COMPOSICION_CARTA_PIZZA(PIZZAS_EN_CARTA, CARTA_DE_PIZZAS_ID) VALUES (4,1);
 INSERT INTO COMPOSICION_CARTA_PIZZA(PIZZAS_EN_CARTA, CARTA_DE_PIZZAS_ID) VALUES (1,2);
 INSERT INTO COMPOSICION_CARTA_PIZZA(PIZZAS_EN_CARTA, CARTA_DE_PIZZAS_ID) VALUES (2,2);
+
+
+/*INSERT INTO INGREDIENTE values (1, 'gluten','2020/01/01' , 'pan', 'Rico en carbohidratos');
+INSERT INTO INGREDIENTE values (2, 'lactosa','2020/02/02' , 'queso', 'Rico en proteinas');
+INSERT INTO INGREDIENTE values (3, 'fructosa','2020/03/03' , 'tomate', 'Verduras y frutas');
+INSERT INTO INGREDIENTE values (1, 'pescado','2020/04/04' , 'anchoas', 'Rico en proteinas');
+INSERT INTO INGREDIENTE values (2, 'atopia','2020/05/05' , 'huevo', 'Rico en proteinas');
+INSERT INTO INGREDIENTE values (3, 'fructosa','2020/06/06' , 'manzana', 'Verduras y frutas');*/
+
 
 

@@ -15,12 +15,13 @@
             <petclinic:inputField label="Numero de Personas" name="numeroPersonas"/>
             <petclinic:inputField label="Fecha de la reserva" name="fechaReserva"/>
             
-             <select label="tipoReserva" name="tipoReserva">
+          <!--   <select label="tipoReserva" name="tipoReserva">
 			  <option value="ALMUERZO">Almuerzo</option> 
 			  <option value="CENA" selected>Cena</option>
-			  <option value="MERIENDA">Merienda</option>
-			</select>
-            
+			</select> -->
+            <div class="control-group">
+            <petclinic:selectField name="tipoReserva" label="Tipo" names="${tipoReserva}" size="2"/>
+            </div>
             <petclinic:inputField label="Hora de la reserva" name="hora"/>
             <!--<petclinic:inputField label="Id" name="id" />-->
         </div>

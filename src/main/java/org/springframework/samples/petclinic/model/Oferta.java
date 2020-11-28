@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.model;
 import java.time.LocalDate;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -23,7 +24,7 @@ import lombok.EqualsAndHashCode;
 @Table(name = "Ofertas")
 public class Oferta extends BaseEntity{
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "tamano_producto")
 	private TamanoProducto tamanoProducto;
 	
@@ -36,12 +37,12 @@ public class Oferta extends BaseEntity{
 	@NotNull
 	private LocalDate fechaInicial;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	//JoinTable el nombre de la tabla que va a relacionar pedido con oferta
 	@JoinTable(name = "ofertaPedido", joinColumns =@JoinColumn(name= "PedidosConOferta" ))
-	private Collection<Pedido> pedidosConOferta;
+	private Collection<Pedido> PedidosConOferta;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "nivel_socio")
 	private NivelSocio nivelSocio;
 	

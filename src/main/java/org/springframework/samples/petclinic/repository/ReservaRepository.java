@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.samples.petclinic.model.Reserva;
+import org.springframework.samples.petclinic.model.tipoReserva;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -22,6 +23,8 @@ public interface ReservaRepository extends CrudRepository<Reserva, Integer>{
 
     Reserva findById(int reserva_id) throws DataAccessException;
 
+	@Query("SELECT tr FROM tipoReserva tr")
+    List<tipoReserva> findTipoReserva() throws DataAccessException;
 
 
 }
