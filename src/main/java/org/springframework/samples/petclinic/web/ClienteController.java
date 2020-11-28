@@ -112,6 +112,7 @@ public class ClienteController {
 	public String processUpdateCuentaForm(@Valid Cliente cliente, BindingResult result,
 			@PathVariable("cuentaId") int cuentaId) {
 		if (result.hasErrors()) {
+			//model.put("cuenta", cliente);
 			return "clientes/createOrUpdateCuentaForm";
 		}
 		else {

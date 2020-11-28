@@ -14,6 +14,7 @@ public class ClienteValidator implements Validator{
 
 	private static final String REQUIRED = "requerido";
 	
+	@Override
 	public boolean supports(Class<?> clazz) {
 		return Ingrediente.class.isAssignableFrom(clazz);
 	}	

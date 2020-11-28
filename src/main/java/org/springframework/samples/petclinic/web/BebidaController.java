@@ -11,6 +11,7 @@ import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -50,11 +51,14 @@ public class BebidaController {
 
 	// mandar nuevo Bebida
 	@PostMapping(value = "/bebidas/new")
-	public String processCreationForm(@Valid Bebida Bebida, BindingResult result) {
+	public String processCreationForm(@Valid Bebida bebida, BindingResult result,ModelMap model) {
 		if (result.hasErrors()) {
+			model.put("bebida", bebida);//importanteeee
 			return "bebidas/createOrUpdateBebidaForm";
 		} else {
-			this.bebidaService.saveBebida(Bebida);
+			BebidaValidator bebidaValidator = new BebidaValidator();
+			ValidationUtils.invokeValidator(bebidaValidator, bebida, result);
+			this.bebidaService.saveBebida(bebida);
 			return "redirect:/allBebidas";
 		}
 	}
@@ -75,6 +79,8 @@ public class BebidaController {
 			return "bebidas/createOrUpdateBebidaForm";
 		} else {
 			bebida.setId(bebidaId);
+			BebidaValidator bebidaValidator = new BebidaValidator();
+			ValidationUtils.invokeValidator(bebidaValidator, bebida, result);
 			this.bebidaService.saveBebida(bebida);
 			return "redirect:/allBebidas";
 		}

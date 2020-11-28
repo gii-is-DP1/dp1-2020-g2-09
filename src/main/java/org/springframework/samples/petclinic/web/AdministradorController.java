@@ -11,6 +11,7 @@ import org.springframework.samples.petclinic.service.AdministradorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -32,6 +33,11 @@ public class AdministradorController {
 		dataBinder.setDisallowedFields("id");
 	}
 	
+	/*@InitBinder("administrador")
+	public void initPetBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new AdministradorValidator());
+	}*/
+	
 	@GetMapping(value = { "/allAdministradores" })
 	public String showAdministradoresList(Map<String, Object> model) {
 		Administradores administradores = new Administradores();
@@ -50,11 +56,14 @@ public class AdministradorController {
 
 	//mandar nuevo cliente
 	@PostMapping(value = "/administradores/new")
-	public String processCreationForm(@Valid Administrador administrador, BindingResult result) {
+	public String processCreationForm(@Valid Administrador administrador, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
+			model.put("administradores", administrador);//importanteeee
 			return "administradores/createOrUpdateAdministradorForm";
 		}
 		else {
+			AdministradorValidator adminValidator = new AdministradorValidator();
+			ValidationUtils.invokeValidator(adminValidator, administrador, result);
 			this.administradorService.saveAdministrador(administrador);
 			return "redirect:/allAdministradores";
 		}
@@ -73,10 +82,13 @@ public class AdministradorController {
 	public String processUpdateCuentaForm(@Valid Administrador administrador, BindingResult result,
 			@PathVariable("administradorId") int administradorId) {
 		if (result.hasErrors()) {
+			//model.put("cuenta", administrador);
 			return "administradores/createOrUpdateAdministradorForm";
 		}
 		else {
 			administrador.setId(administradorId);
+			AdministradorValidator adminValidator = new AdministradorValidator();
+			ValidationUtils.invokeValidator(adminValidator, administrador, result);
 			this.administradorService.saveAdministrador(administrador);
 			return "redirect:/allAdministradores";
 		}
