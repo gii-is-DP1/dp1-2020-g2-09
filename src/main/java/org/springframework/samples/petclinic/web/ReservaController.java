@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.samples.petclinic.constant.ViewConstant;
 import org.springframework.samples.petclinic.model.Mesa;
 import org.springframework.samples.petclinic.model.Reserva;
 import org.springframework.samples.petclinic.model.Reservas;
+import org.springframework.samples.petclinic.model.tipoReserva;
 import org.springframework.samples.petclinic.service.MesaService;
 import org.springframework.samples.petclinic.service.ReservaService;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -120,4 +123,8 @@ public class ReservaController {
 		this.reservaService.deleteReserva(reserva);
 		return "redirect:/allReservas";
 	}
+	@ModelAttribute("tipoReserva")
+    public Collection<tipoReserva> populateTipoReserva() {
+        return this.reservaService.findTipoReserva();
+    }
 }
