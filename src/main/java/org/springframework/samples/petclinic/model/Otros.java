@@ -24,4 +24,5 @@ public class Otros extends Producto {
 	@ManyToMany
 	@JoinTable(name = "composicionCarta", joinColumns =@JoinColumn(name= "otrosEnCarta"))
 	private Collection<Carta> cartaDeOtros;
+	
 }
