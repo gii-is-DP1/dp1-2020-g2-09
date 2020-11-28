@@ -14,6 +14,7 @@ import org.springframework.samples.petclinic.service.IngredienteService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -55,12 +56,15 @@ public class IngredienteController {
 
 	//mandar nuevo Ingrediente
 	@PostMapping(value = "/Ingredientes/new")
-	public String processCreationForm(@Valid Ingrediente Ingrediente, BindingResult result) {
+	public String processCreationForm(@Valid Ingrediente Ingrediente, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
+			model.put("Ingrediente", Ingrediente);//importanteeee
 			return "Ingredientes/createOrUpdateIngredienteForm";
 		}
 		else {
 			this.IngredienteService.saveIngrediente(Ingrediente);
+			IngredienteValidator ingrValidator = new IngredienteValidator();
+			ValidationUtils.invokeValidator(ingrValidator, Ingrediente, result);
 			return "redirect:/allIngredientes";
 		}
 	}
@@ -83,6 +87,8 @@ public class IngredienteController {
 		}
 		else {
 			Ingrediente.setId(IngredienteId);
+			IngredienteValidator ingrValidator = new IngredienteValidator();
+			ValidationUtils.invokeValidator(ingrValidator, Ingrediente, result);
 			this.IngredienteService.saveIngrediente(Ingrediente);
 			return "redirect:/allIngredientes";
 		}

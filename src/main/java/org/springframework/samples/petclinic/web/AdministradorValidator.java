@@ -4,13 +4,16 @@ import java.time.LocalDate;
 
 import org.springframework.samples.petclinic.model.Administrador;
 import org.springframework.samples.petclinic.model.User;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+@Component
 public class AdministradorValidator implements Validator{
 
 	private static final String REQUIRED = "requerido";
 	
+	@Override	
 	public boolean supports(Class<?> clazz) {
 		return Administrador.class.isAssignableFrom(clazz);
 	}	

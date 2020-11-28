@@ -12,6 +12,7 @@ import org.springframework.samples.petclinic.service.CocineroService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -52,12 +53,15 @@ public class CocineroController {
 
 	//mandar nuevo cocinero
 	@PostMapping(value = "/cocineros/new")
-	public String processCreationForm(@Valid Cocina cocinero, BindingResult result) {
+	public String processCreationForm(@Valid Cocina cocinero, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
+			model.put("cocinero", cocinero);//importanteeee
 			return "cocineros/createOrUpdateCocinaForm";
 		}
 		else {
 			cocinero.setFechaInicioContrato(LocalDate.now());
+			CocineroValidator adminValidator = new CocineroValidator();
+			ValidationUtils.invokeValidator(adminValidator, cocinero, result);
 			this.cocineroService.saveCocinero(cocinero);
 			return "redirect:/allCocineros";
 		}
@@ -80,6 +84,8 @@ public class CocineroController {
 		}
 		else {
 			cocinero.setId(cocineroId);
+			CocineroValidator adminValidator = new CocineroValidator();
+			ValidationUtils.invokeValidator(adminValidator, cocinero, result);
 			this.cocineroService.saveCocinero(cocinero);
 			return "redirect:/allCocineros";
 		}
