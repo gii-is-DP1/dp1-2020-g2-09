@@ -40,6 +40,13 @@ public class Pedido extends BaseEntity{
 	@NotNull
 	private LocalDate fechaPedido;
 	
+	@ManyToMany
+	//JoinTable el nombre de la tabla que va a relacionar pedido con oferta
+	//JoinColumn el nombre del atributo
+	@JoinTable(name = "ofertaPedido", joinColumns =@JoinColumn(name= "PedidosConOferta" ))
+	private Collection<Pedido> pedidosConOferta;
+	
+	
 	@ManyToOne
 	@JoinColumn(name = "estado_pedido")
 	private EstadoPedido estadoPedido;
