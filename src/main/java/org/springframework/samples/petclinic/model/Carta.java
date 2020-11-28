@@ -35,7 +35,6 @@ public class Carta extends BaseEntity{
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate fecha = LocalDate.now();
 	
-	//@Column(name = "Pizza")
 	@ManyToMany (cascade = CascadeType.REMOVE)
 	@JoinTable(name = "composicionCartaPizza", joinColumns =@JoinColumn(name= "pizzasEnCarta" ))
 	private Collection<Pizza> cartaDePizzas;

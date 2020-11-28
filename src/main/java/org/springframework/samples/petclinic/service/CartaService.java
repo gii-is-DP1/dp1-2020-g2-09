@@ -29,7 +29,7 @@ public class CartaService {
 	
 	@Transactional(readOnly = true)
 	public Carta findCartaById(int cartaId) throws DataAccessException {
-		return cartaRepository.findCartaById(cartaId);
+		return cartaRepository.findById(cartaId);
 	}
 	
 	@Transactional(readOnly = true)
