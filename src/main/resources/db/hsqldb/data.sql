@@ -140,14 +140,14 @@ INSERT INTO ESTADO_PEDIDO VALUES(3,'ENTREGADO');
 INSERT INTO TIPO_ENVIO VALUES(2,'DOMICILIO');
 INSERT INTO TIPO_ENVIO VALUES(1,'RECOGER EN TIENDA');
 
-INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio)
-VALUES ('30','3.5','C/Ferrara, 5, 7b', '2020-11-15', 2, 1,1);
-INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio)
-VALUES ('29','3','C/Ferrara, 5, 7b', '2020-11-16',3,1,1);
-INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio)
-VALUES ('50','2.30','C/Ferrara, 5, 7b', '2020-11-18',2,1,1);
-INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio)
-VALUES ('57','2','C/Ferrara, 5, 7b', '2020-11-30',3,1,1);
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio, pedidocliente)
+VALUES ('30','3.5','C/Ferrara, 5, 7b', '2020-11-15', 2, 1,1, '1');
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio,pedidocliente)
+VALUES ('29','3','C/Ferrara, 5, 7b', '2020-11-16',3,1,1, '1');
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio,pedidocliente)
+VALUES ('50','2.30','C/Ferrara, 5, 7b', '2020-11-18',2,1,1,'2');
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio,pedidocliente)
+VALUES ('57','2','C/Ferrara, 5, 7b', '2020-11-30',3,1,1, '3');
 
 
 INSERT INTO administradores(nombre,apellidos,fecha_nacimiento,telefono,email, usuario)
@@ -196,10 +196,10 @@ INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (2,1);
 INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (3,2);
 INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (4,2);
 INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (5,6);
-INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (6,8);
-INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (1,8);
-INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (2,9);
-INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (5,10);
+INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (6,6);
+INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (1,4);
+INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (2,2);
+INSERT INTO RESERVA_ASOCIADA (MESAS_RESERVADAS,RESERVA_ID) VALUES (5,4);
 
 INSERT INTO TAMANO_PRODUCTO VALUES(1,'NORMAL');
 INSERT INTO TAMANO_PRODUCTO VALUES(2,'GRANDE');
@@ -262,7 +262,6 @@ INSERT INTO BEBIDAS values (2, 1, 22, 'Nestea', false ,1);
 INSERT INTO BEBIDAS values (3, 1, 10, 'Fanta naranja', false ,1);
 INSERT INTO BEBIDAS values (4, 1, 15, 'Fanta limon', true ,2);
 INSERT INTO BEBIDAS values (5, 2, 19, 'Agua', false ,1);
-
 
 INSERT INTO CARTAS(nombre, fecha) values ('CartaPrincipal', '2020-04-30');
 INSERT INTO CARTAS(nombre, fecha) values ('CartaPrueba','2020-11-20');
