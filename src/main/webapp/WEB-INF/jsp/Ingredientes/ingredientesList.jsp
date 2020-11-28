@@ -23,6 +23,8 @@
             <th>Tipo</th>
             <th>Fecha de Caducidad</th>
             <th>Alergenos</th>
+            <th></th>
+            <th></th>
         </tr>
         <a href="/Ingredientes/new" class="btn btn-default">Añadir ingrediente</a>
         </thead>
@@ -40,9 +42,8 @@
              	</td>
              	<td>
              	<ul>
-             	<c:forEach items="${ingrediente.alergenos}" var="alergeno">
-             		<li><c:out value="${alergeno}"/></li>
-             	</c:forEach>
+             	
+             	<c:out value="${ingrediente.alergenos}"/>
              	</ul>
              	</td>
              	<td>
