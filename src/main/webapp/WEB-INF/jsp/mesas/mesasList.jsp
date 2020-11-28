@@ -13,7 +13,6 @@
         <thead>
         <tr>
         	<th>Capacidad</th>
-            <th>Id</th>
 
         </tr>
         <a href="/mesas/new" class="btn btn-default">Añadir mesa</a>

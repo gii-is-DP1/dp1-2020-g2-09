@@ -12,6 +12,7 @@ import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -62,6 +63,25 @@ public class PedidoController {
 			} 
 		}	
 	*/
+	
+	/*//añadir un pedido nueva
+	@GetMapping(value = "/pedidos/new")
+	public String initCreationForm(Map<String, Object> model) {
+		Pedido pedido = new Pedido();
+		model.put("pedido", pedido);
+		return "pedidos/createOrUpdatePedidoForm";
+	}
+			
+	//mandar nueva pedido
+	@PostMapping(value = "/pedidos/new")
+	public String processCreationForm(@Valid Pedido pedido, BindingResult result) {
+		if (result.hasErrors()) {
+			return "pedidos/createOrUpdatePedidoForm";
+		} else {		
+			this.pedidoService.savePedido(pedido);
+			return "redirect:/allPedidos";
+		} 
+	}*/
 
 	//iniciar actualizacion pedido
 	@GetMapping(value = "/pedidos/{pedidoId}/edit")
