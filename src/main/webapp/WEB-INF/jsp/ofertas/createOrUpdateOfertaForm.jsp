@@ -29,7 +29,7 @@
             <petclinic:inputField label="Fecha Inicial" name="fechaInicial"/>
             <petclinic:inputField label="Fecha Final" name="fechaFinal"/>
 			<div class="control-group">
-			<petclinic:selectField name="tamanoProducto" label="Tamaño producto" names="${tamanoProducto}" size="2"/>
+			<petclinic:selectField name="tamanoOferta" label="Tamaño producto" names="${tamanoOferta}" size="2"/>
 			<petclinic:selectField name="nivelSocio" label="Nivel Socio" names="${nivelSocio}" size="3"/>
             </div>
         </div>
