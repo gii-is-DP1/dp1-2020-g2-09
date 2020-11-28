@@ -1,11 +1,13 @@
 package org.springframework.samples.petclinic.service;
 
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Reserva;
+import org.springframework.samples.petclinic.model.tipoReserva;
 import org.springframework.samples.petclinic.repository.ReservaRepository;
 import org.springframework.samples.petclinic.repository.TipoReservaRepository;
 import org.springframework.stereotype.Service;
@@ -43,6 +45,11 @@ public class ReservaService {
     @Transactional
     public void deleteReserva(Reserva reserva) throws DataAccessException {
         reservaRepository.delete(reserva);
+    }
+
+    @Transactional(readOnly = true)
+    public Collection<tipoReserva> findTipoReserva() throws DataAccessException {
+        return reservaRepository.findTipoReserva();
     }
 
 }

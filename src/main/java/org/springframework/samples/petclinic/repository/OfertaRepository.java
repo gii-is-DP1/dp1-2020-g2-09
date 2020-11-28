@@ -17,6 +17,8 @@ public interface OfertaRepository  extends CrudRepository<Oferta, Integer> {
 	
 	Oferta findOfertaById(int ofertaId) throws DataAccessException;
 	
+
+	
 	@Query("SELECT tamprod FROM TamanoProducto tamprod")
 	List<TamanoProducto> findTamanoProducto() throws DataAccessException;
 
