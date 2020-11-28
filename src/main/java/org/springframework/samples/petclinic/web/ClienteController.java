@@ -19,8 +19,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +45,11 @@ public class ClienteController {
 		dataBinder.setDisallowedFields("id");
 	}
 	
+//	@InitBinder("cliente")
+//	public void initClienteBinder(WebDataBinder dataBinder) {
+//		dataBinder.setValidator(new CuentaValidator());
+//	}
+	
 	@GetMapping(value = { "/allCuentas" })
 	public String showCuentaList(Map<String, Object> model) {
 		Clientes clientes = new Clientes();
@@ -63,17 +68,20 @@ public class ClienteController {
 
 	//mandar nuevo cliente
 	@PostMapping(value = "/cuentas/new")
-	public String processCreationForm(@Valid Cliente cliente, BindingResult result) {
+	public String processCreationForm(@Valid Cliente cliente, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
+			model.put("cuenta", cliente);
 			return "clientes/createOrUpdateCuentaForm";
 		}
 		else {
+			CuentaValidator cuentaValidator = new CuentaValidator();
+			ValidationUtils.invokeValidator(cuentaValidator, cliente, result);
 			this.clienteService.saveCliente(cliente);
 			return "redirect:/";
 		}
 	}
 	
-	//para ver los datos de mi perfil de cliente
+	//para ver los datos de mi perfil de cliente que ha iniciado sesión
 	@GetMapping("/cuentas/DetallesPerfil")
 	public ModelAndView showCliente() {
 		ModelAndView mav = new ModelAndView("clientes/clienteDetails");

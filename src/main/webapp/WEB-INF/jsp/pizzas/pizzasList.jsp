@@ -17,25 +17,24 @@
             <th>Coste</th>
             <th>Tipo Masa</th>
             <th>Ingredientes</th>
-            <th>Alérgenos</th>
             
 
         </tr>
-        <a href="/pizzas/new" class="btn btn-default">Añadir pizzas</a>
+        <a href="/pizzas/new" class="btn btn-default">Añadir pizza</a>
         </thead>
         <tbody>
-        <c:forEach items="${pizzas.pizzasList}" var="bebida">
+        <c:forEach items="${Pizzas.pizzasList}" var="pizza">
             <tr>
                 <td>
                     <c:out value="${pizza.nombre}"/>
                 </td>
-                <td>
-                	<c:out value="${pizza.tamaño}"/>
+               <td>
+                	<c:out value="${pizza.tamanyo}"/>
              	</td>
              	<td>
              		<c:out value="${pizza.coste}"/>
              	</td>
-             	<td>
+             	 <td>
              		<c:out value="${pizza.tipoMasa}"/>
              	</td>
 

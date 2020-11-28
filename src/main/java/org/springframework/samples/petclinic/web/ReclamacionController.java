@@ -1,7 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Map;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;

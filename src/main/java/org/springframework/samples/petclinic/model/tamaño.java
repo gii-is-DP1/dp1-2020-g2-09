@@ -9,10 +9,5 @@ import javax.persistence.Table;
 @Table(name = "tamaño")
 public class tamaño extends NamedEntity{
 
-	@ManyToOne
-	@JoinColumn(name = "tamaño")
-	private tamaño tamaño;
-	
-	@Column(name = "esCarbonatada")
-	private Boolean esCarbonatada;
+
 }

@@ -1,17 +1,24 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Bebida;
 import org.springframework.samples.petclinic.model.Carta;
-import org.springframework.samples.petclinic.model.Cartas;
+import org.springframework.samples.petclinic.model.Otros;
+import org.springframework.samples.petclinic.model.Pizza;
+import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.CartaService;
+import org.springframework.samples.petclinic.service.OtrosService;
+import org.springframework.samples.petclinic.service.PizzaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,84 +27,109 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class CartaController {
 
-	
-	private final CartaService CartaService;
-
 	@Autowired
-	public CartaController(CartaService CartaService) {
-		this.CartaService = CartaService;
-	}
+	private CartaService CartaService;
+	@Autowired
+	private PizzaService PizzaService;
+	@Autowired
+	private OtrosService OtrosService;
+	@Autowired
+	private BebidaService BebidaService;
+
 
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
 	}
 	
-	/*@GetMapping(value = { "/allCartas" })
+	@GetMapping(value = { "/allCartas" })
 	public String showCartaList(Map<String, Object> model) {
-		Cartas Cartas = new Cartas();
-		Cartas.getCartasList().addAll(this.CartaService.findCartas());
-		model.put("Cartas", Cartas);
-		return "Cartas/CartasList";
-	}*/
+		List<Carta> cartas= CartaService.findCartas();
+		model.put("cartas", cartas);
+		return "cartas/cartasList";
+	}
 	
-	
-	
-/*
- * 
- * 
+
 	//añadir una Carta nueva
-	@GetMapping(value = "/Cartas/new")
+	@GetMapping(value = "/cartas/new")
 	public String initCreationForm(Map<String, Object> model) {
 		Carta Carta = new Carta();
-		model.put("Carta", Carta);
-		return "Cartas/createOrUpdateCartaForm";
+		model.put("carta", Carta);
+		return "cartas/createOrUpdateCartaForm";
 	}
 
 	//mandar nueva Carta
-	@PostMapping(value = "/Cartas/new")
-	public String processCreationForm(@Valid Carta Carta, BindingResult result) {
+	@PostMapping(value = "/cartas/new")
+	public String processCreationForm(@Valid Carta carta, BindingResult result) {
 		if (result.hasErrors()) {
-			return "Cartas/createOrUpdateCartaForm";
+			return "cartas/createOrUpdateCartaForm";
 		}
 		else {
-			this.CartaService.saveCarta(Carta);
+			this.CartaService.saveCarta(carta);
 			return "redirect:/allCartas";
 		}
 	}
 
 	//iniciar actualizacion
-	@GetMapping(value = "/Cartas/{CartaId}/edit")
-	public String initUpdateForm(@PathVariable("CartaId") int CartaId, ModelMap model) {
-		Carta Carta = this.CartaService.findCartaById(CartaId);
-		model.put("Carta", Carta);
-		return "Cartas/createOrUpdateCartaForm";
+	@GetMapping(value = "/cartas/{cartaId}/edit")
+	public String initUpdateForm(@PathVariable("cartaId") int cartaId, ModelMap model) {
+		Carta Carta = this.CartaService.findCartaById(cartaId);
+		model.put("carta", Carta);
+		return "cartas/createOrUpdateCartaForm";
 	}
 	
 	//mandar actualizacion
-	@PostMapping(value = "/Cartas/{CartaId}/edit")
-	public String processUpdateCartaForm(@Valid Carta Carta, BindingResult result,
-			@PathVariable("CartaId") int CartaId) {
+	@PostMapping(value = "/cartas/{cartaId}/edit")
+	public String processUpdateCartaForm(@Valid Carta carta, BindingResult result,
+			@PathVariable("cartaId") int cartaId) {
 		if (result.hasErrors()) {
-			return "Cartas/createOrUpdateCartaForm";
+			return "cartas/createOrUpdateCartaForm";
 		}
 		else {
-			Carta.setId(CartaId);
-			this.CartaService.saveCarta(Carta);
+			carta.setId(cartaId);
+			this.CartaService.saveCarta(carta);
 			return "redirect:/allCartas";
 		}
 	}
 	
 	//borrar Carta
-	@GetMapping(value = "/Cartas/{CartaId}/delete")
-	public String initDeleteCarta(@PathVariable("CartaId") int CartaId, ModelMap model) {
-		Carta Carta = this.CartaService.findCartaById(CartaId);
-		this.CartaService.deleteCarta(Carta);
+	@GetMapping(value = "/cartas/{cartaId}/delete")
+	public String initDeleteCarta(@PathVariable("cartaId") int cartaId, ModelMap model) {
+		Carta carta = this.CartaService.findCartaById(cartaId);
+		this.CartaService.deleteCarta(carta);
 		return "redirect:/allCartas";
 	}
 	
-	*
-	*/
+	//buscar pizzas de la carta
+	@GetMapping(value = "/cartas/pizzas/{cartaId}")
+	public String initCartaPizza(@PathVariable("cartaId") Carta carta, ModelMap model) {
+		List<Pizza> lista= PizzaService.findByCarta(carta);
+		model.put("pizzas", lista);
+		return "redirect:/allCartas";
+	}
+	
+	//buscar bebidas de la carta
+		@GetMapping(value = "/cartas/bebidas/{cartaId}")
+		public String initCartaBebida(@PathVariable("cartaId") Carta carta, ModelMap model) {
+			List<Bebida> lista= BebidaService.findByCarta(carta);
+			model.put("bebidas", lista);
+			return "redirect:/allCartas";
+		}
+		
+		//buscar otros de la carta
+		@GetMapping(value = "/cartas/otros/{cartaId}")
+		public String initCartaOtros(@PathVariable("cartaId") int cartaId, ModelMap model) {
+			List<Otros> lista= OtrosService.findByCarta(cartaId);
+			model.put("otros", lista);
+			return "redirect:/allCartas";
+		}
+
+	@DeleteMapping(value = "/carta/{cartaId}/delete")
+	public String deleteCarta(@PathVariable("cartaId") int cartaId) {
+		Carta carta = this.CartaService.findCartaById(cartaId);
+		this.CartaService.deleteCarta(carta);
+		return "redirect:/allCartas";
+	}
 	
 //	@ModelAttribute("Carta")
 //	public Carta findCarta(@PathVariable("CartaId") int CartaId) {
