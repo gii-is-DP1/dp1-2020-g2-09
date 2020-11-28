@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.model;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -21,7 +22,7 @@ public class Otros extends Producto {
 	@Column(name = "ingredientes")
 	private Ingrediente [] ingredientes;
 	
-	@ManyToMany
-	@JoinTable(name = "composicionCarta", joinColumns =@JoinColumn(name= "otrosEnCarta"))
+	@ManyToMany(cascade = CascadeType.REMOVE)
+	@JoinTable(name = "composicionCartaOtros", joinColumns =@JoinColumn(name= "otrosEnCarta"))
 	private Collection<Carta> cartaDeOtros;
 }
