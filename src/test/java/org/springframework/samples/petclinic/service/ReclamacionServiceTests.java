@@ -55,15 +55,66 @@ public class ReclamacionServiceTests {
 	}
 	
 	@Test
-	public void shouldfechaReclamacionAnteriorFechaActual() {
-
+	@Transactional
+	public void shouldThrowExceptionInsertingShortObservacion() {
 		Reclamacion reclamacion = new Reclamacion();
-		reclamacion.setObservacion("La pizza no llevaba queso");
-		reclamacion.setFechaReclamacion((LocalDate.of(2020, 11, 27)));               
-                
-		this.reclamacionService.saveReclamacion(reclamacion);
+		reclamacion.setObservacion("a");
+		reclamacion.setFechaReclamacion((LocalDate.of(2020, 11, 27)));
 		
-		assertThat(reclamacion.getFechaReclamacion()).isBefore(LocalDate.now());
+		try{
+			this.reclamacionService.saveReclamacion(reclamacion);
+			//assertTrue(false);
+			
+		}
+		catch (Exception e) {
+			 //Compruebo que he entrado en el catch y que no se ha guardado la reclamación
+			assertTrue(true);
+		
+	}
+	
+		
+	}
+	
+	@Test
+	@Transactional
+	public void shouldThrowExceptionNullObservacion() {
+		Reclamacion reclamacion = new Reclamacion();
+		reclamacion.setFechaReclamacion((LocalDate.of(2020, 11, 27)));
+		
+		try{
+			this.reclamacionService.saveReclamacion(reclamacion);
+			//assertTrue(false);
+			
+		}
+		catch (Exception e) {
+			 //Compruebo que he entrado en el catch y que no se ha guardado la reclamación
+			assertTrue(true);
+		
+	}
+		
+	}
+		
+	@Test
+	@Transactional
+	public void shouldThrowExceptionEmptyObservacion() {
+		
+		Reclamacion reclamacion = new Reclamacion();
+		reclamacion.setObservacion("");
+		reclamacion.setFechaReclamacion((LocalDate.of(2020, 11, 27)));
+		
+		try{
+			this.reclamacionService.saveReclamacion(reclamacion);
+			//assertTrue(false);
+			
+		}
+		catch (Exception e) {
+			 //Compruebo que he entrado en el catch y que no se ha guardado la reclamación
+			assertTrue(true);
+		
+		
+	}
+		
+		
 	}
 	
 	

@@ -26,7 +26,7 @@ public class OfertaServiceTests {
 	 @Autowired
 	 OfertaService ofertaService;
 	 
-	 @Test
+	@Test
 	@Transactional
 	//NO FUNCIONA
 		public void shouldInsertOferta() {
@@ -73,5 +73,19 @@ public class OfertaServiceTests {
 			Oferta ofertaEncontrada = this.ofertaService.findOfertaById(oferta.getId());
 			assertThat(oferta).isEqualTo(ofertaEncontrada);
 		}
+	 
+	 @Test
+	 @Transactional
+	 public void shouldUpdateOferta() {
+		 Oferta oferta = this.ofertaService.findOfertaById(1);
+		 Double costeActualizado = 5.5;
+		 oferta.setCoste(costeActualizado);
+	     this.ofertaService.saveOferta(oferta);
+	     
+	     oferta = this.ofertaService.findOfertaById(1);
+	     assertThat(oferta.getCoste()).isEqualTo(costeActualizado);
+	 }
+	 
+	 
 
 }
