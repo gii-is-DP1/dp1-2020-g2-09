@@ -225,6 +225,22 @@ INSERT INTO TIPO_MASA VALUES(2,'RELLENA');
 INSERT INTO TAMAÑO VALUES(3,'PEQUEÑA');
 INSERT INTO TAMAÑO VALUES(2,'MEDIANA');*/
 
+INSERT INTO Alergenos VALUES(1,'Crustaceos y productos a base de crustaceos');
+INSERT INTO Alergenos VALUES(2,'Cereales que contengan gluten');
+INSERT INTO Alergenos VALUES(3,'Huevos y productos a base de huevo');
+INSERT INTO Alergenos VALUES(4,'Pescado y productos a base de pescado');
+INSERT INTO Alergenos VALUES(5,'Cacahuetes y productos a base de cacahuetes');
+INSERT INTO Alergenos VALUES(6,'Soja y productos a base de soja');
+INSERT INTO Alergenos VALUES(7,'Leche y sus derivados');
+INSERT INTO Alergenos VALUES(8,'Frutos de cascara');
+INSERT INTO Alergenos VALUES(9,'Apio y productos derivados');
+INSERT INTO Alergenos VALUES(10,'Mostaza y productos derivados');
+INSERT INTO Alergenos VALUES(11,'Granos de sesamo');
+INSERT INTO Alergenos VALUES(12,'Dioxido de azufre y sulfitos');
+INSERT INTO Alergenos VALUES(13,'Altramuces y productos a base de altramuces');
+INSERT INTO Alergenos VALUES(14,'Moluscos y productos a base de moluscos');
+
+
 INSERT INTO PIZZAS values (1, 1, 20, 'PROSCIUTTO E FUNGHI', 1 ,2);
 INSERT INTO PIZZAS values (2, 1, 22, 'PROSCIUTTO', 2 ,3);
 INSERT INTO PIZZAS values (3, 1, 10, 'HAWAIANA', 2 ,1);
