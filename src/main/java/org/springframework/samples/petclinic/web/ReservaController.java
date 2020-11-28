@@ -68,8 +68,9 @@ public class ReservaController {
 
 	//mandar nueva reserva
 	@PostMapping(value = "/reservas/new")
-	public String processCreationForm(@Valid Reserva reserva, BindingResult result) {
+	public String processCreationForm(@Valid Reserva reserva, BindingResult result,  ModelMap model) {
 		if (result.hasErrors()) {
+			model.put("reserva", reserva);//importanteeee
 			return "reservas/createOrUpdateReservaForm";
 		}
 		else {
@@ -96,6 +97,8 @@ public class ReservaController {
 			return "reservas/createOrUpdateReservaForm";
 		}
 		else {
+			ReservaValidator reservaValidator = new ReservaValidator();
+			ValidationUtils.invokeValidator(reservaValidator, reserva, result);
 			reserva.setId(reservaId);
 			this.reservaService.saveReserva(reserva);
 			return "redirect:/allReservas";

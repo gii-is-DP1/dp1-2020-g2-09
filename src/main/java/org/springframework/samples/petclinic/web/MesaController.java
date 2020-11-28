@@ -11,6 +11,7 @@ import org.springframework.samples.petclinic.service.MesaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -51,11 +52,14 @@ public class MesaController {
 
 	//mandar nueva mesa
 	@PostMapping(value = "/mesas/new")
-	public String processCreationForm(@Valid Mesa mesa, BindingResult result) {
+	public String processCreationForm(@Valid Mesa mesa, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
+			model.put("mesa", mesa);//importanteeee
 			return "mesas/createOrUpdateMesaForm";
 		}
 		else {
+			MesaValidator mesaValidator = new MesaValidator();
+			ValidationUtils.invokeValidator(mesaValidator, mesa, result);
 			this.mesaService.saveMesa(mesa);
 			return "redirect:/allMesas";
 		}
@@ -77,6 +81,8 @@ public class MesaController {
 			return "mesas/createOrUpdateMesaForm";
 		}
 		else {
+			MesaValidator mesaValidator = new MesaValidator();
+			ValidationUtils.invokeValidator(mesaValidator, mesa, result);
 			mesa.setId(mesaId);
 			this.mesaService.saveMesa(mesa);
 			return "redirect:/allMesas";

@@ -7,6 +7,7 @@ import org.springframework.samples.petclinic.model.Reclamacion;
 import org.springframework.samples.petclinic.model.Reclamaciones;
 import org.springframework.samples.petclinic.service.ReclamacionService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
@@ -47,8 +48,9 @@ public class ReclamacionController {
 		
 		//mandar nueva reclamacion
 		@PostMapping(value = "/reclamaciones/new")
-		public String processCreationForm(@Valid Reclamacion reclamacion, BindingResult result) {
+		public String processCreationForm(@Valid Reclamacion reclamacion, BindingResult result, ModelMap model) {
 			if (result.hasErrors()) {
+				model.put("reclamacion", reclamacion);//importanteeee
 				return "reclamaciones/createOrUpdateReclamacionForm";
 			}
 			else {

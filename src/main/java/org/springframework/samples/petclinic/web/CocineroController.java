@@ -60,8 +60,8 @@ public class CocineroController {
 		}
 		else {
 			cocinero.setFechaInicioContrato(LocalDate.now());
-			CocineroValidator adminValidator = new CocineroValidator();
-			ValidationUtils.invokeValidator(adminValidator, cocinero, result);
+			CocineroValidator cocineroValidator = new CocineroValidator();
+			ValidationUtils.invokeValidator(cocineroValidator, cocinero, result);
 			this.cocineroService.saveCocinero(cocinero);
 			return "redirect:/allCocineros";
 		}
@@ -84,8 +84,8 @@ public class CocineroController {
 		}
 		else {
 			cocinero.setId(cocineroId);
-			CocineroValidator adminValidator = new CocineroValidator();
-			ValidationUtils.invokeValidator(adminValidator, cocinero, result);
+			CocineroValidator cocineroValidator = new CocineroValidator();
+			ValidationUtils.invokeValidator(cocineroValidator, cocinero, result);
 			this.cocineroService.saveCocinero(cocinero);
 			return "redirect:/allCocineros";
 		}
