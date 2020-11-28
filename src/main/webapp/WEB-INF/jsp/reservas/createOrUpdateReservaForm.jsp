@@ -7,6 +7,19 @@
     pageEncoding="UTF-8"%>
 
 <petclinic:layout pageName="reservas">
+	<jsp:attribute name="customScript">
+  		<script>
+            $(function () {
+                $("#fechaReserva").datepicker({dateFormat: 'yy/mm/dd'});
+            });
+  		</script>
+      	<script>
+            $(function () {
+                $("#hora").timepicker();
+            });
+  		</script>
+  </jsp:attribute>
+    <jsp:body>
     <h2>
         <c:if test="${reserva['new']}">Nueva </c:if> Reserva
     </h2>
@@ -38,4 +51,5 @@
             </div>
         </div>
     </form:form>
+    </jsp:body>
 </petclinic:layout>
