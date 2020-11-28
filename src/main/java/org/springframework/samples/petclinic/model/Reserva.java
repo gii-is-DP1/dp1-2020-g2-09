@@ -43,15 +43,15 @@ public class Reserva extends BaseEntity {
 	@NotNull
 	private LocalTime hora;
 
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne
 	@JoinColumn(name = "tipo_reserva_id")
 	private tipoReserva tipoReserva;
 	
-	@ManyToMany (cascade = CascadeType.REMOVE)
+	@ManyToMany (cascade = CascadeType.MERGE)
 	@JoinTable(name = "reservaAsociada", joinColumns =@JoinColumn(name= "mesasReservadas" ))
-	private Collection<Reserva> reserva;
+	private Collection<Mesa> reserva;
 	
-//	@ManyToOne(cascade = CascadeType.ALL)
+//	@ManyToOne
 //	@JoinColumn(name = "usuario",referencedColumnName="usuario")
 //	private Cliente cliente;
 }
