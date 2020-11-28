@@ -12,6 +12,7 @@
     </h2>
     <form:form modelAttribute="carta" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
+         	<petclinic:inputField label="Nombre" name="nombre"/>
             <petclinic:inputField label="Fecha" name="fecha"/>
             <!--<petclinic:inputField label="Id" name="id" />-->
         </div>

@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.model;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -29,7 +30,7 @@ public class Mesa extends BaseEntity{
 	@Max(6)
 	private Integer capacidad;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "reservaAsociada", joinColumns =@JoinColumn(name= "mesasReservadas"))
 	private Collection<Reserva> reserva;
 

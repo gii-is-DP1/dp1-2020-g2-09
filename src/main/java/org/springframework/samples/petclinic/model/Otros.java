@@ -22,7 +22,7 @@ public class Otros extends Producto {
 	@Column(name = "ingredientes")
 	private Ingrediente [] ingredientes;
 	
-	@ManyToMany(cascade = CascadeType.REMOVE)
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "composicionCartaOtros", joinColumns =@JoinColumn(name= "otrosEnCarta"))
 	private Collection<Carta> cartaDeOtros;
 	

@@ -1,6 +1,5 @@
 package org.springframework.samples.petclinic.web;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,9 +7,11 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Bebida;
+import org.springframework.samples.petclinic.model.Bebidas;
 import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.model.Otros;
 import org.springframework.samples.petclinic.model.Pizza;
+import org.springframework.samples.petclinic.model.Pizzas;
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.CartaService;
 import org.springframework.samples.petclinic.service.OtrosService;
@@ -102,33 +103,38 @@ public class CartaController {
 	}
 	
 	//Acceso a la carta
-	
 	@GetMapping(value = "/cartas/{cartaId}/VerCarta")
 	public String verCarta(@PathVariable("cartaId") Integer cartaId, ModelMap model) {
 		
+		//Recogemos las pizzas de la tabla y la guardamos en el modelo
 		List<Integer> listaIdPizzas = PizzaService.findIdPizzaById(cartaId);
-		List<Pizza> listaPizzas = new ArrayList<Pizza>();
+		Pizzas listaPizzas = new Pizzas();
 		for(int i=0; i<listaIdPizzas.size(); i++) {
-			int pizzaId = listaIdPizzas.get(i);
-			listaPizzas.add(this.PizzaService.findPizzaById(pizzaId));
+			Integer pizzaId = listaIdPizzas.get(i);
+			Pizza pizza = this.PizzaService.findPizzaById(pizzaId);
+			listaPizzas.getPizzasList().add(pizza);
 		}
 		model.put("pizzas", listaPizzas);
 		
-		List<Bebida> listaBebidas = BebidaService.findByCarta(cartaId);
+		List<Integer> listaIdBebidas = BebidaService.findIdBebidaById(cartaId);
+		Bebidas listaBebidas = new Bebidas();
+		for(int i=0; i<listaIdBebidas.size(); i++) {
+			Integer bebidaId = listaIdBebidas.get(i);
+			Bebida bebida = this.BebidaService.findById(bebidaId);
+			listaBebidas.getBebidasList().add(bebida);
+		}
 		model.put("bebidas", listaBebidas);
-		List<Otros> listaOtros = OtrosService.findByCarta(cartaId);
-		model.put("otros", listaOtros);
 		
 		return "cartas/verCarta";
 	}
 	
-	//Borrar carta
-	@DeleteMapping(value = "/carta/{cartaId}/delete")
-	public String deleteCarta(@PathVariable("cartaId") int cartaId) {
-		Carta carta = this.CartaService.findCartaById(cartaId);
-		this.CartaService.deleteCarta(carta);
-		return "redirect:/allCartas";
-	}
+//	//Borrar carta
+//	@DeleteMapping(value = "/carta/{cartaId}/delete")
+//	public String deleteCarta(@PathVariable("cartaId") int cartaId) {
+//		Carta carta = this.CartaService.findCartaById(cartaId);
+//		this.CartaService.deleteCarta(carta);
+//		return "redirect:/allCartas";
+//	}
 	
 	
 	

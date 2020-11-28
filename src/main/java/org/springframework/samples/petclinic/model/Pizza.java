@@ -21,14 +21,14 @@ import lombok.EqualsAndHashCode;
 public class Pizza extends Producto {
 
 	@ManyToOne
-	@JoinColumn(name = "tamaño")
+	@JoinColumn(name = "tamaño" )
 	private TamanoProducto tamanyo;
 
 	@ManyToOne
 	@JoinColumn(name = "tipoMasa")
 	private tipoMasa tipoMasa;
 	
-	@ManyToMany(cascade = CascadeType.REMOVE)
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "composicionCartaPizza", joinColumns =@JoinColumn(name= "pizzasEnCarta"))
 	private Collection<Carta> cartaDePizzas;
 }	

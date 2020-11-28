@@ -2,14 +2,12 @@ package org.springframework.samples.petclinic.web;
 
 import java.util.Collection;
 import java.util.Map;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.NivelSocio;
 import org.springframework.samples.petclinic.model.Oferta;
 import org.springframework.samples.petclinic.model.Ofertas;
-import org.springframework.samples.petclinic.model.TamanoProducto;
+import org.springframework.samples.petclinic.model.TamanoOferta;
 import org.springframework.samples.petclinic.service.OfertaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -36,9 +34,9 @@ public class OfertaController {
 		dataBinder.setDisallowedFields("id");
 	}
 	
-	@ModelAttribute("tamanoProducto")
-	public Collection<TamanoProducto> populateTamanoProducto() {
-		return this.ofertaService.findTamanoProducto();
+	@ModelAttribute("tamanoOferta")
+	public Collection<TamanoOferta> populateTamanoOferta() {
+		return this.ofertaService.findTamanoOferta();
 	}
 	
 	@ModelAttribute("nivelSocio")
