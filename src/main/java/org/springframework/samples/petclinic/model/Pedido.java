@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
@@ -58,5 +59,10 @@ public class Pedido extends BaseEntity{
 	@ManyToOne
 	@JoinColumn(name = "tipo_envio")
 	private TipoEnvio tipoEnvio;
+	
+	@ManyToOne
+	@JoinColumn(name = "pedidocliente")
+	private Cliente cliente;
+	
 	
 }

@@ -1,9 +1,12 @@
 package org.springframework.samples.petclinic.model;
 
 import java.time.LocalDate;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,6 +26,10 @@ public class Cliente extends Cuenta {
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@NotNull
 	private LocalDate fechaAlta = LocalDate.now();
+	
+	@OneToMany
+	@JoinColumn(name = "pedidocliente")
+	private Collection<Pedido> pedidos;
 	
 	
 }
