@@ -12,6 +12,7 @@ import org.springframework.samples.petclinic.service.OfertaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -62,11 +63,14 @@ public class OfertaController {
 
 	//mandar nueva oferta
 	@PostMapping(value = "/ofertas/new")
-	public String processCreationForm(@Valid Oferta oferta, BindingResult result) {
+	public String processCreationForm(@Valid Oferta oferta, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
+			model.put("oferta", oferta);//importanteeee
 			return "ofertas/createOrUpdateOfertaForm";
 		}
 		else {
+			OfertaValidator ofValidator = new OfertaValidator();
+			ValidationUtils.invokeValidator(ofValidator, oferta, result);
 			this.ofertaService.saveOferta(oferta);
 			return "redirect:/allOfertas";
 		}
@@ -88,6 +92,8 @@ public class OfertaController {
 			return "ofertas/createOrUpdateOfertaForm";
 		}
 		else {
+			OfertaValidator ofValidator = new OfertaValidator();
+			ValidationUtils.invokeValidator(ofValidator, oferta, result);
 			oferta.setId(ofertaId);
 			this.ofertaService.saveOferta(oferta);
 			return "redirect:/allOfertas";

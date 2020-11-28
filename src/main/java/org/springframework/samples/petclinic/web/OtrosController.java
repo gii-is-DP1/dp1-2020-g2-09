@@ -12,6 +12,7 @@ import org.springframework.samples.petclinic.service.OtrosService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -52,12 +53,15 @@ public class OtrosController {
 
 	//mandar nuevo Otros
 	@PostMapping(value = "/Otros/new")
-	public String processCreationForm(@Valid Otros Otros, BindingResult result) {
+	public String processCreationForm(@Valid Otros otros, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
+				model.put("otros", otros);//importanteeee
 			return "Otros/createOrUpdateOtrosForm";
 		}
 		else {
-			this.OtrosService.saveOtros(Otros);
+			OtrosValidator ostrosValidator = new OtrosValidator();
+			ValidationUtils.invokeValidator(ostrosValidator, otros, result);
+			this.OtrosService.saveOtros(otros);
 			return "redirect:/allOtros";
 		}
 	}
@@ -73,14 +77,16 @@ public class OtrosController {
 	
 	//mandar actualizacion
 	@PostMapping(value = "/Otros/{OtrosId}/edit")
-	public String processUpdateOtrosForm(@Valid Otros Otros, BindingResult result,
+	public String processUpdateOtrosForm(@Valid Otros otros, BindingResult result,
 			@PathVariable("OtrosId") int OtrosId) {
 		if (result.hasErrors()) {
 			return "Otros/createOrUpdateOtrosForm";
 		}
 		else {
-			Otros.setId(OtrosId);
-			this.OtrosService.saveOtros(Otros);
+			OtrosValidator ostrosValidator = new OtrosValidator();
+			ValidationUtils.invokeValidator(ostrosValidator, otros, result);
+			otros.setId(OtrosId);
+			this.OtrosService.saveOtros(otros);
 			return "redirect:/allOtros";
 		}
 	}
