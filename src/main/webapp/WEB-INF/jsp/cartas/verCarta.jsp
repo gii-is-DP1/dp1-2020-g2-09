@@ -8,8 +8,10 @@
     pageEncoding="UTF-8"%>
 <petclinic:layout pageName="carta">
     <h2>Carta</h2>
+    
+    <h3>Pizzas</h3>
 
-    <table id="pizzasTable" class="table table-striped">
+    <table id="pizzasTableCarta" class="table table-striped">
         <thead>
         <tr>
             <th>Nombre</th>
@@ -22,9 +24,9 @@
         <tbody>
         <c:forEach items="${pizzas.pizzasList}" var="pizza">
             <tr>
-                <td>
+               <td>
                     <c:out value="${pizza.nombre}"/>
-                </td>
+               </td>
                <td>
                 	<c:out value="${pizza.tamanyo}"/>
              	</td>
@@ -36,7 +38,42 @@
              	</td>
             </tr>
         </c:forEach>
+        </tbody>
+    </table>
+    
+    
+    <h3>Bebidas</h3>
+
+    <table id="bebidasTableCarta" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Carbonatada</th>
+            <th>Precio</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${bebidas.bebidasList}" var="bebida">
+            <tr>
+                <td>
+                    <c:out value="${bebida.nombre}"/>
+                </td>
+                <td>
+                	<c:out value="${bebida.esCarbonatada}"/>
+             	</td>
+             	<td>
+             		<c:out value="${bebida.coste}"/>
+             	</td>
+             	<!-- <td>
+             		<c:out value="${bebida.id}"></c:out>
+             	</td> -->  	
+            </tr>
+        </c:forEach>
         
         </tbody>
     </table>
+    
+    
+    
+    
 </petclinic:layout>

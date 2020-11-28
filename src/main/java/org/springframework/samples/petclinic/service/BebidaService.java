@@ -32,8 +32,8 @@ public class BebidaService {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<Bebida> findByCarta(Integer cartaId) throws DataAccessException {
-		return bebidaRepository.findByCartaDeBebidas(cartaId);
+	public List<Integer> findIdBebidaById(int cartaId) throws DataAccessException {
+		return bebidaRepository.findIdBebidaById(cartaId);
 	}
 	
 	@Transactional
