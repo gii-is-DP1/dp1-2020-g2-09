@@ -18,7 +18,7 @@ public class PizzaValidator implements Validator{
 		Pizza pizza = (Pizza) obj;
 		String nombre = pizza.getNombre();
 		tipoMasa tipoMasa = pizza.getTipoMasa();
-		TamanoProducto tamaño = pizza.getTamanyo();
+		TamanoProducto tamaño = pizza.getTamano();
 		Integer coste = pizza.getCoste();
 		
 		if (!StringUtils.hasLength(nombre) || nombre.length()>50 || nombre.length()<3 || nombre.equals(null)) {
