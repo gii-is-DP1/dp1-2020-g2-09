@@ -21,8 +21,8 @@ import lombok.EqualsAndHashCode;
 public class Pizza extends Producto {
 
 	@ManyToOne
-	@JoinColumn(name = "tamaño" )
-	private TamanoProducto tamanyo;
+	@JoinColumn(name = "tamano_producto" )
+	private TamanoProducto tamano;
 
 	@ManyToOne
 	@JoinColumn(name = "tipoMasa")

@@ -29,7 +29,7 @@
                     <c:out value="${pizza.nombre}"/>
                 </td>
                <td>
-                	<c:out value="${pizza.tamanyo}"/>
+                	<c:out value="${pizza.tamano}"/>
              	</td>
              	<td>
              		<c:out value="${pizza.coste}"/>

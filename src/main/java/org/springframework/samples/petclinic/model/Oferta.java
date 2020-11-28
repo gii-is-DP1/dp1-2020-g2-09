@@ -51,21 +51,21 @@ public class Oferta extends BaseEntity{
 	@NotNull
 	private LocalDate fechaFinal;
 	
-	public TamanoProducto getTamanoProducto() {
-		return this.tamanoProducto;
-	}
-
-	public void setTamanoProducto(TamanoProducto tamanoProducto) {
-		this.tamanoProducto = tamanoProducto;
-	}
-	
-	public NivelSocio getNivelSocio() {
-		return this.nivelSocio;
-	}
-
-	public void setNivelSocio(NivelSocio nivelSocio) {
-		this.nivelSocio = nivelSocio;
-	}
-	
+//	public TamanoProducto getTamanoProducto() {
+//		return this.tamanoProducto;
+//	}
+//
+//	public void setTamanoProducto(TamanoProducto tamanoProducto) {
+//		this.tamanoProducto = tamanoProducto;
+//	}
+//	
+//	public NivelSocio getNivelSocio() {
+//		return this.nivelSocio;
+//	}
+//
+//	public void setNivelSocio(NivelSocio nivelSocio) {
+//		this.nivelSocio = nivelSocio;
+//	}
+//	
 
 }
