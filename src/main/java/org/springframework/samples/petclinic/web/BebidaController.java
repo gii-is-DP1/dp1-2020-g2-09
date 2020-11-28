@@ -52,7 +52,7 @@ public class BebidaController {
 	@PostMapping(value = "/bebidas/new")
 	public String processCreationForm(@Valid Bebida Bebida, BindingResult result) {
 		if (result.hasErrors()) {
-			return "bebidas/createOrUpdatePizzaForm";
+			return "bebidas/createOrUpdateBebidaForm";
 		} else {
 			this.bebidaService.saveBebida(Bebida);
 			return "redirect:/allBebidas";
@@ -61,7 +61,7 @@ public class BebidaController {
 
 	// iniciar actualizacion
 	@GetMapping(value = "/bebidas/{bebidaId}/edit")
-	public String initUpdateForm(@PathVariable("Id") int bebidaId, ModelMap model) {
+	public String initUpdateForm(@PathVariable("bebidaId") int bebidaId, ModelMap model) {
 		Bebida bebida = this.bebidaService.findById(bebidaId);
 		model.put("bebida", bebida);
 		return "bebidas/createOrUpdateBebidaForm";

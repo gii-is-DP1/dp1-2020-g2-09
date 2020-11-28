@@ -63,7 +63,7 @@ public class PizzaController {
 
 	// iniciar actualizacion
 	@GetMapping(value = "/pizzas/{pizzaId}/edit")
-	public String initUpdateForm(@PathVariable("Id") int pizzaId, ModelMap model) {
+	public String initUpdateForm(@PathVariable("pizzaId") int pizzaId, ModelMap model) {
 		Pizza pizza = this.pizzaService.findPizzaById(pizzaId);
 		model.put("pizza", pizza);
 		return "pizzas/createOrUpdatePizzaForm";

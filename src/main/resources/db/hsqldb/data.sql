@@ -247,5 +247,5 @@ INSERT INTO BEBIDAS values (3, 1, 10, 'fanta', false ,1);
 INSERT INTO BEBIDAS values (4, 1, 15, 'fanta limon', true ,2);
 INSERT INTO BEBIDAS values (5, 2, 19, 'agua', false ,1);
 
-INSERT INTO CARTAS values (1, '2020-04-30');
-
+INSERT INTO CARTAS(fecha) values ('2020-04-30');
+INSERT INTO CARTAS(fecha) values ('2020-11-20');
