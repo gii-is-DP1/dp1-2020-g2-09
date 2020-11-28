@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 import com.sun.istack.NotNull;
@@ -25,6 +26,7 @@ public class Mesa extends BaseEntity{
 	@Column(name = "capacidad")
 	@NotNull
 	@Min(0)
+	@Max(6)
 	private Integer capacidad;
 	
 	@ManyToMany
