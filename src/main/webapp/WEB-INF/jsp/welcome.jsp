@@ -21,30 +21,71 @@
     	</ul></p>	
     </div>    
     <div>
-    	<sec:authorize access="isAuthenticated()" >
-    		<a href="/cuentas/DetallesPerfil">Aquí encontrará sus datos si ha iniciado sesión</a>
-    	</sec:authorize>
+    <p><b>HISTORIAS DE USUARIO IMPLEMENTADAS.</b></p>
+    </div>
+    <div> 
+     <a href="/allCuentas"></a>
     </div>
     <div>
-     <a href="/allCuentas">Prueba 1: muestreo, post, edit y eliminación de clientes</a>
+     <a href="/allCocineros">H-001: Gestión de plantilla (cocineros). Pruebas hechas.</a>
     </div>
     <div>
-     <a href="/allCocineros">Prueba 2: muestreo, post y edit de cocineros</a>
+     <a href="/allRepartidores">H-001: Gestión de plantilla (repartidores). Pruebas hechas.</a>
     </div>
      <div>
+     <a href="/allMesas">H-002: Número de mesas. Faltan pruebas.</a>
+    </div>
+     <div>
+     <a href="/allOfertas">H-004: Ofertas disponibles. Pruebas hechas.</a>
+    </div>
+    <sec:authorize access="isAuthenticated()" >
+    		<a href="/cuentas/DetallesPerfil">H-005: Datos del cliente. Pruebas hechas.</a>
+    	</sec:authorize>
+     <div>
+     <a href="/allReclamaciones">H-007: Visualizar reclamaciones. Pruebas hechas.</a>
+    </div>
+    
+       <div>
+      <p>H-012: Tamaño del producto. ¿Pruebas?</p>
+    </div>
+    
+    <div>
+     <a href="/allCartas">H-013: Acceso a la carta. ¿Pruebas?</a>
+    </div>
+    
+    <div>
+     <p>H-020: Iniciar sesión. Pruebas no implementadas puesto que son del controller.</p>
+    </div>
+    
+    <div>
+     <a href="/reclamaciones/new">H-022: Escribir reclamaciones. Pruebas hechas.</a>
+    </div>
+    
+    <div>
+     <a href="allOfertas">H-023: Añadir ofertas. Pruebas hechas.</a>
+    </div>
+    
+     <div>
+     <a href="allOfertas">H-024: Eliminar ofertas. Pruebas hechas.</a>
+    </div>
+    <br>
+    <div>
+    <p><b>COSAS QUE FALTAN POR HACER</b></p>
+    <p>H-010. Reserva falta unir a cliente, editar y añadir de error la fecha y la hora (no llega al controlador).</p>
+    <p>Pruebas de H-010.</p>
+    
+    </div>
+    
+    
+      
+    <!--  <div>
      <a href="/allReservas">Prueba 3: muestreo, post y edit de reservas</a>
 	</div>
     <div>
      <a href="/allPedidos">Prueba 4: muestreo de pedidos</a>
     </div>
     <div>
-     <a href="/allRepartidores">Prueba 5: muestreo, post, edit y eliminación de repartidores</a>
-    </div>
-    <div>
      <a href="/allAdministradores">Prueba 6: muestreo, post, edit y eliminación de administradores</a>
-    </div>
-    <div>
-     <a href="/allMesas">Prueba 7: muestreo, post y edit de mesas :)</a>
     </div>
     <div>
      <a href="/allReclamaciones">Prueba 8: muestreo, post y edit de reclamaciones uwu</a>
@@ -57,7 +98,7 @@
     </div>
 	<div>
      <a href="/allCartas">Prueba 11: muestreo, post y edit de cartas</a>
-    </div>
+    </div> -->
     <div class="row">
         <div class="col-md-12">
             <spring:url value="/resources/images/pizza.jpg" htmlEscape="true" var="pizzaImagen"/>
