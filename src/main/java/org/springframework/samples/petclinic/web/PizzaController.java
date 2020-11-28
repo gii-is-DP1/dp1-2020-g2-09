@@ -14,6 +14,7 @@ import org.springframework.samples.petclinic.service.PizzaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -55,10 +56,13 @@ public class PizzaController {
 
 	// mandar nuevo Pizza
 	@PostMapping(value = "/pizzas/new")
-	public String processCreationForm(@Valid Pizza Pizza, BindingResult result) {
+	public String processCreationForm(@Valid Pizza Pizza, BindingResult result,ModelMap model) {
 		if (result.hasErrors()) {
+			model.put("pizza", Pizza);//importanteeee
 			return "pizzas/createOrUpdatePizzaForm";
 		} else {
+			PizzaValidator pizzaValidator = new PizzaValidator();
+			ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
 			this.pizzaService.savePizza(Pizza);
 			return "redirect:/allPizzas";
 		}
@@ -80,6 +84,8 @@ public class PizzaController {
 			return "pizzas/createOrUpdatePizzaForm";
 		} else {
 			Pizza.setId(pizzaId);
+			PizzaValidator pizzaValidator = new PizzaValidator();
+			ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
 			this.pizzaService.savePizza(Pizza);
 			return "redirect:/allPizzas";
 		}
