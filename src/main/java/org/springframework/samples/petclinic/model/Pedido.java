@@ -40,22 +40,22 @@ public class Pedido extends BaseEntity{
 	@NotNull
 	private LocalDate fechaPedido;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	//JoinTable el nombre de la tabla que va a relacionar pedido con oferta
 	//JoinColumn el nombre del atributo
 	@JoinTable(name = "ofertaPedido", joinColumns =@JoinColumn(name= "PedidosConOferta" ))
 	private Collection<Pedido> pedidosConOferta;
 	
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "estado_pedido")
 	private EstadoPedido estadoPedido;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "tipo_pago")
 	private TipoPago tipoPago;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "tipo_envio")
 	private TipoEnvio tipoEnvio;
 	
