@@ -53,11 +53,10 @@ public class PedidoServiceTests {
 		assertThat(clienteEncontrado.getUser().getUsername()).isEqualTo("margarcac1");
 //		System.out.println("Cliente: " + clienteEncontrado.getUser().getUsername());
 	}
-	*/
-	@Test
+	
+	/*@Test
 	@Transactional
 	public void shouldInsertPedido() {
-
 		Pedido pedido = new Pedido();
 		/*TipoPago pago = new TipoPago();
 		TipoEnvio envio = new TipoEnvio();
@@ -67,7 +66,7 @@ public class PedidoServiceTests {
 		cliente.setApellidos("Florentino");
 		cliente.setTelefono(683020234);
 		cliente.setEmail("paquito@gmail.com");
-		cliente.setFechaNacimiento(LocalDate.of(2000, 12, 9));*/
+		cliente.setFechaNacimiento(LocalDate.of(2000, 12, 9));
 		pedido.setDireccion("C/Ferrara 4, 9A");
 		pedido.setPrecio(50.65);
 		pedido.setGastosEnvio(3.5);
@@ -79,7 +78,7 @@ public class PedidoServiceTests {
 		this.pedidoService.savePedido(pedido);
 		Pedido pedidoEncontrado = this.pedidoService.findPedidoById(pedido.getId());
 		assertThat(pedido).isEqualTo(pedidoEncontrado);
-	}
+	}*/
 	
 	/*@Test
 	@Transactional
