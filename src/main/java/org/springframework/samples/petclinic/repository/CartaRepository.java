@@ -14,7 +14,7 @@ public interface CartaRepository  extends CrudRepository<Carta, Integer>{
 
 	List<Carta> findAll() throws DataAccessException;
 	
-	Carta findCartaById(int cartaId) throws DataAccessException;
+	Carta findById(int cartaId) throws DataAccessException;
 
 	Carta findCartaByFecha(LocalDate cartaFecha)throws DataAccessException;
 }
