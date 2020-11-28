@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.EstadoPedido;
 import org.springframework.samples.petclinic.model.NivelSocio;
 import org.springframework.samples.petclinic.model.Oferta;
@@ -18,7 +17,6 @@ import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.TamanoProducto;
 import org.springframework.samples.petclinic.model.TipoEnvio;
 import org.springframework.samples.petclinic.model.TipoPago;
-import org.springframework.samples.petclinic.model.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,19 +34,19 @@ public class OfertaServiceTests {
 			Oferta oferta = new Oferta();
 			TamanoProducto tamanoProducto = new TamanoProducto();
 			tamanoProducto.setName("Grande");
+			
 			NivelSocio nivelSocio = new NivelSocio();
 			nivelSocio.setName("Oro");
 			
+			
 			EstadoPedido estadoPedido = new EstadoPedido();
-			estadoPedido.setName("Entregado");
-			
+			  estadoPedido.setName("Entregado");
+			  
 			TipoEnvio tipoEnvio = new TipoEnvio();
-			tipoEnvio.setName("Recogida en tienda");
-			
-			TipoPago tipoPago = new TipoPago();
-			tipoPago.setName("Efectivo");
-			
-			
+			  tipoEnvio.setName("Recogida en tienda");
+			  
+			TipoPago tipoPago = new TipoPago(); tipoPago.setName("Efectivo");
+			 
 			
 			Pedido pedido = new Pedido();
 			pedido.setDireccion("Dirección 1");
@@ -69,7 +67,7 @@ public class OfertaServiceTests {
 			oferta.setFechaFinal(LocalDate.of(2020, 11, 18));
 			oferta.setNivelSocio(nivelSocio);
 			oferta.setPedidosConOferta(pedidoConOferta);
-			oferta.setTamanoProducto(tamanoProducto);                
+			oferta.setTamanoProducto(tamanoProducto);   
 	                
 			this.ofertaService.saveOferta(oferta);
 			Oferta ofertaEncontrada = this.ofertaService.findOfertaById(oferta.getId());
