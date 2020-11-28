@@ -13,17 +13,19 @@
     <form:form modelAttribute="pizza" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre de la pizza" name="nombre"/>
-                        
-             <select label="tipoMasa" name="tipoMasa">
+                 
+             <div class="control-group">
+           
+            <petclinic:selectField name="tipoMasa" label="Tipo de Masa" names="${tipoMasa}" size="3"/>
+            </div>       
+             <!--select label="tipoMasa" name="tipoMasa">
 			  <option value="AMERICANA">Americana</option> 
 			  <option value="FINA" selected>Fina</option>
 			  <option value="BORDESDEQUESO">Bordes de queso</option>
-			</select>
+			</select>-->
 			
-			 <select label="tamaño" name="tamaño">
-			  <option value="NORMAL">Normal</option> 
-			  <option value="GRANDE" selected>Grande</option>
-			</select>            
+			<petclinic:selectField name="tamanyo" label="Tamaño" names="${tamanyo}" size="3"/>
+            </div>         
 			
             <petclinic:inputField label="Precio" name="coste"/>
             

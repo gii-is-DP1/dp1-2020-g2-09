@@ -1,10 +1,12 @@
 package org.springframework.samples.petclinic.service;
 
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.model.Alergenos;
 import org.springframework.samples.petclinic.model.Ingrediente;
 import org.springframework.samples.petclinic.repository.IngredienteRepository;
 import org.springframework.stereotype.Service;
@@ -39,6 +41,10 @@ public class IngredienteService {
 	@Transactional
 	public void deleteIngrediente(Ingrediente Ingrediente) throws DataAccessException {
 		IngredienteRepository.delete(Ingrediente);		
-	}	
+	}
+	@Transactional(readOnly = true)
+    public Collection<Alergenos> findAlergenos() throws DataAccessException {
+        return IngredienteRepository.findAlergenos();
+    }
 	
 }
