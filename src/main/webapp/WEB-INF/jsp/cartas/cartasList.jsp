@@ -13,27 +13,25 @@
     <table id="cartasTable" class="table table-striped">
         <thead>
         <tr>
+        	<th>Nombre</th>
             <th>Fecha</th>
-            <th>Pizzas</th>
-            <th>Bebidas</th>
-            <th>Otros</th>
-            
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${cartas}" var="cartas">
             <tr>
+            	<td>
+            		<c:out value="${cartas.nombre}"/>
+            	</td>
                 <td>
                     <c:out value="${cartas.fecha}"/>
                 </td>
-                <td></td>
                 <td>
-                    <c:out value="${reserva.cartaDePizzas}"/> <!-- hay que cambiarlo -->
+                	<spring:url value="/cartas/{cartaId}/VerCarta" var="cartaUrl3">
+	                        <spring:param name="cartaId" value="${cartas.id}"/>
+	                </spring:url>
+             		<a href="${fn:escapeXml(cartaUrl3)}" class="btn btn-default">Acceder a la carta</a>
                 </td>
-                <td>
-                    <c:out value="${reserva.cartaDeBebidas}"/><!-- hay que cambiarlo -->
-                </td>
-					<c:out value="${reserva.cartaDeOtros}"/><!-- hay que cambiarlo -->
                 <td>
              		<spring:url value="/cartas/{cartaId}/edit" var="cartaUrl">
 	                        <spring:param name="cartaId" value="${cartas.id}"/>
