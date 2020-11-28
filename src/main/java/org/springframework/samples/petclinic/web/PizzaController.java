@@ -1,13 +1,15 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.Collection;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Clientes;
 import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.Pizzas;
+import org.springframework.samples.petclinic.model.TamanoProducto;
+import org.springframework.samples.petclinic.model.tipoMasa;
 import org.springframework.samples.petclinic.service.PizzaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -63,7 +66,7 @@ public class PizzaController {
 
 	// iniciar actualizacion
 	@GetMapping(value = "/pizzas/{pizzaId}/edit")
-	public String initUpdateForm(@PathVariable("Id") int pizzaId, ModelMap model) {
+	public String initUpdateForm(@PathVariable("pizzaId") int pizzaId, ModelMap model) {
 		Pizza pizza = this.pizzaService.findPizzaById(pizzaId);
 		model.put("pizza", pizza);
 		return "pizzas/createOrUpdatePizzaForm";
@@ -90,5 +93,13 @@ public class PizzaController {
 		return "redirect:/allPizzas";
 	}
 
-
+	@ModelAttribute("tipoMasa")
+    public Collection<tipoMasa> populateTipoMasa() {
+        return this.pizzaService.findTipoMasa();
+    }
+    
+    @ModelAttribute("tamanyo")
+    public Collection<TamanoProducto> populateTamaño() {
+        return this.pizzaService.findTamaño();
+    }
 }

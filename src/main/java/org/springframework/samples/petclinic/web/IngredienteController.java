@@ -1,13 +1,14 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Alergenos;
 import org.springframework.samples.petclinic.model.Ingrediente;
 import org.springframework.samples.petclinic.service.IngredienteService;
 import org.springframework.stereotype.Controller;
@@ -94,6 +95,9 @@ public class IngredienteController {
 		this.IngredienteService.deleteIngrediente(Ingrediente);
 		return "redirect:/allIngredientes";
 	}
-	
+	@ModelAttribute("AlergenosList")
+    public Collection<Alergenos> populateTamanoProducto() {
+        return this.IngredienteService.findAlergenos();
+    }
 	
 }

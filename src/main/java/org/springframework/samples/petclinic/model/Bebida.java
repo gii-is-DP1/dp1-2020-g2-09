@@ -1,7 +1,9 @@
 package org.springframework.samples.petclinic.model;
 
+import java.time.LocalDate;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -12,7 +14,11 @@ import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@Data
+@EqualsAndHashCode(callSuper=false)
 @Entity
 @Table(name = "Bebidas")
 public class Bebida extends Producto {
@@ -25,7 +31,7 @@ public class Bebida extends Producto {
 	@NotNull
 	private Boolean esCarbonatada;
 	
-	@ManyToMany
-	@JoinTable(name = "composicionCarta", joinColumns =@JoinColumn(name= "bebidasEnCarta"))
+	@ManyToMany(cascade = CascadeType.REMOVE)
+	@JoinTable(name = "composicionCartaBebida", joinColumns =@JoinColumn(name= "bebidasEnCarta"))
 	private Collection<Carta> cartaDeBebidas;
 }

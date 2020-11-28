@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Size;
 
@@ -32,7 +34,9 @@ public class Ingrediente extends BaseEntity {
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate fechaCaducidad;
 	
-	@Column(name = "alergenos")
-	private String [] alergenos;
+	@ManyToOne
+	@JoinColumn(name = "Alergenos")
+	
+	private Alergenos alergenos;
 	
 }

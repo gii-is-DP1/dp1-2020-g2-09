@@ -12,6 +12,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.sun.istack.NotNull;
 
 import lombok.Data;
@@ -25,18 +27,19 @@ public class Carta extends BaseEntity{
 	
 	@Column(name = "fecha")
 	@NotNull
-	private LocalDate fecha;
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	private LocalDate fecha = LocalDate.now();
 	
-	@Column(name = "Pizza")
+	//@Column(name = "Pizza")
 	@ManyToMany (cascade = CascadeType.REMOVE)
-	@JoinTable(name = "composicionCarta", joinColumns =@JoinColumn(name= "pizzasEnCarta" ))
+	@JoinTable(name = "composicionCartaPizza", joinColumns =@JoinColumn(name= "pizzasEnCarta" ))
 	private Collection<Pizza> cartaDePizzas;
 	
 	@ManyToMany (cascade = CascadeType.REMOVE)
-	@JoinTable(name = "composicionCarta", joinColumns =@JoinColumn(name= "bebidasEnCarta" ))
+	@JoinTable(name = "composicionCartaBebida", joinColumns =@JoinColumn(name= "bebidasEnCarta" ))
 	private Collection<Bebida> cartaDeBebidas;
 	
 	@ManyToMany (cascade = CascadeType.REMOVE)
-	@JoinTable(name = "composicionCarta", joinColumns =@JoinColumn(name= "otrosEnCarta" ))
+	@JoinTable(name = "composicionCartaOtros", joinColumns =@JoinColumn(name= "otrosEnCarta" ))
 	private Collection<Otros> cartaDeOtros;
 }
