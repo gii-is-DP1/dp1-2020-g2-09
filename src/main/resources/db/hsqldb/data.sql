@@ -225,6 +225,22 @@ INSERT INTO TIPO_MASA VALUES(2,'RELLENA');
 INSERT INTO TAMAÑO VALUES(3,'PEQUEÑA');
 INSERT INTO TAMAÑO VALUES(2,'MEDIANA');*/
 
+INSERT INTO Alergenos VALUES(1,'Crustaceos y productos a base de crustaceos');
+INSERT INTO Alergenos VALUES(2,'Cereales que contengan gluten');
+INSERT INTO Alergenos VALUES(3,'Huevos y productos a base de huevo');
+INSERT INTO Alergenos VALUES(4,'Pescado y productos a base de pescado');
+INSERT INTO Alergenos VALUES(5,'Cacahuetes y productos a base de cacahuetes');
+INSERT INTO Alergenos VALUES(6,'Soja y productos a base de soja');
+INSERT INTO Alergenos VALUES(7,'Leche y sus derivados');
+INSERT INTO Alergenos VALUES(8,'Frutos de cascara');
+INSERT INTO Alergenos VALUES(9,'Apio y productos derivados');
+INSERT INTO Alergenos VALUES(10,'Mostaza y productos derivados');
+INSERT INTO Alergenos VALUES(11,'Granos de sesamo');
+INSERT INTO Alergenos VALUES(12,'Dioxido de azufre y sulfitos');
+INSERT INTO Alergenos VALUES(13,'Altramuces y productos a base de altramuces');
+INSERT INTO Alergenos VALUES(14,'Moluscos y productos a base de moluscos');
+
+
 INSERT INTO PIZZAS values (1, 1, 20, 'PROSCIUTTO E FUNGHI', 1 ,2);
 INSERT INTO PIZZAS values (2, 1, 22, 'PROSCIUTTO', 2 ,3);
 INSERT INTO PIZZAS values (3, 1, 10, 'HAWAIANA', 2 ,1);
@@ -247,10 +263,14 @@ INSERT INTO BEBIDAS values (3, 1, 10, 'fanta', false ,1);
 INSERT INTO BEBIDAS values (4, 1, 15, 'fanta limon', true ,2);
 INSERT INTO BEBIDAS values (5, 2, 19, 'agua', false ,1);
 
+
 /*INSERT INTO INGREDIENTE values (1, 'gluten','2020/01/01' , 'pan', 'Rico en carbohidratos');
 INSERT INTO INGREDIENTE values (2, 'lactosa','2020/02/02' , 'queso', 'Rico en proteinas');
 INSERT INTO INGREDIENTE values (3, 'fructosa','2020/03/03' , 'tomate', 'Verduras y frutas');
 INSERT INTO INGREDIENTE values (1, 'pescado','2020/04/04' , 'anchoas', 'Rico en proteinas');
 INSERT INTO INGREDIENTE values (2, 'atopia','2020/05/05' , 'huevo', 'Rico en proteinas');
 INSERT INTO INGREDIENTE values (3, 'fructosa','2020/06/06' , 'manzana', 'Verduras y frutas');*/
+
+INSERT INTO CARTAS(fecha) values ('2020-04-30');
+INSERT INTO CARTAS(fecha) values ('2020-11-20');
 

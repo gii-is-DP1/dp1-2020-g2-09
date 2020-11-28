@@ -19,7 +19,7 @@
         <a href="/bebidas/new" class="btn btn-default">Añadir bebida</a>
         </thead>
         <tbody>
-        <c:forEach items="${bebidas.bebidasList}" var="cliente">
+        <c:forEach items="${bebidas.bebidasList}" var="bebida">
             <tr>
                 <td>
                     <c:out value="${bebida.nombre}"/>
@@ -37,7 +37,7 @@
              		<spring:url value="/bebidas/{bebidaId}/edit" var="bebidaUrl">
 	                        <spring:param name="bebidaId" value="${bebida.id}"/>
 	                </spring:url>
-   					<a href="${fn:escapeXml(cuentaUrl)}" class="btn btn-default">Editar</a>
+   					<a href="${fn:escapeXml(bebidaUrl)}" class="btn btn-default">Editar</a>
              	</td>
              	<td>
              		<spring:url value="/bebidas/{bebidaId}/delete" var="bebidaUrl2">
