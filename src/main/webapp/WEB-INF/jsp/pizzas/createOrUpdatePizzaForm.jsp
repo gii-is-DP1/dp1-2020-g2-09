@@ -24,7 +24,7 @@
 			  <option value="BORDESDEQUESO">Bordes de queso</option>
 			</select>-->
 			
-			<petclinic:selectField name="tamanyo" label="Tamaño" names="${tamanyo}" size="3"/>
+			<petclinic:selectField name="tamano" label="Tamaño" names="${tamanyo}" size="3"/>
             </div>         
 			
             <petclinic:inputField label="Precio" name="coste"/>

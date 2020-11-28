@@ -24,7 +24,7 @@
         <c:forEach items="${ofertas.ofertasList}" var="oferta">
             <tr>
                 <td>
-                    <c:out value="${oferta.tamanoProducto}"/>
+                    <c:out value="${oferta.tamanoOferta}"/>
                 </td>
                 <td>
                 	<c:out value="${oferta.coste}"/>

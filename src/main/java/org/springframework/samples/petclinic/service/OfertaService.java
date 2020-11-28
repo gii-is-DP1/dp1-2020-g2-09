@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.NivelSocio;
 import org.springframework.samples.petclinic.model.Oferta;
-import org.springframework.samples.petclinic.model.TamanoProducto;
+import org.springframework.samples.petclinic.model.TamanoOferta;
 import org.springframework.samples.petclinic.repository.OfertaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,8 +33,8 @@ public class OfertaService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Collection<TamanoProducto> findTamanoProducto() throws DataAccessException {
-		return ofertaRepository.findTamanoProducto();
+	public Collection<TamanoOferta> findTamanoOferta() throws DataAccessException {
+		return ofertaRepository.findTamanoOferta();
 	}
 	
 	@Transactional(readOnly = true)

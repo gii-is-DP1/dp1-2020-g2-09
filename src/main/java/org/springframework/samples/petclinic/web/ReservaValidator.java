@@ -8,10 +8,11 @@ import org.springframework.samples.petclinic.model.tipoReserva;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+
 @Component
 public class ReservaValidator implements Validator {
 
-	private static final String REQUIRED = "required";
+	private static final String REQUIRED = "requerido";
 	
 	public boolean supports(Class<?> clazz) {
 		return Reserva.class.isAssignableFrom(clazz);
@@ -26,14 +27,14 @@ public class ReservaValidator implements Validator {
 		tipoReserva tipoReserva = reserva1.getTipoReserva();
 
 		
-		if (numeroPersonas==0 || numeroPersonas<=0) {
+		if (numeroPersonas==0 || numeroPersonas<=0 || numeroPersonas.equals(null)) {
 			errors.rejectValue("El número de personas", REQUIRED+" debe ser un número real", REQUIRED+" y mayor que cero.");
 		}
 		if (numeroPersonas>6) {
 			errors.rejectValue(REQUIRED, "El numero de personas debe ser inferior a 6 debido a la pandemia del COVID");
 		}
 		
-		if (numeroPersonas == null || fechaReserva==null || hora== null || tipoReserva==null) {
+		if (numeroPersonas.equals(null) || fechaReserva==null || hora== null || tipoReserva==null) {
 			errors.rejectValue("No puede introducir una reserva con valores nulos.", REQUIRED, REQUIRED);
 		}
 		

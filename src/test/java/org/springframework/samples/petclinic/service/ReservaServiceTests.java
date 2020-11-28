@@ -37,27 +37,27 @@ public class ReservaServiceTests {
 		Reserva reservaEncontrada = this.reservaService.findById(reserva.getId());
 		assertThat(reserva).isEqualTo(reservaEncontrada);
 	}
-//	@Test
-//	@Transactional
-//	public void shouldNotInsertReserva() {
-//		tipoReserva tr=new tipoReserva();
-//		tr.setName("MERIENDA");
-//		Reserva reserva = new Reserva();
-//		reserva.setFechaReserva(LocalDate.of(2000, 12, 9));
-//		reserva.setHora(LocalTime.of(10, 20));
-//		reserva.setNumeroPersonas(8);//Meter un numero de personas >6 que no se puede por el COVID
-//		reserva.setTipoReserva(tr);
-//        
-//		try {
-//		this.reservaService.saveReserva(reserva);
-//		}
-//		catch(Exception e){
-//			assertTrue(true);
-//		}
-//		//assertTrue(false);
-//		Reserva reservaEncontrada = this.reservaService.findById(reserva.getId());
-//		//assertThat(reserva).isNotEqualTo(reservaEncontrada);
-//	}
+	@Test
+	@Transactional
+	public void shouldNotInsertReserva() {
+		tipoReserva tr=new tipoReserva();
+		tr.setName("MERIENDA");
+		Reserva reserva = new Reserva();
+		reserva.setFechaReserva(LocalDate.of(2000, 12, 9));
+		reserva.setHora(LocalTime.of(10, 20));
+		reserva.setNumeroPersonas(8);//Meter un numero de personas >6 que no se puede por el COVID
+		reserva.setTipoReserva(tr);
+        
+		try {
+		this.reservaService.saveReserva(reserva);
+		}
+		catch(Exception e){
+			assertTrue(true);
+		}
+		//assertTrue(false);
+		//Reserva reservaEncontrada = this.reservaService.findById(reserva.getId());
+		//assertThat(reserva).isNotEqualTo(reservaEncontrada);
+	}
 	
 	@Test
 	@Transactional

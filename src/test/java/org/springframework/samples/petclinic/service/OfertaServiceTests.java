@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertNull;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,11 +11,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.EstadoPedido;
 import org.springframework.samples.petclinic.model.NivelSocio;
 import org.springframework.samples.petclinic.model.Oferta;
 import org.springframework.samples.petclinic.model.Pedido;
-import org.springframework.samples.petclinic.model.TamanoProducto;
+import org.springframework.samples.petclinic.model.TamanoOferta;
 import org.springframework.samples.petclinic.model.TipoEnvio;
 import org.springframework.samples.petclinic.model.TipoPago;
 import org.springframework.stereotype.Service;
@@ -32,20 +34,21 @@ public class OfertaServiceTests {
 		public void shouldInsertOferta() {
 
 			Oferta oferta = new Oferta();
-			TamanoProducto tamanoProducto = new TamanoProducto();
-			tamanoProducto.setName("Grande");
+			TamanoOferta tamanoOferta = new TamanoOferta();
+			tamanoOferta.setName("Grande");
 			
 			NivelSocio nivelSocio = new NivelSocio();
 			nivelSocio.setName("Oro");
-			
-			
+		
 			EstadoPedido estadoPedido = new EstadoPedido();
 			  estadoPedido.setName("Entregado");
 			  
 			TipoEnvio tipoEnvio = new TipoEnvio();
 			  tipoEnvio.setName("Recogida en tienda");
 			  
-			TipoPago tipoPago = new TipoPago(); tipoPago.setName("Efectivo");
+			TipoPago tipoPago = new TipoPago(); 
+			
+			tipoPago.setName("Efectivo");
 			 
 			
 			Pedido pedido = new Pedido();
@@ -67,7 +70,7 @@ public class OfertaServiceTests {
 			oferta.setFechaFinal(LocalDate.of(2020, 11, 18));
 			oferta.setNivelSocio(nivelSocio);
 			oferta.setPedidosConOferta(pedidoConOferta);
-			oferta.setTamanoProducto(tamanoProducto);   
+			oferta.setTamanoOferta(tamanoOferta); 
 	                
 			this.ofertaService.saveOferta(oferta);
 			Oferta ofertaEncontrada = this.ofertaService.findOfertaById(oferta.getId());
@@ -81,9 +84,17 @@ public class OfertaServiceTests {
 		 Double costeActualizado = 5.5;
 		 oferta.setCoste(costeActualizado);
 	     this.ofertaService.saveOferta(oferta);
-	     
 	     oferta = this.ofertaService.findOfertaById(1);
 	     assertThat(oferta.getCoste()).isEqualTo(costeActualizado);
+	 }
+	 
+	 @Test
+	 @Transactional
+	 void shouldDeleteOferta() {
+		 Oferta oferta = this.ofertaService.findOfertaById(1);			
+		this.ofertaService.deleteOferta(oferta);		
+		oferta = this.ofertaService.findOfertaById(1);
+		assertNull(oferta);
 	 }
 	 
 	 

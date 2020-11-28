@@ -60,7 +60,7 @@ public class Pedido extends BaseEntity{
 	@JoinColumn(name = "tipo_envio")
 	private TipoEnvio tipoEnvio;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "pedidocliente")
 	private Cliente cliente;
 	
