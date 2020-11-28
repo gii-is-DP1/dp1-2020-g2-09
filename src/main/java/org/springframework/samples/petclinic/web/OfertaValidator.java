@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import org.springframework.samples.petclinic.model.NivelSocio;
 import org.springframework.samples.petclinic.model.Oferta;
-import org.springframework.samples.petclinic.model.TamanoProducto;
+import org.springframework.samples.petclinic.model.TamanoOferta;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -22,7 +22,7 @@ public class OfertaValidator implements Validator {
 	@Override
 	public void validate(Object obj, Errors errors) {
 		Oferta oferta = (Oferta) obj;
-		TamanoProducto tamaño = oferta.getTamanoProducto();
+		TamanoOferta tamaño = oferta.getTamanoOferta();
 		Double coste= oferta.getCoste();
 		LocalDate horaFinal= oferta.getFechaFinal();
 		LocalDate horaInicial = oferta.getFechaInicial();
