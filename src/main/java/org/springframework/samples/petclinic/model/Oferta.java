@@ -24,9 +24,9 @@ import lombok.EqualsAndHashCode;
 @Table(name = "Ofertas")
 public class Oferta extends BaseEntity{
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "tamano_producto")
-	private TamanoProducto tamanoProducto;
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "tamano_oferta")
+	private TamanoOferta tamanoOferta;
 	
 	@Column(name = "coste")
 	@NotNull
@@ -42,7 +42,7 @@ public class Oferta extends BaseEntity{
 	@JoinTable(name = "ofertaPedido", joinColumns =@JoinColumn(name= "PedidosConOferta" ))
 	private Collection<Pedido> PedidosConOferta;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "nivel_socio")
 	private NivelSocio nivelSocio;
 	
@@ -67,5 +67,6 @@ public class Oferta extends BaseEntity{
 //		this.nivelSocio = nivelSocio;
 //	}
 //	
+
 
 }

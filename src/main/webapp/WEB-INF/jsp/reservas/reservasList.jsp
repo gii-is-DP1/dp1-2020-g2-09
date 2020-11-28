@@ -20,6 +20,7 @@
             <th>Eliminar</th>
             
         </tr>
+           <a href="/reservas/new" class="btn btn-default">Añadir reserva</a>
         </thead>
         <tbody>
         <c:forEach items="${reservas}" var="reserva">
