@@ -251,11 +251,11 @@ INSERT INTO PIZZAS values (7, 1, 10, '4 FORMAGGI ', 2 ,1);
 INSERT INTO PIZZAS values (8, 1, 15, 'POMODORINI', 1 ,3);
 INSERT INTO PIZZAS values (9, 2, 19, 'BARBACOA', 1 ,1);
 
-/*INSERT INTO OTROS values (1, 1, 20, 'patatas bravas', 		);
-INSERT INTO OTROS values (2, 1, 22, 'Spaghetti con salsa de tomate casera',			);
-INSERT INTO OTROS values (3, 1, 10, 'crema catalana',		);
-INSERT INTO OTROS values (4, 1, 15, 'tiramisú',				);
-INSERT INTO OTROS values (5, 2, 19, 'brownie',				);*/
+INSERT INTO OTROS values (1, 1, 20, 'patatas bravas', 5);
+INSERT INTO OTROS values (2, 1, 22, 'Spaghetti con salsa de tomate casera',	2);
+INSERT INTO OTROS values (3, 1, 10, 'crema catalana',1);
+INSERT INTO OTROS values (4, 1, 15, 'tiramisú',	4);
+INSERT INTO OTROS values (5, 2, 19, 'brownie',	3);
 
 INSERT INTO BEBIDAS values (1, 1, 20, 'coca-cola', true ,2);
 INSERT INTO BEBIDAS values (2, 1, 22, 'nestea', false ,1);
@@ -264,12 +264,12 @@ INSERT INTO BEBIDAS values (4, 1, 15, 'fanta limon', true ,2);
 INSERT INTO BEBIDAS values (5, 2, 19, 'agua', false ,1);
 
 
-/*INSERT INTO INGREDIENTE values (1, 'gluten','2020/01/01' , 'pan', 'Rico en carbohidratos');
-INSERT INTO INGREDIENTE values (2, 'lactosa','2020/02/02' , 'queso', 'Rico en proteinas');
-INSERT INTO INGREDIENTE values (3, 'fructosa','2020/03/03' , 'tomate', 'Verduras y frutas');
-INSERT INTO INGREDIENTE values (1, 'pescado','2020/04/04' , 'anchoas', 'Rico en proteinas');
-INSERT INTO INGREDIENTE values (2, 'atopia','2020/05/05' , 'huevo', 'Rico en proteinas');
-INSERT INTO INGREDIENTE values (3, 'fructosa','2020/06/06' , 'manzana', 'Verduras y frutas');*/
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ( '2020-01-01' ,'pan', 'Rico en carbohidratos', 2); 
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2020-02-02' ,'queso', 'Rico en proteinas', 7);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2020-03-03' , 'tomate', 'Verduras y frutas', 13);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2020-04-04' ,'anchoas', 'Rico en proteinas', 4);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2020-05-05' ,'huevo', 'Rico en proteinas', 3);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ( '2020-06-06' , 'soja', 'Verduras y frutas', 6);
 
 
 INSERT INTO CARTAS(fecha) values ('2020-04-30');
