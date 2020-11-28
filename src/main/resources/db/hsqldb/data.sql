@@ -271,7 +271,6 @@ INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2020
 INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2020-05-05' ,'huevo', 'Rico en proteinas', 3);
 INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ( '2020-06-06' , 'soja', 'Verduras y frutas', 6);
 
-
 INSERT INTO CARTAS(fecha) values ('2020-04-30');
 INSERT INTO CARTAS(fecha) values ('2020-11-20');
 

@@ -5,6 +5,15 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="reclamaciones">
+<jsp:attribute name="customScript">
+        <script>
+            $(function () {
+                $("#fechaReclamacion").datepicker({dateFormat: 'yy/mm/dd'});
+            });
+        </script>
+    </jsp:attribute>
+    
+    <jsp:body>
     <h2>
         <c:if test="${reclamacion['new']}">Nueva </c:if> Reclamación
     </h2>
@@ -29,4 +38,5 @@
             </div>
         </div>
     </form:form>
+    </jsp:body>
 </petclinic:layout>
