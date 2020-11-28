@@ -110,7 +110,7 @@ public class ReservaController {
 		return "redirect:/allReservas";
 	}
 	//buscar mesas de la reserva
-		@GetMapping(value = "/reservas/mesas/{reservaId}")
+		@GetMapping(value = "/reservas/mesas/{reserva}")
 		public String initReserva(@PathVariable("reservaId") int reservaId, ModelMap model) {
 			List<Mesa> lista= mesaService.findByReserva(reservaId);
 			model.put("mesas", lista);
