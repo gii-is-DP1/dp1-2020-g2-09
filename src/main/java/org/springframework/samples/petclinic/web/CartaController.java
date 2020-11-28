@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -100,36 +101,64 @@ public class CartaController {
 		return "redirect:/allCartas";
 	}
 	
-	//buscar pizzas de la carta
-	@GetMapping(value = "/cartas/pizzas/{cartaId}")
-	public String initCartaPizza(@PathVariable("cartaId") Carta carta, ModelMap model) {
-		List<Pizza> lista= PizzaService.findByCarta(carta);
-		model.put("pizzas", lista);
-		return "redirect:/allCartas";
+	//Acceso a la carta
+	
+	@GetMapping(value = "/cartas/{cartaId}/VerCarta")
+	public String verCarta(@PathVariable("cartaId") Integer cartaId, ModelMap model) {
+		
+		List<Integer> listaIdPizzas = PizzaService.findIdPizzaById(cartaId);
+		List<Pizza> listaPizzas = new ArrayList<Pizza>();
+		for(int i=0; i<listaIdPizzas.size(); i++) {
+			int pizzaId = listaIdPizzas.get(i);
+			listaPizzas.add(this.PizzaService.findPizzaById(pizzaId));
+		}
+		model.put("pizzas", listaPizzas);
+		
+		List<Bebida> listaBebidas = BebidaService.findByCarta(cartaId);
+		model.put("bebidas", listaBebidas);
+		List<Otros> listaOtros = OtrosService.findByCarta(cartaId);
+		model.put("otros", listaOtros);
+		
+		return "cartas/verCarta";
 	}
 	
-	//buscar bebidas de la carta
-		@GetMapping(value = "/cartas/bebidas/{cartaId}")
-		public String initCartaBebida(@PathVariable("cartaId") Carta carta, ModelMap model) {
-			List<Bebida> lista= BebidaService.findByCarta(carta);
-			model.put("bebidas", lista);
-			return "redirect:/allCartas";
-		}
-		
-		//buscar otros de la carta
-		@GetMapping(value = "/cartas/otros/{cartaId}")
-		public String initCartaOtros(@PathVariable("cartaId") int cartaId, ModelMap model) {
-			List<Otros> lista= OtrosService.findByCarta(cartaId);
-			model.put("otros", lista);
-			return "redirect:/allCartas";
-		}
-
+	//Borrar carta
 	@DeleteMapping(value = "/carta/{cartaId}/delete")
 	public String deleteCarta(@PathVariable("cartaId") int cartaId) {
 		Carta carta = this.CartaService.findCartaById(cartaId);
 		this.CartaService.deleteCarta(carta);
 		return "redirect:/allCartas";
 	}
+	
+	
+	
+	
+	
+	
+	
+//	//buscar pizzas de la carta
+//	@GetMapping(value = "/cartas/pizzas/{cartaId}")
+//	public String initCartaPizza(@PathVariable("cartaId") Carta carta, ModelMap model) {
+//		List<Pizza> lista= PizzaService.findByCarta(carta);
+//		model.put("pizzas", lista);
+//		return "redirect:/allCartas";
+//	}
+//	
+//	//buscar bebidas de la carta
+//		@GetMapping(value = "/cartas/bebidas/{cartaId}")
+//		public String initCartaBebida(@PathVariable("cartaId") Carta carta, ModelMap model) {
+//			List<Bebida> lista= BebidaService.findByCarta(carta);
+//			model.put("bebidas", lista);
+//			return "redirect:/allCartas";
+//		}
+//		
+//		//buscar otros de la carta
+//		@GetMapping(value = "/cartas/otros/{cartaId}")
+//		public String initCartaOtros(@PathVariable("cartaId") int cartaId, ModelMap model) {
+//			List<Otros> lista= OtrosService.findByCarta(cartaId);
+//			model.put("otros", lista);
+//			return "redirect:/allCartas";
+//		}
 	
 //	@ModelAttribute("Carta")
 //	public Carta findCarta(@PathVariable("CartaId") int CartaId) {

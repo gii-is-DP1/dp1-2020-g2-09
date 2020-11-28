@@ -16,5 +16,5 @@ public interface BebidaRepository extends CrudRepository<Bebida, Integer> {
 	
 	Bebida findBebidaById(int bebidaId) throws DataAccessException;
 	
-	List<Bebida> findByCartaDeBebidas(Carta carta) throws DataAccessException;
+	List<Bebida> findByCartaDeBebidas(Integer cartaId) throws DataAccessException;
 }

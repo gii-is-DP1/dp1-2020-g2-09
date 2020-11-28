@@ -25,6 +25,11 @@ import lombok.EqualsAndHashCode;
 @Table(name = "Cartas")
 public class Carta extends BaseEntity{
 	
+	
+	@Column(name = "nombre")
+	@NotNull
+	private String nombre;
+	
 	@Column(name = "fecha")
 	@NotNull
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
