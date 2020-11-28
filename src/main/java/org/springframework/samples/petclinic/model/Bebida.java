@@ -23,9 +23,9 @@ import lombok.EqualsAndHashCode;
 @Table(name = "Bebidas")
 public class Bebida extends Producto {
 
-	@ManyToOne
-	@JoinColumn(name = "tamaño")
-	private TamanoProducto tamaño;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "tamano_producto")
+	private TamanoProducto tamano;
 
 	@Column(name = "es_carbonatada")
 	@NotNull
