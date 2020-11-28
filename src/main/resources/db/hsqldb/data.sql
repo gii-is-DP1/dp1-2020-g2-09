@@ -140,14 +140,14 @@ INSERT INTO ESTADO_PEDIDO VALUES(3,'ENTREGADO');
 INSERT INTO TIPO_ENVIO VALUES(2,'DOMICILIO');
 INSERT INTO TIPO_ENVIO VALUES(1,'RECOGER EN TIENDA');
 
-INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio)
-VALUES ('30','3.5','C/Ferrara, 5, 7b', '2020-11-15', 2, 1,1);
-INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio)
-VALUES ('29','3','C/Ferrara, 5, 7b', '2020-11-16',3,1,1);
-INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio)
-VALUES ('50','2.30','C/Ferrara, 5, 7b', '2020-11-18',2,1,1);
-INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio)
-VALUES ('57','2','C/Ferrara, 5, 7b', '2020-11-30',3,1,1);
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio, pedidocliente)
+VALUES ('30','3.5','C/Ferrara, 5, 7b', '2020-11-15', 2, 1,1, '1');
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio,pedidocliente)
+VALUES ('29','3','C/Ferrara, 5, 7b', '2020-11-16',3,1,1, '1');
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio,pedidocliente)
+VALUES ('50','2.30','C/Ferrara, 5, 7b', '2020-11-18',2,1,1,'2');
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio,pedidocliente)
+VALUES ('57','2','C/Ferrara, 5, 7b', '2020-11-30',3,1,1, '3');
 
 
 INSERT INTO administradores(nombre,apellidos,fecha_nacimiento,telefono,email, usuario)
