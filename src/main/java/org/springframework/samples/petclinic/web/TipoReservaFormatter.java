@@ -21,7 +21,7 @@ public class TipoReservaFormatter implements Formatter<tipoReserva>{
 	}
 	@Override
 	public String print(tipoReserva object, Locale locale) {
-		return object.getName().toString();
+		return object.getName();
 //				"La reserva con id "+object.getId()+ " del dia "+ object.getFechaReserva() + 
 //				" a las "+ object.getHora()+ " es de " + object.getNumeroPersonas() + "personas.";
 	}
@@ -30,7 +30,7 @@ public class TipoReservaFormatter implements Formatter<tipoReserva>{
 	public tipoReserva parse(String text, Locale locale) throws ParseException {
 		Collection<tipoReserva> findTipoReserva = this.rs.findTipoReserva();
 		for(tipoReserva r:findTipoReserva) {
-			if(r.getId().toString().equals(text)) {
+			if(r.getName().equals(text)) {
 				return r;
 			}
 		}

@@ -46,10 +46,7 @@ public class ReservaController {
 		dataBinder.setDisallowedFields("id");
 	}
 	
-	@InitBinder("reserva")
-	public void initPetBinder(WebDataBinder dataBinder) {
-		dataBinder.setValidator(new ReservaValidator());
-	}
+	
 	
 	@GetMapping(value = { "/allReservas" })
 	public String showReservaList(Map<String, Object> model) {
