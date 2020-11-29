@@ -43,7 +43,7 @@ public class Reserva extends BaseEntity {
 	@NotNull
 	private LocalTime hora;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "tipo_reserva")
 	private tipoReserva tipoReserva;
 	
