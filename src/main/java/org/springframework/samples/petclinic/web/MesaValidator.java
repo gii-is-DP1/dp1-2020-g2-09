@@ -21,7 +21,7 @@ public class MesaValidator implements Validator{
 		Mesa mesa = (Mesa) obj;
 		Integer capacidad= mesa.getCapacidad();
 
-		if (capacidad <= 0 || capacidad <6 || capacidad.equals(null)) {
+		if (capacidad <= 0 || capacidad>6 || capacidad.equals(null)) {
 			errors.rejectValue("La capacidad", REQUIRED+" debe ser mayor que 0 y menor o igual que 6", 
 					REQUIRED+" debe ser mayor que 0 y menor o igual que 6");
 		}
