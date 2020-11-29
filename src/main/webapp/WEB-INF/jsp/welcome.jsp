@@ -45,6 +45,10 @@
      <a href="/allReclamaciones">H-007: Visualizar reclamaciones. Pruebas hechas.</a>
     </div>
     
+    <div>
+     <a href="/allReservas">H-010: Reservar una mesa. Pruebas hechas.</a>
+    </div>
+    
        <div>
       <p>H-012: Tamaño del producto. ¿Pruebas?</p>
     </div>
@@ -69,12 +73,6 @@
      <a href="allOfertas">H-024: Eliminar ofertas. Pruebas hechas.</a>
     </div>
     <br>
-    <div>
-    <p><b>COSAS QUE FALTAN POR HACER</b></p>
-    <p>H-010. Reserva falta unir a cliente, editar y añadir de error la fecha y la hora (no llega al controlador).</p>
-    <p>Pruebas de H-010.</p>
-    
-    </div>
     
     
       
