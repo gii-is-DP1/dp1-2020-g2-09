@@ -110,7 +110,7 @@ public class ClienteController {
 	//mandar actualizacion
 	@PostMapping(value = "/cuentas/{cuentaId}/edit")
 	public String processUpdateCuentaForm(@Valid Cliente cliente, BindingResult result,
-			@PathVariable("cuentaId") int cuentaId) {
+			@PathVariable("cuentaId") int cuentaId, ModelMap model) {
 		if (result.hasErrors()) {
 			//model.put("cuenta", cliente);
 			return "clientes/createOrUpdateCuentaForm";
@@ -118,7 +118,8 @@ public class ClienteController {
 		else {
 			cliente.setId(cuentaId);
 			this.clienteService.saveCliente(cliente);
-			return "redirect:/allCuentas";
+			int i =0;
+			return "clientes/clienteDetails";
 		}
 	}
 	

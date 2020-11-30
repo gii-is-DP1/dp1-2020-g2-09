@@ -1,5 +1,5 @@
 -- One admin user, named admin1 with passwor 4dm1n and authority admin
-INSERT INTO users(username,password,enabled) VALUES ('admin1','4dm1n',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('admin1','admin1',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (1,'admin1','administrador');
 -- One owner user, named owner1 with passwor 0wn3r
 INSERT INTO users(username,password,enabled) VALUES ('owner1','0wn3r',TRUE);
@@ -14,19 +14,22 @@ INSERT INTO users(username,password,enabled) VALUES ('luctorgom','luctorgom',TRU
 INSERT INTO authorities(id,username,authority) VALUES (4,'luctorgom','administrador');
 -- One owner user, named raupargor with password raupargor
 INSERT INTO users(username,password,enabled) VALUES ('raupargor','raupargor',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (5,'raupargor','owner');
+INSERT INTO authorities(id,username,authority) VALUES (5,'raupargor','cliente');
 -- One owner user, named margarcac1 with password margarcac1
 INSERT INTO users(username,password,enabled) VALUES ('margarcac1','margarcac1',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (6,'margarcac1','owner');
+INSERT INTO authorities(id,username,authority) VALUES (6,'margarcac1','cliente');
 -- One owner user, named jesrolcad with passwor jesrolcad
 INSERT INTO users(username,password,enabled) VALUES ('jesrolcad','jesrolcad',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (7,'jesrolcad','owner');
+INSERT INTO authorities(id,username,authority) VALUES (7,'jesrolcad','cliente');
 
 INSERT INTO users(username,password,enabled) VALUES ('serfiggom','serfiggom',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (8, 'serfiggom','administrador');
 
 INSERT INTO users(username,password,enabled) VALUES ('ejemplo1','ejemplo1',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (9,'ejemplo1','ejemplo');
+
+INSERT INTO users(username,password,enabled) VALUES ('serfiggom1','serfiggom1',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (10, 'serfiggom1','cliente');
 
 
 INSERT INTO vets VALUES (1, 'James', 'Carter');
@@ -97,10 +100,10 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04',
 
 
 INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
-VALUES ('María','García Cáceres','2000-01-01',654123987,'margarcar@alum.us.es', 'margarcac1');
+VALUES ('María','García Cáceres','2000-01-01','654123987','margarcar@alum.us.es', 'margarcac1');
 
 INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
-VALUES ('Servando','Figueroa Gómez','2000-08-12','698745213','serfiggom@alum.us.es', 'serfiggom');
+VALUES ('Servando','Figueroa Gómez','2000-08-12','698745213','serfiggom@alum.us.es', 'serfiggom1');
 
 INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
 VALUES ('Raúl','Parrado Gordón','2000-05-29','717548963','raupargor@alum.us.es', 'raupargor');
@@ -151,7 +154,7 @@ VALUES ('57','2','C/Ferrara, 5, 7b', '2020-11-30',3,1,1, '3');
 
 
 INSERT INTO administradores(nombre,apellidos,fecha_nacimiento,telefono,email, usuario)
-VALUES ('Juan','Pérez Ruíz','1990-01-01','863838343','perez_ruiz@gmail.com', 'ejemplo1');
+VALUES ('Juan','Pérez Ruíz','1990-01-01','863838343','perez_ruiz@gmail.com', 'admin1');
 
 INSERT INTO administradores(nombre,apellidos,fecha_nacimiento,telefono,email, usuario)
 VALUES ('Rodolfa','Abduzcan Play','1996-07-22','685390102','abduzcan_1@gmail.com', 'ejemplo1');

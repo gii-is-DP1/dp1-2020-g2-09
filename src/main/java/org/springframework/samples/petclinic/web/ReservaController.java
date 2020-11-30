@@ -52,7 +52,7 @@ public class ReservaController {
 	public String showReservaList(Map<String, Object> model) {
 		List<Reserva> reservas=reservaService.findReservas();
 		model.put("reservas", reservas);
-		return ViewConstant.RESERVA_VIEW;
+		return "reservas/reservasList";
 	}
 
 	//crear nueva reserva
