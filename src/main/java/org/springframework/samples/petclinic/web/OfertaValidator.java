@@ -37,12 +37,9 @@ public class OfertaValidator implements Validator {
 			errors.rejectValue("La fecha debe de ser futura", REQUIRED, REQUIRED + "La fecha debe de ser futura");
 		}
 		
-		if (horaInicial.isEqual(LocalDate.now())) {
-			errors.rejectValue("La fecha de inicio de la oferta debe de ser anterior que la de finalización", REQUIRED,
-					REQUIRED + "La fecha de inicio de la oferta debe de ser anterior que la de finalización");
-		}
+
 		
-		if (horaInicial.isAfter(LocalDate.now()) ||horaInicial.isEqual(LocalDate.now())) {
+		if (horaInicial.isAfter(LocalDate.now())) {
 			errors.rejectValue("La fecha debe de ser pasada", REQUIRED, REQUIRED + "La fecha debe de ser pasada");
 		}
 		

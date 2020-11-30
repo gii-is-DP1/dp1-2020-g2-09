@@ -27,9 +27,9 @@ public class Cliente extends Cuenta {
 	@NotNull
 	private LocalDate fechaAlta = LocalDate.now();
 	
-	@OneToMany
-	@JoinColumn(name = "pedidocliente")
-	private Collection<Pedido> pedidos;
+//	@OneToMany
+//	@JoinColumn(name = "pedidocliente")
+//	private Collection<Pedido> pedidos;
 	
 	
 }

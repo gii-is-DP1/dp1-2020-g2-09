@@ -17,6 +17,8 @@ public interface ClienteRepository extends CrudRepository<Cliente, Integer>{
 //	@Query("SELECT DISTINCT cliente FROM Cliente cliente WHERE cliente.usuario LIKE :usuario%")
 //	public Collection<Cliente> findByNombreUsuario(@Param("usuario") String usuario);
 	
+	//void save(Cliente cliente) throws DataAccessException;
+	
 	List<Cliente> findAll() throws DataAccessException;
 	
 	Cliente findById(int clienteId) throws DataAccessException;

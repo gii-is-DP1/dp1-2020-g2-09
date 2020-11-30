@@ -8,16 +8,16 @@
 
 <petclinic:layout pageName="reservas">
 	<jsp:attribute name="customScript">
-  		<script>
+  		<!--  <script>
             $(function () {
                 $("#fechaReserva").datepicker({dateFormat: 'yy/mm/dd'});
             });
-  		</script>
-      	<script>
+  		</script>-->
+      	<!--<script>
             $(function () {
                 $("#hora").timepicker();
             });
-  		</script>
+  		</script>-->
   </jsp:attribute>
     <jsp:body>
     <h2>
@@ -35,7 +35,9 @@
             <div class="control-group">
             <petclinic:selectField name="tipoReserva" label="Tipo" names="${tipoReserva}" size="2"/>
             </div>
-            <petclinic:inputField label="Hora de la reserva" name="hora"/>
+           <!--  <label>Hora de la reserva</label>
+            <input type="time" name="hora">-->
+            <petclinic:inputField label="Hora de la reserva" name="hora"/> 
             <!--<petclinic:inputField label="Id" name="id" />-->
         </div>
         <div class="form-group">

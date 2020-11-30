@@ -21,6 +21,6 @@ public class User{
 	
 	boolean enabled;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
 	private Set<Authorities> authorities;
 }
