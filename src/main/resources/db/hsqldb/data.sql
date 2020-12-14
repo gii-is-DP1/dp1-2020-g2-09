@@ -294,12 +294,12 @@ INSERT INTO COMPOSICION_CARTA_BEBIDA(BEBIDAS_EN_CARTA, CARTA_DE_BEBIDAS_ID) VALU
 
 /*INSERT INTO COMPOSICION_CARTA_OTROS(OTROS_EN_CARTA, CARTA_DE_OTROS_ID) VALUES ();*/
 
-INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ( '2020-01-01' ,'pan', 'Rico en carbohidratos', 2); 
-INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2020-02-02' ,'queso', 'Rico en proteinas', 7);
-INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2020-03-03' , 'tomate', 'Verduras y frutas', 13);
-INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2020-04-04' ,'anchoas', 'Rico en proteinas', 4);
-INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2020-05-05' ,'huevo', 'Rico en proteinas', 3);
-INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ( '2020-06-06' , 'soja', 'Verduras y frutas', 6);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ( '2020-01-01' ,'Pan', 'Rico en carbohidratos', 2); 
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2020-02-02' ,'Queso', 'Rico en proteinas', 7);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2020-03-03' , 'Tomate', 'Verduras y frutas');
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2020-04-04' ,'Anchoas', 'Rico en proteinas', 4);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2020-05-05' ,'Huevo', 'Rico en proteinas', 3);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ( '2020-06-06' , 'Soja', 'Verduras y frutas', 6);
 
 
 

@@ -17,7 +17,8 @@
             <th>Coste</th>
             <th>Tipo Masa</th>
             <th>Ingredientes</th>
-            
+            <th></th>
+            <th></th>
 
         </tr>
         <a href="/pizzas/new" class="btn btn-default">Añadir pizza</a>
@@ -37,6 +38,17 @@
              	 <td>
              		<c:out value="${pizza.tipoMasa}"/>
              	</td>
+             	
+             	<td>
+             		<ul>
+             			<c:forEach items="${pizza.ingredientes}" var="ingrediente">
+             				<li>
+             					<c:out value="${ingrediente.nombre}"/>
+             				</li>
+             			</c:forEach>
+             		</ul>
+             	</td>
+             	
 
              	<td>
              		<spring:url value="/pizzas/{pizzaId}/edit" var="pizzaUrl">

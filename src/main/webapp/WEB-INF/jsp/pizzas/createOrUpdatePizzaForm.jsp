@@ -17,7 +17,7 @@
              <div class="control-group">
            
             <petclinic:selectField name="tipoMasa" label="Tipo de Masa" names="${tipoMasa}" size="3"/>
-            </div>       
+                  
              <!--select label="tipoMasa" name="tipoMasa">
 			  <option value="AMERICANA">Americana</option> 
 			  <option value="FINA" selected>Fina</option>
@@ -25,12 +25,14 @@
 			</select>-->
 			
 			<petclinic:selectField name="tamano" label="Tamaño" names="${tamanyo}" size="3"/>
-            </div>         
+                     
 			
             <petclinic:inputField label="Precio" name="coste"/>
+            <petclinic:selectField name="ingredientes" label="ingredientes" names="${ingredientes}" size="3"/>
             
              <!--<petclinic:inputField label="contador" name="contador"/> -->
             <!--<petclinic:inputField label="Id" name="id"/> -->
+            </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
