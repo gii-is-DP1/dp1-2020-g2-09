@@ -270,11 +270,11 @@ INSERT INTO OTROS values (3, 1, 10, 'crema catalana',	);
 INSERT INTO OTROS values (4, 1, 15, 'tiramisú',			);
 INSERT INTO OTROS values (5, 2, 19, 'brownie',				);*/
 
-INSERT INTO OTROS values (1, 1, 20, 'patatas bravas', 5);
+/*INSERT INTO OTROS values (1, 1, 20, 'patatas bravas', 5);
 INSERT INTO OTROS values (2, 1, 22, 'Spaghetti con salsa de tomate casera',	2);
 INSERT INTO OTROS values (3, 1, 10, 'crema catalana',1);
 INSERT INTO OTROS values (4, 1, 15, 'tiramisú',	4);
-INSERT INTO OTROS values (5, 2, 19, 'brownie',	3);
+INSERT INTO OTROS values (5, 2, 19, 'brownie',	3);*/
 
 
 INSERT INTO BEBIDAS values (1, 1, 20, 'Coca-cola', true ,2);

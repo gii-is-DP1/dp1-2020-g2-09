@@ -1,6 +1,8 @@
 package org.springframework.samples.petclinic.web;
 
 
+import java.util.Collection;
+
 import org.springframework.samples.petclinic.model.Ingrediente;
 import org.springframework.samples.petclinic.model.Otros;
 import org.springframework.stereotype.Component;
@@ -17,7 +19,7 @@ public class OtrosValidator implements Validator{
 	public void validate(Object obj, Errors errors) {
 		Otros otros = (Otros) obj;
 		String nombre = otros.getNombre();
-		Ingrediente[] ingredientes = otros.getIngredientes();
+		Collection<Ingrediente> ingredientes = otros.getIngredientes();
 		String tamaño = otros.getNombre();
 		Integer coste = otros.getCoste();
 		

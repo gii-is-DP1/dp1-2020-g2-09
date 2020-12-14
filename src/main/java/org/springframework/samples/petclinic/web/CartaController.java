@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.samples.petclinic.model.Bebida;
 import org.springframework.samples.petclinic.model.Bebidas;
 import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.model.Otros;
+import org.springframework.samples.petclinic.model.OtrosLista;
 import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.Pizzas;
 import org.springframework.samples.petclinic.service.BebidaService;
@@ -126,6 +128,16 @@ public class CartaController {
 		}
 		model.put("bebidas", listaBebidas);
 		
+		List<Integer> listaIdOtros = OtrosService.findIdOtroById(cartaId);
+		OtrosLista listaOtros = new OtrosLista();
+		for(int i=0; i<listaIdOtros.size(); i++) {
+			Integer otroId = listaIdOtros.get(i);
+			Otros bebida = this.OtrosService.findOtrosById(otroId);
+			listaOtros.getOtrosList().add(bebida);
+		}
+		model.put("otros", listaOtros);
+
+		
 		return "cartas/verCarta";
 	}
 	
@@ -149,6 +161,16 @@ public class CartaController {
 		return "bebidas/bebidasList";
 	}
 	
+	@GetMapping(value = { "/cartas/{cartaId}/otros" })
+	public String showOtrosLista(@PathVariable("cartaId") Integer cartaId, Map<String, Object> model) {
+		model.put("cartaId", cartaId);
+		List<Otros> Otros = new ArrayList<Otros>();
+		Otros.addAll(this.OtrosService.findOtros());
+		model.put("Otros", Otros);
+		
+		return "Otros/OtrosList";
+	}
+	
 	
 	@GetMapping(value = "/cartas/{cartaId}/anadirPizzaACarta/{pizzaId}")
     public String añadirPizzaACarta(@PathVariable("pizzaId") int pizzaId, @PathVariable("cartaId") int cartaId) {
@@ -159,6 +181,12 @@ public class CartaController {
 	@GetMapping(value = "/cartas/{cartaId}/anadirBebidaACarta/{bebidaId}")
     public String añadirBebidaACarta(@PathVariable("bebidaId") int bebidaId, @PathVariable("cartaId") int cartaId) {
     	this.BebidaService.añadirBebidaACarta(bebidaId, cartaId);
+    	return "redirect:/cartas/{cartaId}/VerCarta";
+    }
+	
+	@GetMapping(value = "/cartas/{cartaId}/anadirOtroACarta/{otroId}")
+    public String añadirOtroACarta(@PathVariable("otroId") int otroId, @PathVariable("cartaId") int cartaId) {
+    	this.OtrosService.añadirOtroACarta(otroId, cartaId);
     	return "redirect:/cartas/{cartaId}/VerCarta";
     }
 	
