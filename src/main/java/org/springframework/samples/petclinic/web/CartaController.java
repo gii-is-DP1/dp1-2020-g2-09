@@ -129,6 +129,39 @@ public class CartaController {
 		return "cartas/verCarta";
 	}
 	
+	@GetMapping(value = { "/cartas/{cartaId}/pizzas" })
+	public String showPizzaLista(@PathVariable("cartaId") Integer cartaId, Map<String, Object> model) {
+		model.put("cartaId", cartaId);
+		Pizzas pizzas = new Pizzas();
+		pizzas.getPizzasList().addAll(this.PizzaService.findPizzas());
+		model.put("Pizzas", pizzas);  //si pongo Pizzas me pone la tabla vacia, si pongo pizza me da un error de tamaño
+	
+		return "pizzas/pizzasList";
+	}
+	
+	@GetMapping(value = { "/cartas/{cartaId}/bebidas" })
+	public String showBebidaLista(@PathVariable("cartaId") Integer cartaId, Map<String, Object> model) {
+		model.put("cartaId", cartaId);
+		Bebidas bebidas = new Bebidas();
+		bebidas.getBebidasList().addAll(this.BebidaService.findBebidas());
+		model.put("bebidas", bebidas);
+		
+		return "bebidas/bebidasList";
+	}
+	
+	
+	@GetMapping(value = "/cartas/{cartaId}/anadirPizzaACarta/{pizzaId}")
+    public String añadirPizzaACarta(@PathVariable("pizzaId") int pizzaId, @PathVariable("cartaId") int cartaId) {
+    	this.PizzaService.añadirPizzaACarta(pizzaId, cartaId);
+    	return "redirect:/cartas/{cartaId}/VerCarta";
+    }
+	
+	@GetMapping(value = "/cartas/{cartaId}/anadirBebidaACarta/{bebidaId}")
+    public String añadirBebidaACarta(@PathVariable("bebidaId") int bebidaId, @PathVariable("cartaId") int cartaId) {
+    	this.BebidaService.añadirBebidaACarta(bebidaId, cartaId);
+    	return "redirect:/cartas/{cartaId}/VerCarta";
+    }
+	
 //	//Borrar carta
 //	@DeleteMapping(value = "/carta/{cartaId}/delete")
 //	public String deleteCarta(@PathVariable("cartaId") int cartaId) {

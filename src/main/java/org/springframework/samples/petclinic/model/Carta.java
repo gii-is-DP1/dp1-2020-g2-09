@@ -35,15 +35,15 @@ public class Carta extends BaseEntity{
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate fecha = LocalDate.now();
 	
-	@ManyToMany (cascade = CascadeType.REMOVE)
+	@ManyToMany (cascade = CascadeType.PERSIST)
 	@JoinTable(name = "composicionCartaPizza", joinColumns =@JoinColumn(name= "cartaId" ))
 	private Collection<Pizza> pizzasEnCarta;
 	
-	@ManyToMany (cascade = CascadeType.REMOVE)
+	@ManyToMany (cascade = CascadeType.PERSIST)
 	@JoinTable(name = "composicionCartaBebida", joinColumns =@JoinColumn(name= "cartaId" ))
 	private Collection<Bebida> bebidasEnCarta;
 	
-	@ManyToMany (cascade = CascadeType.REMOVE)
+	@ManyToMany (cascade = CascadeType.PERSIST)
 	@JoinTable(name = "composicionCartaOtros", joinColumns =@JoinColumn(name= "cartaId" ))
 	private Collection<Otros> otrosEnCarta;
 }
