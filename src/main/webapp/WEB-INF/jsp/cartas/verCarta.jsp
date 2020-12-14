@@ -43,6 +43,9 @@
              	 <td>
              		<c:out value="${pizza.tipoMasa}"/>
              	</td>
+             	 <td>
+             		<c:out value="${pizza.ingredientes}"/>
+             	</td>
             </tr>
         </c:forEach>
         </tbody>
@@ -101,31 +104,27 @@
         <thead>
         <tr>
             <th>Nombre</th>
-            <th>Carbonatada</th>
-            <th>Precio</th>
+            <th>Coste</th>
+            <th>Contador</th>
+            <th>Ingredientes</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${Otros.otrosList}" var="otro">
+        <c:forEach items="${otros.otrosList}" var="otro">
             <tr>
                 <td>
                     <c:out value="${otro.nombre}"/>
                 </td>
                 <td>
-                	<c:if test="${bebida.esCarbonatada}">
-                		<c:out value="Sí"></c:out>
-                	</c:if>
-                	<c:if test="${!bebida.esCarbonatada}">
-                		<c:out value="No"></c:out>
-                	</c:if>
-                	<!-- <c:out value="${bebida.esCarbonatada}"/> -->
+                	<c:out value="${otro.coste}"></c:out>
              	</td>
              	<td>
-             		<c:out value="${bebida.coste}"/>
+             		<c:out value="${otro.contador}"/>
              	</td>
-             	<!-- <td>
-             		<c:out value="${bebida.id}"></c:out>
-             	</td> -->  	
+             	<td>
+             		<c:out value="${otro.ingredientes}"/>
+             	</td>
+             	  	
             </tr>
         </c:forEach>
         

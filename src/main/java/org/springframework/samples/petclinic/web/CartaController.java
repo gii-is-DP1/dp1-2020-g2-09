@@ -1,6 +1,5 @@
 package org.springframework.samples.petclinic.web;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,12 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Bebida;
 import org.springframework.samples.petclinic.model.Bebidas;
 import org.springframework.samples.petclinic.model.Carta;
+import org.springframework.samples.petclinic.model.Ingrediente;
 import org.springframework.samples.petclinic.model.Otros;
 import org.springframework.samples.petclinic.model.OtrosLista;
 import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.Pizzas;
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.CartaService;
+import org.springframework.samples.petclinic.service.IngredienteService;
 import org.springframework.samples.petclinic.service.OtrosService;
 import org.springframework.samples.petclinic.service.PizzaService;
 import org.springframework.stereotype.Controller;
@@ -39,6 +40,8 @@ public class CartaController {
 	private OtrosService OtrosService;
 	@Autowired
 	private BebidaService BebidaService;
+	@Autowired
+	private IngredienteService IngredienteService;
 
 
 	@InitBinder
@@ -132,8 +135,15 @@ public class CartaController {
 		OtrosLista listaOtros = new OtrosLista();
 		for(int i=0; i<listaIdOtros.size(); i++) {
 			Integer otroId = listaIdOtros.get(i);
-			Otros bebida = this.OtrosService.findOtrosById(otroId);
-			listaOtros.getOtrosList().add(bebida);
+			Otros otro = this.OtrosService.findOtrosById(otroId-1);
+			listaOtros.getOtrosList().add(otro);
+//			List<Integer> listaIdOtrosIngredientes = IngredienteService.findIngredienteIdByOtrosId(otroId);
+//			for(int j=0; j < listaIdOtrosIngredientes.size(); j++) {
+//				Integer ingredienteId = listaIdOtrosIngredientes.get(i);
+//				Ingrediente ing = this.IngredienteService.findIngredienteById(ingredienteId);
+//				otro.getIngredientes().add(ing);
+//			}
+
 		}
 		model.put("otros", listaOtros);
 
@@ -164,9 +174,9 @@ public class CartaController {
 	@GetMapping(value = { "/cartas/{cartaId}/otros" })
 	public String showOtrosLista(@PathVariable("cartaId") Integer cartaId, Map<String, Object> model) {
 		model.put("cartaId", cartaId);
-		List<Otros> Otros = new ArrayList<Otros>();
-		Otros.addAll(this.OtrosService.findOtros());
-		model.put("Otros", Otros);
+		OtrosLista otros = new OtrosLista();
+		otros.getOtrosList().addAll(this.OtrosService.findOtros());
+		model.put("Otros", otros);
 		
 		return "Otros/OtrosList";
 	}

@@ -24,4 +24,12 @@ public interface IngredienteRepository extends CrudRepository<Ingrediente, Integ
 	@Query("SELECT Al FROM Alergenos Al")
     List<Alergenos> findAlergenos() throws DataAccessException;
 	
+	@Query(value = "SELECT INGREDIENTES_ID  FROM PIZZAS_INGREDIENTES WHERE PIZZA_ID = ?1",
+			nativeQuery = true)
+	List<Integer> findIngredienteIdByPizzaId(int pizzaId) throws DataAccessException;
+	
+	@Query(value = "SELECT INGREDIENTES_ID  FROM OTROS_INGREDIENTES WHERE OTROS_ID = ?1",
+			nativeQuery = true)
+	List<Integer> findIngredienteIdByOtrosId(int otroId) throws DataAccessException;
+	
 }
