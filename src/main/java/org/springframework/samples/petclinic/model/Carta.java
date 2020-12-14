@@ -36,14 +36,14 @@ public class Carta extends BaseEntity{
 	private LocalDate fecha = LocalDate.now();
 	
 	@ManyToMany (cascade = CascadeType.REMOVE)
-	@JoinTable(name = "composicionCartaPizza", joinColumns =@JoinColumn(name= "pizzasEnCarta" ))
-	private Collection<Pizza> cartaDePizzas;
+	@JoinTable(name = "composicionCartaPizza", joinColumns =@JoinColumn(name= "cartaId" ))
+	private Collection<Pizza> pizzasEnCarta;
 	
 	@ManyToMany (cascade = CascadeType.REMOVE)
-	@JoinTable(name = "composicionCartaBebida", joinColumns =@JoinColumn(name= "bebidasEnCarta" ))
-	private Collection<Bebida> cartaDeBebidas;
+	@JoinTable(name = "composicionCartaBebida", joinColumns =@JoinColumn(name= "cartaId" ))
+	private Collection<Bebida> bebidasEnCarta;
 	
 	@ManyToMany (cascade = CascadeType.REMOVE)
-	@JoinTable(name = "composicionCartaOtros", joinColumns =@JoinColumn(name= "otrosEnCarta" ))
-	private Collection<Otros> cartaDeOtros;
+	@JoinTable(name = "composicionCartaOtros", joinColumns =@JoinColumn(name= "cartaId" ))
+	private Collection<Otros> otrosEnCarta;
 }

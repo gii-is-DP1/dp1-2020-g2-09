@@ -48,8 +48,8 @@ public class Reserva extends BaseEntity {
 	private tipoReserva tipoReserva;
 	
 	@ManyToMany (cascade = CascadeType.MERGE)
-	@JoinTable(name = "reservaAsociada", joinColumns =@JoinColumn(name= "mesasReservadas" ))
-	private Collection<Mesa> reserva;
+	@JoinTable(name = "reservaMesa", joinColumns =@JoinColumn(name= "reservaId" ))
+	private Collection<Mesa> mesasEnReserva;
 	
 //	@ManyToOne
 //	@JoinColumn(name = "usuario",referencedColumnName="usuario")

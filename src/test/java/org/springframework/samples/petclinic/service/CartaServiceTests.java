@@ -84,15 +84,15 @@ public class CartaServiceTests {
 		
 		Collection<Bebida> cartaDeBebidas = new HashSet<Bebida>();
 		cartaDeBebidas.add(bebida);
-		carta.setCartaDeBebidas(cartaDeBebidas);
+		carta.setBebidasEnCarta(cartaDeBebidas);
 		
 		Collection<Pizza> cartaDePizzas=new HashSet<Pizza>();
 		cartaDePizzas.add(pizza);
-		carta.setCartaDePizzas(cartaDePizzas);
+		carta.setPizzasEnCarta(cartaDePizzas);
 		
 		Collection<Otros> cartaDeOtros=new HashSet<Otros>();
 		cartaDeOtros.add(otro);
-		carta.setCartaDeOtros(cartaDeOtros);
+		carta.setOtrosEnCarta(cartaDeOtros);
 	        
                 
 		this.cartaService.saveCarta(carta);

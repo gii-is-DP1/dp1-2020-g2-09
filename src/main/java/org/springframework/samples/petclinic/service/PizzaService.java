@@ -56,4 +56,9 @@ public class PizzaService {
     public Collection<TamanoProducto> findTamaño() throws DataAccessException {
         return pizzaRepository.findTamaño();
     }
+    
+    @Transactional
+	public void añadirPizzaACarta(int pizzaId, int cartaId) throws DataAccessException {
+		pizzaRepository.añadirPizzaACarta(pizzaId, cartaId);		
+	}	
 }

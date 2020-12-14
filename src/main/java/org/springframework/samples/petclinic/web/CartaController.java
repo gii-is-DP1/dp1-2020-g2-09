@@ -106,6 +106,7 @@ public class CartaController {
 	@GetMapping(value = "/cartas/{cartaId}/VerCarta")
 	public String verCarta(@PathVariable("cartaId") Integer cartaId, ModelMap model) {
 		
+		model.put("cartaId", cartaId);
 		//Recogemos las pizzas de la tabla y la guardamos en el modelo
 		List<Integer> listaIdPizzas = PizzaService.findIdPizzaById(cartaId);
 		Pizzas listaPizzas = new Pizzas();

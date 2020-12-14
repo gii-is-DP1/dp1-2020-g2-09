@@ -39,8 +39,8 @@ public class Pedido extends BaseEntity{
 	@ManyToMany(cascade = CascadeType.ALL)
 	//JoinTable el nombre de la tabla que va a relacionar pedido con oferta
 	//JoinColumn el nombre del atributo
-	@JoinTable(name = "ofertaPedido", joinColumns =@JoinColumn(name= "PedidosConOferta" ))
-	private Collection<Pedido> pedidosConOferta;
+	@JoinTable(name = "ofertaPedido", joinColumns =@JoinColumn(name= "pedidoId" ))
+	private Collection<Oferta> ofertasEnPedido;
 	
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)

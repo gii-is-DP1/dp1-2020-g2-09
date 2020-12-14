@@ -37,10 +37,10 @@ public class Oferta extends BaseEntity{
 	@NotNull
 	private LocalDate fechaInicial;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	//JoinTable el nombre de la tabla que va a relacionar pedido con oferta
-	@JoinTable(name = "ofertaPedido", joinColumns =@JoinColumn(name= "PedidosConOferta" ))
-	private Collection<Pedido> PedidosConOferta;
+//	@ManyToMany(cascade = CascadeType.ALL)
+//	//JoinTable el nombre de la tabla que va a relacionar pedido con oferta
+//	@JoinTable(name = "ofertaPedido")
+//	private Collection<Pedido> PedidosConOferta;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "nivel_socio")
