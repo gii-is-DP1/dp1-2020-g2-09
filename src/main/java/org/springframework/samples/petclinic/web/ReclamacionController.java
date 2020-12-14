@@ -40,30 +40,7 @@ public class ReclamacionController {
 		return "reclamaciones/reclamacionesList";
 	}
 	
-	//añadir una reclamacion nueva
-	/*	@GetMapping(value = "/reclamaciones/new")
-		public String initCreationForm(Map<String, Object> model) {
-			Reclamacion reclamacion = new Reclamacion();
-			model.put("reclamacion", reclamacion);
-			return "reclamaciones/createOrUpdateReclamacionForm";
-		}
-		
-		//mandar nueva reclamacion
-		@PostMapping(value = "/reclamaciones/new")
-		public String processCreationForm(@Valid Reclamacion reclamacion, BindingResult result, ModelMap model) {
-			if (result.hasErrors()) {
-				model.put("reclamacion", reclamacion);//importanteeee
-				return "reclamaciones/createOrUpdateReclamacionForm";
-			}
-			else {
-				ReclamacionValidator reclamacionValidator = new ReclamacionValidator();
-				ValidationUtils.invokeValidator(reclamacionValidator, reclamacion, result);
-				this.reclamacionService.saveReclamacion(reclamacion);
-				return "redirect:/";
-			} 
-		}*/
-
-		//Aqui tenemos que añadir la reclamación a un pedido por los ID's
+		//Aqui tenemos que añadir la reclamación sobre un pedido seleccionado
 		@GetMapping("/pedidos/{pedidoId}/anadirReclamacion/new")
 		public String initCreationForm(Map<String, Object> model, @PathVariable("pedidoId") int pedidoId) {
 			Reclamacion reclamacion = new Reclamacion();
