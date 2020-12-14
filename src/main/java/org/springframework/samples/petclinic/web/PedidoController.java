@@ -1,21 +1,22 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.Collection;
 import java.util.Map;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.EstadoPedido;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Pedidos;
-import org.springframework.samples.petclinic.model.Reclamacion;
+import org.springframework.samples.petclinic.model.TipoEnvio;
+import org.springframework.samples.petclinic.model.TipoPago;
 import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -27,6 +28,21 @@ public class PedidoController {
 	@Autowired
 	public PedidoController(PedidoService pedidoService) {
 		this.pedidoService = pedidoService;
+	}
+	
+	@ModelAttribute("estadoPedido")
+	public Collection<EstadoPedido> populateEstadoPedido() {
+		return this.pedidoService.findEstadoPedido();
+	}
+	
+	@ModelAttribute("tipoPago")
+	public Collection<TipoPago> populateTipoPago() {
+		return this.pedidoService.findTipoPago();
+	}
+	
+	@ModelAttribute("tipoEnvio")
+	public Collection<TipoEnvio> populateTipoEnvio() {
+		return this.pedidoService.findTipoEnvio();
 	}
 
 	@InitBinder
@@ -41,28 +57,6 @@ public class PedidoController {
 		model.put("pedidos", pedidos);
 		return "pedidos/pedidosList";
 	}
-	
-	/*//añadir una reclamacion nueva
-		@GetMapping(value = "{pedidoId}/reclamaciones/new")
-		public String initCreationForm(@PathVariable("pedidoId") int pedidoId, Map<String, Object> model) {
-			Pedido pedido= this.pedidoService.findPedidoById(pedidoId);
-			Reclamacion reclamacion = new Reclamacion();
-			model.put("reclamacion", reclamacion);
-			return "reclamaciones/createOrUpdateReclamacionForm";	
-		}
-		
-	//mandar nueva reclamacion
-		@PostMapping(value = "{pedidoId}/reclamaciones/new")
-		public String processCreationForm(@Valid Reclamacion reclamacion, BindingResult result) {
-			if (result.hasErrors()) {
-				return "reclamaciones/createOrUpdateReclamacionForm";
-			}
-			else {
-				this.reclamacionService.saveReclamacion(reclamacion);
-				return "exito";
-			} 
-		}	
-	*/
 	
 	/*//añadir un pedido nueva
 	@GetMapping(value = "/pedidos/new")
@@ -88,7 +82,7 @@ public class PedidoController {
 	public String initUpdateForm(@PathVariable("pedidoId") int pedidoId, ModelMap model) {
 		Pedido pedido = this.pedidoService.findPedidoById(pedidoId);
 		model.put("pedidos", pedido);
-		return "pedido/createOrUpdatePedidoForm";
+		return "pedidos/createOrUpdatePedidoForm";
 	}
 	
 	//mandar actualizacion
