@@ -55,9 +55,9 @@
              		<a href="${fn:escapeXml(pizzaUrl2)}" class="btn btn-default">Eliminar</a>
              	</td>
              	<td>
-             		<spring:url value="/pizzas/{pizzaId}/añadirACarta/1" var="pizzaUrl3">
+             		<spring:url value="/cartas/{cartaId}/anadirPizzaACarta/{pizzaId}" var="pizzaUrl3">
 	                        <spring:param name="pizzaId" value="${pizza.id}"/>
-	                       <!-- <spring:param name="cartaId" value="1"/> --> 
+	                        <spring:param name="cartaId" value="${cartaId}"/>
 	                </spring:url>
              		<a href="${fn:escapeXml(pizzaUrl3)}" class="btn btn-default">Añadir a carta</a>
              	</td>

@@ -112,11 +112,4 @@ public class PizzaController {
     }
     
     
-    @GetMapping(value = "/pizzas/{pizzaId}/añadirACarta/{cartaId}")
-    public String añadirPizzaACarta(@PathVariable("pizzaId") int pizzaId, @PathVariable("cartaId") int cartaId) {
-    	//Aqui tenemos que añadir la pizza a la carta por los ID's, hay que ver la manera de sacar
-    	//la cartaId
-    	this.pizzaService.añadirPizzaACarta(pizzaId, cartaId);
-    	return "redirect:/cartas/{cartaId}/VerCarta";
-    }
 }
