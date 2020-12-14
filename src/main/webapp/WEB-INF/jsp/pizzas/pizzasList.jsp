@@ -6,6 +6,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <petclinic:layout pageName="pizzas">
     <h2>Pizzas</h2>
 
@@ -21,7 +22,7 @@
             <th></th>
 
         </tr>
-        <a href="/pizzas/new" class="btn btn-default">Añadir pizza</a>
+        <a href="/pizzas/new" class="btn btn-default">Crear pizza</a>
         </thead>
         <tbody>
         <c:forEach items="${Pizzas.pizzasList}" var="pizza">
@@ -38,6 +39,7 @@
              	 <td>
              		<c:out value="${pizza.tipoMasa}"/>
              	</td>
+
              	
              	<td>
              		<ul>
@@ -48,7 +50,7 @@
              			</c:forEach>
              		</ul>
              	</td>
-             	
+
 
              	<td>
              		<spring:url value="/pizzas/{pizzaId}/edit" var="pizzaUrl">
@@ -61,6 +63,13 @@
 	                        <spring:param name="pizzaId" value="${pizza.id}"/>
 	                </spring:url>
              		<a href="${fn:escapeXml(pizzaUrl2)}" class="btn btn-default">Eliminar</a>
+             	</td>
+             	<td>
+             		<spring:url value="/pizzas/{pizzaId}/añadirACarta/1" var="pizzaUrl3">
+	                        <spring:param name="pizzaId" value="${pizza.id}"/>
+	                       <!-- <spring:param name="cartaId" value="1"/> --> 
+	                </spring:url>
+             		<a href="${fn:escapeXml(pizzaUrl3)}" class="btn btn-default">Añadir a carta</a>
              	</td>
              	
             </tr>

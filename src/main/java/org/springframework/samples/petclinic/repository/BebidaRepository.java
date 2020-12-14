@@ -17,10 +17,10 @@ public interface BebidaRepository extends CrudRepository<Bebida, Integer> {
 	
 	Bebida findBebidaById(int bebidaId) throws DataAccessException;
 	
-	List<Bebida> findByCartaDeBebidas(Integer cartaId) throws DataAccessException;
+	//List<Bebida> findByCartaDeBebidas(Integer cartaId) throws DataAccessException;
 	
 	//las columnas están al revés
-	@Query(value = "SELECT CARTA_DE_BEBIDAS_ID FROM COMPOSICION_CARTA_BEBIDA WHERE BEBIDAS_EN_CARTA = ?1",
+	@Query(value = "SELECT BEBIDAS_EN_CARTA_ID FROM COMPOSICION_CARTA_BEBIDA WHERE CARTA_ID = ?1",
 			nativeQuery = true)
 	List<Integer> findIdBebidaById(int cartaId) throws DataAccessException;
 }

@@ -31,10 +31,5 @@ public class Reclamacion extends BaseEntity {
 	@NotNull
 	private String observacion;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "pedido_id")
-	private Pedido pedido;
-	
-	
 
 }

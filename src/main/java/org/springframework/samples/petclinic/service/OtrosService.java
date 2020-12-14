@@ -31,10 +31,10 @@ public class OtrosService {
 		return OtrosRepository.findOtrosById(OtrosId);
 	}
 	
-	@Transactional(readOnly = true)
-	public List<Otros> findByCarta(int carta) throws DataAccessException {
-		return OtrosRepository.findByCartaDeOtros(carta);
-	}
+//	@Transactional(readOnly = true)
+//	public List<Otros> findByCarta(int carta) throws DataAccessException {
+//		return OtrosRepository.findByCartaDeOtros(carta);
+//	}
 	
 	@Transactional
 	public void saveOtros(Otros Otros) throws DataAccessException {

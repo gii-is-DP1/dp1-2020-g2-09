@@ -28,10 +28,12 @@ public class Pizza extends Producto {
 	@JoinColumn(name = "tipoMasa")
 	private tipoMasa tipoMasa;
 	
+
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "composicionCartaPizza", joinColumns =@JoinColumn(name= "pizzasEnCarta"))
 	private Collection<Carta> cartaDePizzas;
 	
 	@ManyToMany(cascade = CascadeType.MERGE)
 	private Collection<Ingrediente> ingredientes;
+
 }	

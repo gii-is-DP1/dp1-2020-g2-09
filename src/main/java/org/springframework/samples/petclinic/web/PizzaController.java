@@ -13,6 +13,7 @@ import org.springframework.samples.petclinic.model.TamanoProducto;
 import org.springframework.samples.petclinic.model.tipoMasa;
 import org.springframework.samples.petclinic.service.IngredienteService;
 import org.springframework.samples.petclinic.service.PizzaService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -71,6 +72,7 @@ public class PizzaController {
 			return "redirect:/allPizzas";
 		}
 	}
+	
 
 	// iniciar actualizacion
 	@GetMapping(value = "/pizzas/{pizzaId}/edit")
@@ -113,9 +115,19 @@ public class PizzaController {
         return this.pizzaService.findTamaño();
     }
     
+
     @ModelAttribute("ingredientes")
     public Collection<Ingrediente> populateIngrediente() {
     	Collection<Ingrediente> c = this.ingredienteService.findIngredientes();
     	return c;
+
+    
+    @GetMapping(value = "/pizzas/{pizzaId}/añadirACarta/{cartaId}")
+    public String añadirPizzaACarta(@PathVariable("pizzaId") int pizzaId, @PathVariable("cartaId") int cartaId) {
+    	//Aqui tenemos que añadir la pizza a la carta por los ID's, hay que ver la manera de sacar
+    	//la cartaId
+    	this.pizzaService.añadirPizzaACarta(pizzaId, cartaId);
+    	return "redirect:/cartas/{cartaId}/VerCarta";
+
     }
 }
