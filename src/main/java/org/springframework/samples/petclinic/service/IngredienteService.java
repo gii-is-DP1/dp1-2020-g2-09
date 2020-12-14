@@ -47,4 +47,9 @@ public class IngredienteService {
         return IngredienteRepository.findAlergenos();
     }
 	
+	@Transactional
+	public List<Integer> findIngredienteIdByOtrosId(int otroId) throws DataAccessException{
+		return this.IngredienteRepository.findIngredienteIdByOtrosId(otroId);
+	}
+	
 }
