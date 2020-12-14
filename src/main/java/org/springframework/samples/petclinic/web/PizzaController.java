@@ -6,10 +6,12 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Ingrediente;
 import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.Pizzas;
 import org.springframework.samples.petclinic.model.TamanoProducto;
 import org.springframework.samples.petclinic.model.tipoMasa;
+import org.springframework.samples.petclinic.service.IngredienteService;
 import org.springframework.samples.petclinic.service.PizzaService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -27,10 +29,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PizzaController {
 
 	private final PizzaService pizzaService;
+	private final IngredienteService ingredienteService;
 
 	@Autowired
-	public PizzaController(PizzaService PizzaService) {
+	public PizzaController(PizzaService PizzaService, IngredienteService ingredienteService) {
 		this.pizzaService = PizzaService;
+		this.ingredienteService = ingredienteService;
 	}
 
 	@InitBinder
@@ -111,6 +115,12 @@ public class PizzaController {
         return this.pizzaService.findTamaño();
     }
     
+
+    @ModelAttribute("ingredientes")
+    public Collection<Ingrediente> populateIngrediente() {
+    	Collection<Ingrediente> c = this.ingredienteService.findIngredientes();
+    	return c;
+
     
     @GetMapping(value = "/pizzas/{pizzaId}/añadirACarta/{cartaId}")
     public String añadirPizzaACarta(@PathVariable("pizzaId") int pizzaId, @PathVariable("cartaId") int cartaId) {
@@ -118,5 +128,6 @@ public class PizzaController {
     	//la cartaId
     	this.pizzaService.añadirPizzaACarta(pizzaId, cartaId);
     	return "redirect:/cartas/{cartaId}/VerCarta";
+
     }
 }
