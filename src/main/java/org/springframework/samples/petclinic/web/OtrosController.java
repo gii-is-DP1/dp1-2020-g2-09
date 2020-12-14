@@ -83,8 +83,8 @@ public class OtrosController {
 			return "Otros/createOrUpdateOtrosForm";
 		}
 		else {
-			OtrosValidator ostrosValidator = new OtrosValidator();
-			ValidationUtils.invokeValidator(ostrosValidator, otros, result);
+			OtrosValidator otrosValidator = new OtrosValidator();
+			ValidationUtils.invokeValidator(otrosValidator, otros, result);
 			otros.setId(OtrosId);
 			this.OtrosService.saveOtros(otros);
 			return "redirect:/allOtros";
