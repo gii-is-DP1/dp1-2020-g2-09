@@ -90,7 +90,47 @@
         </tbody>
     </table>
     
+    <h3>Otros</h3>
     
+    <spring:url value="/cartas/{cartaId}/otros" var="listaOtros">
+	         <spring:param name="cartaId" value="${cartaId}"/> 
+	    </spring:url>
+	    <a href="${fn:escapeXml(listaOtros)}" class="btn btn-default">Añadir bebida a la carta</a>
+
+    <table id="otrosTableCarta" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Carbonatada</th>
+            <th>Precio</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${Otros.otrosList}" var="otro">
+            <tr>
+                <td>
+                    <c:out value="${otro.nombre}"/>
+                </td>
+                <td>
+                	<c:if test="${bebida.esCarbonatada}">
+                		<c:out value="Sí"></c:out>
+                	</c:if>
+                	<c:if test="${!bebida.esCarbonatada}">
+                		<c:out value="No"></c:out>
+                	</c:if>
+                	<!-- <c:out value="${bebida.esCarbonatada}"/> -->
+             	</td>
+             	<td>
+             		<c:out value="${bebida.coste}"/>
+             	</td>
+             	<!-- <td>
+             		<c:out value="${bebida.id}"></c:out>
+             	</td> -->  	
+            </tr>
+        </c:forEach>
+        
+        </tbody>
+    </table>
     
     
 </petclinic:layout>

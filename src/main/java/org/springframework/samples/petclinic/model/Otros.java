@@ -19,8 +19,8 @@ import lombok.EqualsAndHashCode;
 @Table(name = "Otros")
 public class Otros extends Producto {
 
-	@Column(name = "ingredientes")
-	private Ingrediente [] ingredientes;
+	@ManyToMany(cascade = CascadeType.MERGE)
+	private Collection<Ingrediente> ingredientes;
 	
 //	@ManyToMany(cascade = CascadeType.ALL)
 //	@JoinTable(name = "composicionCartaOtros", joinColumns =@JoinColumn(name= "otrosEnCarta"))

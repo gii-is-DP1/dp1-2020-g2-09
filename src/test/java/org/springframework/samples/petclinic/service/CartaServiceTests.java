@@ -70,7 +70,9 @@ public class CartaServiceTests {
 		i1.setNombre("queso");
 		i1.setTipo("lacteo");
 		i1.setAlergenos(a1);
-		Ingrediente[] ingredientes = {i1,i2};
+		Collection<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
+			ingredientes.add(i1);
+			ingredientes.add(i2);
 		
 		Otros otro=new Otros();
 		otro.setContador(0);

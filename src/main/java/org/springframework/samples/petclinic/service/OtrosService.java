@@ -27,8 +27,18 @@ public class OtrosService {
 	}	
 	
 	@Transactional(readOnly = true)
+	public List<Integer> findIdOtroById(int cartaId) throws DataAccessException {
+		return OtrosRepository.findIdOtroById(cartaId);
+	}
+	
+	@Transactional(readOnly = true)
 	public Otros findOtrosById(int OtrosId) throws DataAccessException {
 		return OtrosRepository.findOtrosById(OtrosId);
+	}
+	
+	@Transactional
+	public void añadirOtroACarta(int otroId, int cartaId) throws DataAccessException {
+		OtrosRepository.añadirOtroACarta(otroId, cartaId);		
 	}
 	
 //	@Transactional(readOnly = true)
