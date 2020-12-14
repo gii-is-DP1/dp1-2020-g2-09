@@ -41,7 +41,7 @@ public class BebidaServiceTests {
 	@Test
 	void shouldFindIdBebidaById() {
 		
-		List<Integer> lista = this.bebidaService.findIdBebidaById(1);
+		List<Integer> lista = this.bebidaService.findIdBebidaByCartaId(1);
 		
 		assertThat(lista).isNotNull();
 	}
@@ -49,7 +49,7 @@ public class BebidaServiceTests {
 	@Test
 	void shouldNotFindIdBebidaById() {
 		
-		List<Integer> lista = this.bebidaService.findIdBebidaById(99);
+		List<Integer> lista = this.bebidaService.findIdBebidaByCartaId(99);
 		
 		assertThat(lista).isEmpty();
 	}
