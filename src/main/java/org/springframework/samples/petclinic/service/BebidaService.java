@@ -45,5 +45,10 @@ public class BebidaService {
 	public void deleteBebida(Bebida bebida) throws DataAccessException {
 		bebidaRepository.delete(bebida);		
 	}
+	
+	@Transactional
+	public void añadirBebidaACarta(int bebidaId, int cartaId) throws DataAccessException {
+		bebidaRepository.añadirBebidaACarta(bebidaId, cartaId);		
+	}	
 }
 

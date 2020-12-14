@@ -18,7 +18,8 @@
             <th>Coste</th>
             <th>Tipo Masa</th>
             <th>Ingredientes</th>
-            
+            <th></th>
+            <th></th>
 
         </tr>
         <a href="/pizzas/new" class="btn btn-default">Crear pizza</a>
@@ -38,9 +39,18 @@
              	 <td>
              		<c:out value="${pizza.tipoMasa}"/>
              	</td>
-             	<td>
+
              	
+             	<td>
+             		<ul>
+             			<c:forEach items="${pizza.ingredientes}" var="ingrediente">
+             				<li>
+             					<c:out value="${ingrediente.nombre}"/>
+             				</li>
+             			</c:forEach>
+             		</ul>
              	</td>
+
 
              	<td>
              		<spring:url value="/pizzas/{pizzaId}/edit" var="pizzaUrl">
@@ -55,9 +65,9 @@
              		<a href="${fn:escapeXml(pizzaUrl2)}" class="btn btn-default">Eliminar</a>
              	</td>
              	<td>
-             		<spring:url value="/pizzas/{pizzaId}/añadirACarta/1" var="pizzaUrl3">
+             		<spring:url value="/cartas/{cartaId}/anadirPizzaACarta/{pizzaId}" var="pizzaUrl3">
 	                        <spring:param name="pizzaId" value="${pizza.id}"/>
-	                       <!-- <spring:param name="cartaId" value="1"/> --> 
+	                        <spring:param name="cartaId" value="${cartaId}"/>
 	                </spring:url>
              		<a href="${fn:escapeXml(pizzaUrl3)}" class="btn btn-default">Añadir a carta</a>
              	</td>

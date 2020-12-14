@@ -45,6 +45,13 @@
 	                </spring:url>
              		<a href="${fn:escapeXml(bebidaUrl2)}" class="btn btn-default">Eliminar</a>
              	</td>
+             	<td>
+             		<spring:url value="/cartas/{cartaId}/anadirBebidaACarta/{bebidaId}" var="bebidaUrl3">
+	                        <spring:param name="bebidaId" value="${bebida.id}"/>
+	                        <spring:param name="cartaId" value="${cartaId}"/>
+	                </spring:url>
+             		<a href="${fn:escapeXml(bebidaUrl3)}" class="btn btn-default">Añadir a carta</a>
+             	</td>
              	
             </tr>
         </c:forEach>

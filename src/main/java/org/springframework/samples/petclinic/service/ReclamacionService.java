@@ -38,5 +38,10 @@ public class ReclamacionService {
 	public void deleteReclamacion(Reclamacion reclamacion) throws DataAccessException {
 		reclamacionRepository.delete(reclamacion);		
 	}
+	
+	 @Transactional
+	 public void añadirReclamacionAPedido(int reclamacionId, int pedidoId) throws DataAccessException {
+		 reclamacionRepository.añadirReclamacionAPedido(reclamacionId, pedidoId);		
+	}		
 
 }

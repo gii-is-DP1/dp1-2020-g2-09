@@ -11,8 +11,13 @@
     <h2>Carta</h2>
     
     <h3>Pizzas</h3>
+    <!--<c:out value="${cartaId}"></c:out>-->
 
-	<a href="/allPizzas" class="btn btn-default">Añadir pizza a la carta</a>
+		<spring:url value="/cartas/{cartaId}/pizzas" var="listaPizzas">
+	         <spring:param name="cartaId" value="${cartaId}"/> 
+	    </spring:url>
+	    <a href="${fn:escapeXml(listaPizzas)}" class="btn btn-default">Añadir pizza a la carta</a>  
+	
     <table id="pizzasTableCarta" class="table table-striped">
         <thead>
         <tr>
@@ -43,9 +48,12 @@
         </tbody>
     </table>
     
-    <c:out value="${cartaId}"></c:out>
-    
     <h3>Bebidas</h3>
+    
+    <spring:url value="/cartas/{cartaId}/bebidas" var="listaBebidas">
+	         <spring:param name="cartaId" value="${cartaId}"/> 
+	    </spring:url>
+	    <a href="${fn:escapeXml(listaBebidas)}" class="btn btn-default">Añadir bebida a la carta</a>
 
     <table id="bebidasTableCarta" class="table table-striped">
         <thead>
