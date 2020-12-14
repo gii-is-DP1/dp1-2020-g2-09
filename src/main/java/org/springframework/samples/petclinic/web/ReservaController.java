@@ -46,13 +46,16 @@ public class ReservaController {
 		dataBinder.setDisallowedFields("id");
 	}
 	
-	
+	@InitBinder("reserva")
+	public void initPetBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new ReservaValidator());
+	}
 	
 	@GetMapping(value = { "/allReservas" })
 	public String showReservaList(Map<String, Object> model) {
 		List<Reserva> reservas=reservaService.findReservas();
 		model.put("reservas", reservas);
-		return "reservas/reservasList";
+		return ViewConstant.RESERVA_VIEW;
 	}
 
 	//crear nueva reserva
@@ -65,9 +68,8 @@ public class ReservaController {
 
 	//mandar nueva reserva
 	@PostMapping(value = "/reservas/new")
-	public String processCreationForm(@Valid Reserva reserva, BindingResult result,  ModelMap model) {
+	public String processCreationForm(@Valid Reserva reserva, BindingResult result) {
 		if (result.hasErrors()) {
-			model.put("reserva", reserva);//importanteeee
 			return "reservas/createOrUpdateReservaForm";
 		}
 		else {
@@ -94,8 +96,6 @@ public class ReservaController {
 			return "reservas/createOrUpdateReservaForm";
 		}
 		else {
-			ReservaValidator reservaValidator = new ReservaValidator();
-			ValidationUtils.invokeValidator(reservaValidator, reserva, result);
 			reserva.setId(reservaId);
 			this.reservaService.saveReserva(reserva);
 			return "redirect:/allReservas";
@@ -110,7 +110,7 @@ public class ReservaController {
 		return "redirect:/allReservas";
 	}
 	//buscar mesas de la reserva
-		@GetMapping(value = "/reservas/mesas/{reserva}")
+		@GetMapping(value = "/reservas/mesas/{reservaId}")
 		public String initReserva(@PathVariable("reservaId") int reservaId, ModelMap model) {
 			List<Mesa> lista= mesaService.findByReserva(reservaId);
 			model.put("mesas", lista);
