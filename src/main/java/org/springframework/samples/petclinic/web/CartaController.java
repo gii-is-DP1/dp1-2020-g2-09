@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,8 @@ import org.springframework.samples.petclinic.model.Otros;
 import org.springframework.samples.petclinic.model.OtrosLista;
 import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.Pizzas;
+import org.springframework.samples.petclinic.model.TamanoProducto;
+import org.springframework.samples.petclinic.model.tipoMasa;
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.CartaService;
 import org.springframework.samples.petclinic.service.IngredienteService;
@@ -22,10 +25,12 @@ import org.springframework.samples.petclinic.service.PizzaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -151,7 +156,7 @@ public class CartaController {
 		return "cartas/verCarta";
 	}
 	
-	@GetMapping(value = { "/cartas/{cartaId}/pizzas" })
+	@GetMapping(value = "/cartas/{cartaId}/pizzas")
 	public String showPizzaLista(@PathVariable("cartaId") Integer cartaId, Map<String, Object> model) {
 		model.put("cartaId", cartaId);
 		Pizzas pizzas = new Pizzas();
@@ -161,7 +166,7 @@ public class CartaController {
 		return "pizzas/pizzasList";
 	}
 	
-	@GetMapping(value = { "/cartas/{cartaId}/bebidas" })
+	@GetMapping(value = "/cartas/{cartaId}/bebidas")
 	public String showBebidaLista(@PathVariable("cartaId") Integer cartaId, Map<String, Object> model) {
 		model.put("cartaId", cartaId);
 		Bebidas bebidas = new Bebidas();
@@ -171,7 +176,7 @@ public class CartaController {
 		return "bebidas/bebidasList";
 	}
 	
-	@GetMapping(value = { "/cartas/{cartaId}/otros" })
+	@GetMapping(value = "/cartas/{cartaId}/otros" )
 	public String showOtrosLista(@PathVariable("cartaId") Integer cartaId, Map<String, Object> model) {
 		model.put("cartaId", cartaId);
 		OtrosLista otros = new OtrosLista();
@@ -200,6 +205,42 @@ public class CartaController {
     	return "redirect:/cartas/{cartaId}/VerCarta";
     }
 	
+	@GetMapping(value = "/cartas/{cartaId}/pizza/new" )
+	public String initCreationForm(@PathVariable("cartaId") Integer cartaId, Map<String, Object> model) {
+		model.put("cartaId", cartaId);
+		Pizza pizza = new Pizza();
+		model.put("pizza", pizza);
+		return "pizzas/createOrUpdatePizzaForm";
+	}
+	@PostMapping(value = "/cartas/{cartaId}/pizza/new")
+	public String processCreationForm(@Valid Pizza Pizza, BindingResult result,ModelMap model) {
+		if (result.hasErrors()) {
+			model.put("pizza", Pizza);//importanteeee
+			return "pizzas/createOrUpdatePizzaForm";
+		} else {
+			PizzaValidator pizzaValidator = new PizzaValidator();
+			ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
+			this.PizzaService.savePizza(Pizza);
+			return "redirect:/cartas/{cartaId}/pizzas";
+		}
+	}
+	
+	
+	@ModelAttribute("tipoMasa")
+    public Collection<tipoMasa> populateTipoMasa() {
+        return this.PizzaService.findTipoMasa();
+    }
+    
+    @ModelAttribute("tamanyo")
+    public Collection<TamanoProducto> populateTamaño() {
+        return this.PizzaService.findTamaño();
+    }
+  
+   @ModelAttribute("ingredientes")
+    public Collection<Ingrediente> populateIngrediente() {
+    	Collection<Ingrediente> c = this.IngredienteService.findIngredientes();
+    	return c;
+   }
 //	//Borrar carta
 //	@DeleteMapping(value = "/carta/{cartaId}/delete")
 //	public String deleteCarta(@PathVariable("cartaId") int cartaId) {
