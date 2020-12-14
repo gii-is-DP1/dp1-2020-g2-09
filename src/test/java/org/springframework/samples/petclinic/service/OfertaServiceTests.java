@@ -57,15 +57,14 @@ public class OfertaServiceTests {
 		pedido.setTipoEnvio(tipoEnvio);
 		pedido.setTipoPago(tipoPago);
 			
-		Collection<Pedido> pedidoConOferta = new ArrayList<Pedido>();
-		pedidoConOferta.add(pedido);
-		pedido.setPedidosConOferta(pedidoConOferta);
+		Collection<Oferta> pedidoConOferta = new ArrayList<Oferta>();
+		pedidoConOferta.add(oferta);
+		pedido.setOfertasEnPedido(pedidoConOferta);
 		
 		oferta.setCoste(12.1);
 		oferta.setFechaInicial(LocalDate.of(2020, 11, 9));
 		oferta.setFechaFinal(LocalDate.of(2020, 11, 18));
 		oferta.setNivelSocio(nivelSocio);
-		oferta.setPedidosConOferta(pedidoConOferta);
 		oferta.setTamanoOferta(tamanoOferta); 
 	                
 		this.ofertaService.saveOferta(oferta);
@@ -101,15 +100,14 @@ public class OfertaServiceTests {
 		pedido.setTipoEnvio(tipoEnvio);
 		pedido.setTipoPago(tipoPago);
 			
-		Collection<Pedido> pedidoConOferta = new ArrayList<Pedido>();
-		pedidoConOferta.add(pedido);
-		pedido.setPedidosConOferta(pedidoConOferta);
+		Collection<Oferta> pedidoConOferta = new ArrayList<Oferta>();
+		pedidoConOferta.add(oferta);
+		pedido.setOfertasEnPedido(pedidoConOferta);
 		
 		oferta.setCoste(12.1);
 		oferta.setFechaInicial(LocalDate.of(2020, 11, 9));
 		oferta.setFechaFinal(LocalDate.of(2020, 11, 18));
 		oferta.setNivelSocio(nivelSocio);
-		oferta.setPedidosConOferta(pedidoConOferta);
 	     
 		try {
 		this.ofertaService.saveOferta(oferta);

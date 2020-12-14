@@ -22,8 +22,8 @@ public class Otros extends Producto {
 	@Column(name = "ingredientes")
 	private Ingrediente [] ingredientes;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "composicionCartaOtros", joinColumns =@JoinColumn(name= "otrosEnCarta"))
-	private Collection<Carta> cartaDeOtros;
+//	@ManyToMany(cascade = CascadeType.ALL)
+//	@JoinTable(name = "composicionCartaOtros", joinColumns =@JoinColumn(name= "otrosEnCarta"))
+//	private Collection<Carta> cartaDeOtros;
 	
 }

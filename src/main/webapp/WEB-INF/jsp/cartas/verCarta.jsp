@@ -6,11 +6,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <petclinic:layout pageName="carta">
     <h2>Carta</h2>
     
     <h3>Pizzas</h3>
 
+	<a href="/allPizzas" class="btn btn-default">Añadir pizza a la carta</a>
     <table id="pizzasTableCarta" class="table table-striped">
         <thead>
         <tr>
@@ -41,6 +43,7 @@
         </tbody>
     </table>
     
+    <c:out value="${cartaId}"></c:out>
     
     <h3>Bebidas</h3>
 
@@ -59,7 +62,13 @@
                     <c:out value="${bebida.nombre}"/>
                 </td>
                 <td>
-                	<c:out value="${bebida.esCarbonatada}"/>
+                	<c:if test="${bebida.esCarbonatada}">
+                		<c:out value="Sí"></c:out>
+                	</c:if>
+                	<c:if test="${!bebida.esCarbonatada}">
+                		<c:out value="No"></c:out>
+                	</c:if>
+                	<!-- <c:out value="${bebida.esCarbonatada}"/> -->
              	</td>
              	<td>
              		<c:out value="${bebida.coste}"/>

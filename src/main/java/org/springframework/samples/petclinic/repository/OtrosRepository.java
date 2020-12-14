@@ -16,6 +16,6 @@ public interface OtrosRepository extends CrudRepository<Otros, Integer>{
 	
 	Otros findOtrosById(int OtrosId) throws DataAccessException;
 	
-	List<Otros> findByCartaDeOtros(int cartaId) throws DataAccessException;
+	//List<Otros> findByCartaDeOtros(int cartaId) throws DataAccessException;
 	
 }
