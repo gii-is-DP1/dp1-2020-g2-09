@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.web;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Oferta;
 import org.springframework.samples.petclinic.model.Reclamacion;
 import org.springframework.samples.petclinic.model.Reclamaciones;
 import org.springframework.samples.petclinic.service.ReclamacionService;
@@ -13,6 +14,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -39,7 +41,7 @@ public class ReclamacionController {
 	}
 	
 	//añadir una reclamacion nueva
-		@GetMapping(value = "/reclamaciones/new")
+	/*	@GetMapping(value = "/reclamaciones/new")
 		public String initCreationForm(Map<String, Object> model) {
 			Reclamacion reclamacion = new Reclamacion();
 			model.put("reclamacion", reclamacion);
@@ -58,6 +60,29 @@ public class ReclamacionController {
 				ValidationUtils.invokeValidator(reclamacionValidator, reclamacion, result);
 				this.reclamacionService.saveReclamacion(reclamacion);
 				return "redirect:/";
+			} 
+		}*/
+
+		//Aqui tenemos que añadir la reclamación a un pedido por los ID's
+		@GetMapping("/pedidos/{pedidoId}/anadirReclamacion/new")
+		public String initCreationForm(Map<String, Object> model, @PathVariable("pedidoId") int pedidoId) {
+			Reclamacion reclamacion = new Reclamacion();
+			model.put("reclamacion", reclamacion);
+			return "reclamaciones/createOrUpdateReclamacionForm";
+		}
+		
+		//mandar nueva reclamacion
+		@PostMapping(value = "/pedidos/{pedidoId}/anadirReclamacion/new")
+		public String processCreationForm(@PathVariable("pedidoId") int pedidoId, @Valid Reclamacion reclamacion, BindingResult result, ModelMap model) {
+			if (result.hasErrors()) {
+				model.put("reclamacion", reclamacion);
+				return "reclamaciones/createOrUpdateReclamacionForm";
+			}
+			else {
+				this.reclamacionService.saveReclamacion(reclamacion);
+				Integer reclamacionId=reclamacion.getId();
+				this.reclamacionService.añadirReclamacionAPedido(pedidoId, reclamacionId);
+				return "redirect:/allReclamaciones";
 			} 
 		}
 		

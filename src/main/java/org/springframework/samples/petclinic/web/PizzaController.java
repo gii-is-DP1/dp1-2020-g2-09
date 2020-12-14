@@ -110,6 +110,12 @@ public class PizzaController {
     public Collection<TamanoProducto> populateTamaño() {
         return this.pizzaService.findTamaño();
     }
+  
+   @ModelAttribute("ingredientes")
+    public Collection<Ingrediente> populateIngrediente() {
+    	Collection<Ingrediente> c = this.ingredienteService.findIngredientes();
+    	return c;
     
     
 }
+

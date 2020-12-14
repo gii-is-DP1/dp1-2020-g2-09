@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import com.sun.istack.NotNull;
 import lombok.Data;
@@ -59,5 +60,7 @@ public class Pedido extends BaseEntity{
 	@JoinColumn(name = "pedidocliente")
 	private Cliente cliente;
 	
+	@OneToMany(cascade = CascadeType.ALL)
+	private Collection<Reclamacion> reclamacion;
 	
 }
