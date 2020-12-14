@@ -1,5 +1,4 @@
 package org.springframework.samples.petclinic.web;
-
 /*
  * Copyright 2012-2019 the original author or authors.
  *
@@ -16,25 +15,29 @@ package org.springframework.samples.petclinic.web;
  * limitations under the License.
  */
 
+import static org.hamcrest.xml.HasXPath.hasXPath;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 import org.assertj.core.util.Lists;
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.http.MediaType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.Mesa;
 import org.springframework.samples.petclinic.model.Reserva;
@@ -46,7 +49,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 /**
- * Test class for the {@link PetController}
+ * Test class for the {@link ReservaController}
  *
  * @author Colin But
  */
@@ -54,6 +57,7 @@ import org.springframework.test.web.servlet.MockMvc;
 		includeFilters = @ComponentScan.Filter(value = ReservaFormatter.class, type = FilterType.ASSIGNABLE_TYPE),
 		excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
 		excludeAutoConfiguration= SecurityConfiguration.class)
+
 class ReservaControllerTest {
 
 	private static final int TEST_MESA_ID = 9;

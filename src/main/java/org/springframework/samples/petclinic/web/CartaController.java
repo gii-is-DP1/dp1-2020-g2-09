@@ -117,7 +117,7 @@ public class CartaController {
 		}
 		model.put("pizzas", listaPizzas);
 		
-		List<Integer> listaIdBebidas = BebidaService.findIdBebidaById(cartaId);
+		List<Integer> listaIdBebidas = BebidaService.findIdBebidaByCartaId(cartaId);
 		Bebidas listaBebidas = new Bebidas();
 		for(int i=0; i<listaIdBebidas.size(); i++) {
 			Integer bebidaId = listaIdBebidas.get(i);

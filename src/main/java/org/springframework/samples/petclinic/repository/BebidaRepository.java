@@ -23,11 +23,12 @@ public interface BebidaRepository extends CrudRepository<Bebida, Integer> {
 	//las columnas están al revés
 	@Query(value = "SELECT BEBIDAS_EN_CARTA_ID FROM COMPOSICION_CARTA_BEBIDA WHERE CARTA_ID = ?1",
 			nativeQuery = true)
-	List<Integer> findIdBebidaById(int cartaId) throws DataAccessException;
-	
+
+	List<Integer> findIdBebidaByCartaId(int cartaId) throws DataAccessException;
 	@Modifying
     @Query(value = "INSERT INTO COMPOSICION_CARTA_BEBIDA(BEBIDAS_EN_CARTA_ID, CARTA_ID) VALUES (?1, ?2)",
 			nativeQuery = true)
 	void añadirBebidaACarta(int bebidaId, int cartaId);
+
 }
 
