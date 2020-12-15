@@ -10,6 +10,10 @@
 <petclinic:layout pageName="pizzas">
     <h2>Pizzas</h2>
 
+	<spring:url value="/cartas/{cartaId}/pizza/new" var="crearPizzas">
+	         <spring:param name="cartaId" value="${cartaId}"/> 
+	    </spring:url>
+	    <a href="${fn:escapeXml(crearPizzas)}" class="btn btn-default">Crear pizza</a>
     <table id="pizzasTable" class="table table-striped">
         <thead>
         <tr>
@@ -22,10 +26,6 @@
             <th></th>
 
         </tr>
-        <spring:url value="/cartas/{cartaId}/pizza/new" var="crearPizzas">
-	         <spring:param name="cartaId" value="${cartaId}"/> 
-	    </spring:url>
-	    <a href="${fn:escapeXml(crearPizzas)}" class="btn btn-default">Crear pizza</a>
         </thead>
         <tbody>
         <c:forEach items="${Pizzas.pizzasList}" var="pizza">
@@ -56,13 +56,15 @@
 
 
              	<td>
-             		<spring:url value="/pizzas/{pizzaId}/edit" var="pizzaUrl">
+             		<spring:url value="/cartas/{cartaId}/pizza/{pizzaId}/edit" var="pizzaUrl">
+             				<spring:param name="cartaId" value="${cartaId}"/>
 	                        <spring:param name="pizzaId" value="${pizza.id}"/>
 	                </spring:url>
    					<a href="${fn:escapeXml(pizzaUrl)}" class="btn btn-default">Editar</a>
              	</td>
              	<td>
-             		<spring:url value="/pizzas/{pizzaId}/delete" var="pizzaUrl2">
+             		<spring:url value="/cartas/{cartaId}/pizza/{pizzaId}/delete" var="pizzaUrl2">
+             				<spring:param name="cartaId" value="${cartaId}"/>
 	                        <spring:param name="pizzaId" value="${pizza.id}"/>
 	                </spring:url>
              		<a href="${fn:escapeXml(pizzaUrl2)}" class="btn btn-default">Eliminar</a>

@@ -15,6 +15,7 @@
             <petclinic:inputField label="Nombre del plato" name="nombre"/>
             <petclinic:inputField label="Precio" name="coste"/>
             <petclinic:inputField label="contador" name="contador"/>
+            <petclinic:selectField name="ingredientes" label="ingredientes" names="${ingredientes}" size="3"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

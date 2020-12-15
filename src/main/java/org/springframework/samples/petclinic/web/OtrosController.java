@@ -1,13 +1,16 @@
 package org.springframework.samples.petclinic.web;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.Collection;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Ingrediente;
 import org.springframework.samples.petclinic.model.Otros;
+import org.springframework.samples.petclinic.model.OtrosLista;
+import org.springframework.samples.petclinic.service.IngredienteService;
 import org.springframework.samples.petclinic.service.OtrosService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,6 +19,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -24,9 +28,11 @@ public class OtrosController {
 	
 	private final OtrosService OtrosService;
 
+	private final IngredienteService IngredienteService;
 	@Autowired
-	public OtrosController(OtrosService OtroService) {
+	public OtrosController(OtrosService OtroService, IngredienteService IngredienteService) {
 		this.OtrosService = OtroService;
+		this.IngredienteService = IngredienteService;
 	}
 
 	@InitBinder
@@ -36,8 +42,8 @@ public class OtrosController {
 	
 	@GetMapping(value = { "/allOtros" })
 	public String showOtrosList(Map<String, Object> model) {
-		List<Otros> Otros = new ArrayList<Otros>();
-		Otros.addAll(this.OtrosService.findOtros());
+		OtrosLista Otros = new OtrosLista();
+		Otros.getOtrosList().addAll(this.OtrosService.findOtros());
 		model.put("Otros", Otros);
 		return "Otros/OtrosList";
 	}
@@ -96,8 +102,13 @@ public class OtrosController {
 	public String initDeleteOtros(@PathVariable("OtrosId") int OtrosId, ModelMap model) {
 		Otros Otros = this.OtrosService.findOtrosById(OtrosId);
 		this.OtrosService.deleteOtros(Otros);
-		return "redirect:/allOtros";
+		return "redirect:/cartas/{cartaId}/otros";
 	}
 	
-	
+	 @ModelAttribute("ingredientes")
+	    public Collection<Ingrediente> populateIngrediente() {
+	    	Collection<Ingrediente> c = this.IngredienteService.findIngredientes();
+	    	return c;
+	   }
+	 
 }

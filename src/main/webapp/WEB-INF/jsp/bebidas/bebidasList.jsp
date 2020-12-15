@@ -16,7 +16,10 @@
             <th>Carbonatada</th>
             <th>Precio</th>
         </tr>
-        <a href="/bebidas/new" class="btn btn-default">Añadir bebida</a>
+        <spring:url value="/cartas/{cartaId}/bebida/new" var="crearBebidas">
+	         <spring:param name="cartaId" value="${cartaId}"/> 
+	    </spring:url>
+	    <a href="${fn:escapeXml(crearBebidas)}" class="btn btn-default">Crear bebida</a>
         </thead>
         <tbody>
         <c:forEach items="${bebidas.bebidasList}" var="bebida">
@@ -34,13 +37,15 @@
              		<c:out value="${bebida.id}"></c:out>
              	</td> -->
              	<td>
-             		<spring:url value="/bebidas/{bebidaId}/edit" var="bebidaUrl">
+             		<spring:url value="/cartas/{cartaId}/bebida/{bebidaId}/edit" var="bebidaUrl">
+             				<spring:param name="cartaId" value="${cartaId}"/>
 	                        <spring:param name="bebidaId" value="${bebida.id}"/>
 	                </spring:url>
    					<a href="${fn:escapeXml(bebidaUrl)}" class="btn btn-default">Editar</a>
              	</td>
              	<td>
-             		<spring:url value="/bebidas/{bebidaId}/delete" var="bebidaUrl2">
+             		<spring:url value="/cartas/{cartaId}/bebida/{bebidaId}/delete" var="bebidaUrl2">
+             				<spring:param name="cartaId" value="${cartaId}"/>
 	                        <spring:param name="bebidaId" value="${bebida.id}"/>
 	                </spring:url>
              		<a href="${fn:escapeXml(bebidaUrl2)}" class="btn btn-default">Eliminar</a>
