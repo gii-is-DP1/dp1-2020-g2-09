@@ -92,7 +92,7 @@ public class PizzaController {
 			PizzaValidator pizzaValidator = new PizzaValidator();
 			ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
 			this.pizzaService.savePizza(Pizza);
-			return "redirect:/allPizzas";
+			return "redirect:/cartas/{cartaId}/pizzas";
 		}
 	}
 
@@ -101,7 +101,7 @@ public class PizzaController {
 	public String initDeletePizza(@PathVariable("pizzaId") int pizzaId, ModelMap model) {
 		Pizza pizza = this.pizzaService.findPizzaById(pizzaId);
 		this.pizzaService.deletePizza(pizza);
-		return "redirect:/allPizzas";
+		return "redirect:/cartas/{cartaId}/pizzas";
 	}
 
 	@ModelAttribute("tipoMasa")

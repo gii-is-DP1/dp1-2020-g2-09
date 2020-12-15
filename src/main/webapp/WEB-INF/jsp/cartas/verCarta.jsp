@@ -44,7 +44,13 @@
              		<c:out value="${pizza.tipoMasa}"/>
              	</td>
              	 <td>
-             		<c:out value="${pizza.ingredientes}"/>
+             		<ul>
+             			<c:forEach items="${pizza.ingredientes}" var="ingrediente">
+             				<li>
+             					<c:out value="${ingrediente.nombre}"/>
+             				</li>
+             			</c:forEach>
+             		</ul>
              	</td>
             </tr>
         </c:forEach>
@@ -63,6 +69,7 @@
         <tr>
             <th>Nombre</th>
             <th>Carbonatada</th>
+            <th>Tamaño</th>
             <th>Precio</th>
         </tr>
         </thead>
@@ -82,6 +89,9 @@
                 	<!-- <c:out value="${bebida.esCarbonatada}"/> -->
              	</td>
              	<td>
+             		<c:out value="${bebida.tamano}"></c:out>
+             	</td>
+             	<td>
              		<c:out value="${bebida.coste}"/>
              	</td>
              	<!-- <td>
@@ -98,14 +108,14 @@
     <spring:url value="/cartas/{cartaId}/otros" var="listaOtros">
 	         <spring:param name="cartaId" value="${cartaId}"/> 
 	    </spring:url>
-	    <a href="${fn:escapeXml(listaOtros)}" class="btn btn-default">Añadir bebida a la carta</a>
+	    <a href="${fn:escapeXml(listaOtros)}" class="btn btn-default">Añadir otro a la carta</a>
 
     <table id="otrosTableCarta" class="table table-striped">
         <thead>
         <tr>
             <th>Nombre</th>
             <th>Coste</th>
-            <th>Contador</th>
+            <!--  <th>Contador</th> -->
             <th>Ingredientes</th>
         </tr>
         </thead>
@@ -117,12 +127,18 @@
                 </td>
                 <td>
                 	<c:out value="${otro.coste}"></c:out>
-             	</td>
-             	<td>
+             	<!--</td>
+             	   <td>
              		<c:out value="${otro.contador}"/>
-             	</td>
+             	</td>-->
              	<td>
-             		<c:out value="${otro.ingredientes}"/>
+             		<ul>
+             			<c:forEach items="${otro.ingredientes}" var="ingrediente">
+             				<li>
+             					<c:out value="${ingrediente.nombre}"/>
+             				</li>
+             			</c:forEach>
+             		</ul>
              	</td>
              	  	
             </tr>

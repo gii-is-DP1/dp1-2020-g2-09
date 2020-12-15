@@ -31,6 +31,6 @@ public class Producto extends BaseEntity {
 	
 	@Column(name = "contador")
 	@NotNull
-	private Integer contador;
+	private Integer contador=1;
 
 }

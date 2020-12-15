@@ -3,9 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+    
 <petclinic:layout pageName="bebidas">
     <h2>
         <c:if test="${bebida['new']}">Nueva </c:if> Bebida
@@ -14,11 +15,14 @@
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre de la bebida" name="nombre"/>
             
+            <label for="esCarbonatada">Es o no carbonatada:</label>
              <select label="esCarbonatada" name="esCarbonatada">
 			  <option value="true">Carbonatada</option> 
 			  <option value="false" selected>No carbonatada</option>
 			</select>
-			 <select label="tamaño" name="tamaño">
+			</br>
+			<label for="tamano">Tamaño:</label>
+			 <select label="tamaño" name="tamano">
 			  <option value="NORMAL">Normal</option> 
 			  <option value="GRANDE" selected>Grande</option>
 			</select>

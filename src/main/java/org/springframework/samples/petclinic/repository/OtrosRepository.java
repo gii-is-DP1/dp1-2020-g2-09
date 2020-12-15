@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.samples.petclinic.model.Otros;
-import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -25,7 +24,7 @@ public interface OtrosRepository extends CrudRepository<Otros, Integer>{
 	List<Integer> findIdOtroById(int cartaId) throws DataAccessException;
 	
 	@Modifying
-    @Query(value = "INSERT INTO COMPOSICION_CARTA_OTRO(OTROS_EN_CARTA_ID, CARTA_ID) VALUES (?1, ?2)",
+	@Query(value = "INSERT INTO COMPOSICION_CARTA_OTROS(OTROS_EN_CARTA_ID, CARTA_ID) VALUES (?1, ?2)",
 			nativeQuery = true)
 	void añadirOtroACarta(int otroId, int cartaId);
 	

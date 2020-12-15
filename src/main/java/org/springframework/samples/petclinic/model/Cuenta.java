@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -40,6 +42,8 @@ public class Cuenta extends BaseEntity {
 	
 	@Column(name = "telefono")
 	@NotNull
+	@Min(value = 100000000)
+	@Max(value = 999999999)
 	//@Length(min = 9, max = 9)
 	private Integer telefono;
 	
