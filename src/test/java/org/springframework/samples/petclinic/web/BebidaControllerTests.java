@@ -103,7 +103,7 @@ public class BebidaControllerTests {
 		
 		given(this.cartaService.findCartaById(TEST_CARTA_ID)).willReturn(new Carta());
 		
-		given(this.pedidoService.findPedidoById(TEST_PEDIDO_ID)).willReturn(new Pedido());
+//		given(this.pedidoService.findPedidoById(TEST_PEDIDO_ID)).willReturn(new Pedido());
 		
 		given(this.ofertaService.findOfertaById(TEST_OFERTA_ID)).willReturn(new Oferta());
 	}
@@ -111,20 +111,20 @@ public class BebidaControllerTests {
 	@WithMockUser(value = "spring")
     	@Test
     void testInitCreationForm() throws Exception {
-		mockMvc.perform(get("/cartas/{cartaId}/cartas/new", TEST_CARTA_ID)).andExpect(status().isOk())
+		mockMvc.perform(get("/cartas/{cartaId}/bebidas/new", TEST_CARTA_ID)).andExpect(status().isOk())
 			.andExpect(view().name("cartas/createOrUpdateCartaForm")).andExpect(model().attributeExists("carta"));
 		
-		mockMvc.perform(get("/pedidos/{pedidoId}/pedidos/new", TEST_PEDIDO_ID)).andExpect(status().isOk())
-		.andExpect(view().name("pedidos/createOrUpdatePedidoForm")).andExpect(model().attributeExists("pedido"));
+//		mockMvc.perform(get("/pedidos/{pedidoId}/bebidas/new", TEST_PEDIDO_ID)).andExpect(status().isOk())
+//		.andExpect(view().name("pedidos/createOrUpdatePedidoForm")).andExpect(model().attributeExists("pedido"));
 		
-		mockMvc.perform(get("/ofertas/{ofertaId}/ofertas/new", TEST_PEDIDO_ID)).andExpect(status().isOk())
+		mockMvc.perform(get("/ofertas/{ofertaId}/bebidas/new", TEST_PEDIDO_ID)).andExpect(status().isOk())
 		.andExpect(view().name("ofertas/createOrUpdateOfertaForm")).andExpect(model().attributeExists("oferta"));
 	}
 	
 	@WithMockUser(value = "spring")
 		@Test
     void testProcessCreationFormSuccess() throws Exception {
-		mockMvc.perform(post("/cartas/{cartaId}/cartas/new", TEST_CARTA_ID)
+		mockMvc.perform(post("/cartas/{cartaId}/bebidas/new", TEST_CARTA_ID)
 							.with(csrf())
 							.param("contador","1")
 							.param("nombre","Hidromiel")
@@ -134,17 +134,17 @@ public class BebidaControllerTests {
 				.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/cartas/{cartaId}"));
 			
-		mockMvc.perform(post("/pedidos/{pedidoId}/pedidos/new", TEST_PEDIDO_ID)
-							.with(csrf())
-							.param("contador","1")
-							.param("nombre","Hidromiel")
-							.param("coste","10")
-							.param("tamano", "ENORME")
-							.param("esCarbonatada","true"))
-				.andExpect(status().is3xxRedirection())
-				.andExpect(view().name("redirect:/pedidos/{pedidoId}"));
+//		mockMvc.perform(post("/pedidos/{pedidoId}/bebidas/new", TEST_PEDIDO_ID)
+//							.with(csrf())
+//							.param("contador","1")
+//							.param("nombre","Hidromiel")
+//							.param("coste","10")
+//							.param("tamano", "ENORME")
+//							.param("esCarbonatada","true"))
+//				.andExpect(status().is3xxRedirection())
+//				.andExpect(view().name("redirect:/pedidos/{pedidoId}"));
 		
-		mockMvc.perform(post("/ofertas/{ofertaId}/ofertas/new", TEST_OFERTA_ID)
+		mockMvc.perform(post("/ofertas/{ofertaId}/bebidas/new", TEST_OFERTA_ID)
 							.with(csrf())
 							.param("contador","1")
 							.param("nombre","Hidromiel")
@@ -170,17 +170,17 @@ public class BebidaControllerTests {
 				.andExpect(status().isOk())
 				.andExpect(view().name("bebidas/createOrUpdateBebidaForm"));
 		
-		mockMvc.perform(post("/pedidos/{pedidoId}/bebidas/{bebidaId}/edit", TEST_PEDIDO_ID, TEST_BEBIDA_ID)
-							.with(csrf())
-							.param("contador","1")
-							.param("nombre","Hidromiel")
-							.param("coste","10")
-							.param("tamano", "ENORME")
-							.param("esCarbonatada","true"))
-				.andExpect(model().attributeHasNoErrors("pedido"))
-				.andExpect(model().attributeHasErrors("bebida"))
-				.andExpect(status().isOk())
-				.andExpect(view().name("bebidas/createOrUpdateBebidaForm"));
+//		mockMvc.perform(post("/pedidos/{pedidoId}/bebidas/{bebidaId}/edit", TEST_PEDIDO_ID, TEST_BEBIDA_ID)
+//							.with(csrf())
+//							.param("contador","1")
+//							.param("nombre","Hidromiel")
+//							.param("coste","10")
+//							.param("tamano", "ENORME")
+//							.param("esCarbonatada","true"))
+//				.andExpect(model().attributeHasNoErrors("pedido"))
+//				.andExpect(model().attributeHasErrors("bebida"))
+//				.andExpect(status().isOk())
+//				.andExpect(view().name("bebidas/createOrUpdateBebidaForm"));
 		
 		mockMvc.perform(post("/ofertas/{ofertaId}/bebidas/{bebidaId}/edit", TEST_OFERTA_ID, TEST_BEBIDA_ID)
 							.with(csrf())
@@ -202,10 +202,10 @@ public class BebidaControllerTests {
 				.andExpect(status().isOk()).andExpect(model().attributeExists("bebida"))
 				.andExpect(view().name("bebidas/createOrUpdateBebidaForm"));
 		
-		mockMvc.perform(get("/pedidos/{pedidoId}/bebidas/{bebidaId}/edit", TEST_PEDIDO_ID, TEST_BEBIDA_ID))
-		.andExpect(status().isOk()).andExpect(model().attributeExists("bebida"))
-		.andExpect(view().name("bebidas/createOrUpdateBebidaForm"));
-		
+//		mockMvc.perform(get("/pedidos/{pedidoId}/bebidas/{bebidaId}/edit", TEST_PEDIDO_ID, TEST_BEBIDA_ID))
+//		.andExpect(status().isOk()).andExpect(model().attributeExists("bebida"))
+//		.andExpect(view().name("bebidas/createOrUpdateBebidaForm"));
+//		
 		mockMvc.perform(get("/ofertas/{ofertaId}/bebidas/{bebidaId}/edit", TEST_OFERTA_ID, TEST_BEBIDA_ID))
 		.andExpect(status().isOk()).andExpect(model().attributeExists("bebida"))
 		.andExpect(view().name("bebidas/createOrUpdateBebidaForm"));
@@ -224,15 +224,15 @@ public class BebidaControllerTests {
 				.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/cartas/{cartaId}"));
 		
-		mockMvc.perform(post("/pedidos/{pedidoId}/bebidas/{bebidaId}/edit", TEST_PEDIDO_ID, TEST_BEBIDA_ID)
-				.with(csrf())
-				.param("contador","1")
-				.param("nombre","Hidromiel")
-				.param("coste","10")
-				.param("tamano", "ENORME")
-				.param("esCarbonatada","true"))
-				.andExpect(status().is3xxRedirection())
-				.andExpect(view().name("redirect:/pedidos/{pedidoId}"));
+//		mockMvc.perform(post("/pedidos/{pedidoId}/bebidas/{bebidaId}/edit", TEST_PEDIDO_ID, TEST_BEBIDA_ID)
+//				.with(csrf())
+//				.param("contador","1")
+//				.param("nombre","Hidromiel")
+//				.param("coste","10")
+//				.param("tamano", "ENORME")
+//				.param("esCarbonatada","true"))
+//				.andExpect(status().is3xxRedirection())
+//				.andExpect(view().name("redirect:/pedidos/{pedidoId}"));
 		
 		mockMvc.perform(post("/ofertas/{ofertaId}/bebidas/{bebidaId}/edit", TEST_OFERTA_ID, TEST_BEBIDA_ID)
 				.with(csrf())
@@ -258,16 +258,16 @@ public class BebidaControllerTests {
 				.andExpect(model().attributeHasErrors("bebida")).andExpect(status().isOk())
 				.andExpect(view().name("bebidas/createOrUpdateBebidaForm"));
 		
-		mockMvc.perform(post("/pedidos/{pedidoId}/bebidas/{bebidaId}/edit", TEST_PEDIDO_ID, TEST_BEBIDA_ID)
-							.with(csrf())
-							.param("contador","1")
-							.param("nombre","Hidromiel")
-							.param("coste","10")
-							.param("tamano", "ENORME")
-							.param("esCarbonatada","true"))
-				.andExpect(model().attributeHasNoErrors("pedido"))
-				.andExpect(model().attributeHasErrors("bebida")).andExpect(status().isOk())
-				.andExpect(view().name("bebidas/createOrUpdateBebidaForm"));
+//		mockMvc.perform(post("/pedidos/{pedidoId}/bebidas/{bebidaId}/edit", TEST_PEDIDO_ID, TEST_BEBIDA_ID)
+//							.with(csrf())
+//							.param("contador","1")
+//							.param("nombre","Hidromiel")
+//							.param("coste","10")
+//							.param("tamano", "ENORME")
+//							.param("esCarbonatada","true"))
+//				.andExpect(model().attributeHasNoErrors("pedido"))
+//				.andExpect(model().attributeHasErrors("bebida")).andExpect(status().isOk())
+//				.andExpect(view().name("bebidas/createOrUpdateBebidaForm"));
 		
 		mockMvc.perform(post("/ofertas/{ofertaId}/bebidas/{bebidaId}/edit", TEST_OFERTA_ID, TEST_BEBIDA_ID)
 							.with(csrf())
