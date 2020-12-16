@@ -85,9 +85,9 @@ public class AdministradorServiceTests {
 		
 		this.administradorService.deleteAdministrador(admin);
 		
-		admin = this.administradorService.findAdministradorById(1);
+		Administrador adminEncontrado = this.administradorService.findAdministradorById(1);
 		
-		assertNull(admin);
+		assertNull(adminEncontrado);
 	}
 	
 	
