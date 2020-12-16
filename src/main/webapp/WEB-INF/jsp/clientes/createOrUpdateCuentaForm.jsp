@@ -8,6 +8,14 @@
     pageEncoding="UTF-8"%>
 
 <petclinic:layout pageName="clientes">
+	<jsp:attribute name="customScript">
+        <script>
+            $(function () {
+                $("#fechaNacimiento").datepicker({dateFormat: 'yy/mm/dd'});
+            });
+        </script>
+    </jsp:attribute>
+    <jsp:body>
     <h2>
         <c:if test="${cuenta['new']}">Nueva </c:if> Cuenta
     </h2>
@@ -36,4 +44,5 @@
             </div>
         </div>
     </form:form>
+    </jsp:body>
 </petclinic:layout>
