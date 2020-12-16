@@ -38,7 +38,7 @@
      <div>
      <a href="/allOfertas">H-004: Ofertas disponibles. Pruebas hechas.</a>
     </div>
-    <sec:authorize access="isAuthenticated()"  >
+   <sec:authorize access="hasAnyAuthority('cliente')"  >
     		<a href="/cuentas/DetallesPerfil">H-005: Datos del cliente. Pruebas hechas.</a>
     	</sec:authorize>
      <div>
@@ -60,17 +60,17 @@
     <div>
      <p>H-020: Iniciar sesión. Pruebas no implementadas puesto que son del controller.</p>
     </div>
-    
-    <div>
-     <a href="/reclamaciones/new">H-022: Escribir reclamaciones. Pruebas hechas.</a>
-    </div>
-    
+    <sec:authorize access="hasAnyAuthority('cliente')"  >
+	    <div>
+	     <a href="/reclamaciones/new">H-022: Escribir reclamaciones. Pruebas hechas.</a>
+	    </div>
+    </sec:authorize>
     <div>
      <a href="allOfertas">H-023: Añadir ofertas. Pruebas hechas.</a>
     </div>
     
-     <div>
-     <a href="allOfertas">H-024: Eliminar ofertas. Pruebas hechas.</a>
+    <div>
+    	<a href="allOfertas">H-024: Eliminar ofertas. Pruebas hechas.</a>
     </div>
     <br>
     

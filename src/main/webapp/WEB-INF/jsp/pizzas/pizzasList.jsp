@@ -14,6 +14,12 @@
 	         <spring:param name="cartaId" value="${cartaId}"/> 
 	    </spring:url>
 	    <a href="${fn:escapeXml(crearPizzas)}" class="btn btn-default">Crear pizza</a>
+	  
+	<spring:url value="/cartas/{cartaId}/VerCarta" var="volverACarta">
+	         <spring:param name="cartaId" value="${cartaId}"/> 
+	    </spring:url>
+	    <a href="${fn:escapeXml(volverACarta)}" class="btn btn-default">Volver a la carta</a>
+	    
     <table id="pizzasTable" class="table table-striped">
         <thead>
         <tr>

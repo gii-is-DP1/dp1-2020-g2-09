@@ -3,20 +3,25 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ 
     
 <petclinic:layout pageName="carta">
     <h2>Carta</h2>
     
     <h3>Pizzas</h3>
     <!--<c:out value="${cartaId}"></c:out>-->
+	    <sec:authorize access="hasAnyAuthority('administrador')"  >
+	   			<spring:url value="/cartas/{cartaId}/pizzas" var="listaPizzas">
+		         <spring:param name="cartaId" value="${cartaId}"/> 
+		    </spring:url>
+		    <a href="${fn:escapeXml(listaPizzas)}" class="btn btn-default">Añadir pizza a la carta</a>
+    	</sec:authorize>
 
-		<spring:url value="/cartas/{cartaId}/pizzas" var="listaPizzas">
-	         <spring:param name="cartaId" value="${cartaId}"/> 
-	    </spring:url>
-	    <a href="${fn:escapeXml(listaPizzas)}" class="btn btn-default">Añadir pizza a la carta</a>  
+		  
 	
     <table id="pizzasTableCarta" class="table table-striped">
         <thead>
@@ -58,12 +63,12 @@
     </table>
     
     <h3>Bebidas</h3>
-    
-    <spring:url value="/cartas/{cartaId}/bebidas" var="listaBebidas">
-	         <spring:param name="cartaId" value="${cartaId}"/> 
-	    </spring:url>
-	    <a href="${fn:escapeXml(listaBebidas)}" class="btn btn-default">Añadir bebida a la carta</a>
-
+    <sec:authorize access="hasAnyAuthority('administrador')"  >
+	    <spring:url value="/cartas/{cartaId}/bebidas" var="listaBebidas">
+		         <spring:param name="cartaId" value="${cartaId}"/> 
+		    </spring:url>
+		    <a href="${fn:escapeXml(listaBebidas)}" class="btn btn-default">Añadir bebida a la carta</a>
+	</sec:authorize>
     <table id="bebidasTableCarta" class="table table-striped">
         <thead>
         <tr>
@@ -104,12 +109,12 @@
     </table>
     
     <h3>Otros</h3>
-    
-    <spring:url value="/cartas/{cartaId}/otros" var="listaOtros">
-	         <spring:param name="cartaId" value="${cartaId}"/> 
-	    </spring:url>
-	    <a href="${fn:escapeXml(listaOtros)}" class="btn btn-default">Añadir otro a la carta</a>
-
+    <sec:authorize access="hasAnyAuthority('administrador')"  >
+	    <spring:url value="/cartas/{cartaId}/otros" var="listaOtros">
+		         <spring:param name="cartaId" value="${cartaId}"/> 
+		    </spring:url>
+		    <a href="${fn:escapeXml(listaOtros)}" class="btn btn-default">Añadir otro a la carta</a>
+	</sec:authorize>
     <table id="otrosTableCarta" class="table table-striped">
         <thead>
         <tr>

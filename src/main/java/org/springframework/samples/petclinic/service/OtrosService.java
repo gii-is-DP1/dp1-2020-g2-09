@@ -53,6 +53,8 @@ public class OtrosService {
 	
 	@Transactional
 	public void deleteOtros(Otros Otros) throws DataAccessException {
+		OtrosRepository.deleteComposicionIngredientes(Otros.getId());
+		OtrosRepository.deleteComposicion(Otros.getId());
 		OtrosRepository.delete(Otros);		
 	}	
 	

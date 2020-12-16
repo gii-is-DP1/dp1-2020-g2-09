@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
 @Table(name = "Pizzas")
 public class Pizza extends Producto {
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "tamano_producto" )
 	private TamanoProducto tamano;
 
@@ -33,7 +33,7 @@ public class Pizza extends Producto {
 //	private Collection<Carta> cartaDePizzas;
 
 	
-	@ManyToMany(cascade = CascadeType.MERGE)
+	@ManyToMany(cascade = CascadeType.REFRESH)
 	private Collection<Ingrediente> ingredientes;
 
 }	
