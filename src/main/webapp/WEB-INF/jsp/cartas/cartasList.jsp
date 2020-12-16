@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -33,16 +34,20 @@
              		<a href="${fn:escapeXml(cartaUrl3)}" class="btn btn-default">Acceder a la carta</a>
                 </td>
                 <td>
+                <sec:authorize access="hasAnyAuthority('administrador')"  >
              		<spring:url value="/cartas/{cartaId}/edit" var="cartaUrl">
 	                        <spring:param name="cartaId" value="${cartas.id}"/>
 	                </spring:url>
    					<a href="${fn:escapeXml(cartaUrl)}" class="btn btn-default">Editar</a>
+   					</sec:authorize>
              	</td>
              	<td>
+             	<sec:authorize access="hasAnyAuthority('administrador')"  >
              		<spring:url value="/cartas/{cartaId}/delete" var="cartaUrl2">
 	                        <spring:param name="cartaId" value="${cartas.id}"/>
 	                </spring:url>
              		<a href="${fn:escapeXml(cartaUrl2)}" class="btn btn-default">Eliminar</a>
+             		</sec:authorize>
              	</td>
             </tr>
         </c:forEach>
