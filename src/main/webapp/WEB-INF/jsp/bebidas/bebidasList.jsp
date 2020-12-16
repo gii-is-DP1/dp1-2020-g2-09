@@ -8,6 +8,17 @@
     pageEncoding="UTF-8"%>
 <petclinic:layout pageName="bebidas">
     <h2>Bebidas</h2>
+	
+	<spring:url value="/cartas/{cartaId}/bebida/new" var="crearBebidas">
+		<spring:param name="cartaId" value="${cartaId}"/> 
+	</spring:url>
+	<a href="${fn:escapeXml(crearBebidas)}" class="btn btn-default">Crear bebida</a>
+	    
+	<spring:url value="/cartas/{cartaId}/VerCarta" var="volverACarta">
+	     <spring:param name="cartaId" value="${cartaId}"/> 
+	</spring:url>
+	<a href="${fn:escapeXml(volverACarta)}" class="btn btn-default">Volver a la carta</a>
+
 
     <table id="bebidasTable" class="table table-striped">
         <thead>
@@ -16,10 +27,7 @@
             <th>Carbonatada</th>
             <th>Precio</th>
         </tr>
-        <spring:url value="/cartas/{cartaId}/bebida/new" var="crearBebidas">
-	         <spring:param name="cartaId" value="${cartaId}"/> 
-	    </spring:url>
-	    <a href="${fn:escapeXml(crearBebidas)}" class="btn btn-default">Crear bebida</a>
+	    
         </thead>
         <tbody>
         <c:forEach items="${bebidas.bebidasList}" var="bebida">

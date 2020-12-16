@@ -43,7 +43,8 @@ public class BebidaService {
 	
 	@Transactional
 	public void deleteBebida(Bebida bebida) throws DataAccessException {
-		bebidaRepository.delete(bebida);		
+		bebidaRepository.deleteComposicion(bebida.getId());
+		bebidaRepository.delete(bebida);
 	}
 	
 	@Transactional

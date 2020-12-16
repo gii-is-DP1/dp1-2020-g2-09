@@ -113,7 +113,7 @@ public class CartaController {
 	}
 	
 	//Acceso a la carta
-	@GetMapping(value = "/cartas/{cartaId}/VerCarta")
+	@GetMapping(value = "/cartas/{cartaId}/VerCarta") 
 	public String verCarta(@PathVariable("cartaId") Integer cartaId, ModelMap model) {
 		
 		model.put("cartaId", cartaId);

@@ -28,4 +28,14 @@ public interface OtrosRepository extends CrudRepository<Otros, Integer>{
 			nativeQuery = true)
 	void añadirOtroACarta(int otroId, int cartaId);
 	
+	@Modifying
+	@Query(value = "DELETE FROM OTROS_INGREDIENTES WHERE OTROS_ID = ?1",
+			nativeQuery = true)
+	void deleteComposicionIngredientes(Integer id);
+
+	@Modifying
+	@Query(value = "DELETE FROM COMPOSICION_CARTA_OTROS WHERE OTROS_EN_CARTA_ID = ?1",
+			nativeQuery = true)
+	void deleteComposicion(Integer id);
+	
 }

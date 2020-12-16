@@ -46,6 +46,9 @@ public class PizzaService {
 	
 	@Transactional
 	public void deletePizza(Pizza pizza) throws DataAccessException {
+		//bebidaRepository.deleteComposicion(bebida.getId());
+		pizzaRepository.deleteComposicionIngredientes(pizza.getId());
+		pizzaRepository.deleteComposicion(pizza.getId());
 		pizzaRepository.delete(pizza);		
 	}
 	@Transactional(readOnly = true)

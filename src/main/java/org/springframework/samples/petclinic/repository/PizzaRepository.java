@@ -36,4 +36,14 @@ public interface PizzaRepository extends CrudRepository<Pizza, Integer> {
     @Query(value = "INSERT INTO COMPOSICION_CARTA_PIZZA(PIZZAS_EN_CARTA_ID, CARTA_ID) VALUES (?1, ?2)",
 			nativeQuery = true)
 	void añadirPizzaACarta(int pizzaId, int cartaId);
+
+    @Modifying
+	@Query(value = "DELETE FROM PIZZAS_INGREDIENTES WHERE PIZZA_ID = ?1",
+			nativeQuery = true)
+	void deleteComposicionIngredientes(Integer id);
+
+	@Modifying
+	@Query(value = "DELETE FROM COMPOSICION_CARTA_PIZZA WHERE PIZZAS_EN_CARTA_ID = ?1",
+			nativeQuery = true)
+	void deleteComposicion(Integer id);
 }
