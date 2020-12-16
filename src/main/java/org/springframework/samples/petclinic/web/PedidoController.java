@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PedidoController {
 	
 	private final PedidoService pedidoService;
+	
 
 	@Autowired
 	public PedidoController(PedidoService pedidoService) {
@@ -58,7 +59,7 @@ public class PedidoController {
 		return "pedidos/pedidosList";
 	}
 	
-	/*//añadir un pedido nueva
+	//añadir un pedido nuevo
 	@GetMapping(value = "/pedidos/new")
 	public String initCreationForm(Map<String, Object> model) {
 		Pedido pedido = new Pedido();
@@ -68,20 +69,21 @@ public class PedidoController {
 			
 	//mandar nueva pedido
 	@PostMapping(value = "/pedidos/new")
-	public String processCreationForm(@Valid Pedido pedido, BindingResult result) {
+	public String processCreationForm(@Valid Pedido pedido, BindingResult result,  ModelMap model) {
 		if (result.hasErrors()) {
+			model.put("pedido", pedido);
 			return "pedidos/createOrUpdatePedidoForm";
 		} else {		
 			this.pedidoService.savePedido(pedido);
 			return "redirect:/allPedidos";
 		} 
-	}*/
+	}
 
 	//iniciar actualizacion pedido
 	@GetMapping(value = "/pedidos/{pedidoId}/edit")
 	public String initUpdateForm(@PathVariable("pedidoId") int pedidoId, ModelMap model) {
 		Pedido pedido = this.pedidoService.findPedidoById(pedidoId);
-		model.put("pedidos", pedido);
+		model.put("pedido", pedido);
 		return "pedidos/createOrUpdatePedidoForm";
 	}
 	

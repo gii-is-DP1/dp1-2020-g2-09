@@ -18,7 +18,7 @@
     <h2>
         <c:if test="${pedido['new']}">Nuevo </c:if> Pedido
     </h2>
-    <form:form modelAttribute="pedidos" class="form-horizontal" id="add-owner-form">
+    <form:form modelAttribute="pedido" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
             <petclinic:inputField label="Precio" name="precio"/>
             <petclinic:inputField label="Fecha Pedido" name="fechaPedido"/>
