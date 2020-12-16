@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.petclinic.model.Bebida;
+import org.springframework.samples.petclinic.model.TamanoOferta;
 import org.springframework.samples.petclinic.model.TamanoProducto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,14 +59,15 @@ public class BebidaServiceTests {
 	@Transactional
 	public void shouldInsertBebida() {
 
+		TamanoProducto tamano = new TamanoProducto();
+		//tamaño.setId(99);
+		tamano.setName("Grande");
 		Bebida bebida = new Bebida();
 		bebida.setNombre("Pepsi");
 		bebida.setEsCarbonatada(true);
 		bebida.setContador(1);
 		bebida.setCoste(12);
-		TamanoProducto tamanoProducto = new TamanoProducto();
-		tamanoProducto.setName("Grande");
-		bebida.setTamano(tamanoProducto);
+		bebida.setTamano(tamano);
 		
 		this.bebidaService.saveBebida(bebida);
         Bebida bebidaEncontrada = this.bebidaService.findById(bebida.getId());
@@ -96,6 +98,7 @@ public class BebidaServiceTests {
 		bebida = this.bebidaService.findById(3);
 		
 		assertNull(bebida);
+	
 	}
 	
 }

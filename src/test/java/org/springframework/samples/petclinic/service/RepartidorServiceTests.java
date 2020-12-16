@@ -86,9 +86,9 @@ public class RepartidorServiceTests {
 		
 		this.repartidorService.deleteRepartidor(repartidor);
 		
-		repartidor = this.repartidorService.findRepartidorById(1);
+		Repartidor repartidorEncontrado = this.repartidorService.findRepartidorById(1);
 		
-		assertNull(repartidor);
+		assertNull(repartidorEncontrado);
 	}
 	
 }
