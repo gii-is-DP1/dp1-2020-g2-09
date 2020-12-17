@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/pizzas/{pizzaId}")
 public class PizzaController {
 
 	private final PizzaService pizzaService;
@@ -62,14 +61,14 @@ public class PizzaController {
 
 	// mandar nuevo Pizza
 	@PostMapping(value = "/pizzas/new")
-	public String processCreationForm(@Valid Pizza Pizza, BindingResult result,ModelMap model) {
+	public String processCreationForm(@Valid Pizza pizza, BindingResult result,ModelMap model) {
 		if (result.hasErrors()) {
-			model.put("pizza", Pizza);//importanteeee
+			model.put("pizza", pizza);//importanteeee
 			return "pizzas/createOrUpdatePizzaForm";
 		} else {
 			PizzaValidator pizzaValidator = new PizzaValidator();
-			ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
-			this.pizzaService.savePizza(Pizza);
+			ValidationUtils.invokeValidator(pizzaValidator, pizza, result);
+			this.pizzaService.savePizza(pizza);
 			return "redirect:/allPizzas";
 		}
 	}
@@ -94,7 +93,7 @@ public class PizzaController {
 			PizzaValidator pizzaValidator = new PizzaValidator();
 			ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
 			this.pizzaService.savePizza(Pizza);
-			return "redirect:/cartas/{cartaId}/pizzas";
+			return "redirect:/allPizzas";
 		}
 	}
 
@@ -103,7 +102,7 @@ public class PizzaController {
 	public String initDeletePizza(@PathVariable("pizzaId") int pizzaId, ModelMap model) {
 		Pizza pizza = this.pizzaService.findPizzaById(pizzaId);
 		this.pizzaService.deletePizza(pizza);
-		return "redirect:/cartas/{cartaId}/pizzas";
+		return "redirect:/allPizzas"; 
 	}
 
 	@ModelAttribute("tipoMasa")
