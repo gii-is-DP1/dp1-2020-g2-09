@@ -95,26 +95,28 @@ class ReservaControllerTests {
 	@WithMockUser(value = "spring")
         @Test
 	void testInitCreationForm() throws Exception {
-		mockMvc.perform(get("/mesas/new")).andExpect(status().isOk()).andExpect(model().attributeExists("mesa"))
-				.andExpect(view().name("mesas/createOrUpdateMesaForm"));
+		mockMvc.perform(get("/reservas/new"))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeExists("reserva"))
+				.andExpect(view().name("reservas/createOrUpdateReservaForm"));
 	}
 
 	@WithMockUser(value = "spring")
         @Test
 	void testProcessCreationFormSuccess() throws Exception {
-		mockMvc.perform(post("/reservas/{reservaId}/mesas/new", TEST_RESERVA_ID)
+		mockMvc.perform(post("/reservas/new", TEST_RESERVA_ID)
 							.with(csrf())
 							.param("numeroPersonas", "6")
 							.param("tipo_reserva", "CENA")
 							.param("fecha_reserva", "2015/02/12"))
-				.andExpect(status().is3xxRedirection())
-				.andExpect(view().name("redirect:/reservas/{reservaId}"));
+				.andExpect(status().isOk())
+				.andExpect(view().name("redirect:/allReservas"));
 	}
 
 	@WithMockUser(value = "spring")
     @Test
 	void testProcessCreationFormHasErrors() throws Exception {
-		mockMvc.perform(post("/reservas/{reservaId}/mesas/{mesaId}/edit", TEST_RESERVA_ID, TEST_MESA_ID)
+		mockMvc.perform(post("/reservas/new", TEST_RESERVA_ID, TEST_MESA_ID)
 							.with(csrf())
 							.param("numeroPersonas", "6")
 							.param("tipo_reserva", "CENA")
@@ -122,40 +124,41 @@ class ReservaControllerTests {
 				.andExpect(model().attributeHasNoErrors("reserva"))
 				.andExpect(model().attributeHasErrors("mesa"))
 				.andExpect(status().isOk())
-				.andExpect(view().name("mesas/createOrUpdateMesaForm"));
+				.andExpect(view().name("reservas/createOrUpdateReservaForm"));
 	}
 
     @WithMockUser(value = "spring")
 	@Test
 	void testInitUpdateForm() throws Exception {
-		mockMvc.perform(get("/reservas/{reservaId}/mesas/{mesaId}/edit", TEST_RESERVA_ID, TEST_MESA_ID))
-				.andExpect(status().isOk()).andExpect(model().attributeExists("mesa"))
-				.andExpect(view().name("mesas/createOrUpdateMesaForm"));
+		mockMvc.perform(get("/reservas/{reservaId}/edit", TEST_RESERVA_ID, TEST_MESA_ID))
+				.andExpect(status().isOk()).andExpect(model().attributeExists("reserva"))
+				.andExpect(view().name("reservas/createOrUpdateReservaForm"));
 	}
     
     @WithMockUser(value = "spring")
 	@Test
 	void testProcessUpdateFormSuccess() throws Exception {
-		mockMvc.perform(post("/reservas/{reservaId}/mesas/{mesaId}/edit", TEST_RESERVA_ID, TEST_MESA_ID)
+		mockMvc.perform(post("/reservas/{reservaId}/edit", TEST_RESERVA_ID)
 							.with(csrf())
 							.param("numeroPersonas", "6")
 							.param("tipo_reserva", "CENA")
 							.param("fecha_reserva", "2015/02/12"))
 				.andExpect(status().is3xxRedirection())
-				.andExpect(view().name("redirect:/reservas/{reservaId}"));
+				//.andExpect(status().isOk())
+				.andExpect(view().name("redirect:/allReservas"));
 	}
     
     @WithMockUser(value = "spring")
 	@Test
 	void testProcessUpdateFormHasErrors() throws Exception {
-		mockMvc.perform(post("/reservas/{reservaId}/mesas/{mesaId}/edit", TEST_RESERVA_ID, TEST_MESA_ID)
+		mockMvc.perform(post("/reservas/{reservaId}/edit", TEST_RESERVA_ID, TEST_MESA_ID)
 							.with(csrf())
 							.param("numeroPersonas", "6")
 							.param("tipo_reserva", "CENA")
 							.param("fecha_reserva", "2015/02/12"))
 				.andExpect(model().attributeHasNoErrors("reserva"))
-				.andExpect(model().attributeHasErrors("mesa")).andExpect(status().isOk())
-				.andExpect(view().name("mesas/createOrUpdatePetForm"));
+				.andExpect(status().isOk())
+				.andExpect(view().name("reservas/createOrUpdateReservaForm"));
 	}
 
 }

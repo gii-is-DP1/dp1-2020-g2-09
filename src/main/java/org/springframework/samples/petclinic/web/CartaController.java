@@ -27,7 +27,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -373,6 +372,34 @@ public class CartaController {
 			this.OtrosService.deleteOtros(Otros);
 			return "redirect:/cartas/{cartaId}/otros";
 		}
+		
+		@GetMapping(value = "/cartas/{cartaId}/pizza/{pizzaId}/deleteFromCarta")
+		public String deletePizzaFromCarta(@PathVariable("cartaId") Integer cartaId, 
+				@PathVariable("pizzaId") int pizzaId, ModelMap model) {
+			
+			model.put("cartaId", cartaId);
+			this.PizzaService.deletePizzaFromComposicionCarta(pizzaId);
+			return "redirect:/cartas/{cartaId}/VerCarta";
+		}
+		
+		@GetMapping(value = "/cartas/{cartaId}/otros/{otrosId}/deleteFromCarta")
+		public String deleteOtroFromCarta(@PathVariable("cartaId") Integer cartaId, 
+				@PathVariable("otrosId") int otrosId, ModelMap model) {
+			
+			model.put("cartaId", cartaId);
+			this.OtrosService.deleteOtroFromComposicionCarta(otrosId);
+			return "redirect:/cartas/{cartaId}/VerCarta";
+		}
+		
+		@GetMapping(value = "/cartas/{cartaId}/bebida/{bebidaId}/deleteFromCarta")
+		public String deleteBebidaFromCarta(@PathVariable("cartaId") Integer cartaId, 
+				@PathVariable("bebidaId") int bebidaId, ModelMap model) {
+			
+			model.put("cartaId", cartaId);
+			this.BebidaService.deleteBebidaFromComposicionCarta(bebidaId);
+			return "redirect:/cartas/{cartaId}/VerCarta";
+		}
+		
 		
 		
 	//MODEL ATTRIBUTES

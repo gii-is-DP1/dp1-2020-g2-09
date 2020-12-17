@@ -13,11 +13,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.samples.petclinic.model.Administrador;
 import org.springframework.samples.petclinic.model.Alergenos;
 import org.springframework.samples.petclinic.model.Bebida;
 import org.springframework.samples.petclinic.model.Carta;
-import org.springframework.samples.petclinic.model.Cuenta;
 import org.springframework.samples.petclinic.model.Ingrediente;
 import org.springframework.samples.petclinic.model.Otros;
 import org.springframework.samples.petclinic.model.Pizza;
@@ -118,22 +116,22 @@ public class CartaServiceTests {
 		
 	}
 	
-//	@Test
-//	@Transactional
-//	void shouldNotUpdateCarta() {
-//		Carta carta = this.cartaService.findCartaById(1);
-//		String oldNombre = carta.getNombre();
-//		String newNombre = oldNombre+"Yeaaaah";
-//		
-//		carta.setNombre(newNombre);
-//		try{
-//			this.cartaService.saveCarta(carta);
-//			//assertTrue(false);
-//		}catch (Exception e) {
-//			assertTrue(true);
-//		}
-//		//assertTrue(false);
-//	}
+	@Test
+	@Transactional
+	void shouldNotUpdateCarta() {
+		Carta carta = this.cartaService.findCartaById(1);
+		String oldNombre = carta.getNombre();
+		String newNombre = oldNombre+"Yeaaaah";
+		
+		carta.setNombre(newNombre);
+		try{
+			this.cartaService.saveCarta(carta);
+			//assertTrue(false);
+		}catch (Exception e) {
+			assertTrue(true);
+		}
+		//assertTrue(false);
+	}
 	
 	@Test
 	@Transactional
@@ -141,8 +139,9 @@ public class CartaServiceTests {
 		Carta carta = this.cartaService.findCartaById(1);
 		
 		this.cartaService.deleteCarta(carta);
+		Carta cartaEncontrada = this.cartaService.findCartaById(1);
 				
-		assertNull(carta);
+		assertNull(cartaEncontrada);
 	}
 //	
 //	@Test

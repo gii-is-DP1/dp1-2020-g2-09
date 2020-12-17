@@ -11,6 +11,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -34,6 +37,7 @@ public class Pedido extends BaseEntity{
 	private String direccion;
 	
 	@Column(name = "fecha_pedido")
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@NotNull
 	private LocalDate fechaPedido;
 	
@@ -42,6 +46,11 @@ public class Pedido extends BaseEntity{
 	//JoinColumn el nombre del atributo
 	@JoinTable(name = "ofertaPedido", joinColumns =@JoinColumn(name= "pedidoId" ))
 	private Collection<Oferta> ofertasEnPedido;
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	//JoinTable el nombre de la tabla que va a relacionar pedido con producto
+	@JoinTable(name = "productoPedido", joinColumns =@JoinColumn(name= "pedidoId" ))
+	private Collection<Oferta> productosEnPedido;
 	
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)

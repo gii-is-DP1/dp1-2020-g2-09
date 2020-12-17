@@ -27,6 +27,7 @@ import org.springframework.samples.petclinic.service.ReclamacionService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @WebMvcTest(value = ReclamacionController.class,
 includeFilters = @ComponentScan.Filter(value = ReclamacionFormatter.class, type = FilterType.ASSIGNABLE_TYPE),

@@ -28,15 +28,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 //@RequestMapping("/ofertas/{ofertaId}")
 
-public class OtrosController {
-	
+	public class OtrosController {
 	private final OtrosService OtrosService;
 
-	//private final IngredienteService IngredienteService;
+	private final IngredienteService IngredienteService;
+	
 	@Autowired
-	public OtrosController(OtrosService OtroService /*, IngredienteService IngredienteService*/) {
+	public OtrosController(OtrosService OtroService, IngredienteService IngredienteService) {
 		this.OtrosService = OtroService;
-		//this.IngredienteService = IngredienteService;
+		this.IngredienteService = IngredienteService;
 	}
 
 	@InitBinder
@@ -109,7 +109,7 @@ public class OtrosController {
 		return "redirect:/cartas/{cartaId}/otros";
 	}
 	
-	/* @ModelAttribute("ingredientes")
+	 /*@ModelAttribute("ingredientes")
 	    public Collection<Ingrediente> populateIngrediente() {
 	    	Collection<Ingrediente> c = this.IngredienteService.findIngredientes();
 	    	return c;

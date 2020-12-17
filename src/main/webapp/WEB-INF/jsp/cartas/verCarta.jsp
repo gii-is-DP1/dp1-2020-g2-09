@@ -36,6 +36,7 @@
         <tbody>
         <c:forEach items="${pizzas.pizzasList}" var="pizza">
             <tr>
+            <!-- <input  value="${pizza.id}">  -->
                <td>
                     <c:out value="${pizza.nombre}"/>
                </td>
@@ -56,6 +57,15 @@
              				</li>
              			</c:forEach>
              		</ul>
+             	</td>
+             	<td>
+             		<sec:authorize access="hasAnyAuthority('administrador')"  >
+			    		<spring:url value="/cartas/{cartaId}/pizza/{pizzaId}/deleteFromCarta" var="quitarPizza">
+				        	<spring:param name="cartaId" value="${cartaId}"/> 
+				        	<spring:param name="pizzaId" value="${pizza.id}"/> 
+				    	</spring:url>
+						<a href="${fn:escapeXml(quitarPizza)}" class="btn btn-default">Eliminar de la carta</a>
+					</sec:authorize>
              	</td>
             </tr>
         </c:forEach>
@@ -102,6 +112,15 @@
              	<!-- <td>
              		<c:out value="${bebida.id}"></c:out>
              	</td> -->  	
+             	<td>
+             		<sec:authorize access="hasAnyAuthority('administrador')"  >
+			    		<spring:url value="/cartas/{cartaId}/bebida/{bebidaId}/deleteFromCarta" var="quitarBebida">
+				        	<spring:param name="cartaId" value="${cartaId}"/> 
+				        	<spring:param name="bebidaId" value="${bebida.id}"/> 
+				    	</spring:url>
+						<a href="${fn:escapeXml(quitarBebida)}" class="btn btn-default">Eliminar de la carta</a>
+					</sec:authorize>
+             	</td>
             </tr>
         </c:forEach>
         
@@ -145,7 +164,15 @@
              			</c:forEach>
              		</ul>
              	</td>
-             	  	
+             	<td>
+             		<sec:authorize access="hasAnyAuthority('administrador')"  >
+			    		<spring:url value="/cartas/{cartaId}/otros/{otrosId}/deleteFromCarta" var="quitarOtro">
+				        	<spring:param name="cartaId" value="${cartaId}"/> 
+				        	<spring:param name="otrosId" value="${otro.id}"/> 
+				    	</spring:url>
+						<a href="${fn:escapeXml(quitarOtro)}" class="btn btn-default">Eliminar de la carta</a>
+					</sec:authorize>
+             	</td> 	
             </tr>
         </c:forEach>
         

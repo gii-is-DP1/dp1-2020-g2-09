@@ -45,6 +45,11 @@ public class PizzaService {
 	}	
 	
 	@Transactional
+	public void deletePizzaFromComposicionCarta(Integer pizzaId) throws DataAccessException {
+		pizzaRepository.deleteComposicion(pizzaId);
+	}
+	
+	@Transactional
 	public void deletePizza(Pizza pizza) throws DataAccessException {
 		//bebidaRepository.deleteComposicion(bebida.getId());
 		pizzaRepository.deleteComposicionIngredientes(pizza.getId());

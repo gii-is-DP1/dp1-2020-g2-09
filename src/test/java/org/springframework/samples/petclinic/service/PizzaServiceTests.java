@@ -59,12 +59,12 @@ public class PizzaServiceTests {
 	@Transactional
 	public void shouldInsertPizza() {
 
+		TamanoProducto tamanoProducto = new TamanoProducto();
+		tamanoProducto.setName("Grande");
 		Pizza pizza = new Pizza();
 		pizza.setNombre("Probando");
 		pizza.setContador(1);
 		pizza.setCoste(14);
-		TamanoProducto tamanoProducto = new TamanoProducto();
-		tamanoProducto.setName("Grande");
 		pizza.setTamano(tamanoProducto);
 		tipoMasa tipo = new tipoMasa();
 		tipo.setName("Fina");
