@@ -1,5 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -69,5 +71,19 @@ public class InformeController {
 		}
 		model.put("mapa", mapa);
 		return "informe/InformeMesasMasUsadas";
+	}
+	@GetMapping(value = "/informe/CaducidadIngredientes")
+	public String informeCaducidadIngredientes(Map<String, Object> model) {
+		List<Ingrediente> l = this.IngredienteService.findIngredientes();
+		Map<Ingrediente, LocalDate> mapa = new HashMap<Ingrediente, LocalDate>();
+		for(Ingrediente i:l) {
+			LocalDate aux = i.getFechaCaducidad();
+			mapa.put(i, aux);
+		}
+		Map<Ingrediente,LocalDate> mapaOrdenado=mapa.entrySet().stream()
+				.sorted((Map.Entry.<Ingrediente, LocalDate>comparingByValue()))
+		        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+		model.put("mapa", mapaOrdenado);
+		return "informe/CaducidadIngredientes";
 	}
 }

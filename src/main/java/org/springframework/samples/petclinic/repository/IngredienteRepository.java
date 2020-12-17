@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.repository;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -35,5 +36,9 @@ public interface IngredienteRepository extends CrudRepository<Ingrediente, Integ
 	@Query(value = "SELECT COUNT(*) FROM otros_INGREDIENTES WHERE INGREDIENTES_ID= ?1 union  SELECT COUNT(*) FROM PIZZAS_INGREDIENTES WHERE INGREDIENTES_ID= ?1",
 			nativeQuery = true)
 	List<Integer> CountIngrediente(int ingredienteId) throws DataAccessException;
+
+	@Query(value = "SELECT FECHA_CADUCIDAD FROM INGREDIENTE WHERE ID=?1",
+			nativeQuery = true)
+	List<Date> CaducidadIngrediente(int ingredienteId) throws DataAccessException;
 	
 }
