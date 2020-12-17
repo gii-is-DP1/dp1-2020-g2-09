@@ -42,7 +42,16 @@ public class MesaService {
 	@Transactional
 	public void deleteMesa(Mesa mesa) throws DataAccessException {
 		mesaRepository.delete(mesa);		
-	}	
+	}
+
+	public Integer CountMesa(Integer id) throws DataAccessException{
+		List<Integer> l = this.mesaRepository.CountMesa(id);
+		Integer sum=0;
+		for(Integer i=0;i<l.size();i++) {
+			sum +=l.get(i);
+		}
+		return sum;
+	}
 	
 	
 }

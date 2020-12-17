@@ -8,8 +8,11 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Ingrediente;
+import org.springframework.samples.petclinic.model.Mesa;
+import org.springframework.samples.petclinic.model.Mesas;
 import org.springframework.samples.petclinic.service.IngredienteService;
 import org.springframework.samples.petclinic.service.PizzaService;
+import org.springframework.samples.petclinic.service.MesaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +26,11 @@ public class InformeController {
 	
 	private final IngredienteService IngredienteService;
 	private final PizzaService PizzaService;
+	private final MesaService mesaService;
 
 	@Autowired
-	public InformeController(IngredienteService IngredienteService, PizzaService PizzaService) {
+	public InformeController(IngredienteService IngredienteService, PizzaService PizzaService,MesaService mesaService) {
+		this.mesaService = mesaService;
 		this.IngredienteService = IngredienteService;
 		this.PizzaService = PizzaService;
 	}
@@ -54,5 +59,15 @@ public class InformeController {
 		model.put("mapa", mapaOrdered);
 		return "informe/InformeIngredientesMasUsados";
 	}
-	
+	@GetMapping(value = "/informe/MesasMasUsadas")
+	public String informeMesasMasUsadas(Map<String, Object> model) {
+		List<Mesa> l = this.mesaService.findMesas();
+		Map<Integer, Integer> mapa = new HashMap<Integer, Integer>();
+		for(Mesa i:l) {
+			Integer aux = this.mesaService.CountMesa(i.getId());
+			mapa.put(i.getId(), aux);
+		}
+		model.put("mapa", mapa);
+		return "informe/InformeMesasMasUsadas";
+	}
 }
