@@ -19,61 +19,62 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
-import org.springframework.samples.petclinic.model.Repartidor;
+import org.springframework.samples.petclinic.model.Cocina;
 import org.springframework.samples.petclinic.model.User;
-import org.springframework.samples.petclinic.service.RepartidorService;
+import org.springframework.samples.petclinic.service.CocineroService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(value = RepartidorController.class,
+
+@WebMvcTest(value = CocineroController.class,
 excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
 excludeAutoConfiguration= SecurityConfiguration.class)
 
-public class RepartidorControllerTests {
+public class CocineroControllerTests {
 	
-	private static final int TEST_REPARTIDOR_ID = 1;
+	private static final int TEST_COCINA_ID = 1;
 
 	@Autowired
-	private RepartidorController repartidorController;
+	private CocineroController cocineroController;
 
 	@MockBean
-	private RepartidorService repartidorService;
+	private CocineroService cocineroService;
     
 	@Autowired
 	private MockMvc mockMvc;
 
 	@BeforeEach
 	void setup() {
-		Repartidor rep = new Repartidor();
-		rep.setId(3);
-		rep.setApellidos("Gonz");
-		rep.setFechaFinContrato(LocalDate.of(2022, 05, 05));
-		rep.setFechaNacimiento(LocalDate.of(2010, 06, 06));
-		rep.setEmail("gonzalito@gmail.com");
-		rep.setNombre("Gonzalo");
-		rep.setTelefono(321145698);
+		Cocina coci = new Cocina();
+		coci.setId(3);
+		coci.setApellidos("Gonz");
+		coci.setFechaFinContrato(LocalDate.of(2022, 05, 05));
+		coci.setFechaNacimiento(LocalDate.of(2010, 06, 06));
+		coci.setEmail("gonzalito@gmail.com");
+		coci.setNombre("Gonzalo");
+		coci.setTelefono(321145698);
 		
 		User usuario = new User();
 		usuario.setUsername("gonz");
 		usuario.setPassword("gonz");
-		rep.setUser(usuario);
-		given(this.repartidorService.findRepartidores()).willReturn(Lists.newArrayList(rep));
+		coci.setUser(usuario);
+		given(this.cocineroService.findCocineros()).willReturn(Lists.newArrayList(coci));
 	}
 
 	@WithMockUser(value = "spring")
         @Test
 	void testInitCreationForm() throws Exception {
-		mockMvc.perform(get("/repartidores/new"))
+		mockMvc.perform(get("/cocineros/new"))
 				.andExpect(status().isOk())
-				.andExpect(view().name("repartidores/createOrUpdateRepartidorForm"))
-				.andExpect(model().attributeExists("repartidores"));
+				.andExpect(view().name("cocineros/createOrUpdateCocinaForm"))
+				.andExpect(model().attributeExists("cocinero"));
 	}
 
 	@WithMockUser(value = "spring")
         @Test
 	void testProcessCreationFormSuccess() throws Exception {
-		mockMvc.perform(post("/repartidores/new")
+		mockMvc.perform(post("/cocineros/new")
 							.with(csrf())
 							.param("nombre", "Antonio")
 							.param("apellidos", "Antom")
@@ -81,13 +82,13 @@ public class RepartidorControllerTests {
 							.param("telefono", "123698745")
 							.param("email", "5hcwu@gmail.com"))
 				.andExpect(status().is3xxRedirection())
-				.andExpect(view().name("redirect:/allRepartidores"));
+				.andExpect(view().name("redirect:/allCocineros"));
 	}
 
 	@WithMockUser(value = "spring")
     @Test
 	void testprocessCreationFormHasErrors() throws Exception {
-		mockMvc.perform(post("/repartidores/new")
+		mockMvc.perform(post("/cocineros/new")
 							.with(csrf())
 							.param("nombre", "2525252")
 							.param("apellidos", "85885")
@@ -96,21 +97,21 @@ public class RepartidorControllerTests {
 							.param("email", "5hcwu@gmail.com"))
 		
 				.andExpect(status().isOk())
-				.andExpect(view().name("repartidores/createOrUpdateRepartidorForm"));
+				.andExpect(view().name("cocineros/createOrUpdateCocinaForm"));
 	}
 
     @WithMockUser(value = "spring")
 	@Test
 	void testInitUpdateForm() throws Exception {
-		mockMvc.perform(get("/repartidores/{repartidorId}/edit", TEST_REPARTIDOR_ID))
+		mockMvc.perform(get("/cocineros/{cocineroId}/edit", TEST_COCINA_ID))
 				.andExpect(status().isOk())
-				.andExpect(view().name("repartidores/createOrUpdateRepartidorForm"));
+				.andExpect(view().name("cocineros/createOrUpdateCocinaForm"));
 	}
     
     @WithMockUser(value = "spring")
 	@Test
-	void testprocessUpdateRepartidorFormSuccess() throws Exception {
-		mockMvc.perform(post("/repartidores/{repartidorId}/edit", TEST_REPARTIDOR_ID)
+	void testprocessUpdateCocineroFormSuccess() throws Exception {
+		mockMvc.perform(post("/cocineros/{cocineroId}/edit", TEST_COCINA_ID)
 				.with(csrf())
 				.param("nombre", "Mario")
 				.param("apellidos", "Antom")
@@ -119,14 +120,14 @@ public class RepartidorControllerTests {
 				.param("email", "5hcwu@gmail.com"))
 		
 	.andExpect(status().is3xxRedirection())
-	.andExpect(view().name("redirect:/allRepartidores"));
+	.andExpect(view().name("redirect:/allCocineros"));
 
 	}
     
     @WithMockUser(value = "spring")
 	@Test
-	void testprocessUpdateRepartidorFormHasErrors() throws Exception {
-		mockMvc.perform(post("/repartidores/{repartidorId}/edit", TEST_REPARTIDOR_ID)
+	void testprocessUpdateCocineroFormHasErrors() throws Exception {
+		mockMvc.perform(post("/cocineros/{cocineroId}/edit", TEST_COCINA_ID)
 				.with(csrf())
 				.param("nombre", "2525252")
 				.param("apellidos", "Antom")
@@ -135,7 +136,7 @@ public class RepartidorControllerTests {
 				.param("email", "5hcwu@gmail.com"))
 
 		.andExpect(status().isOk())
-		.andExpect(view().name("repartidores/createOrUpdateRepartidorForm"));
+		.andExpect(view().name("cocineros/createOrUpdateCocinaForm"));
     }
 
 }

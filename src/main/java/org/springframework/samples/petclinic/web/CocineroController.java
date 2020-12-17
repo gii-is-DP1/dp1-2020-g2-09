@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class CocineroController {
 
-	
 	private final CocineroService cocineroService;
 
 	@Autowired
@@ -30,6 +29,11 @@ public class CocineroController {
 		this.cocineroService = cocineroService;
 	}
 
+	@InitBinder("cocinero")
+	public void initCocinaBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new CocineroValidator());
+	}
+	
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
@@ -59,9 +63,9 @@ public class CocineroController {
 			return "cocineros/createOrUpdateCocinaForm";
 		}
 		else {
+			/*CocineroValidator cocineroValidator = new CocineroValidator();
+			ValidationUtils.invokeValidator(cocineroValidator, cocinero, result);*/
 			cocinero.setFechaInicioContrato(LocalDate.now());
-			CocineroValidator cocineroValidator = new CocineroValidator();
-			ValidationUtils.invokeValidator(cocineroValidator, cocinero, result);
 			this.cocineroService.saveCocinero(cocinero);
 			return "redirect:/allCocineros";
 		}
@@ -84,8 +88,8 @@ public class CocineroController {
 		}
 		else {
 			cocinero.setId(cocineroId);
-			CocineroValidator cocineroValidator = new CocineroValidator();
-			ValidationUtils.invokeValidator(cocineroValidator, cocinero, result);
+			/*CocineroValidator cocineroValidator = new CocineroValidator();
+			ValidationUtils.invokeValidator(cocineroValidator, cocinero, result);*/
 			this.cocineroService.saveCocinero(cocinero);
 			return "redirect:/allCocineros";
 		}

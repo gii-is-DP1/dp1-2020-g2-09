@@ -33,7 +33,7 @@ includeFilters = @ComponentScan.Filter(value = OfertaFormatter.class, type = Fil
 excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
 excludeAutoConfiguration= SecurityConfiguration.class)
 public class OfertaControllerTests {
-	
+
 	private static final int TEST_OFERTA_ID = 1;
 
 	//private static final int TEST_PET_ID = 1;
@@ -88,7 +88,7 @@ public class OfertaControllerTests {
 							.with(csrf())
 							.param("coste", "20.0")
 							.param("fechaInicial", "2020/11/12")
-							.param("fechaFinal", "2020/11/22"))
+							.param("fechaFinal", "2021/11/22"))
 							.andExpect(status().is3xxRedirection())
 							.andExpect(view().name("redirect:/allOfertas"));
 	}
