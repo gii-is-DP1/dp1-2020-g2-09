@@ -45,6 +45,7 @@ public class OfertaControllerTests {
 
 	@MockBean
 	private OfertaService ofertaService;
+
         
 //        @MockBean
 //	private OwnerService ownerService;
@@ -82,16 +83,17 @@ public class OfertaControllerTests {
 
 	//REVISAR REDIRECCIÓN
 	@WithMockUser(value = "spring")
-        @Test
+    @Test
 	void testProcessCreationFormSuccess() throws Exception {
 		mockMvc.perform(post("/ofertas/new")
 							.with(csrf())
 							.param("coste", "20.0")
-							.param("fechaInicial", "2020/11/12")
-							.param("fechaFinal", "2020/11/22")
-							.param("nivel_socio", "ORO").param("tamano_producto", "GRANDE"))
-				.andExpect(status().is2xxSuccessful());
-				//.andExpect(view().name("redirect:/allOfertas"));
+							.param("fechaInicial", "2020/11/10")
+							.param("fechaFinal", "2021/01/22")
+							.param("nivelSocio", "Oro")
+							.param("tamanoOferta", "Grande"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(view().name("ofertas/createOrUpdateOfertaForm"));
 	}
 
 	//ARREGLAR ESTE TEST
