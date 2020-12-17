@@ -253,12 +253,12 @@ INSERT INTO Alergenos VALUES(12,'Dioxido de azufre y sulfitos');
 INSERT INTO Alergenos VALUES(13,'Altramuces y productos a base de altramuces');
 INSERT INTO Alergenos VALUES(14,'Moluscos y productos a base de moluscos');
 
-INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ( '2020-01-01' ,'Pan', 'Rico en carbohidratos', 2); 
-INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2020-02-02' ,'Queso', 'Rico en proteinas', 7);
-INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2020-03-03' , 'Tomate', 'Verduras y frutas');
-INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2020-04-04' ,'Anchoas', 'Rico en proteinas', 4);
-INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2020-05-05' ,'Huevo', 'Rico en proteinas', 3);
-INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ( '2020-06-06' , 'Soja', 'Verduras y frutas', 6);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ( '2021-01-01' ,'Pan', 'Rico en carbohidratos', 2); 
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-02-02' ,'Queso', 'Rico en proteinas', 7);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-03-03' , 'Tomate', 'Verduras y frutas');
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-04-04' ,'Anchoas', 'Rico en proteinas', 4);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-05-05' ,'Huevo', 'Rico en proteinas', 3);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ( '2021-06-06' , 'Soja', 'Verduras y frutas', 6);
 
 
 INSERT INTO PIZZAS values (1, 1, 20, 'PROSCIUTTO E FUNGHI', 1 ,2);
@@ -318,4 +318,6 @@ INSERT INTO OTROS_INGREDIENTES(OTROS_ID,INGREDIENTES_ID) VALUES (2,2);
 INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (1,1);
 INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (1,3);
 INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (2,2);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (2,1);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (2,3);
 
