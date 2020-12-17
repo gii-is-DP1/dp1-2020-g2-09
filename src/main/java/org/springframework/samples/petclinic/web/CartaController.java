@@ -34,17 +34,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class CartaController {
 
-	@Autowired
+	
 	private CartaService CartaService;
-	@Autowired
+	
 	private PizzaService PizzaService;
-	@Autowired
+	
 	private OtrosService OtrosService;
-	@Autowired
+	
 	private BebidaService BebidaService;
-	@Autowired
+
 	private IngredienteService IngredienteService;
 
+	@Autowired
+	public CartaController(CartaService CartaService, PizzaService PizzaService,
+			OtrosService OtrosService, BebidaService BebidaService, IngredienteService IngredienteService) {
+		this.CartaService = CartaService;
+		this.PizzaService = PizzaService;
+		this.OtrosService = OtrosService;
+		this.BebidaService = BebidaService;
+		this.IngredienteService = IngredienteService;
+	}
+
+	
 
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {

@@ -111,7 +111,7 @@ public class BebidaControllerTests {
 	@WithMockUser(value = "spring")
     	@Test
     void testInitCreationForm() throws Exception {
-		mockMvc.perform(get("/cartas/{cartaId}/bebidas/new", TEST_CARTA_ID)).andExpect(status().isOk())
+		mockMvc.perform(get("/bebidas/new")).andExpect(status().isOk())
 			.andExpect(view().name("cartas/createOrUpdateCartaForm")).andExpect(model().attributeExists("carta"));
 		
 //		mockMvc.perform(get("/pedidos/{pedidoId}/bebidas/new", TEST_PEDIDO_ID)).andExpect(status().isOk())
