@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.service;
 
 
 import java.util.Collection;
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,11 @@ public class IngredienteService {
 			sum +=l.get(i);
 		}
 		return sum;
+	}
+
+	public Date CaducidadIngrediente(int ingredienteId) throws DataAccessException{
+		List<Date> l = this.IngredienteRepository.CaducidadIngrediente(ingredienteId);
+		return l.get(ingredienteId);
 	}
 	
 }
