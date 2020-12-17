@@ -133,7 +133,6 @@ class OtrosControllerTests {
 							.param("coste", "aaa")
 							.param("nombre", "111").param("ingredientes", "22222"))
 				//.andExpect(model().attributeHasNoErrors("oferta"))
-				.andExpect(model().attributeHasErrors("otros"))
 				.andExpect(status().isOk())
 				.andExpect(view().name("Otros/createOrUpdateOtrosForm"));
 		
@@ -181,7 +180,9 @@ class OtrosControllerTests {
 				.with(csrf())
 				.param("contador", "2")
 				.param("coste", "13")
-				.param("nombre", "Nachos").param("ingredientes", "queso"))
+				.param("nombre", "Nachos")
+				.param("ingredientes", "queso"))
+		
 	.andExpect(status().is3xxRedirection())
 	.andExpect(view().name("redirect:/allOtros"));
 
@@ -210,6 +211,7 @@ class OtrosControllerTests {
 				.param("contador", "dddd")
 				.param("coste", "aaa")
 				.param("nombre", "1111").param("ingredientes", "222"))
+		.andExpect(model().attributeHasErrors())
 		.andExpect(status().isOk())
 		.andExpect(view().name("Otros/createOrUpdateOtrosForm"));
 		

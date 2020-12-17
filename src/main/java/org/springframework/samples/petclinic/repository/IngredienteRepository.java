@@ -32,4 +32,8 @@ public interface IngredienteRepository extends CrudRepository<Ingrediente, Integ
 			nativeQuery = true)
 	List<Integer> findIngredienteIdByOtrosId(int otroId) throws DataAccessException;
 	
+	@Query(value = "SELECT COUNT(*) FROM otros_INGREDIENTES WHERE INGREDIENTES_ID= ?1 union  SELECT COUNT(*) FROM PIZZAS_INGREDIENTES WHERE INGREDIENTES_ID= ?1",
+			nativeQuery = true)
+	List<Integer> CountIngrediente(int ingredienteId) throws DataAccessException;
+	
 }

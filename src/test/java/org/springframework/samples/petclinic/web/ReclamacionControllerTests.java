@@ -88,33 +88,34 @@ class ReclamacionControllerTests {
 	@WithMockUser(value = "spring")
         @Test
 	void testInitCreationForm() throws Exception {
-		mockMvc.perform(get("/reclamaciones/new")).andExpect(status().isOk()).andExpect(model().attributeExists("reclamacion"))
+		mockMvc.perform(get("/pedidos/{pedidoId}/anadirReclamacion/new",TEST_PEDIDO_ID))
+		.andExpect(status().isOk()).andExpect(model().attributeExists("reclamacion"))
 				.andExpect(view().name("reclamaciones/createOrUpdateReclamacionForm"));
 	}
 
+	//REVISAR REDIRECCIÓN
 	@WithMockUser(value = "spring")
         @Test
 	void testProcessCreationFormSuccess() throws Exception {
-		mockMvc.perform(post("/pedidos/{pedidoId}/reclamaciones/new", TEST_PEDIDO_ID)
+		mockMvc.perform(post("/pedidos/{pedidoId}/anadirReclamacion/new", TEST_PEDIDO_ID)
 				.with(csrf())
 				.param("fechaReclamacion", "2020/11/24")
 				.param("observacion", "aaaaa"))
 	.andExpect(status().is3xxRedirection())
-	.andExpect(view().name("redirect:/reclamaciones/{reclamacionId}"));
+	.andExpect(view().name("redirect:/allReclamaciones"));
 }
 
-//	@WithMockUser(value = "spring")
-//    @Test
-//	void testProcessCreationFormHasErrors() throws Exception {
-//		mockMvc.perform(post("/owners/{ownerId}/pets/{petId}/edit", TEST_OWNER_ID, TEST_PET_ID)
-//							.with(csrf())
-//							.param("name", "Betty")
-//							.param("birthDate", "2015/02/12"))
-//				.andExpect(model().attributeHasNoErrors("owner"))
-//				.andExpect(model().attributeHasErrors("pet"))
-//				.andExpect(status().isOk())
-//				.andExpect(view().name("pets/createOrUpdatePetForm"));
-//	}
+	@WithMockUser(value = "spring")
+    @Test
+	void testProcessCreationFormHasErrors() throws Exception {
+		mockMvc.perform(post("/pedidos/{pedidoId}/anadirReclamacion/new", TEST_PEDIDO_ID)
+							.with(csrf())
+							.param("fechaReclamacion", "abcd")
+							.param("observacion", "aaaaa"))
+				.andExpect(model().attributeHasErrors("reclamacion"))
+				.andExpect(status().isOk())
+				.andExpect(view().name("reclamaciones/createOrUpdateReclamacionForm"));
+	}
 
 //    @WithMockUser(value = "spring")
 //	@Test

@@ -106,7 +106,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 	public String initDeleteOtros(@PathVariable("OtrosId") int OtrosId, ModelMap model) {
 		Otros Otros = this.OtrosService.findOtrosById(OtrosId);
 		this.OtrosService.deleteOtros(Otros);
-		return "redirect:/cartas/{cartaId}/otros";
+		return "redirect:/allOtros";
 	}
 	
 	 /*@ModelAttribute("ingredientes")
