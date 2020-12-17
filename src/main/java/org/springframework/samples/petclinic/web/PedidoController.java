@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Cuenta;
 import org.springframework.samples.petclinic.model.EstadoPedido;
 import org.springframework.samples.petclinic.model.Pedido;
@@ -28,7 +27,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class PedidoController {
