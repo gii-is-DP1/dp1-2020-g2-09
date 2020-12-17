@@ -22,6 +22,8 @@
             <!-- <petclinic:inputField label="Fecha de Baja" name="fechaFinContrato"/> -->
             <!--<petclinic:inputField label="Id" name="id" />-->
         </div>
+        
+        	
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
@@ -34,5 +36,7 @@
                 </c:choose>
             </div>
         </div>
+        
     </form:form>
+
 </petclinic:layout>
