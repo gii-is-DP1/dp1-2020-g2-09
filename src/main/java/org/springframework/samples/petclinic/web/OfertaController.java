@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+
 public class OfertaController {
 	
 	private final OfertaService ofertaService;
@@ -63,7 +65,7 @@ public class OfertaController {
 
 	//mandar nueva oferta
 	@PostMapping(value = "/ofertas/new")
-	public String processCreationForm(@Valid Oferta oferta, BindingResult result, ModelMap model) {
+	public String processCreationForm(@Valid Oferta oferta,  BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("oferta", oferta);//importanteeee
 			return "ofertas/createOrUpdateOfertaForm";

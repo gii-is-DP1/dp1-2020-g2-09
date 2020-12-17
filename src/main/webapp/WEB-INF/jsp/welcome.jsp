@@ -42,6 +42,10 @@
     		<a href="/cuentas/DetallesPerfil">H-005: Datos del cliente. Pruebas hechas.</a>
     	</sec:authorize>
      <div>
+      <a href="/pedidos/user">Hola quiero ver mis pedidos.</a>
+     </div>
+  
+     <div>
      <a href="/allReclamaciones">H-007: Visualizar reclamaciones. Pruebas hechas.</a>
     </div>
     

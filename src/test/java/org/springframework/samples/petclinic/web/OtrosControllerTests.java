@@ -180,7 +180,9 @@ class OtrosControllerTests {
 				.with(csrf())
 				.param("contador", "2")
 				.param("coste", "13")
-				.param("nombre", "Nachos").param("ingredientes", "queso"))
+				.param("nombre", "Nachos")
+				.param("ingredientes", "queso"))
+		
 	.andExpect(status().is3xxRedirection())
 	.andExpect(view().name("redirect:/allOtros"));
 

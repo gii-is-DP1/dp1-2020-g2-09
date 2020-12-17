@@ -17,6 +17,9 @@ public interface PedidoRepository  extends CrudRepository<Pedido, Integer> {
 	
 	Pedido findPedidoById(int pedidoId) throws DataAccessException;
 	
+	@Query(value ="SELECT * FROM Pedido WHERE PedidoCliente=?1", nativeQuery = true)
+	List<Pedido> findPedidosByCliente(int userId) throws DataAccessException;
+	
 	//la siguiente creo que está mal
 	List<Pedido> findByOfertasEnPedido(int pedidoId) throws DataAccessException;
 	
@@ -28,6 +31,8 @@ public interface PedidoRepository  extends CrudRepository<Pedido, Integer> {
 
 	@Query("SELECT tipEnvio FROM TipoEnvio tipEnvio")
 	List<TipoEnvio> findTipoEnvio() throws DataAccessException;
+	
+	
 
 	
 }
