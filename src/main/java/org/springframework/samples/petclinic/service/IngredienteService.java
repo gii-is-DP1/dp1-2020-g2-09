@@ -52,4 +52,14 @@ public class IngredienteService {
 		return this.IngredienteRepository.findIngredienteIdByOtrosId(otroId);
 	}
 	
+	@Transactional
+	public Integer CountIngrediente(int ingredienteId) throws DataAccessException{
+		List<Integer> l = this.IngredienteRepository.CountIngrediente(ingredienteId);
+		Integer sum=0;
+		for(Integer i=0;i<l.size();i++) {
+			sum +=l.get(i);
+		}
+		return sum;
+	}
+	
 }
