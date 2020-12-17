@@ -24,9 +24,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 @Controller
-public class OtrosController {
-	
+//@RequestMapping("/ofertas/{ofertaId}")
+
+	public class OtrosController {
 	private final OtrosService OtrosService;
 
 	private final IngredienteService IngredienteService;
@@ -52,7 +54,7 @@ public class OtrosController {
 
 	//crear nuevo Otros
 	@GetMapping(value = "/Otros/new")
-	public String initCreationForm(Map<String, Object> model) {
+	public String initCreationForm( Map<String, Object> model) {
 		Otros Otros = new Otros();
 		model.put("Otros", Otros);
 		
@@ -107,10 +109,10 @@ public class OtrosController {
 		return "redirect:/cartas/{cartaId}/otros";
 	}
 	
-	 @ModelAttribute("ingredientes")
+	 /*@ModelAttribute("ingredientes")
 	    public Collection<Ingrediente> populateIngrediente() {
 	    	Collection<Ingrediente> c = this.IngredienteService.findIngredientes();
 	    	return c;
-	   }
+	   }*/
 	 
 }
