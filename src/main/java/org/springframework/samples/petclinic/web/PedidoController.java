@@ -4,12 +4,20 @@ import java.util.Collection;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Cuenta;
 import org.springframework.samples.petclinic.model.EstadoPedido;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Pedidos;
 import org.springframework.samples.petclinic.model.TipoEnvio;
 import org.springframework.samples.petclinic.model.TipoPago;
+import org.springframework.samples.petclinic.model.User;
+import org.springframework.samples.petclinic.service.AuthoritiesService;
+import org.springframework.samples.petclinic.service.ClienteService;
 import org.springframework.samples.petclinic.service.PedidoService;
+import org.springframework.samples.petclinic.service.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -24,11 +32,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PedidoController {
 	
 	private final PedidoService pedidoService;
-	
+	private final UserService userService;
+	private final ClienteService clienteService;
 
 	@Autowired
-	public PedidoController(PedidoService pedidoService) {
+	public PedidoController(PedidoService pedidoService, UserService userService,ClienteService clienteService,
+			AuthoritiesService authoritiesService) {
 		this.pedidoService = pedidoService;
+		this.userService =  userService;
+		this.clienteService= clienteService;
 	}
 	
 	@ModelAttribute("estadoPedido")
@@ -57,6 +69,21 @@ public class PedidoController {
 		pedidos.getPedidosList().addAll(this.pedidoService.findPedidos());
 		model.put("pedidos", pedidos);
 		return "pedidos/pedidosList";
+	}
+	
+	//para ver los pedidos de cliente que ha iniciado sesión
+	@GetMapping("/pedidos/user")
+	public String showMisPedidos(Map<String, Object> model) {
+		Pedidos pedidos = new Pedidos();
+		Authentication auth = SecurityContextHolder
+	            .getContext()
+	            .getAuthentication();
+		UserDetails userDetail = (UserDetails) auth.getPrincipal();
+	    User usuario = this.userService.findUser(userDetail.getUsername()).get();
+	    Cuenta cliente= this.clienteService.findCuentaByUser(usuario);
+	    pedidos.getPedidosList().addAll(this.pedidoService.findPedidosByCliente(cliente.getId()));
+		model.put("pedidos", pedidos);
+		return "pedidos/pedidoUser";
 	}
 	
 	//añadir un pedido nuevo

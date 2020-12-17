@@ -28,6 +28,11 @@ public class PedidoService {
 		return pedidoRepository.findAll();
 	}	
 	
+	@Transactional(readOnly = true)	
+	public List<Pedido> findPedidosByCliente(int userId) throws DataAccessException {
+		return pedidoRepository.findPedidosByCliente(userId);
+	}
+	
 	@Transactional(readOnly = true)
 	public Pedido findPedidoById(int pedidoId) throws DataAccessException {
 		return pedidoRepository.findPedidoById(pedidoId);

@@ -3,9 +3,7 @@ package org.springframework.samples.petclinic.web;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Bebida;
 import org.springframework.samples.petclinic.model.Bebidas;
@@ -400,7 +398,30 @@ public class CartaController {
 			return "redirect:/cartas/{cartaId}/VerCarta";
 		}
 		
-		
+	/*	
+		//Aqui tenemos que añadir la pizza seleccionado a un nuevo pedido
+		@GetMapping("/pedidos/{pedidoId}/anadirPizza/new")
+		public String initCreationForm(Map<String, Object> model, @PathVariable("pedidoId") int pedidoId) {
+			Reclamacion reclamacion = new Reclamacion();
+			model.put("reclamacion", reclamacion);
+			return "reclamaciones/createOrUpdateReclamacionForm";
+		}
+				
+		//mandar nueva producto
+		@PostMapping(value = "/pedidos/{pedidoId}/anadirProducto/new")
+		public String processCreationForm(@PathVariable("pedidoId") int pedidoId, @Valid Reclamacion reclamacion, BindingResult result, ModelMap model) {
+			if (result.hasErrors()) {
+				model.put("reclamacion", reclamacion);
+				return "reclamaciones/createOrUpdateReclamacionForm";
+			}
+			else {
+				this.reclamacionService.saveReclamacion(reclamacion);
+				Integer reclamacionId=reclamacion.getId();
+				this.reclamacionService.añadirReclamacionAPedido(pedidoId, reclamacionId);
+				return "redirect:/allReclamaciones";
+			} 
+		}
+		*/
 		
 	//MODEL ATTRIBUTES
 	@ModelAttribute("tipoMasa")
