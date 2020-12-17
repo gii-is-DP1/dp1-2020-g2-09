@@ -32,7 +32,4 @@ public interface PedidoRepository  extends CrudRepository<Pedido, Integer> {
 	@Query("SELECT tipEnvio FROM TipoEnvio tipEnvio")
 	List<TipoEnvio> findTipoEnvio() throws DataAccessException;
 	
-	
-
-	
 }

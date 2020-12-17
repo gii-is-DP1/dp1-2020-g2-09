@@ -62,5 +62,6 @@ public class PedidoService {
 	public Collection<TipoEnvio> findTipoEnvio() throws DataAccessException {
 		return pedidoRepository.findTipoEnvio();
 	}
+	
 
 }
