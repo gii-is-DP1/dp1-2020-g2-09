@@ -17,6 +17,8 @@ public interface PedidoRepository  extends CrudRepository<Pedido, Integer> {
 	
 	Pedido findPedidoById(int pedidoId) throws DataAccessException;
 	
+	List<Pedido> findPedidosByCliente(int userId) throws DataAccessException;
+	
 	//la siguiente creo que está mal
 	List<Pedido> findByOfertasEnPedido(int pedidoId) throws DataAccessException;
 	
