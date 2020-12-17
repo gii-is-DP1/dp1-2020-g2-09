@@ -30,6 +30,11 @@ public class RepartidorController {
 		this.repartidorService = repartidorService;
 	}
 
+	/*@InitBinder("repartidor")
+	public void initrepartidorBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new RepartidorValidator());
+	}*/
+	
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");

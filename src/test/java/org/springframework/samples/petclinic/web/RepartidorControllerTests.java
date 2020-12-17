@@ -128,7 +128,7 @@ public class RepartidorControllerTests {
 	void testprocessUpdateRepartidorFormHasErrors() throws Exception {
 		mockMvc.perform(post("/repartidores/{repartidorId}/edit", TEST_REPARTIDOR_ID)
 				.with(csrf())
-				.param("nombre", "2525252")
+				.param("nombre", "7")
 				.param("apellidos", "Antom")
 				.param("fechaNacimiento", "5161")
 				.param("telefono", "123698745")
