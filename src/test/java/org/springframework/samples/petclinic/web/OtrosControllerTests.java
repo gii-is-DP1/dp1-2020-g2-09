@@ -25,6 +25,7 @@ import org.springframework.samples.petclinic.model.Oferta;
 import org.springframework.samples.petclinic.model.Otros;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.service.CartaService;
+import org.springframework.samples.petclinic.service.IngredienteService;
 import org.springframework.samples.petclinic.service.OfertaService;
 import org.springframework.samples.petclinic.service.OtrosService;
 import org.springframework.samples.petclinic.service.PedidoService;
@@ -49,6 +50,8 @@ class OtrosControllerTests {
 	@Autowired
 	private OtrosController otrosController;
 
+//	@Autowired
+//	private IngredienteController ingredienteController;
 
 	@MockBean
 	private OtrosService otrosService;
@@ -58,6 +61,8 @@ class OtrosControllerTests {
     private CartaService cartaService;
     @MockBean
     private OfertaService ofertaService;
+    @MockBean
+    private IngredienteService ingredienteService;
     
 	@Autowired
 	private MockMvc mockMvc;
@@ -81,8 +86,8 @@ class OtrosControllerTests {
 	@WithMockUser(value = "spring")
         @Test
 	void testInitCreationForm() throws Exception {
-		mockMvc.perform(get("/ofertas/{ofertaId}/ofertas/new", TEST_OFERTA_ID)).andExpect(status().isOk())
-				.andExpect(view().name("ofertas/createOrUpdateOfertaForm")).andExpect(model().attributeExists("Otros"));
+		mockMvc.perform(get("/Otros/new")).andExpect(status().isOk())
+				.andExpect(view().name("Otros/createOrUpdateOtrosForm")).andExpect(model().attributeExists("Otros"));
 		
 		/*mockMvc.perform(get("/pedidos/{pedidoId}/pedidos/new", TEST_PEDIDO_ID)).andExpect(status().isOk())
 				.andExpect(view().name("pedidos/createOrUpdatePedidoForm")).andExpect(model().attributeExists("Otros"));
@@ -94,13 +99,13 @@ class OtrosControllerTests {
 	@WithMockUser(value = "spring")
         @Test
 	void testProcessCreationFormSuccess() throws Exception {
-		mockMvc.perform(post("/ofertas/{ofertaId}/Otros/new", TEST_OFERTA_ID)
+		mockMvc.perform(post("/Otros/new")
 							.with(csrf())
 							.param("contador", "2")
 							.param("coste", "13")
-							.param("nombre", "Nachos"))
+							.param("nombre", "Nachos").param("ingredientes", "arroz"))
 				.andExpect(status().is3xxRedirection())
-				.andExpect(view().name("redirect:/ofertas/{ofertaId}"));
+				.andExpect(view().name("redirect:/allOtros"));
 		
 		/*mockMvc.perform(post("/pedidos/{pedidoId}/Otros/new", TEST_PEDIDO_ID)
 						.with(csrf())
@@ -121,14 +126,14 @@ class OtrosControllerTests {
 
 	@WithMockUser(value = "spring")
     @Test
-	void testProcessCreationFormHasErrors() throws Exception {
-		mockMvc.perform(post("/ofertas/{ofertaId}/Otros/{OtrosId}/edit", TEST_OFERTA_ID, TEST_OTROS_ID)
+	void testprocessCreationFormHasErrors() throws Exception {
+		mockMvc.perform(post("/Otros/new")
 							.with(csrf())
-							.param("contador", "2")
-							.param("coste", "13")
-							.param("nombre", "Nachos"))
-				.andExpect(model().attributeHasNoErrors("oferta"))
-				.andExpect(model().attributeHasErrors("Otros"))
+							.param("contador", "ddd")
+							.param("coste", "aaa")
+							.param("nombre", "111").param("ingredientes", "22222"))
+				//.andExpect(model().attributeHasNoErrors("oferta"))
+				.andExpect(model().attributeHasErrors("otros"))
 				.andExpect(status().isOk())
 				.andExpect(view().name("Otros/createOrUpdateOtrosForm"));
 		
@@ -156,7 +161,7 @@ class OtrosControllerTests {
     @WithMockUser(value = "spring")
 	@Test
 	void testInitUpdateForm() throws Exception {
-		mockMvc.perform(get("/ofertas/{ofertaId}/Otros/{OtrosId}/edit", TEST_OFERTA_ID, TEST_OTROS_ID))
+		mockMvc.perform(get("/Otros/{OtrosId}/edit", TEST_OTROS_ID))
 				.andExpect(status().isOk()).andExpect(model().attributeExists("Otros"))
 				.andExpect(view().name("Otros/createOrUpdateOtrosForm"));
 		
@@ -171,14 +176,14 @@ class OtrosControllerTests {
     
     @WithMockUser(value = "spring")
 	@Test
-	void testProcessUpdateFormSuccess() throws Exception {
-		mockMvc.perform(post("/ofertas/{ofertaId}/Otros/{OtrosId}/edit", TEST_OFERTA_ID, TEST_OTROS_ID)
+	void testprocessUpdateOtrosFormSuccess() throws Exception {
+		mockMvc.perform(post("/Otros/{OtrosId}/edit", TEST_OTROS_ID)
 				.with(csrf())
 				.param("contador", "2")
 				.param("coste", "13")
-				.param("nombre", "Nachos"))
+				.param("nombre", "Nachos").param("ingredientes", "queso"))
 	.andExpect(status().is3xxRedirection())
-	.andExpect(view().name("redirect:/ofertas/{ofertaId}"));
+	.andExpect(view().name("redirect:/allOtros"));
 
 		/*mockMvc.perform(post("/pedidos/{pedidoId}/Otros/{OtrosId}/edit", TEST_PEDIDO_ID, TEST_OTROS_ID)
 				.with(csrf())
@@ -199,15 +204,14 @@ class OtrosControllerTests {
     
     @WithMockUser(value = "spring")
 	@Test
-	void testProcessUpdateFormHasErrors() throws Exception {
-		mockMvc.perform(post("/ofertas/{ofertaId}/Otros/{OtrosId}/edit", TEST_OFERTA_ID, TEST_OTROS_ID)
+	void testprocessUpdateOtrosFormHasErrors() throws Exception {
+		mockMvc.perform(post("/Otros/{OtrosId}/edit", TEST_OTROS_ID)
 				.with(csrf())
-				.param("contador", "2")
-				.param("coste", "13")
-				.param("nombre", "Nachos"))
-	.andExpect(model().attributeHasNoErrors("oferta"))
-	.andExpect(model().attributeHasErrors("Otros")).andExpect(status().isOk())
-	.andExpect(view().name("Otros/createOrUpdateOtrosForm"));
+				.param("contador", "dddd")
+				.param("coste", "aaa")
+				.param("nombre", "1111").param("ingredientes", "222"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("Otros/createOrUpdateOtrosForm"));
 		
 		/*mockMvc.perform(post("/pedidos/{pedidoId}/Otros/{OtrosId}/edit", TEST_PEDIDO_ID, TEST_OTROS_ID)
 				.with(csrf())
