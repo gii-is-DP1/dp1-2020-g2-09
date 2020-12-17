@@ -25,12 +25,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/reservas/{reservaId}")
 public class OtrosController {
 	
 	private final OtrosService OtrosService;
 
 	private final IngredienteService IngredienteService;
+	
 	@Autowired
 	public OtrosController(OtrosService OtroService, IngredienteService IngredienteService) {
 		this.OtrosService = OtroService;
