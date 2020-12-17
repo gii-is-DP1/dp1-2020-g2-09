@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.hamcrest.xml.HasXPath.hasXPath;
 
 import java.time.LocalDate;
 
@@ -26,8 +27,6 @@ import org.springframework.samples.petclinic.service.OfertaService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 @WebMvcTest(value = OfertaController.class,
 includeFilters = @ComponentScan.Filter(value = OfertaFormatter.class, type = FilterType.ASSIGNABLE_TYPE),
@@ -88,15 +87,14 @@ public class OfertaControllerTests {
 							.with(csrf())
 							.param("coste", "20.0")
 							.param("fechaInicial", "2020/11/12")
-							.param("fechaFinal", "2020/11/22")
-							.param("nivel_socio", "ORO").param("tamano_producto", "GRANDE"))
-				.andExpect(status().is2xxSuccessful());
-				//.andExpect(view().name("redirect:/allOfertas"));
+							.param("fechaFinal", "2020/11/22"))
+							.andExpect(status().is3xxRedirection())
+							.andExpect(view().name("redirect:/allOfertas"));
 	}
 
-	//ARREGLAR ESTE TEST
+	
 	@WithMockUser(value = "spring")
-    @Test
+    @Test 
 	void testProcessCreationFormHasErrors() throws Exception {
 		mockMvc.perform(post("/ofertas/{ofertaId}/edit", TEST_OFERTA_ID)
 							.with(csrf())
@@ -115,7 +113,7 @@ public class OfertaControllerTests {
 				.andExpect(view().name("ofertas/createOrUpdateOfertaForm"));
 	}
     
-    //REVISAR REDIRECCIÓN
+    //REVISAR REDIRECCIÓN NO FUNCIONA EL CONTROLADOR :)
     @WithMockUser(value = "spring")
 	@Test
 	void testProcessUpdateFormSuccess() throws Exception {
@@ -124,7 +122,8 @@ public class OfertaControllerTests {
 							.param("coste", "20.0")
 							.param("fechaInicial", "2020/11/12")
 							.param("fechaFinal", "2020/11/22"))
-				.andExpect(status().is2xxSuccessful());
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/allOfertas"));
 	}
     
     @WithMockUser(value = "spring")
