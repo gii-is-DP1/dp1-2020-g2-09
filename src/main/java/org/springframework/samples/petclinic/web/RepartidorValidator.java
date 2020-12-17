@@ -14,9 +14,6 @@ public class RepartidorValidator implements Validator{
 
 	private static final String REQUIRED = "requerido";
 	
-	public boolean supports(Class<?> clazz) {
-		return Repartidor.class.isAssignableFrom(clazz);
-	}	
 
 	@Override
 	public void validate(Object obj, Errors errors) {
@@ -34,7 +31,7 @@ public class RepartidorValidator implements Validator{
 		if(nombre.length()<2 || nombre.length()>10) {
 			errors.rejectValue("nombre","El nombre debe tener de 2 a 10 caracteres.", "El nombre debe tener de 2 a 10 caracteres.");
 		}
-		if(nombre.length()<1 || nombre.equals(null)) {
+		if(nombre.equals(null)) {
 			errors.rejectValue("nombre", REQUIRED+" y entre 2 y 10 caracteres",
 					REQUIRED+" y entre 2 y 10 caracteres");
 		}
@@ -42,8 +39,8 @@ public class RepartidorValidator implements Validator{
 		if(apellidos.length()<2 || apellidos.length()>10) {
 			errors.rejectValue("apellidos","El nombre debe tener de 2 a 20 caracteres.", "El nombre debe tener de 2 a 20 caracteres.");
 		}
-		if(apellidos.length()<1 || apellidos.equals(null)) {
-			errors.rejectValue("apellidos", REQUIRED+" y entre 2 y 20 caracteres",
+		if(apellidos.equals(null)) {
+			errors.rejectValue("apellidos", REQUIRED+" y entre 2 y 20 caracteres (no nulo)",
 					REQUIRED+" y entre 2 y 20 caracteres");
 		}
 		//fechaNacimiento
@@ -87,5 +84,10 @@ public class RepartidorValidator implements Validator{
 			errors.rejectValue("nombreUsuario", "El nombre de usuario no puede estar vacío",
 					"El nombre de usuario no puede estar vacío");
 		}
+	}
+	
+	
+	public boolean supports(Class<?> clazz) {
+		return Repartidor.class.isAssignableFrom(clazz);
 	}
 }

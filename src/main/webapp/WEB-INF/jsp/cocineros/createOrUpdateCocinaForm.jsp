@@ -12,7 +12,7 @@
     </h2>
     <form:form modelAttribute="cocinero" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
-            <petclinic:inputField label="Nombre" name="nombre"/>
+            <petclinic:inputField  label="Nombre" name="nombre"/>
             <petclinic:inputField label="Apellidos" name="apellidos"/>
             <petclinic:inputField label="Fecha Nacimiento" name="fechaNacimiento"/>
             <petclinic:inputField label="Telefono" name="telefono"/>
