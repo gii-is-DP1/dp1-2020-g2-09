@@ -75,7 +75,7 @@ public class RepartidorController {
 	@PostMapping(value = "/repartidores/{repartidorId}/edit")
 	public String processUpdateCocineroForm(@Valid Repartidor repartidor, BindingResult result,
 			@PathVariable("repartidorId") int repartidorId) {
-		if (result.hasErrors()) {
+		if (result.hasErrors()) { 
 			return "repartidores/createOrUpdateRepartidorForm";
 		}
 		else {
