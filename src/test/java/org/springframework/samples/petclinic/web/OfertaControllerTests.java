@@ -122,8 +122,11 @@ public class OfertaControllerTests {
 							.with(csrf())
 							.param("coste", "20.0")
 							.param("fechaInicial", "2020/11/12")
-							.param("fechaFinal", "2020/11/22"))
+							.param("fechaFinal", "2020/11/22")
+							.param("nivel_socio", "ORO")
+							.param("tamano_oferta", "GRANDE"))
 		.andExpect(status().is3xxRedirection())
+		//.andExpect(model().attributeHasNoErrors("oferta")); 
 		.andExpect(view().name("redirect:/allOfertas"));
 	}
     
@@ -134,7 +137,8 @@ public class OfertaControllerTests {
 							.with(csrf())
 							.param("coste", "20.0")
 							.param("fechaInicial", "aaa"))
-				.andExpect(model().attributeHasErrors("oferta")).andExpect(status().isOk())
+				.andExpect(model().attributeHasErrors("oferta"))
+				.andExpect(status().isOk())
 				.andExpect(view().name("ofertas/createOrUpdateOfertaForm"));
 	}
 

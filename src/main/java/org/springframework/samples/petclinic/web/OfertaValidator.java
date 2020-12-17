@@ -24,8 +24,8 @@ public class OfertaValidator implements Validator {
 		Oferta oferta = (Oferta) obj;
 		TamanoOferta tamaño = oferta.getTamanoOferta();
 		Double coste= oferta.getCoste();
-		LocalDate horaFinal= oferta.getFechaFinal();
-		LocalDate horaInicial = oferta.getFechaInicial();
+		LocalDate fechaFinal = oferta.getFechaFinal();
+		LocalDate fechaInicial = oferta.getFechaInicial();
 		NivelSocio nivelSocio = oferta.getNivelSocio();
 		
 
@@ -33,13 +33,13 @@ public class OfertaValidator implements Validator {
 			errors.rejectValue("El tamaño", REQUIRED+" no puede ser nulo", REQUIRED+" no puede ser nulo");
 		}
 
-		if (horaFinal.isBefore(LocalDate.now())) {
+		if (fechaFinal.isBefore(LocalDate.now())) {
 			errors.rejectValue("La fecha debe de ser futura", REQUIRED, REQUIRED + "La fecha debe de ser futura");
 		}
 		
 
 		
-		if (horaInicial.isAfter(LocalDate.now())) {
+		if (fechaInicial.isAfter(LocalDate.now())) {
 			errors.rejectValue("La fecha debe de ser pasada", REQUIRED, REQUIRED + "La fecha debe de ser pasada");
 		}
 		

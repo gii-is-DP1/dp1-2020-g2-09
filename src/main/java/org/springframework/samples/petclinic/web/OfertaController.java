@@ -32,6 +32,11 @@ public class OfertaController {
 		this.ofertaService = ofertaService;
 	}
 
+//	@InitBinder("oferta")
+//	public void initOfertaBinder(WebDataBinder dataBinder) {
+//		dataBinder.setValidator(new OfertaValidator());
+//	}
+	
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
@@ -89,8 +94,9 @@ public class OfertaController {
 	//mandar actualizacion
 	@PostMapping(value = "/ofertas/{ofertaId}/edit")
 	public String processUpdatePedidoForm(@Valid Oferta oferta, BindingResult result,
-			@PathVariable("ofertaId") int ofertaId) {
+			@PathVariable("ofertaId") int ofertaId, ModelMap model) {
 		if (result.hasErrors()) {
+			model.put("oferta", oferta);
 			return "ofertas/createOrUpdateOfertaForm";
 		}
 		else {
