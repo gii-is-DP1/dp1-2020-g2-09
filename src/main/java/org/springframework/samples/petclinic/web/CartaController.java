@@ -55,7 +55,6 @@ public class CartaController {
 		this.IngredienteService = IngredienteService;
 	}
 
-	
 
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {

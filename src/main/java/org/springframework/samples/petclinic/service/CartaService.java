@@ -30,9 +30,13 @@ public class CartaService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Carta findCartaByFecha(LocalDate cartaFecha) throws DataAccessException {
-		return cartaRepository.findCartaByFecha(cartaFecha);
+	public Carta findCartaByFechaCreacionYFechaFinal(LocalDate hoy) {
+		return cartaRepository.findCartaByFechaCreacionYFechaFinal(hoy);
 	}
+//	public Carta findCartaByFecha(LocalDate cartaFecha) throws DataAccessException {
+//		return cartaRepository.findCartaByFecha(cartaFecha);
+//	}
+	
 	@Transactional
 	public void saveCarta(Carta carta) throws DataAccessException {
 		cartaRepository.save(carta);		

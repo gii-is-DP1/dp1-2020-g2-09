@@ -58,12 +58,12 @@
              			</c:forEach>
              		</ul>
              	</td>
-             	<td>
+             	<!-- <td>
                     <spring:url value="/anadirPizza/{pizzaId}" var="pedidoPizzaUrl">
 	                        <spring:param name="pizzaId" value="${pizza.id}"/>
 	                </spring:url>
    					<a href=" ${fn:escapeXml(pedidoPizzaUrl)}" class="btn btn-default">Añadir Pizza</a>
-               </td>
+               </td> -->
              	<td>
              		<sec:authorize access="hasAnyAuthority('administrador')"  >
 			    		<spring:url value="/cartas/{cartaId}/pizza/{pizzaId}/deleteFromCarta" var="quitarPizza">

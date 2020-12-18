@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Bebida;
 import org.springframework.samples.petclinic.model.Bebidas;
+import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Cuenta;
 import org.springframework.samples.petclinic.model.EstadoPedido;
@@ -22,6 +23,7 @@ import org.springframework.samples.petclinic.model.TipoPago;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.BebidaService;
+import org.springframework.samples.petclinic.service.CartaService;
 import org.springframework.samples.petclinic.service.ClienteService;
 import org.springframework.samples.petclinic.service.IngredienteService;
 import org.springframework.samples.petclinic.service.OtrosService;
@@ -47,6 +49,8 @@ public class PedidoController {
 	private final UserService userService;
 	private final ClienteService clienteService;
 	
+	private CartaService CartaService;
+	
 	private PizzaService PizzaService;
 	
 	private OtrosService OtrosService;
@@ -58,7 +62,8 @@ public class PedidoController {
 	@Autowired
 	public PedidoController(PedidoService pedidoService, UserService userService,ClienteService clienteService,
 			AuthoritiesService authoritiesService,PizzaService PizzaService,
-			OtrosService OtrosService, BebidaService BebidaService, IngredienteService IngredienteService) {
+			OtrosService OtrosService, BebidaService BebidaService, CartaService CartaService
+			,IngredienteService IngredienteService) {
 		this.pedidoService = pedidoService;
 		this.userService =  userService;
 		this.clienteService= clienteService;
@@ -66,6 +71,7 @@ public class PedidoController {
 		this.OtrosService = OtrosService;
 		this.BebidaService = BebidaService;
 		this.IngredienteService = IngredienteService;
+		this.CartaService = CartaService;
 	}
 	
 	@ModelAttribute("estadoPedido")
@@ -175,10 +181,19 @@ public class PedidoController {
 		return "redirect:/allPedidos";
 	}
 	
+	//Mostrar cartas de las que coger productos
+	@GetMapping(value = { "/pedidos/{pedidoId}/allCartas" })
+	public String showCartaParaPedidosList(Map<String, Object> model) {
+		LocalDate hoy = LocalDate.now();
+		Carta carta = CartaService.findCartaByFechaCreacionYFechaFinal(hoy);
+		model.put("cartas", carta);
+		return "cartas/cartasListParaPedidos"; 
+	}
+	
 	//Acceso a la carta desde un pedido
-		@GetMapping(value = "pedidos/{pedidoId}/anadirProductos/cartas/1/verCarta") 
-		public String verCarta(@PathVariable("pedidoId") Integer pedidoId, ModelMap model) {
-			Integer cartaId=1;
+		@GetMapping(value = "pedidos/{pedidoId}/anadirProductos/cartas/{cartaId}/verCarta") 
+		public String verCarta(@PathVariable("pedidoId") Integer pedidoId,
+				@PathVariable("cartaId") Integer cartaId,ModelMap model) {
 			//Recogemos las pizzas de la tabla y la guardamos en el modelo
 			List<Integer> listaIdPizzas = PizzaService.findIdPizzaById(cartaId);
 			Pizzas listaPizzas = new Pizzas();

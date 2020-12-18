@@ -10,9 +10,7 @@
     
 <petclinic:layout pageName="cartas">
     <h2>Cartas</h2>
-    	<sec:authorize access="hasAnyAuthority('administrador')"  >
-			<a href="/cartas/new" class="btn btn-default">Añadir carta</a>
-		</sec:authorize>
+<a href="/cartas/new" class="btn btn-default">Añadir carta</a>
     <table id="cartasTable" class="table table-striped">
         <thead>
         <tr>
@@ -21,7 +19,6 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${cartas}" var="cartas">
             <tr>
             	<td>
             		<c:out value="${cartas.nombre}"/>
@@ -30,29 +27,12 @@
                     <c:out value="${cartas.fechaCreacion}"/>
                 </td>
                 <td>
-                	<spring:url value="/cartas/{cartaId}/VerCarta" var="cartaUrl3">
+                	<spring:url value="/MISMUERTOS" var="cartaUrl3">
 	                        <spring:param name="cartaId" value="${cartas.id}"/>
 	                </spring:url>
              		<a href="${fn:escapeXml(cartaUrl3)}" class="btn btn-default">Acceder a la carta</a>
                 </td>
-                <td>
-                <sec:authorize access="hasAnyAuthority('administrador')"  >
-             		<spring:url value="/cartas/{cartaId}/edit" var="cartaUrl">
-	                        <spring:param name="cartaId" value="${cartas.id}"/>
-	                </spring:url>
-   					<a href="${fn:escapeXml(cartaUrl)}" class="btn btn-default">Editar</a>
-   					</sec:authorize>
-             	</td>
-             	<td>
-             	<sec:authorize access="hasAnyAuthority('administrador')"  >
-             		<spring:url value="/cartas/{cartaId}/delete" var="cartaUrl2">
-	                        <spring:param name="cartaId" value="${cartas.id}"/>
-	                </spring:url>
-             		<a href="${fn:escapeXml(cartaUrl2)}" class="btn btn-default">Eliminar</a>
-             		</sec:authorize>
-             	</td>
             </tr>
-        </c:forEach>
         
         </tbody>
     </table>

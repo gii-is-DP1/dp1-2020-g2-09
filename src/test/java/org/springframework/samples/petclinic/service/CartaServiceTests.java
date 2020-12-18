@@ -80,7 +80,8 @@ public class CartaServiceTests {
 		
 		Carta carta = new Carta();
 		carta.setNombre("CartitaGonsi");
-		carta.setFecha(LocalDate.of(2020, 2, 2));
+		carta.setFechaCreacion(LocalDate.of(2020, 2, 2));
+		carta.setFechaFinal(LocalDate.of(2020, 4, 10));
 		
 		Collection<Bebida> cartaDeBebidas = new HashSet<Bebida>();
 		cartaDeBebidas.add(bebida);
