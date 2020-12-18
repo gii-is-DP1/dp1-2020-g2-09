@@ -13,12 +13,12 @@
             <img class="img-responsive" src="${logoImage}"/>-->
     <div class="row">
     	<h2>Bienvenido a Roto's Pizza ${title}</h2>
-    	<p><h2>Este proyecto ha sido realizado por:  ${group}</h2></p>	
-    	<p><ul>
+    	<h2>Este proyecto ha sido realizado por:  ${group}</h2>
+    	<ul>
     	<c:forEach items="${persons}" var="person">
     		<li>${person.firstName}${person.lastName}</li>
     	</c:forEach>
-    	</ul></p>	
+    	</ul>	
     </div>    
     <div>
     <p><b>HISTORIAS DE USUARIO IMPLEMENTADAS.</b></p>
@@ -42,7 +42,9 @@
     		<a href="/cuentas/DetallesPerfil">H-005: Datos del cliente. Pruebas hechas.</a>
     	</sec:authorize>
      <div>
-      <a href="/pedidos/user">Hola quiero ver mis pedidos.</a>
+     	<sec:authorize access="hasAnyAuthority('cliente')"  >
+      		<a href="/pedidos/user">Hola quiero ver mis pedidos.</a>
+      	</sec:authorize>
      </div>
   
      <div>

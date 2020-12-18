@@ -30,10 +30,15 @@ public class Carta extends BaseEntity{
 	@NotNull
 	private String nombre;
 	
-	@Column(name = "fecha")
+	@Column(name = "fecha_creacion")
 	@NotNull
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
-	private LocalDate fecha = LocalDate.now();
+	private LocalDate fechaCreacion = LocalDate.now();
+	
+	@Column(name = "fecha_final")
+	@NotNull
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	private LocalDate fechaFinal;
 	
 	@ManyToMany (cascade = CascadeType.PERSIST)
 	@JoinTable(name = "composicionCartaPizza", joinColumns =@JoinColumn(name= "cartaId" ))

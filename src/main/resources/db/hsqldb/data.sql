@@ -291,8 +291,8 @@ INSERT INTO BEBIDAS values (3, 1, 10, 'Fanta naranja', false ,1);
 INSERT INTO BEBIDAS values (4, 1, 15, 'Fanta limon', true ,2);
 INSERT INTO BEBIDAS values (5, 2, 19, 'Agua', false ,1);
 /*NO ME TOQUEIS LAS FECHAS DE CARTAS*/
-INSERT INTO CARTAS(nombre, fecha) values ('CartaPrincipal', '2020-04-30');
-INSERT INTO CARTAS(nombre, fecha) values ('CartaPrueba','2020-11-20');
+INSERT INTO CARTAS(nombre, fecha_Creacion, fecha_Final) values ('CartaPrincipal', '2020-12-15', '2020-12-31');
+INSERT INTO CARTAS(nombre, fecha_Creacion, fecha_Final) values ('CartaPrueba','2021-01-01', '2021-11-20');
 
 INSERT INTO COMPOSICION_CARTA_PIZZA(PIZZAS_EN_CARTA_ID, CARTA_ID) VALUES (1,1);
 INSERT INTO COMPOSICION_CARTA_PIZZA(PIZZAS_EN_CARTA_ID, CARTA_ID) VALUES (2,1);
