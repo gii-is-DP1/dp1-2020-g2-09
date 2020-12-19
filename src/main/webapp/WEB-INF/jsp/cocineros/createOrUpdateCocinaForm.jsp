@@ -7,6 +7,7 @@
     pageEncoding="UTF-8"%>
 
 <petclinic:layout pageName="cocineros">
+
     <h2>
         <c:if test="${cocinero['new']}">Nuevo/a </c:if> Cocinero/a
     </h2>

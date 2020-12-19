@@ -28,15 +28,15 @@ public class AdministradorController {
 		this.administradorService = administradorService;
 	}
 
-	@InitBinder
+	/*@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
-	}
+	}*/
 	
-	/*@InitBinder("administrador")
+	@InitBinder("administrador")
 	public void initPetBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new AdministradorValidator());
-	}*/
+	}
 	
 	@GetMapping(value = { "/allAdministradores" })
 	public String showAdministradoresList(Map<String, Object> model) {
@@ -80,9 +80,10 @@ public class AdministradorController {
 	//mandar actualizacion
 	@PostMapping(value = "/administradores/{administradorId}/edit")
 	public String processUpdateCuentaForm(@Valid Administrador administrador, BindingResult result,
-			@PathVariable("administradorId") int administradorId) {
+			@PathVariable("administradorId") int administradorId, ModelMap model) {
 		if (result.hasErrors()) {
 			//model.put("cuenta", administrador);
+			model.put("administradores", administrador);
 			return "administradores/createOrUpdateAdministradorForm";
 		}
 		else {

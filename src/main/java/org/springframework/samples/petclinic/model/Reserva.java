@@ -18,6 +18,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.sun.istack.NotNull;
 
 import lombok.Data;
@@ -31,11 +33,10 @@ public class Reserva extends BaseEntity {
 
 	@Column(name = "numeroPersonas")
 	@NotNull
-	@Max(6)
-	@Min(0)
 	private Integer numeroPersonas;
 
 	@Column(name = "fecha_reserva")
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@NotNull
 	private LocalDate fechaReserva;
 

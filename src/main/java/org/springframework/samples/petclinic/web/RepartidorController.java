@@ -13,6 +13,7 @@ import org.springframework.samples.petclinic.service.RepartidorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -30,15 +31,15 @@ public class RepartidorController {
 		this.repartidorService = repartidorService;
 	}
 
-	/*@InitBinder("repartidor")
+	@InitBinder("repartidor")
 	public void initrepartidorBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new RepartidorValidator());
-	}*/
+	}
 	
-	@InitBinder
+	/*@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
-	}
+	}*/
 	
 	@GetMapping(value = { "/allRepartidores" })
 	public String showRepartidoresList(Map<String, Object> model) {
@@ -58,11 +59,15 @@ public class RepartidorController {
 
 	//mandar nuevo repartidor
 	@PostMapping(value = "/repartidores/new")
-	public String processCreationForm(@Valid Repartidor repartidor, BindingResult result) {
+	public String processCreationForm(@Valid Repartidor repartidor, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
+			model.put("repartidores", repartidor);
+
 			return "repartidores/createOrUpdateRepartidorForm";
 		}
 		else {
+			RepartidorValidator repValidator = new RepartidorValidator();
+			ValidationUtils.invokeValidator(repValidator, repartidor, result);
 			this.repartidorService.saveRepartidor(repartidor);
 			return "redirect:/allRepartidores";
 		}
@@ -79,11 +84,14 @@ public class RepartidorController {
 	//mandar actualizacion
 	@PostMapping(value = "/repartidores/{repartidorId}/edit")
 	public String processUpdateCocineroForm(@Valid Repartidor repartidor, BindingResult result,
-			@PathVariable("repartidorId") int repartidorId) {
+			@PathVariable("repartidorId") int repartidorId, ModelMap model) {
 		if (result.hasErrors()) { 
+			model.put("repartidores", repartidor);
 			return "repartidores/createOrUpdateRepartidorForm";
 		}
 		else {
+			RepartidorValidator repValidator = new RepartidorValidator();
+			ValidationUtils.invokeValidator(repValidator, repartidor, result);
 			repartidor.setId(repartidorId);
 			this.repartidorService.saveRepartidor(repartidor);
 			return "redirect:/allRepartidores";

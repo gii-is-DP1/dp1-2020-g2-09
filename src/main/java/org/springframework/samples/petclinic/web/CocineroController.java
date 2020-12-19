@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class CocineroController {
 
+	
 	private final CocineroService cocineroService;
 
 	@Autowired
@@ -29,15 +30,15 @@ public class CocineroController {
 		this.cocineroService = cocineroService;
 	}
 
-	@InitBinder("cocina")
+	@InitBinder("cocinero")
 	public void initCocinaBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new CocineroValidator());
 	}
 	
-	@InitBinder
+	/*@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
-	}
+	}*/
 	
 	@GetMapping(value = { "/allCocineros" })
 	public String showCocineroList(Map<String, Object> model) {
@@ -63,8 +64,8 @@ public class CocineroController {
 			return "cocineros/createOrUpdateCocinaForm";
 		}
 		else {
-			/*CocineroValidator cocineroValidator = new CocineroValidator();
-			ValidationUtils.invokeValidator(cocineroValidator, cocinero, result);*/
+			CocineroValidator cocineroValidator = new CocineroValidator();
+			ValidationUtils.invokeValidator(cocineroValidator, cocinero, result);
 			cocinero.setFechaInicioContrato(LocalDate.now());
 			this.cocineroService.saveCocinero(cocinero);
 			return "redirect:/allCocineros";
@@ -82,14 +83,15 @@ public class CocineroController {
 	//mandar actualizacion
 	@PostMapping(value = "/cocineros/{cocineroId}/edit")
 	public String processUpdateCocineroForm(@Valid Cocina cocinero, BindingResult result,
-			@PathVariable("cocineroId") int cocineroId) {
+			@PathVariable("cocineroId") int cocineroId, ModelMap model) {
 		if (result.hasErrors()) {
+			model.put("cocinero", cocinero);
 			return "cocineros/createOrUpdateCocinaForm";
 		}
 		else {
+			CocineroValidator cocineroValidator = new CocineroValidator();
+			ValidationUtils.invokeValidator(cocineroValidator, cocinero, result);
 			cocinero.setId(cocineroId);
-			/*CocineroValidator cocineroValidator = new CocineroValidator();
-			ValidationUtils.invokeValidator(cocineroValidator, cocinero, result);*/
 			this.cocineroService.saveCocinero(cocinero);
 			return "redirect:/allCocineros";
 		}
