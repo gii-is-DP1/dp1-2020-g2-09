@@ -40,7 +40,7 @@ public class ReclamacionController {
 		reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findReclamaciones());
 		model.put("reclamaciones", reclamaciones);
 		return "reclamaciones/reclamacionesList";
-	}
+	} 
 	
 		//Aqui tenemos que añadir la reclamación sobre un pedido seleccionado
 		@GetMapping("/pedidos/{pedidoId}/anadirReclamacion/new")
@@ -58,6 +58,8 @@ public class ReclamacionController {
 				return "reclamaciones/createOrUpdateReclamacionForm";
 			}
 			else {
+				ReclamacionValidator ofValidator = new ReclamacionValidator();
+				ValidationUtils.invokeValidator(ofValidator, reclamacion, result);
 				this.reclamacionService.saveReclamacion(reclamacion);
 				Integer reclamacionId=reclamacion.getId();
 				this.reclamacionService.añadirReclamacionAPedido(pedidoId, reclamacionId);
@@ -84,6 +86,8 @@ public class ReclamacionController {
 				
 			}
 			else {
+				ReclamacionValidator ofValidator = new ReclamacionValidator();
+				ValidationUtils.invokeValidator(ofValidator, reclamacion, result);
 				reclamacion.setId(reclamacionId);
 				this.reclamacionService.saveReclamacion(reclamacion);
 				return "redirect:/allReclamaciones";

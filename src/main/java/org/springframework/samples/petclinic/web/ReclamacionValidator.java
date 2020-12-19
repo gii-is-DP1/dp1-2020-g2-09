@@ -31,10 +31,10 @@ private static final String REQUIRED = "requerido";
 		if(fechaReclamacion==null) {
 			errors.rejectValue("fechaReclamacion", REQUIRED, "Por favor, inserte una fecha");
 				}
-		else if(fechaReclamacion.isAfter(LocalDate.now())) {
+		if(fechaReclamacion.isAfter(LocalDate.now())) {
 		errors.rejectValue("fechaReclamacion", "La fecha de reclamación no puede ser posterior a la fecha actual",
 				"La fecha de reclamación no puede ser posterior a la fecha actual");
-				}
+				} 
 		
 		
 		//observacion
@@ -45,5 +45,5 @@ private static final String REQUIRED = "requerido";
 		}
 		
 	}
-
+ 
 }
