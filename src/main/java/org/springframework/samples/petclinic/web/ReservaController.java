@@ -30,10 +30,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ReservaController {
 	
 	
-	@Autowired
 	private  ReservaService reservaService;
 
-	@Autowired
+	//@Autowired
 	private MesaService mesaService;
 	
 	@Autowired
@@ -41,10 +40,10 @@ public class ReservaController {
 		this.reservaService = reservaService;
 	}
 	
-	@InitBinder
+	/*@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
-	}
+	}*/
 	
 	@InitBinder("reserva")
 	public void initReservaBinder(WebDataBinder dataBinder) {
@@ -54,8 +53,8 @@ public class ReservaController {
 	@GetMapping(value = { "/allReservas" })
 	public String showReservaList(Map<String, Object> model) {
 		List<Reserva> reservas=reservaService.findReservas();
-		model.put("reservas", reservas);
-		return ViewConstant.RESERVA_VIEW;
+		model.put("reservas", reservas); //reservas por queeeeeeeeeeeeeeeeeeeeeeeeee
+		return "reservas/reservasList";
 	}
 
 	//crear nueva reserva
@@ -92,11 +91,14 @@ public class ReservaController {
 	//mandar actualizacion
 	@PostMapping(value = "/reservas/{reservaId}/edit")
 	public String processUpdateReservaForm(@Valid Reserva reserva, BindingResult result,
-			@PathVariable("reservaId") int reservaId) {
+			@PathVariable("reservaId") int reservaId,ModelMap model) {
 		if (result.hasErrors()) {
+			model.put("reserva",reserva);
 			return "reservas/createOrUpdateReservaForm";
 		}
 		else {
+			ReservaValidator reservaValidator = new ReservaValidator();
+			ValidationUtils.invokeValidator(reservaValidator, reserva, result);
 			reserva.setId(reservaId);
 			this.reservaService.saveReserva(reserva);
 			return "redirect:/allReservas";

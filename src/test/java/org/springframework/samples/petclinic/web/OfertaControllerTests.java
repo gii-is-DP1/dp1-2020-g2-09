@@ -87,12 +87,18 @@ public class OfertaControllerTests {
 		mockMvc.perform(post("/ofertas/new")
 							.with(csrf())
 							.param("coste", "20.0")
+
 							.param("fechaInicial", "2021/12/19")
 							.param("fechaFinal", "2021/12/22")
 							.param("nivelSocio", "ORO")
 							.param("tamanoOferta", "GRANDE"))
 							//.andExpect(status().is3xxRedirection())
 							.andExpect(view().name("ofertas/createOrUpdateOfertaForm"));
+
+							.param("fechaInicial", "2021/11/12")
+							.param("fechaFinal", "2022/11/02"))
+							.andExpect(status().is3xxRedirection())
+							.andExpect(view().name("redirect:/allOfertas"));
 	}
 
 	

@@ -8,11 +8,11 @@
 
 <petclinic:layout pageName="reservas">
 	<jsp:attribute name="customScript">
-  		<!--  <script>
+  		  <script>
             $(function () {
                 $("#fechaReserva").datepicker({dateFormat: 'yy/mm/dd'});
             });
-  		</script>-->
+  		</script>
       	<!--<script>
             $(function () {
                 $("#hora").timepicker();
@@ -54,4 +54,5 @@
         </div>
     </form:form>
     </jsp:body>
+   
 </petclinic:layout>

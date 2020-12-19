@@ -12,6 +12,7 @@ public class MesaValidator implements Validator{
 
 	private static final String REQUIRED = "requerido";
 	
+	@Override
 	public boolean supports(Class<?> clazz) {
 		return Mesa.class.isAssignableFrom(clazz);
 	}
@@ -21,7 +22,10 @@ public class MesaValidator implements Validator{
 		Mesa mesa = (Mesa) obj;
 		Integer capacidad= mesa.getCapacidad();
 
-		if (capacidad <= 0 || capacidad>6 || capacidad==null) {
+		if (capacidad==null) {
+			errors.rejectValue("capacidad", REQUIRED+" debe ser mayor que 0 y menor o igual que 6", 
+					REQUIRED+" debe ser mayor que 0 y menor o igual que 6");
+		}else if (capacidad <= 0 || capacidad>6) {
 			errors.rejectValue("capacidad", REQUIRED+" debe ser mayor que 0 y menor o igual que 6", 
 					REQUIRED+" debe ser mayor que 0 y menor o igual que 6");
 		}
