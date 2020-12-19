@@ -32,7 +32,7 @@ public class CocineroValidator implements Validator {
 		if(nombre.length()<2 || nombre.length()>10) {
 			errors.rejectValue("nombre","El nombre debe tener de 2 a 10 caracteres.", "El nombre debe tener de 2 a 10 caracteres.");
 		}
-		if( nombre.equals(null)) {
+		 if(nombre==null) {
 			errors.rejectValue("nombre ", REQUIRED+"no debe ser nulo",
 					REQUIRED+" nombre no puede ser nulo");
 		}
@@ -40,34 +40,34 @@ public class CocineroValidator implements Validator {
 		if(apellidos.length()<2 || apellidos.length()>10) {
 			errors.rejectValue("apellidos","El nombre debe tener de 2 a 20 caracteres.", "El nombre debe tener de 2 a 20 caracteres.");
 		}
-		if(apellidos.equals(null)) {
+		 if(apellidos==null) {
 			errors.rejectValue("apellidos", REQUIRED+" no debe ser nulo",
 					REQUIRED+" apellido no debe ser nulo");
 		}
 		//fechaNacimiento
-		if(fechaNacimiento.equals(null)) {
+		if(fechaNacimiento==null) {
 			errors.rejectValue("fechaNacimiento", "La fecha no puede estar vacía",
 					"La fecha no puede estar vacía");
 		}
 		//fecha de inicio de contrato
-		if (fechaInicioContrato.isAfter(LocalDate.now())) {
-			errors.rejectValue("La fecha debe de ser pasada", REQUIRED, REQUIRED + "La fecha debe de ser pasada");
+		 if (fechaInicioContrato.isAfter(LocalDate.now())) {
+			errors.rejectValue("fechaInicioContrato", REQUIRED, REQUIRED + "La fecha debe de ser pasada");
 		}
 		
 		//fecha de fin de contrato
-		if (fechaFinContrato.isBefore(LocalDate.now())) {
-			errors.rejectValue("La fecha debe de ser futura o actual", REQUIRED, 
+		 if (fechaFinContrato.isBefore(LocalDate.now())) {
+			errors.rejectValue("fechaFinContrato", REQUIRED, 
 					REQUIRED + "La fecha debe de ser futura o actual");
 		}
 		
-		if (fechaFinContrato.isBefore(fechaInicioContrato)) {
-			errors.rejectValue("La fecha de fin de contrato debe ser posterior a la de inicio", REQUIRED, 
+		 if (fechaFinContrato.isBefore(fechaInicioContrato)) {
+			errors.rejectValue("fechaFinContrato", REQUIRED, 
 					REQUIRED + "La fecha de fin de contrato debe ser posterior a la de inicio");
 		}
 		
 		//teléfono
 		String telefonoString = String.valueOf(telefono);
-		if(telefono.equals(null) || telefonoString.length()<1) {
+		if(telefono==null || telefonoString.length()<1) {
 			errors.rejectValue("telefono", REQUIRED+" escriba un número válido",
 					REQUIRED+" escriba un número válido");
 		}
@@ -76,12 +76,12 @@ public class CocineroValidator implements Validator {
 					REQUIRED+" escriba un número válido");
 		}
 		//email
-		if(email.equals(null)) {
+		if(email==null) {
 			errors.rejectValue("email", "El email no puede estar vacío",
 					"El email no puede estar vacío");
 		}
 		//nombreUsuario
-		if(nombreUsuario.equals(null)) {
+		if(nombreUsuario==null) {
 			errors.rejectValue("nombreUsuario", "El nombre de usuario no puede estar vacío",
 					"El nombre de usuario no puede estar vacío");
 		}
