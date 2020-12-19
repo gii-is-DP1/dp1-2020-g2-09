@@ -4,19 +4,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+   
 <petclinic:layout pageName="clientes">
     <h2>Reclamaciones de clientes</h2>
 
     <table id="reclamacionTable" class="table table-striped">
         <thead>
         <tr>
-        	<th>Fecha de la reclamación</th>
-            <th>Descripción</th>
+        	<th>Fecha de la reclamaciÃ³n</th>
+            <th>DescripciÃ³n</th>
         </tr>
         
-        <a href="/reclamaciones/new" class="btn btn-default">Añadir reclamación</a>
+        <a href="/reclamaciones/new" class="btn btn-default">AÃ±adir reclamaciÃ³n</a>
         </thead>
         <tbody>
         <c:forEach items="${reclamaciones.reclamacionesList}" var="reclamacion">
@@ -28,17 +29,17 @@
              		<c:out value="${reclamacion.observacion}"></c:out>
              		</td>
              	<td>
-             		<%-- <spring:url value="/reclamaciones/{reclamacionId}/edit" var="reclamacionUrl">
+             		<spring:url value="/reclamaciones/{reclamacionId}/edit" var="reclamacionUrl">
 	                        <spring:param name="reclamacionId" value="${reclamacion.id}"/>
 	                </spring:url>
-   					<a href="${fn:escapeXml(reclamacionUrl)}" class="btn btn-default">Editar</a>
+   					<a href="${fn:escapeXml(reclamacionUrl)}" class="btn btn-default">Responder</a>
              	</td>
-             	<td>
+             	<%-- <td>
              		<spring:url value="/reclamaciones/{reclamacionId}/delete" var="reclamacionUrl2">
 	                        <spring:param name="reclamacionId" value="${reclamacion.id}"/>
 	                </spring:url>
              		<a href="${fn:escapeXml(reclamacionUrl2)}" class="btn btn-default">Eliminar</a>
-             	</td> --%>
+             	</td>  --%>
              	
             </tr>
         </c:forEach>

@@ -13,7 +13,7 @@ import org.springframework.validation.Validator;
 @Component
 public class ReclamacionValidator implements Validator {
 	
-private static final String REQUIRED = "requirido";
+private static final String REQUIRED = "requerido";
 	
 	@Autowired
 	private ReclamacionService reclamacionService;
@@ -28,22 +28,20 @@ private static final String REQUIRED = "requirido";
 		String observacion = reclamacion.getObservacion();
 		
 		//fechaReclamacion
-		if(fechaReclamacion.isAfter(LocalDate.now())) {
-		errors.rejectValue("fechaReclamacion",
-				"La fecha de reclamación no debe ser posterior a la fecha actual");
+		if(fechaReclamacion==null) {
+			errors.rejectValue("fechaReclamacion", REQUIRED, "Por favor, inserte una fecha");
 				}
-		if(fechaReclamacion.equals(null)) {
-			errors.rejectValue("fechaReclamacion", REQUIRED);
+		else if(fechaReclamacion.isAfter(LocalDate.now())) {
+		errors.rejectValue("fechaReclamacion", "La fecha de reclamación no puede ser posterior a la fecha actual",
+				"La fecha de reclamación no puede ser posterior a la fecha actual");
 				}
 		
-		//Observacion
-		if(observacion.length()<10 || observacion.length()>1000) {
-			errors.rejectValue("observacion", "Por favor, escriba una observación entre 10 y "
+		
+		//observacion
+		if(observacion.length()<10 || observacion.length()>1000 || observacion.equals("")) {
+			errors.rejectValue("observacion","Por favor, escriba una observación entre 10 y \"\r\n" + 
+					"					+ \"1000 caracteres", "Por favor, escriba una observación entre 10 y "
 					+ "1000 caracteres");
-		}
-		
-		if(observacion=="" || observacion.equals(null)) {
-			errors.rejectValue("observacion", REQUIRED);
 		}
 		
 	}
