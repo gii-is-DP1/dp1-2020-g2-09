@@ -408,29 +408,6 @@ public class CartaController {
 			return "redirect:/cartas/{cartaId}/VerCarta";
 		}
 		
-	/*//Aqui tenemos que añadir la pizza seleccionado a un nuevo pedido
-	@GetMapping("/pedidos/{pedidoId}/anadirProductos")
-	public String initCreationForm(Map<String, Object> model, @PathVariable("pedidoId") int pedidoId) {
-		Pedido pedido = new Pedido();			
-		model.put("pedido", pedido);
-		return "redirect:/cartas/1/VerCarta";
-	}
-				
-	//mandar nueva producto
-	@PostMapping(value = "/pedidos/{pedidoId}/anadirProductos")
-	public String processCreationForm(@PathVariable("pedidoId") int pedidoId, @Valid Reclamacion reclamacion, BindingResult result, ModelMap model) {
-		if (result.hasErrors()) {
-			model.put("reclamacion", reclamacion);
-			return "reclamaciones/createOrUpdateReclamacionForm";
-		}
-	else {
-		this.reclamacionService.saveReclamacion(reclamacion);
-		Integer reclamacionId=reclamacion.getId();
-		this.reclamacionService.añadirReclamacionAPedido(pedidoId, reclamacionId);
-		return "redirect:/allReclamaciones";
-	} 
-	}
-		*/
 		
 	//MODEL ATTRIBUTES
 	@ModelAttribute("tipoMasa")
