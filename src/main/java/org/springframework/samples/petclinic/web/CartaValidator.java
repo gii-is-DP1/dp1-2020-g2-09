@@ -32,7 +32,7 @@ public class CartaValidator implements Validator {
 		}
 
 		// FECHA validation
-		if (carta.getFecha() == null || carta.getFecha().isAfter(LocalDate.now())) {
+		if (carta.getFechaCreacion() == null || carta.getFechaCreacion().isAfter(LocalDate.now())) {
 			errors.rejectValue("fecha", REQUIRED+"debe ser antes de la fecha actual",REQUIRED);
 		}		
 		

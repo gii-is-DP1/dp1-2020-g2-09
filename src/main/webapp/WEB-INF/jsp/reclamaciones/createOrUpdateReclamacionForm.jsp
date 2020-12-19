@@ -3,7 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 
+<meta charset="UTF-8"/>
 <petclinic:layout pageName="reclamaciones">
 <jsp:attribute name="customScript">
         <script>
@@ -15,26 +18,40 @@
     
     <jsp:body>
     <h2>
-        <c:if test="${reclamacion['new']}">Nueva </c:if> Reclamaci髇
+       <c:choose>
+        <c:when test="${reclamacion['new']}">
+         Nueva Reclamaci贸n
+         </c:when>
+         <c:otherwise>
+         Responder reclamaci贸n
+         </c:otherwise>
+         </c:choose>
     </h2>
+    
     <form:form modelAttribute="reclamacion" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
-        
-        	<!-- La fecha de reclamaci髇 no la deber韆 poner el cliente, 
-        	deber韆 rellenarse autom醫icamente. -->
+        <c:choose>
+    	<c:when test="${reclamacion['new']}">
             <petclinic:inputField label="fecha de incidencia" name="fechaReclamacion"/>
-            <petclinic:inputField label="observaci髇" name="observacion"/>
+            <petclinic:inputField label="observaci贸n" name="observacion"/>
+             </c:when>
+              <c:otherwise>
+            fecha de incidencia: <form:input path="fechaReclamacion" name="fechaReclamacion" disabled="true"/>
+              <petclinic:inputField label="observaci贸n" name="observacion"/>
+               </c:otherwise>
+             </c:choose>
+            
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-           <%--      <c:choose>
-                    <c:when test="${reclamacion['new']}"> --%>
-                        <button class="btn btn-default" type="submit">A馻dir reclamaci髇</button>
-                    <%-- /c:when>
+                 <c:choose>
+                    <c:when test="${reclamacion['new']}">
+                        <button class="btn btn-default" type="submit">A帽adir reclamaci贸n</button>
+                     </c:when>
                     <c:otherwise>
-                        <button class="btn btn-default" type="submit">Actualizar reclamaci髇</button>
+                        <button class="btn btn-default" type="submit">Responder reclamaci贸n</button>
                     </c:otherwise>
-                </c:choose> --%>
+                </c:choose> 
             </div>
         </div>
     </form:form>

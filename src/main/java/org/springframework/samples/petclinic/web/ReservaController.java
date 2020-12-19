@@ -47,7 +47,7 @@ public class ReservaController {
 	}
 	
 	@InitBinder("reserva")
-	public void initPetBinder(WebDataBinder dataBinder) {
+	public void initReservaBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new ReservaValidator());
 	}
 	
@@ -68,8 +68,9 @@ public class ReservaController {
 
 	//mandar nueva reserva
 	@PostMapping(value = "/reservas/new")
-	public String processCreationForm(@Valid Reserva reserva, BindingResult result) {
+	public String processCreationForm(@Valid Reserva reserva, BindingResult result,ModelMap model) {
 		if (result.hasErrors()) {
+			model.put("reserva",reserva);
 			return "reservas/createOrUpdateReservaForm";
 		}
 		else {

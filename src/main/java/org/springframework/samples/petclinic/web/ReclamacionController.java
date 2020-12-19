@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
+import java.time.LocalDate;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ReclamacionController {
@@ -27,9 +29,9 @@ public class ReclamacionController {
 		this.reclamacionService = reclamacionService;
 	}
 	
-	@InitBinder
-	public void setAllowedFields(WebDataBinder dataBinder) {
-		dataBinder.setDisallowedFields("id");
+	@InitBinder("reclamacion")
+	public void initReclamacionBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new ReclamacionValidator());
 	}
 	
 	@GetMapping(value = { "/allReclamaciones" })
@@ -63,11 +65,12 @@ public class ReclamacionController {
 			} 
 		}
 		
-	/*	
-		//iniciar actualizacion
+		
+		//iniciar actualizacion -> Administrador responde reclamación
 		@GetMapping(value = "/reclamaciones/{reclamacionId}/edit")
 		public String initUpdateForm(@PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
 			Reclamacion reclamacion = this.reclamacionService.findReclamacionById(reclamacionId);
+		
 			model.put("reclamacion", reclamacion);
 			return "reclamaciones/createOrUpdateReclamacionForm";
 		}
@@ -78,6 +81,7 @@ public class ReclamacionController {
 				@PathVariable("reclamacionId") int reclamacionId) {
 			if (result.hasErrors()) {
 				return "reclamaciones/createOrUpdateReclamacionForm";
+				
 			}
 			else {
 				reclamacion.setId(reclamacionId);
@@ -86,7 +90,7 @@ public class ReclamacionController {
 			}
 		}
 		
-		//borrar reclamacion
+		/* //borrar reclamacion
 		@GetMapping(value = "/reclamaciones/{reclamacionId}/delete")
 		public String initDeleteReclamacion(@PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
 			Reclamacion reclamacion = this.reclamacionService.findReclamacionById(reclamacionId);

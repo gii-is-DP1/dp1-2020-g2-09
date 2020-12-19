@@ -55,7 +55,6 @@ public class CartaController {
 		this.IngredienteService = IngredienteService;
 	}
 
-	
 
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
@@ -409,30 +408,6 @@ public class CartaController {
 			return "redirect:/cartas/{cartaId}/VerCarta";
 		}
 		
-	/*	
-		//Aqui tenemos que añadir la pizza seleccionado a un nuevo pedido
-		@GetMapping("/pedidos/{pedidoId}/anadirPizza/new")
-		public String initCreationForm(Map<String, Object> model, @PathVariable("pedidoId") int pedidoId) {
-			Reclamacion reclamacion = new Reclamacion();
-			model.put("reclamacion", reclamacion);
-			return "reclamaciones/createOrUpdateReclamacionForm";
-		}
-				
-		//mandar nueva producto
-		@PostMapping(value = "/pedidos/{pedidoId}/anadirProducto/new")
-		public String processCreationForm(@PathVariable("pedidoId") int pedidoId, @Valid Reclamacion reclamacion, BindingResult result, ModelMap model) {
-			if (result.hasErrors()) {
-				model.put("reclamacion", reclamacion);
-				return "reclamaciones/createOrUpdateReclamacionForm";
-			}
-			else {
-				this.reclamacionService.saveReclamacion(reclamacion);
-				Integer reclamacionId=reclamacion.getId();
-				this.reclamacionService.añadirReclamacionAPedido(pedidoId, reclamacionId);
-				return "redirect:/allReclamaciones";
-			} 
-		}
-		*/
 		
 	//MODEL ATTRIBUTES
 	@ModelAttribute("tipoMasa")

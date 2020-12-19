@@ -21,6 +21,10 @@ public interface MesaRepository  extends CrudRepository<Mesa, Integer>{
 	
 	@Query(value="SELECT * from MESAS WHERE ID IN (SELECT MESAS_RESERVADAS FROM RESERVA_ASOCIADA WHERE RESERVA_ID = ?1)", nativeQuery= true)
 	List<Mesa> findByReserva(int reservas_id) throws DataAccessException;
+
+	@Query(value = "SELECT COUNT(*) FROM RESERVA_MESA WHERE MESAS_EN_RESERVA_ID= ?1",
+			nativeQuery = true)
+	List<Integer> CountMesa(Integer id) throws DataAccessException;
 	
 	 
 }

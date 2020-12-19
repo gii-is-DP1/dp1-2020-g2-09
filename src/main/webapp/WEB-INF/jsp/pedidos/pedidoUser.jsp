@@ -1,45 +1,80 @@
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<petclinic:layout pageName="pedido">
-
-    <h2>Mis pedidos</h2>
-
-
-    <table class="table table-striped">
+<petclinic:layout pageName="pedidos">
+    <h2>Mis Pedidos</h2>
+ 	<a href="/pedidos/new" class="btn btn-default">Nuevo Pedido</a>
+    <table id="pedidosTable" class="table table-striped">
+        <thead>
         <tr>
             <th>Precio</th>
-            <td><b><c:out value="${pedido.precio}"/></b></td>
-        </tr>
-        <tr>
             <th>Gastos de Envio</th>
-            <td><c:out value="${pedido.gastosEnvio}"/></td>
-        </tr>
-        <tr>
             <th>Direccion</th>
-            <td><c:out value="${pedido.direccion}"/></td>
-        </tr>
-        <tr>
             <th>Fecha de pedido</th>
-            <td><c:out value="${pedido.fechaPedido}"/></td>
-        </tr>
-        <tr>
             <th>Estado pedido</th>
-            <td><c:out value="${pedido.estadoPedido}"/></td>
-        </tr>
-        <tr>
             <th>Tipo Envio</th>
-            <td><c:out value="${pedido.tipoEnvio}"/></td>
-        </tr>
-        <tr>
             <th>Tipo Pago</th>
-            <td><c:out value="${pedido.tipoPago}"/></td>
         </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${pedidos.pedidosList}" var="pedido">
+            <tr>
+                <td>
+                    <c:out value="${pedido.precio}"/>
+                </td>
+                <td>
+                	<c:out value="${pedido.gastosEnvio}"/>
+             	</td>
+             	<td>
+             		<c:out value="${pedido.direccion}"/>
+             	</td>
+             	<td>
+             		<c:out value="${pedido.fechaPedido}"/>
+             	</td>
+             	<td>
+             		<c:out value="${pedido.estadoPedido}"></c:out>
+             	</td> 
+             	<td>
+             		<c:out value="${pedido.tipoEnvio}"></c:out>
+             	</td>
+             	<td>
+             		<c:out value="${pedido.tipoPago}"></c:out>
+             	</td>
+             	<td>					
+             		<spring:url value="/pedidos/{pedidoId}/allCartas" var="pedidoproductoUrl">
+	                        <spring:param name="pedidoId" value="${pedido.id}"/> 
+	                </spring:url>
+   					<a href="${fn:escapeXml(pedidoproductoUrl)}" class="btn btn-default">Añadir Productos</a>
+             	</td>
+             	<td>
+             		<spring:url value="/pedidos/{pedidoId}/edit" var="pedidoUrl">
+	                        <spring:param name="pedidoId" value="${pedido.id}"/>
+	                </spring:url>
+   					<a href="${fn:escapeXml(pedidoUrl)}" class="btn btn-default">Editar</a>
+             	</td>
+             	<td>
+             		<spring:url value="/pedidos/{pedidoId}/anadirReclamacion/new" var="pedidoreclamacionUrl">
+	                        <spring:param name="pedidoId" value="${pedido.id}"/>
+	                </spring:url>
+   					<a href=" ${fn:escapeXml(pedidoreclamacionUrl)}" class="btn btn-default">Nueva reclamacion</a>
+             	</td>
+             	<td>
+             		<spring:url value="/pedidos/{pedidoId}/delete" var="pedidoUrl2">
+	                        <spring:param name="pedidoId" value="${pedido.id}"/>
+	                </spring:url>
+             		<a href="${fn:escapeXml(pedidoUrl2)}" class="btn btn-default">Eliminar</a>
+             	</td>
+             	
+            </tr>
+        </c:forEach>
+        
+        </tbody>
     </table>
-
 </petclinic:layout>
