@@ -32,10 +32,12 @@ public class OtrosValidator implements Validator{
 		}
 		
 		if (tamaño==null) {
-			errors.rejectValue("tamaño","El tamaño no puede ser nulo", "El tamaño no puede ser nulo");
+			errors.rejectValue("tamano","El tamaño no puede ser nulo", "El tamaño no puede ser nulo");
 		}
 		
-		if (coste == 0 || coste<=0 ||coste==null) {
+		if (coste==null) {
+			errors.rejectValue("coste","El coste no puede ser negativo o menor que cero","El coste no puede ser negativo o menor que cero");
+		}else if (coste == 0 || coste<=0) {
 			errors.rejectValue("coste","El coste no puede ser negativo o menor que cero","El coste no puede ser negativo o menor que cero");
 		}
 	}
