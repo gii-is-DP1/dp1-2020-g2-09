@@ -26,16 +26,16 @@ public class IngredienteValidator  implements Validator{
 		LocalDate fechaCaducidad = ingrediente.getFechaCaducidad();
 		
 
-		if (tipo.equals(null)) {
-			errors.rejectValue("El tipo", REQUIRED+" no puede ser nulo", REQUIRED+" no puede ser nulo");
+		if (tipo==null) {
+			errors.rejectValue("tipo", REQUIRED+" no puede ser nulo", REQUIRED+" no puede ser nulo");
 		}
 
-		if (!StringUtils.hasLength(nombre) || nombre.length()>50 || nombre.length()<3 || nombre.equals(null)) {
-			errors.rejectValue("El nombre", REQUIRED+" debe tener entre 3 y 50 carácteres", REQUIRED+" debe tener entre 3 y 50 carácteres");
+		if (!StringUtils.hasLength(nombre) || nombre.length()>50 || nombre.length()<3 || nombre==null) {
+			errors.rejectValue("nombre", REQUIRED+" debe tener entre 3 y 50 carácteres", REQUIRED+" debe tener entre 3 y 50 carácteres");
 		}
 		
 		if (fechaCaducidad.isEqual(LocalDate.now())) {
-			errors.rejectValue("La fecha de caducidad debe de ser anterior que la actual", REQUIRED,
+			errors.rejectValue("fechaCaducidad", REQUIRED + "La fecha de caducidad debe de ser anterior que la actual",
 					REQUIRED + "La fecha de caducidad debe de ser anterior que la actual");
 		}
 		

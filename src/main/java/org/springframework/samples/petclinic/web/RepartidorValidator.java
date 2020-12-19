@@ -50,17 +50,17 @@ public class RepartidorValidator implements Validator{
 		}
 		//fecha de inicio de contrato
 		if (fechaInicioContrato.isAfter(LocalDate.now())) {
-			errors.rejectValue("La fecha debe de ser pasada", REQUIRED, REQUIRED + "La fecha debe de ser pasada");
+			errors.rejectValue("fechaInicioContrato", REQUIRED, REQUIRED + "La fecha debe de ser pasada");
 		}
 		
 		//fecha de fin de contrato
 		if (fechaFinContrato.isBefore(LocalDate.now())) {
-			errors.rejectValue("La fecha debe de ser futura o actual", REQUIRED, 
+			errors.rejectValue("fechaFinContrato", REQUIRED, 
 					REQUIRED + "La fecha debe de ser futura o actual");
 		}
 		
 		if (fechaFinContrato.isBefore(fechaInicioContrato)) {
-			errors.rejectValue("La fecha de fin de contrato debe ser posterior a la de inicio", REQUIRED, 
+			errors.rejectValue("fechaFinContrato", REQUIRED, 
 					REQUIRED + "La fecha de fin de contrato debe ser posterior a la de inicio");
 		}
 		

@@ -29,7 +29,7 @@ public class CocineroController {
 		this.cocineroService = cocineroService;
 	}
 
-	@InitBinder("cocinero")
+	@InitBinder("cocina")
 	public void initCocinaBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new CocineroValidator());
 	}

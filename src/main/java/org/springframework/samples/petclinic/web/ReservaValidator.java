@@ -27,15 +27,15 @@ public class ReservaValidator implements Validator {
 		tipoReserva tipoReserva = reserva1.getTipoReserva();
 
 		
-		if (numeroPersonas==0 || numeroPersonas<=0 || numeroPersonas.equals(null)) {
-			errors.rejectValue("El número de personas", REQUIRED+" debe ser un número real", REQUIRED+" y mayor que cero.");
+		if (numeroPersonas==0 || numeroPersonas<=0 || numeroPersonas==null) {
+			errors.rejectValue("numeroPersonas", REQUIRED+" debe ser un número real", REQUIRED+" y mayor que cero.");
 		}
 		if (numeroPersonas>6) {
-			errors.rejectValue(REQUIRED, "El numero de personas debe ser inferior a 6 debido a la pandemia del COVID");
+			errors.rejectValue("numeroPersonas", "El numero de personas debe ser inferior a 6 debido a la pandemia del COVID");
 		}
 		
-		if (numeroPersonas.equals(null) || fechaReserva==null || hora== null || tipoReserva==null) {
-			errors.rejectValue("No puede introducir una reserva con valores nulos.", REQUIRED, REQUIRED);
+		if (numeroPersonas==null || fechaReserva==null || hora== null || tipoReserva==null) {
+			errors.rejectValue("numeroPersonas","No puede introducir una reserva con valores nulos.", "No puede introducir una reserva con valores nulos.");
 		}
 		
 	}

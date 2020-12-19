@@ -39,7 +39,7 @@ public class CuentaValidator implements Validator{
 		if(nombre.length()<2 || nombre.length()>10) {
 			errors.rejectValue("nombre","El nombre debe tener de 2 a 10 caracteres.", "El nombre debe tener de 2 a 10 caracteres.");
 		}
-		if(nombre.length()<1 || nombre.equals(null)) {
+		if(nombre.length()<1 || nombre==null) {
 			errors.rejectValue("nombre", REQUIRED+" y entre 2 y 10 caracteres",
 					REQUIRED+" y entre 2 y 10 caracteres");
 		}
@@ -47,18 +47,18 @@ public class CuentaValidator implements Validator{
 		if(apellidos.length()<2 || apellidos.length()>10) {
 			errors.rejectValue("apellidos","El nombre debe tener de 2 a 20 caracteres.", "El nombre debe tener de 2 a 20 caracteres.");
 		}
-		if(apellidos.length()<1 || apellidos.equals(null)) {
+		if(apellidos.length()<1 || apellidos==null) {
 			errors.rejectValue("apellidos", REQUIRED+" y entre 2 y 20 caracteres",
 					REQUIRED+" y entre 2 y 20 caracteres");
 		}
 		//fechaNacimiento
-		if(fechaNac.equals(null)) {
+		if(fechaNac==null) {
 			errors.rejectValue("fechaNacimiento", "La fecha no puede estar vacía",
 					"La fecha no puede estar vacía");
 		}
 		//telefono
 		String telefonoString = telefono.toString();
-		if(telefono.equals(null) || telefonoString.length()<1) {
+		if(telefono==null || telefonoString.length()<1) {
 			errors.rejectValue("telefono", REQUIRED+" escriba un número válido",
 					REQUIRED+" escriba un número válido");
 		}
@@ -67,18 +67,18 @@ public class CuentaValidator implements Validator{
 					REQUIRED+" escriba un número válido");
 		}
 		//email
-		if(email.equals(null)) {
+		if(email==null) {
 			errors.rejectValue("email", "El email no puede estar vacío",
 					"El email no puede estar vacío");
 		}
 		//nombreUsuario
-		if(nombreUsuario.equals(null)) {
+		if(nombreUsuario==null) {
 			errors.rejectValue("nombreUsuario", "El nombre de usuario no puede estar vacío",
 					"El nombre de usuario no puede estar vacío");
 		}
 		//contraseña
-		if(contraseña.equals(null)) {
-			errors.rejectValue("nombreUsuario", "La contraseña no puede estar vacía",
+		if(contraseña==null) {
+			errors.rejectValue("contraseña", "La contraseña no puede estar vacía",
 					"La contraseña no puede estar vacía");
 		}
 	}

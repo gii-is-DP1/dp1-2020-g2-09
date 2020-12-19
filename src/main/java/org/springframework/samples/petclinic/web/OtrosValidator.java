@@ -24,19 +24,19 @@ public class OtrosValidator implements Validator{
 		Integer coste = otros.getCoste();
 		
 		if (!StringUtils.hasLength(nombre) || nombre.length()>50 || nombre.length()<3) {
-			errors.rejectValue("El nombre", REQUIRED+" debe tener entre 3 y 50 carácteres", REQUIRED+" debe tener entre 3 y 50 carácteres");
+			errors.rejectValue("nombre", REQUIRED+" debe tener entre 3 y 50 carácteres", REQUIRED+" debe tener entre 3 y 50 carácteres");
 		}
 
-		if (ingredientes.equals(null)) {
-			errors.rejectValue("Los ingredientes no pueden ser nulos", REQUIRED, REQUIRED);
+		if (ingredientes==null) {
+			errors.rejectValue("ingredientes","Los ingredientes no pueden ser nulos","Los ingredientes no pueden ser nulos");
 		}
 		
-		if (tamaño.equals(null)) {
-			errors.rejectValue("El tamaño no puede ser nulo", REQUIRED, REQUIRED);
+		if (tamaño==null) {
+			errors.rejectValue("tamaño","El tamaño no puede ser nulo", "El tamaño no puede ser nulo");
 		}
 		
-		if (coste == 0 || coste<=0 ||coste.equals(null)) {
-			errors.rejectValue("El coste no puede ser negativo o menor que cero", REQUIRED, REQUIRED);
+		if (coste == 0 || coste<=0 ||coste==null) {
+			errors.rejectValue("coste","El coste no puede ser negativo o menor que cero","El coste no puede ser negativo o menor que cero");
 		}
 	}
 
