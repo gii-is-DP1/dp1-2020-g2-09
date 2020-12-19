@@ -32,15 +32,15 @@ public class OfertaController {
 		this.ofertaService = ofertaService;
 	}
 
-//	@InitBinder("oferta")
-//	public void initOfertaBinder(WebDataBinder dataBinder) {
-//		dataBinder.setValidator(new OfertaValidator());
-//	}
-	
-	@InitBinder
-	public void setAllowedFields(WebDataBinder dataBinder) {
-		dataBinder.setDisallowedFields("id");
+	@InitBinder("oferta")
+	public void initOfertaBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new OfertaValidator());
 	}
+	
+//	@InitBinder
+//	public void setAllowedFields(WebDataBinder dataBinder) {
+//		dataBinder.setDisallowedFields("id");
+//	}
 	
 	@ModelAttribute("tamanoOferta")
 	public Collection<TamanoOferta> populateTamanoOferta() {
@@ -99,7 +99,7 @@ public class OfertaController {
 			model.put("oferta", oferta);
 			return "ofertas/createOrUpdateOfertaForm";
 		}
-		else {
+		else { 
 			OfertaValidator ofValidator = new OfertaValidator();
 			ValidationUtils.invokeValidator(ofValidator, oferta, result);
 			oferta.setId(ofertaId);

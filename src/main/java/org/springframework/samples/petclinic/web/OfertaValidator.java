@@ -28,27 +28,40 @@ public class OfertaValidator implements Validator {
 		LocalDate fechaInicial = oferta.getFechaInicial();
 		NivelSocio nivelSocio = oferta.getNivelSocio();
 		
-
-		if (tamaño.equals(null)) {
-			errors.rejectValue("El tamaño", REQUIRED+" no puede ser nulo", REQUIRED+" no puede ser nulo");
-		}
-
-		if (fechaFinal.isBefore(LocalDate.now())) {
-			errors.rejectValue("La fecha debe de ser futura", REQUIRED, REQUIRED + "La fecha debe de ser futura");
-		}
-		
-
-		
-		if (fechaInicial.isAfter(LocalDate.now())) {
-			errors.rejectValue("La fecha debe de ser pasada", REQUIRED, REQUIRED + "La fecha debe de ser pasada");
+		if(coste==null) {
+			errors.rejectValue("coste", REQUIRED, "Por favor, introduzca un coste");
+		} 
+		else if(coste == 0 || coste<=0 ) {
+			errors.rejectValue("coste", "El coste debe ser un número positivo mayor que cero",
+					"El coste debe ser un número positivo mayor que cero.");
 		}
 		
-		if (coste == 0 || coste<=0 || coste.equals(null)) {
-			errors.rejectValue("El coste no puede ser negativo o menor que cero", REQUIRED, REQUIRED);
+		if(fechaInicial==null) {
+			errors.rejectValue("fechaInicial", REQUIRED,
+					"Por favor, introduzca una fecha de comienzo de la oferta.");
+		} else if(fechaInicial.isBefore(LocalDate.now())) {
+			errors.rejectValue("fechaInicial", 
+					"La fecha de comienzo de la oferta no puede ser anterior al día de hoy.",
+					"La fecha de comienzo de la oferta no puede ser anterior al día de hoy.");
+		}
+	
+		
+		if(fechaFinal==null) {
+			errors.rejectValue("fechaFinal", REQUIRED,
+					"Por favor, introduzca una fecha de fin de la oferta.");
+			
+		} else if(fechaFinal.isBefore(fechaInicial)) {
+			errors.rejectValue("fechaFinal",
+					"La fecha de fin de la oferta no puede ser anterior a la fecha de comienzo.",
+					"La fecha de fin de la oferta no puede ser anterior a la fecha de comienzo.");
 		}
 		
-		if (nivelSocio.equals(null)) {
-			errors.rejectValue("El nivel de socio no puede ser nulo", REQUIRED, REQUIRED + "El nivel de socio no puede ser nulo");
+		if (tamaño==null) {
+			errors.rejectValue("tamanoOferta", REQUIRED,"Por favor, seleccione un tamaño.");
+		}
+		
+		if (nivelSocio==null) {
+			errors.rejectValue("nivelSocio", REQUIRED, "Por favor, seleccione un nivel de socio");
 		}
 		
 	}
