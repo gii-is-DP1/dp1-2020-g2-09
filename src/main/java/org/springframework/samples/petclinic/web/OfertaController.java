@@ -37,10 +37,10 @@ public class OfertaController {
 		dataBinder.setValidator(new OfertaValidator());
 	}
 	
-//	@InitBinder
-//	public void setAllowedFields(WebDataBinder dataBinder) {
-//		dataBinder.setDisallowedFields("id");
-//	}
+	@InitBinder
+	public void setAllowedFields(WebDataBinder dataBinder) {
+		dataBinder.setDisallowedFields("id");
+	}
 	
 	@ModelAttribute("tamanoOferta")
 	public Collection<TamanoOferta> populateTamanoOferta() {

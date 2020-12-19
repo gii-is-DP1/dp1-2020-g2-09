@@ -27,7 +27,7 @@ public class OfertaValidator implements Validator {
 		LocalDate fechaFinal = oferta.getFechaFinal();
 		LocalDate fechaInicial = oferta.getFechaInicial();
 		NivelSocio nivelSocio = oferta.getNivelSocio();
-		
+		 
 		if(coste==null) {
 			errors.rejectValue("coste", REQUIRED, "Por favor, introduzca un coste");
 		} 
