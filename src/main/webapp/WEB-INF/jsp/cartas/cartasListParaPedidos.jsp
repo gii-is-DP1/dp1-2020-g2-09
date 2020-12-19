@@ -27,10 +27,11 @@
                     <c:out value="${cartas.fechaCreacion}"/>
                 </td>
                 <td>
-                	<spring:url value="/MISMUERTOS" var="cartaUrl3">
+                	<spring:url value="/pedidos/{pedidoId}/cartas/{cartaId}/verCarta" var="cartaUrl99">
+                			<spring:param name="pedidoId" value="${pedido.id}"/>
 	                        <spring:param name="cartaId" value="${cartas.id}"/>
 	                </spring:url>
-             		<a href="${fn:escapeXml(cartaUrl3)}" class="btn btn-default">Acceder a la carta</a>
+             		<a href="${fn:escapeXml(cartaUrl99)}" class="btn btn-default">Acceder a la carta</a>
                 </td>
             </tr>
         

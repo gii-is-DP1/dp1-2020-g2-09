@@ -63,5 +63,19 @@ public class PedidoService {
 		return pedidoRepository.findTipoEnvio();
 	}
 	
+	@Transactional
+	public void añadirPizzaAPedido(int pedidoId, int pizzaId) throws DataAccessException {
+		pedidoRepository.añadirPizzaAPedido(pedidoId, pizzaId);
+	}
+	
+	@Transactional
+	public void añadirBebidaAPedido(int pedidoId, int bebidaId) throws DataAccessException {
+		pedidoRepository.añadirBebidaAPedido(pedidoId, bebidaId);
+	}
+	
+	@Transactional
+	public void añadirOtrosAPedido(int pedidoId, int otrosId) throws DataAccessException {
+		pedidoRepository.añadirOtrosAPedido(pedidoId, otrosId);
+	}
 
 }
