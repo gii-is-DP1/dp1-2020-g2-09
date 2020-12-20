@@ -54,4 +54,3 @@ public class ReservaValidator implements Validator {
 		
 	}
 }
-
