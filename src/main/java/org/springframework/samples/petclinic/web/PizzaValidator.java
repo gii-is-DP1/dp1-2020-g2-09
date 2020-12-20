@@ -34,9 +34,16 @@ public class PizzaValidator implements Validator{
 		}
 		
 		if (coste==null) {
-			errors.rejectValue("coste","El coste no puede ser negativo o menor que cero","El coste no puede ser negativo o menor que cero" );
-		}else if (coste == 0 || coste<=0) {
-			errors.rejectValue("coste","El coste no puede ser negativo o menor que cero","El coste no puede ser negativo o menor que cero" );
+			errors.rejectValue("coste","El precio no puede ser negativo o menor que cero","El precio no puede ser negativo o menor que cero" );
+		}else {
+			String costestring= String.valueOf(coste);
+			//if(!costestring.matches("[0-9]*")) {
+			/*if(costestring.matches("\\d*"))  {
+				errors.rejectValue("coste","El precio debe ser numérico","El precio debe ser numérico" );
+
+			}else*/ if (coste<=0) {
+				errors.rejectValue("coste","El precio no puede ser negativo o menor que cero","El precio no puede ser negativo o menor que cero" );
+		}
 		}
 	}
 
