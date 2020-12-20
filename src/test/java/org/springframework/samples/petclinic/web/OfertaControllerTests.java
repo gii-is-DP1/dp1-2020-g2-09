@@ -95,7 +95,6 @@ public class OfertaControllerTests {
 							//.andExpect(status().is3xxRedirection())
 							.andExpect(view().name("ofertas/createOrUpdateOfertaForm"));
 							//.andExpect(view().name("redirect:/allOfertas"));
-
 //
 //							.param("fechaInicial", "2021/11/12")
 //							.param("fechaFinal", "2022/11/02"))
