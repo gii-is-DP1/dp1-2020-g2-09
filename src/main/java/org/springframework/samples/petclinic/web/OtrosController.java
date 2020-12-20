@@ -38,11 +38,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 		this.OtrosService = OtroService;
 		this.IngredienteService = IngredienteService;
 	}
-	@InitBinder("otros")
+	/*@InitBinder("Otros")
 	public void initOtrosBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new OtrosValidator());
 	}
-	/*@InitBinder
+	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
 	}*/

@@ -50,7 +50,7 @@ public class CartaController {
 	public void initPizzaBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new PizzaValidator());
 	}
-	/*@InitBinder("otros")
+	/*@InitBinder("Otros")
 	public void initOtrosBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new OtrosValidator());
 	}*/
@@ -164,7 +164,7 @@ public class CartaController {
 			Otros otro = this.OtrosService.findOtrosById(otroId);
 			listaOtros.getOtrosList().add(otro);
 		}
-		model.put("otros", listaOtros);
+		model.put("otros", listaOtros); //puede que sea Otros y no otros???????????
 
 		
 		return "cartas/verCarta";

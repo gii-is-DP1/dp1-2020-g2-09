@@ -21,7 +21,9 @@ public class BebidaValidator implements Validator {
 		Integer coste = bebida.getCoste();
 		
 		// nombre validation
-		if (!StringUtils.hasLength(nombre) || nombre.length()>50 || nombre.length()<3) {
+		if (nombre ==null) {
+			errors.rejectValue("nombre", "El nombre debe tener entre 3 y 50 carácteres", "El nombre debe tener entre 3 y 50 carácteres");
+		}else if (nombre.length()>50 || nombre.length()<3) {
 			errors.rejectValue("nombre", "El nombre debe tener entre 3 y 50 carácteres", "El nombre debe tener entre 3 y 50 carácteres");
 		}
 
