@@ -44,7 +44,21 @@ public class CartaController {
 	private BebidaService BebidaService;
 
 	private IngredienteService IngredienteService;
-
+	
+	//validaciones--> si hay algun problema y he roto algo, lo siento (en principio lo he probado todo) :)
+	@InitBinder("pizza")
+	public void initPizzaBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new PizzaValidator());
+	}
+	/*@InitBinder("Otros")
+	public void initOtrosBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new OtrosValidator());
+	}*/
+	@InitBinder("bebida")
+	public void initBebidaBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new BebidaValidator());
+	}
+	
 	@Autowired
 	public CartaController(CartaService CartaService, PizzaService PizzaService,
 			OtrosService OtrosService, BebidaService BebidaService, IngredienteService IngredienteService) {
@@ -150,7 +164,7 @@ public class CartaController {
 			Otros otro = this.OtrosService.findOtrosById(otroId);
 			listaOtros.getOtrosList().add(otro);
 		}
-		model.put("otros", listaOtros);
+		model.put("otros", listaOtros); //puede que sea Otros y no otros???????????
 
 		
 		return "cartas/verCarta";
