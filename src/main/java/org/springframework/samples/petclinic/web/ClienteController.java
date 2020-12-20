@@ -40,15 +40,15 @@ public class ClienteController {
 		this.userService =  userService;
 	}
 
-	@InitBinder
+	/*@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
-	}
+	}*/
 	
-//	@InitBinder("cliente")
-//	public void initClienteBinder(WebDataBinder dataBinder) {
-//		dataBinder.setValidator(new CuentaValidator());
-//	}
+	@InitBinder("cuenta")
+	public void initCuentaBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new CuentaValidator());
+	}
 	
 	@GetMapping(value = { "/allCuentas" })
 	public String showCuentaList(Map<String, Object> model) {
