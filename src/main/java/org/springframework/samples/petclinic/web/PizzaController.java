@@ -37,10 +37,15 @@ public class PizzaController {
 		this.ingredienteService = ingredienteService;
 	}
 
-	@InitBinder
+	@InitBinder("pizza")
+	public void initPizzaBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new PizzaValidator());
+	}
+	
+	/*@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
-	}
+	}*/
 
 	@GetMapping(value = { "/allPizzas" })
 	public String showPizzaList(Map<String, Object> model) {

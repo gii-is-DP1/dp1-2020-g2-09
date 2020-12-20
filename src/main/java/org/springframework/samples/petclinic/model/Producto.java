@@ -20,13 +20,13 @@ public class Producto extends BaseEntity {
 	
 	@Column(name = "nombre")
 	@NotNull
-	@Size(min = 2, max = 255)
+	//@Size(min = 2, max = 255)
 	private String nombre;
 
 	@Column(name = "coste")
 	@NotNull
-	@Min(0)
-	@Max(100)
+	//@Min(0)
+	//@Max(100)
 	private Integer coste;
 	
 	@Column(name = "contador")
