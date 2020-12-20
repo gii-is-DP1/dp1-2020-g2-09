@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.petclinic.model.Oferta;
 import org.springframework.samples.petclinic.model.Reclamacion;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -113,13 +114,37 @@ public class ReclamacionServiceTests {
 		
 		
 	}
-		
+				
 		
 	}
 	
-	
-	
-	
-	
+	@Test
+	@Transactional
+	public void shouldUpdateReclamacion() {
+		 Reclamacion reclamacion = this.reclamacionService.findReclamacionById(1);
+		 String observacion = "nueva observación";
+		 reclamacion.setObservacion(observacion);
+	     this.reclamacionService.saveReclamacion(reclamacion);
+	     reclamacion = this.reclamacionService.findReclamacionById(1);
+	     assertThat(reclamacion.getObservacion()).isEqualTo(observacion);
+	 }
+
+	@Test
+	@Transactional
+	public void shouldNotUpdateReclamacionWithNewDate() {
+		 Reclamacion reclamacion = this.reclamacionService.findReclamacionById(1);
+			LocalDate newFecha = LocalDate.of(2020, 12, 20);
+			reclamacion.setFechaReclamacion(newFecha);
+			try{
+				this.reclamacionService.saveReclamacion(reclamacion);
+				//assertTrue(false);
+			}catch (Exception e) { //La fecha de incidencia no es modificable
+				assertTrue(true);
+			}
+			//assertTrue(false);
+	}
+
 }
+
+	
 
