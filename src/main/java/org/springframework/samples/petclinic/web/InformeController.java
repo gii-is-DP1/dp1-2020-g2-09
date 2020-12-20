@@ -25,10 +25,10 @@ import org.springframework.web.bind.annotation.InitBinder;
 @Controller
 public class InformeController {
 
-	
 	private final IngredienteService IngredienteService;
 	private final PizzaService PizzaService;
 	private final MesaService mesaService;
+	
 
 	@Autowired
 	public InformeController(IngredienteService IngredienteService, PizzaService PizzaService,MesaService mesaService) {
@@ -61,6 +61,7 @@ public class InformeController {
 		model.put("mapa", mapaOrdered);
 		return "informe/InformeIngredientesMasUsados";
 	}
+	
 	@GetMapping(value = "/informe/MesasMasUsadas")
 	public String informeMesasMasUsadas(Map<String, Object> model) {
 		List<Mesa> l = this.mesaService.findMesas();
