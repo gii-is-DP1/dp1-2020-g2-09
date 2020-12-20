@@ -118,6 +118,7 @@ public class ReclamacionServiceTests {
 		
 	}
 	
+	//Administrador responde reclamación
 	@Test
 	@Transactional
 	public void shouldUpdateReclamacion() {

@@ -168,6 +168,10 @@ public class OfertaServiceTests {
 //		oferta = this.ofertaService.findOfertaById(1);
 //		assertNull(oferta);
 		 
+		 
+		 //Me creo una oferta que no está linkeada a ningún pedido y así no
+		 //no da problemas al borrar oferta de un pedido.
+		 
 		 Oferta oferta = new Oferta();
 		 oferta.setId(100);
 		oferta.setCoste(12.1);
