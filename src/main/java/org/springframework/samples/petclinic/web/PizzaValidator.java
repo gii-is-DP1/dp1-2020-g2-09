@@ -11,7 +11,7 @@ import org.springframework.validation.Validator;
 @Component
 public class PizzaValidator implements Validator{
 
-	private static final String REQUIRED = "Requerido";
+	private static final String REQUIRED = "requerido";
 
 	@Override
 	public void validate(Object obj, Errors errors) {
@@ -21,10 +21,8 @@ public class PizzaValidator implements Validator{
 		TamanoProducto tamaño = pizza.getTamano();
 		Integer coste = pizza.getCoste();
 		
-		if (nombre == null) {
-			errors.rejectValue("nombre", "El nombre debe tener entre 3 y 50 carácteres", "El nombre debe tener entre 3 y 50 carácteres");
-		}else if (!StringUtils.hasLength(nombre) || nombre.length()>50 || nombre.length()<3) {
-			errors.rejectValue("nombre", "El nombre debe tener entre 3 y 50 carácteres", "El nombre debe tener entre 3 y 50 carácteres");
+		if (!StringUtils.hasLength(nombre) || nombre.length()>50 || nombre.length()<3) {
+			errors.rejectValue("El nombre", REQUIRED+" debe tener entre 3 y 50 carácteres", REQUIRED+" debe tener entre 3 y 50 carácteres");
 		}
 
 		if (tipoMasa==null) {
@@ -45,7 +43,6 @@ public class PizzaValidator implements Validator{
 
 			}else*/ if (coste<=0) {
 				errors.rejectValue("coste","El precio no puede ser negativo o menor que cero","El precio no puede ser negativo o menor que cero" );
-
 		}
 		}
 	}

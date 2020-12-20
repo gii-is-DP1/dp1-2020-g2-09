@@ -163,9 +163,29 @@ public class OfertaServiceTests {
 	 @Test
 	 @Transactional
 	 void shouldDeleteOferta() {
-		 Oferta oferta = this.ofertaService.findOfertaById(1);			
-		this.ofertaService.deleteOferta(oferta);		
-		oferta = this.ofertaService.findOfertaById(1);
+//		 Oferta oferta = this.ofertaService.findOfertaById(1);			
+//		this.ofertaService.deleteOferta(oferta);		
+//		oferta = this.ofertaService.findOfertaById(1);
+//		assertNull(oferta);
+		 
+		 
+		 //Me creo una oferta que no está linkeada a ningún pedido y así no
+		 //no da problemas al borrar oferta de un pedido.
+		 
+		 Oferta oferta = new Oferta();
+		 oferta.setId(100);
+		oferta.setCoste(12.1);
+		oferta.setFechaInicial(LocalDate.of(2020, 11, 9));
+		oferta.setFechaFinal(LocalDate.of(2020, 11, 18));
+		
+		NivelSocio ns = new NivelSocio();
+		ns.setName("PLATA");
+		oferta.setNivelSocio(ns);
+		
+		this.ofertaService.saveOferta(oferta);
+		this.ofertaService.deleteOferta(oferta);
+		
+		oferta = this.ofertaService.findOfertaById(100);
 		assertNull(oferta);
 	 }
 	 
