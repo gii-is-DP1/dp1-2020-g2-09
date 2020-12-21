@@ -11,7 +11,7 @@ import org.springframework.validation.Validator;
 @Component
 public class AdministradorValidator implements Validator{
 
-	private static final String REQUIRED = "requerido";
+	private static final String REQUIRED = "Requerido";
 	
 	@Override	
 	public boolean supports(Class<?> clazz) {
@@ -30,18 +30,16 @@ public class AdministradorValidator implements Validator{
 		
 		//nombre
 		if(nombre==null) {
-			errors.rejectValue("nombre", REQUIRED+" y entre 2 y 10 caracteres",
-					REQUIRED+" y entre 2 y 10 caracteres");
-		}else if(nombre.length()<2 || nombre.length()>10) {
-			errors.rejectValue("nombre","El nombre debe tener de 2 a 10 caracteres.", "El nombre debe tener de 2 a 10 caracteres.");
+			errors.rejectValue("nombre","El nombre debe estar entre 2 y 20 caracteres","El nombre  debe estar entre 2 y 20 caracteres");
+		}else if(nombre.length()<2 || nombre.length()>20) {
+			errors.rejectValue("nombre","El nombre debe tener de 2 a 20 caracteres.", "El nombre debe tener de 2 a 20 caracteres.");
 		}
 		
 		//apellidos
 		if(apellidos==null) {
-			errors.rejectValue("apellidos", REQUIRED+" y entre 2 y 20 caracteres",
-					REQUIRED+" y entre 2 y 20 caracteres");
-		}else if(apellidos.length()<2 || apellidos.length()>10) {
-			errors.rejectValue("apellidos","El nombre debe tener de 2 a 20 caracteres.", "El nombre debe tener de 2 a 20 caracteres.");
+			errors.rejectValue("apellidos", "El apellido debe estar entre 2 y 20 caracteres","El apellido debe estar entre 2 y 20 caracteres");
+		}else if(apellidos.length()<2 || apellidos.length()>20) {
+			errors.rejectValue("apellidos","El apellido debe estar entre 2 y 20 caracteres", "El apellido debe tener de 2 a 20 caracteres.");
 		}
 		
 		//fechaNacimiento
