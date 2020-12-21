@@ -7,11 +7,13 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Ingrediente;
+import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.Pizzas;
 import org.springframework.samples.petclinic.model.TamanoProducto;
 import org.springframework.samples.petclinic.model.tipoMasa;
 import org.springframework.samples.petclinic.service.IngredienteService;
+import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.samples.petclinic.service.PizzaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,11 +32,13 @@ public class PizzaController {
 
 	private final PizzaService pizzaService;
 	private final IngredienteService ingredienteService;
+	private final PedidoService pedidoService;
 
 	@Autowired
-	public PizzaController(PizzaService PizzaService, IngredienteService ingredienteService) {
+	public PizzaController(PizzaService PizzaService, IngredienteService ingredienteService, PedidoService pedidoService) {
 		this.pizzaService = PizzaService;
 		this.ingredienteService = ingredienteService;
+		this.pedidoService=pedidoService;
 	}
 
 	
@@ -110,6 +114,38 @@ public class PizzaController {
 		this.pizzaService.deletePizza(pizza);
 		return "redirect:/allPizzas"; 
 	}
+	
+	// editar pizzas de un pedido
+			@GetMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/{pizzaId}/edit")
+			public String actualizarPizza(@PathVariable("pedidoId") int pedidoId,@PathVariable("cartaId") int cartaId,
+					@PathVariable("pizzaId") int pizzaId, ModelMap model) {
+				Pizza pizza = this.pizzaService.findPizzaById(pizzaId);
+				Pedido pedido= this.pedidoService.findPedidoById(pedidoId);
+				model.put("pizza", pizza);
+				model.put("pedido", pedido);
+				model.put("cartaId", cartaId);
+				return "/pizzas/UpdatePizzaFormPedido";
+			}
+
+			// mandar actualizacion
+			@PostMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/{pizzaId}/edit")
+			public String processUpdatePizzaForm2(@Valid Pizza Pizza, BindingResult result,
+					@PathVariable("pizzaId") int pizzaId) {
+				if (result.hasErrors()) {
+					return "pizzas/UpdatePizzaFormPedido";
+				} else {
+					Pizza.setId(pizzaId);
+					Pizza.setCoste(Pizza.getCoste());
+					Pizza.setIngredientes(Pizza.getIngredientes());
+					Pizza.setNombre(Pizza.getNombre());
+					Pizza.setContador(Pizza.getContador());
+					PizzaValidator pizzaValidator = new PizzaValidator();
+					ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
+					System.out.println(Pizza);
+					this.pizzaService.savePizza(Pizza);
+					return "redirect:/allPizzas";
+				}
+			}
 
 	@ModelAttribute("tipoMasa")
     public Collection<tipoMasa> populateTipoMasa() {
