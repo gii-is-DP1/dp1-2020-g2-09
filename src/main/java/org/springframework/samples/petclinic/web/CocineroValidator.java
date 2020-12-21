@@ -33,16 +33,16 @@ public class CocineroValidator implements Validator {
 		
 		//nombre
 		 if(nombre==null) {
-			errors.rejectValue("nombre", REQUIRED+"no debe ser nulo", REQUIRED+" nombre no puede ser nulo");
+			errors.rejectValue("nombre", "El nombre no debe ser nulo", "El nombre no debe ser nulo");
 		}else if(nombre.length()<2 || nombre.length()>20) {
-			errors.rejectValue("nombre","El nombre debe tener de 2 a 20 caracteres.", "El nombre debe tener de 2 a 20 caracteres.");
+			errors.rejectValue("nombre","El nombre debe tener de 2 a 20 caracteres", "El nombre debe tener de 2 a 20 caracteres");
 		}
 		
 		//apellidos
 		if(apellidos==null) {
-			errors.rejectValue("apellidos", REQUIRED+" no debe ser nulo", REQUIRED+" apellido no debe ser nulo");
+			errors.rejectValue("apellidos","El apellido no debe ser nulo", "El apellido no debe ser nulo");
 		}else if(apellidos.length()<2 || apellidos.length()>20) {
-			errors.rejectValue("apellidos","El apellido debe tener de 2 a 30 caracteres.", "El apellido debe tener de 2 a 30 caracteres.");
+			errors.rejectValue("apellidos","El apellido debe tener de 2 a 20 caracteres", "El apellido debe tener de 2 a 20 caracteres");
 		}
 		
 		//fechaNacimiento
