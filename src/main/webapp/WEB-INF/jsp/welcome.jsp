@@ -39,7 +39,7 @@
      <a href="/allOfertas">H-004: Ofertas disponibles. Pruebas hechas.</a>
     </div>
    <sec:authorize access="hasAnyAuthority('cliente')"  >
-    		<a href="/cuentas/DetallesPerfil">H-005: Datos del cliente. Pruebas hechas.</a>
+    		<a href="/clientes/DetallesPerfil">H-005: Datos del cliente. Pruebas hechas.</a>
     	</sec:authorize>
      <div>
      	<sec:authorize access="hasAnyAuthority('cliente')"  >
