@@ -22,7 +22,7 @@ public class BebidaValidator implements Validator {
 		
 		// nombre validation
 		if (!StringUtils.hasLength(nombre) || nombre.length()>50 || nombre.length()<3) {
-			errors.rejectValue("nombre", REQUIRED+" debe tener entre 3 y 50 carácteres", REQUIRED+" debe tener entre 3 y 50 carácteres");
+			errors.rejectValue("nombre", "El nombre debe tener entre 3 y 50 carácteres", "El nombre  debe tener entre 3 y 50 carácteres");
 		}
 
 		if (carbonatada==null) {

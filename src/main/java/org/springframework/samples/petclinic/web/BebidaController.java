@@ -28,6 +28,11 @@ public class BebidaController {
 		this.bebidaService = bebidaService;
 	}
 
+	@InitBinder("bebida")
+	public void initBebidaBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new BebidaValidator());
+	}
+	
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");

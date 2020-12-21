@@ -45,6 +45,21 @@ public class CartaController {
 
 	private IngredienteService IngredienteService;
 
+	@InitBinder("pizza")
+	public void initPizzaBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new PizzaValidator());
+	}
+	
+	@InitBinder("bebida")
+	public void initBebidaBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new BebidaValidator());
+	}
+	
+	/*@InitBinder("Otros")
+	public void initOtrosBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new OtrosValidator());
+	}*/
+	
 	@Autowired
 	public CartaController(CartaService CartaService, PizzaService PizzaService,
 			OtrosService OtrosService, BebidaService BebidaService, IngredienteService IngredienteService) {

@@ -36,10 +36,10 @@ public class RepartidorController {
 		dataBinder.setValidator(new RepartidorValidator());
 	}
 	
-	/*@InitBinder
+	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
-	}*/
+	}
 	
 	@GetMapping(value = { "/allRepartidores" })
 	public String showRepartidoresList(Map<String, Object> model) {
