@@ -22,18 +22,15 @@ public class CartaValidator implements Validator {
 		Carta carta = (Carta) target;
 		String name = carta.getNombre();
 		// name validation
-		if (!StringUtils.hasLength(name) || name.length()>50 || name.length()<0) {
-			errors.rejectValue("Nombre", REQUIRED+"debe estar entre 3 y 50 caracteres", REQUIRED+" debe estar entre 3 y 50 caracteres");
-		}
-
-		// NOMBRE validation
 		if (carta.getNombre() == null) {
-			errors.rejectValue("Nombre", REQUIRED,REQUIRED);
+			errors.rejectValue("nombre", "El nombre debe estar entre 3 y 50 caracteres", "El nombre debe estar entre 3 y 50 caracteres");
+		}else if (name.length()>50 || name.length()<0) {
+			errors.rejectValue("nombre", "El nombre debe estar entre 3 y 50 caracteres", "El nombre debe estar entre 3 y 50 caracteres");
 		}
 
 		// FECHA validation
 		if (carta.getFechaCreacion() == null || carta.getFechaCreacion().isAfter(LocalDate.now())) {
-			errors.rejectValue("fecha", REQUIRED+"debe ser antes de la fecha actual",REQUIRED);
+			errors.rejectValue("fecha", "La fecha debe ser antes de la fecha actual","La fecha debe ser antes de la fecha actual");
 		}		
 		
 	}
