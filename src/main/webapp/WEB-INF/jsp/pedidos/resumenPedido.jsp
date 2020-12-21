@@ -90,6 +90,14 @@
              			</c:forEach>
              		</ul>
              	</td>
+             	<td>
+             		<spring:url value="/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/{pizzaId}/edit" var="editarPizza">
+             			<spring:param name="cartaId" value="${cartaId}"/>
+             			<spring:param name="pedidoId" value="${pedido.id}"/>
+						<spring:param name="pizzaId" value="${pizza.id}"/>
+				 	</spring:url>
+					<a href="${fn:escapeXml(editarPizza)}" class="btn btn-default">Editar</a>
+             	</td>
             </tr>
         </c:forEach>
         </tbody>
