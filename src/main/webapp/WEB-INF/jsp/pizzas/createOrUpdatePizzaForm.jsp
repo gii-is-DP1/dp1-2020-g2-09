@@ -26,7 +26,9 @@
 			
 			<petclinic:selectField name="tamano" label="Tamaño" names="${tamanyo}" size="3"/>
                      
-			<label for="precio">Precio </label>	<input type="number" id="precio" name="coste">
+			<!--  <label for="precio">Precio </label>	<input type="number" id="precio" name="coste">-->
+			<petclinic:input name="coste" label="Precio"/>
+			
             <petclinic:selectField name="ingredientes" label="ingredientes" names="${ingredientes}" size="3"/>
             
              <!--<petclinic:inputField label="contador" name="contador"/> -->

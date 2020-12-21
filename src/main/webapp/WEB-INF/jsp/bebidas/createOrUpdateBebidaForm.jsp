@@ -26,7 +26,7 @@
 			  <option value="NORMAL">Normal</option> 
 			  <option value="GRANDE" selected>Grande</option>
 			</select>
-            <petclinic:inputField label="Precio" name="coste"/>
+			<petclinic:input name="coste" label="Precio"/>
              <!--<petclinic:inputField label="contador" name="contador"/> -->
             <!--<petclinic:inputField label="Id" name="id"/> -->
         </div>

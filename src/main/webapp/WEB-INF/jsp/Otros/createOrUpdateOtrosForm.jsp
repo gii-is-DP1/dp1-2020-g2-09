@@ -13,7 +13,7 @@
     <form:form modelAttribute="Otros" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre del plato" name="nombre"/>
-            <petclinic:inputField label="Precio" name="coste"/>
+			<petclinic:input name="coste" label="Precio"/>
             <petclinic:inputField label="contador" name="contador"/>
             <petclinic:selectField name="ingredientes" label="ingredientes" names="${ingredientes}" size="3"/>
         </div>

@@ -40,10 +40,10 @@ public class ReservaController {
 		this.reservaService = reservaService;
 	}
 	
-	/*@InitBinder
+	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
-	}*/
+	}
 	
 	@InitBinder("reserva")
 	public void initReservaBinder(WebDataBinder dataBinder) {

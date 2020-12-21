@@ -41,7 +41,7 @@ public class CocineroValidator implements Validator {
 		//apellidos
 		if(apellidos==null) {
 			errors.rejectValue("apellidos", REQUIRED+" no debe ser nulo", REQUIRED+" apellido no debe ser nulo");
-		}else if(apellidos.length()<2 || apellidos.length()>30) {
+		}else if(apellidos.length()<2 || apellidos.length()>20) {
 			errors.rejectValue("apellidos","El apellido debe tener de 2 a 30 caracteres.", "El apellido debe tener de 2 a 30 caracteres.");
 		}
 		
