@@ -27,7 +27,7 @@ public class Cuenta extends BaseEntity {
 	
 	@Column(name = "nombre")
 	@NotNull
-	@Size(min = 2, max = 10)
+	@Size(min = 2, max = 20)
 	private String nombre;
 	
 	@Column(name = "apellidos")

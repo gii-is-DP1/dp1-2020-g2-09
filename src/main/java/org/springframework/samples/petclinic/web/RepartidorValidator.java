@@ -12,7 +12,7 @@ import org.springframework.validation.Validator;
 @Component
 public class RepartidorValidator implements Validator{
 
-	private static final String REQUIRED = "requerido";
+	private static final String REQUIRED = "Requerido";
 	
 
 	@Override
@@ -29,10 +29,9 @@ public class RepartidorValidator implements Validator{
 		
 		//nombre
 		if(nombre==null) {
-			errors.rejectValue("nombre", REQUIRED+" y entre 2 y 10 caracteres",
-					REQUIRED+" y entre 2 y 10 caracteres");
-		}else if(nombre.length()<2 || nombre.length()>10) {
-			errors.rejectValue("nombre","El nombre debe tener de 2 a 10 caracteres.", "El nombre debe tener de 2 a 10 caracteres.");
+			errors.rejectValue("nombre", "El nombre debe tener de 2 a 20 caracteres","El nombre debe tener de 2 a 20 caracteres");
+		}else if(nombre.length()<2 || nombre.length()>20) {
+			errors.rejectValue("nombre","El nombre debe tener de 2 a 20 caracteres", "El nombre debe tener de 2 a 20 caracteres");
 		}
 		
 		//apellidos
@@ -62,8 +61,8 @@ public class RepartidorValidator implements Validator{
 		 if (fechaFinContrato.isBefore(fechaInicioContrato)) {
 			errors.rejectValue("fechaFinContrato", REQUIRED, 
 					REQUIRED + "La fecha de fin de contrato debe ser posterior a la de inicio");
-		}
-		*/
+		}*/
+		
 		//teléfono
 		if(telefono==null ) {
 			errors.rejectValue("telefono", REQUIRED+" escriba un número válido",
