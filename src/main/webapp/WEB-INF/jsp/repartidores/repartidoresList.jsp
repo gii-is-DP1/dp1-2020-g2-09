@@ -23,7 +23,7 @@
         <a href="/repartidores/new" class="btn btn-default">Añadir repartidor</a>
         </thead>
         <tbody>
-        <c:forEach items="${repartidores.repartidoresList}" var="repartidor">
+        <c:forEach items="${listarepartidores.repartidoresList}" var="repartidor">
             <tr>
                 <td>
                     <c:out value="${repartidor.nombre}"/>

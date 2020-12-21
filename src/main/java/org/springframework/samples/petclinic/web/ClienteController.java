@@ -23,6 +23,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,13 +41,13 @@ public class ClienteController {
 		this.userService =  userService;
 	}
 
-	/*@InitBinder
+	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
-	}*/
+	}
 	
-	@InitBinder("cuenta")
-	public void initCuentaBinder(WebDataBinder dataBinder) {
+	@InitBinder("cliente")
+	public void initClienteBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new CuentaValidator());
 	}
 	
@@ -59,30 +60,30 @@ public class ClienteController {
 	}
 
 	//crear nuevo cliente
-	@GetMapping(value = "/cuentas/new")
+	@GetMapping(value = "/clientes/new")
 	public String initCreationForm(Map<String, Object> model) {
-		Cuenta cuenta = new Cuenta();
-		model.put("cuenta", cuenta);
+		Cliente cuenta = new Cliente();
+		model.put("cliente", cuenta);
 		return "clientes/createOrUpdateCuentaForm";
 	}
 
 	//mandar nuevo cliente
-	@PostMapping(value = "/cuentas/new")
+	@PostMapping(value = "/clientes/new")
 	public String processCreationForm(@Valid Cliente cliente, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
-			model.put("cuenta", cliente);
+			model.put("cliente", cliente);
 			return "clientes/createOrUpdateCuentaForm";
 		}
 		else {
-			CuentaValidator cuentaValidator = new CuentaValidator();
-			ValidationUtils.invokeValidator(cuentaValidator, cliente, result);
+//			CuentaValidator cuentaValidator = new CuentaValidator();
+//			ValidationUtils.invokeValidator(cuentaValidator, cliente, result);
 			this.clienteService.saveCliente(cliente);
 			return "redirect:/";
 		}
 	}
 	
 	//para ver los datos de mi perfil de cliente que ha iniciado sesión
-	@GetMapping("/cuentas/DetallesPerfil")
+	@GetMapping("/clientes/DetallesPerfil")
 	public ModelAndView showCliente() {
 		ModelAndView mav = new ModelAndView("clientes/clienteDetails");
 		Authentication auth = SecurityContextHolder
@@ -100,31 +101,30 @@ public class ClienteController {
 //	}
 
 	//iniciar actualizacion
-	@GetMapping(value = "/cuentas/{cuentaId}/edit")
+	@GetMapping(value = "/clientes/{cuentaId}/edit")
 	public String initUpdateForm(@PathVariable("cuentaId") int cuentaId, ModelMap model) {
 		Cliente cuenta = this.clienteService.findCuentaById(cuentaId);
-		model.put("cuenta", cuenta);
+		model.put("cliente", cuenta);
 		return "clientes/createOrUpdateCuentaForm";
 	}
 	
 	//mandar actualizacion
-	@PostMapping(value = "/cuentas/{cuentaId}/edit")
+	@PostMapping(value = "/clientes/{cuentaId}/edit")
 	public String processUpdateCuentaForm(@Valid Cliente cliente, BindingResult result,
 			@PathVariable("cuentaId") int cuentaId, ModelMap model) {
 		if (result.hasErrors()) {
-			//model.put("cuenta", cliente);
+			model.put("cliente", cliente);
 			return "clientes/createOrUpdateCuentaForm";
 		}
 		else {
 			cliente.setId(cuentaId);
 			this.clienteService.saveCliente(cliente);
-			int i =0;
 			return "clientes/clienteDetails";
 		}
 	}
 	
 	//borrar cliente
-	@GetMapping(value = "/cuentas/{cuentaId}/delete")
+	@GetMapping(value = "/clientes/{cuentaId}/delete")
 	public String initDeleteCuenta(@PathVariable("cuentaId") int cuentaId, ModelMap model) {
 		Cliente cliente = this.clienteService.findCuentaById(cuentaId);
 		this.clienteService.deleteCliente(cliente);
