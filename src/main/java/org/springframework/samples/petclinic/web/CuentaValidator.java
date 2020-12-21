@@ -13,7 +13,7 @@ import org.springframework.validation.Validator;
 @Component
 public class CuentaValidator implements Validator{
 
-	private static final String REQUIRED = "requirido";
+	private static final String REQUIRED = "Requirido";
 	
 	/*@Autowired
 	private ClienteService clienteService;*/
@@ -52,28 +52,33 @@ public class CuentaValidator implements Validator{
 		if(fechaNacimiento==null) {
 			errors.rejectValue("fechaNacimiento", "La fecha no puede estar vacía","La fecha no puede estar vacía");
 		}
-		//telefono
-		
-		if(telefono==null) {
-			errors.rejectValue("telefono", REQUIRED+" escriba un número válido",
-					REQUIRED+" escriba un número válido");
-		}else {
-			String telefonoString = telefono.toString();
-			/*if(telefonoString.matches("[0-9]*")) {
-				errors.rejectValue("telefono", REQUIRED+" escriba un número válido",REQUIRED+" escriba un número válido");
-			}else*/ if(telefonoString.length()!=9 || telefonoString.length()<1) {
-				errors.rejectValue("telefono", REQUIRED+" escriba un número válido",REQUIRED+" escriba un número válido");
-			}
-		}
 		
 		//email
 		if(email==null) {
-			errors.rejectValue("email", "El email no puede estar vacío","El email no puede estar vacío");
+			errors.rejectValue("email", "El email no puede estar vacío",
+					"El email no puede estar vacío");
 		}
 		//nombreUsuario
 		if(nombreUsuario==null) {
-			errors.rejectValue("nombreUsuario", "El nombre de usuario no puede estar vacío","El nombre de usuario no puede estar vacío");
+			errors.rejectValue("username", "El nombre de usuario no puede estar vacío",
+					"El nombre de usuario no puede estar vacío");
+		} 
+		if(contraseña==null) {
+			errors.rejectValue("password", "La contraseña de usuario no puede estar vacía",
+					"La contraseña de usuario no puede estar vacía");
 		}
+				
+		//telefono
+		if(telefono==null) {
+			errors.rejectValue("telefono", REQUIRED+" escriba un número válido",
+					REQUIRED+" escriba un número válido");
+		}else if(telefono<100000000 || telefono>999999999) {
+			errors.rejectValue("telefono", REQUIRED+" escriba un número válido",
+			REQUIRED+" escriba un número válido");
+		}
+		
+		
+		
 
 		
 	}

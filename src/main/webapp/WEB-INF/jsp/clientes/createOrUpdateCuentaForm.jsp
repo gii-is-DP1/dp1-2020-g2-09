@@ -17,24 +17,25 @@
     </jsp:attribute>
     <jsp:body>
     <h2>
-        <c:if test="${cuenta['new']}">Nueva </c:if> Cuenta
+        <c:if test="${cliente['new']}">Nueva </c:if> Cuenta
     </h2>
-    <form:form modelAttribute="cuenta" class="form-horizontal" id="add-owner-form">
+    <form:form modelAttribute="cliente" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
-        	<input type="hidden" name="id" value="${cuenta.id}"/>
+        	<input type="hidden" name="id" value="${cliente.id}"/>
             <petclinic:inputField label="Nombre" name="nombre"/>
             <petclinic:inputField label="Apellidos" name="apellidos"/>
             <petclinic:inputField label="Fecha Nacimiento" name="fechaNacimiento"/>
             <petclinic:inputField label="Telefono" name="telefono"/>
             <petclinic:inputField label="Email" name="email" />
-            <petclinic:inputField label="Username" name="user.username"/>
-            <petclinic:inputField label="Password" name="user.password"/>
+            <petclinic:inputField label="Nombre Usuario" name="user.username"/>
+            <petclinic:inputField label="Contraseña" name="user.password"/>
+            <!-- <input type="date" value="fechaAlta">  -->
             <!--<petclinic:inputField label="Id" name="id" />-->
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
-                    <c:when test="${cuenta['new']}">
+                    <c:when test="${cliente['new']}">
                         <button class="btn btn-default" type="submit">Registrarse</button>
                     </c:when>
                     <c:otherwise>

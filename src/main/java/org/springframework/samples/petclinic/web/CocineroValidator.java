@@ -81,7 +81,7 @@ public class CocineroValidator implements Validator {
 		}
 		//nombreUsuario
 		if(nombreUsuario==null) {
-			errors.rejectValue("nombreUsuario", "El nombre de usuario no puede estar vacío", "El nombre de usuario no puede estar vacío");
+			errors.rejectValue("user.username", "El nombre de usuario no puede estar vacío", "El nombre de usuario no puede estar vacío");
 		}
 	}
 	

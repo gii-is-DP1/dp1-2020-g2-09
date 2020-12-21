@@ -31,7 +31,7 @@ public class RepartidorController {
 		this.repartidorService = repartidorService;
 	}
 
-	@InitBinder("repartidor")
+	@InitBinder("repartidores")
 	public void initrepartidorBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new RepartidorValidator());
 	}
@@ -45,7 +45,7 @@ public class RepartidorController {
 	public String showRepartidoresList(Map<String, Object> model) {
 		Repartidores repartidores = new Repartidores();
 		repartidores.getRepartidoresList().addAll(this.repartidorService.findRepartidores());
-		model.put("repartidores", repartidores);
+		model.put("listarepartidores", repartidores);
 		return "repartidores/repartidoresList";
 	}
 
@@ -86,12 +86,13 @@ public class RepartidorController {
 	public String processUpdateCocineroForm(@Valid Repartidor repartidor, BindingResult result,
 			@PathVariable("repartidorId") int repartidorId, ModelMap model) {
 		if (result.hasErrors()) { 
+			//repartidor.setId(repartidorId);
 			model.put("repartidores", repartidor);
 			return "repartidores/createOrUpdateRepartidorForm";
 		}
 		else {
-			RepartidorValidator repValidator = new RepartidorValidator();
-			ValidationUtils.invokeValidator(repValidator, repartidor, result);
+//			RepartidorValidator repValidator = new RepartidorValidator();
+//			ValidationUtils.invokeValidator(repValidator, repartidor, result);
 			repartidor.setId(repartidorId);
 			this.repartidorService.saveRepartidor(repartidor);
 			return "redirect:/allRepartidores";

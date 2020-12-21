@@ -147,10 +147,10 @@
     
     <h3>Otros</h3>
     <sec:authorize access="hasAnyAuthority('administrador')"  >
-	    <spring:url value="/cartas/{cartaId}/otros" var="listaOtros">
+	    <spring:url value="/cartas/{cartaId}/otros" var="listaOtrosVer">
 		         <spring:param name="cartaId" value="${cartaId}"/> 
 		    </spring:url>
-		    <a href="${fn:escapeXml(listaOtros)}" class="btn btn-default">Añadir otro a la carta</a>
+		    <a href="${fn:escapeXml(listaOtrosVer)}" class="btn btn-default">Añadir otro a la carta</a>
 	</sec:authorize>
     <table id="otrosTableCarta" class="table table-striped">
         <thead>
@@ -162,7 +162,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${otros.otrosList}" var="otro">
+        <c:forEach items="${listaOtros.otrosList}" var="otro">
             <tr>
                 <td>
                     <c:out value="${otro.nombre}"/>

@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.sun.istack.NotNull;
+
 import lombok.Data;
 
 @Data
@@ -17,6 +19,7 @@ public class User{
 	@Id
 	String username;
 	
+	@NotNull
 	String password;
 	
 	boolean enabled;

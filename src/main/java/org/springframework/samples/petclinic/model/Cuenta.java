@@ -49,6 +49,7 @@ public class Cuenta extends BaseEntity {
 	
 	@OneToOne(cascade = CascadeType.PERSIST)//crea un usuario para una sola cuenta
     @JoinColumn(name = "usuario", referencedColumnName = "username")
+	@NotNull
 	private User user;
 	
 	@Column(name = "email")
