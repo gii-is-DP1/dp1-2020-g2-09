@@ -76,7 +76,7 @@ class ReclamacionControllerTests {
 		
 		
 		r.setId(3); 
-		r.setFechaReclamacion(LocalDate.of(2020, 11, 24));
+		//r.setFechaReclamacion(LocalDate.of(2020, 11, 24));
 		r.setObservacion("aaaaa");
 		
 		given(this.reclamacionService.findReclamaciones()).willReturn(Lists.newArrayList(r));
@@ -111,7 +111,7 @@ class ReclamacionControllerTests {
 	void testProcessCreationFormHasErrors() throws Exception {
 		mockMvc.perform(post("/pedidos/{pedidoId}/anadirReclamacion/new", TEST_PEDIDO_ID)
 							.with(csrf())
-							.param("fechaReclamacion", "2020/12/25")
+							//.param("fechaReclamacion", "2020/12/25")
 							.param("observacion", "aaaaaaaaaaaaaaaaaa"))
 				.andExpect(model().attributeHasErrors("reclamacion"))
 				.andExpect(view().name("reclamaciones/createOrUpdateReclamacionForm"));
@@ -130,7 +130,7 @@ class ReclamacionControllerTests {
 	void testProcessUpdateFormSuccess() throws Exception {
 		mockMvc.perform(post("/reclamaciones/{reclamacionId}/edit", TEST_RECLAMACION_ID)
 							.with(csrf())
-							.param("fechaReclamacion", "2020/11/24")
+							//.param("fechaReclamacion", "2020/11/24")
 							.param("observacion", "pizza muy cara"))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/allReclamaciones"));
@@ -141,7 +141,7 @@ class ReclamacionControllerTests {
 	void testProcessUpdateFormHasErrors() throws Exception {
 		mockMvc.perform(post("/reclamaciones/{reclamacionId}/edit", TEST_RECLAMACION_ID)
 							.with(csrf())
-							.param("fechaReclamacion", "2020/12/25")
+							//.param("fechaReclamacion", "2020/12/25")
 							.param("observacion", "otra reclamacion"))
 				//.andExpect(model().attributeHasErrors("reclamacion"))
 				.andExpect(view().name("reclamaciones/createOrUpdateReclamacionForm"));

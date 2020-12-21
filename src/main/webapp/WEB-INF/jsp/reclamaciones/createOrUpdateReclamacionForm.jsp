@@ -32,12 +32,15 @@
         <div class="form-group has-feedback">
         <c:choose>
     	<c:when test="${reclamacion['new']}">
-            <petclinic:inputField label="fecha de incidencia" name="fechaReclamacion"/>
+            <%-- <petclinic:inputField label="fecha de incidencia" name="fechaReclamacion"/> --%>
             <petclinic:inputField label="observación" name="observacion"/>
+             <form:input type="hidden" path="respuesta" label="respuesta" name="respuesta"/>
              </c:when>
               <c:otherwise>
-            fecha de incidencia: <form:input path="fechaReclamacion" name="fechaReclamacion" disabled="true"/>
-              <petclinic:inputField label="observación" name="observacion"/>
+              <!-- Revisar -->
+            <%-- <form:input type="hidden" path="fechaReclamacion" name="fechaReclamacion"/> --%>
+            <form:input type="hidden" path="observacion" label="observacion" name="observacion"/>
+              <petclinic:inputField label="respuesta" name="respuesta"/>
                </c:otherwise>
              </c:choose>
             
