@@ -2,10 +2,8 @@ package org.springframework.samples.petclinic.web;
 
 import java.time.LocalDate;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Cuenta;
 import org.springframework.samples.petclinic.model.User;
-import org.springframework.samples.petclinic.service.ClienteService;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -60,11 +58,12 @@ public class CuentaValidator implements Validator{
 		}
 		//nombreUsuario
 		if(nombreUsuario==null) {
-			errors.rejectValue("username", "El nombre de usuario no puede estar vacío",
+			errors.rejectValue("user.username", "El nombre de usuario no puede estar vacío",
 					"El nombre de usuario no puede estar vacío");
 		} 
+		
 		if(contraseña==null) {
-			errors.rejectValue("password", "La contraseña de usuario no puede estar vacía",
+			errors.rejectValue("user.password", "La contraseña de usuario no puede estar vacía",
 					"La contraseña de usuario no puede estar vacía");
 		}
 				
@@ -76,10 +75,6 @@ public class CuentaValidator implements Validator{
 			errors.rejectValue("telefono", REQUIRED+" escriba un número válido",
 			REQUIRED+" escriba un número válido");
 		}
-		
-		
-		
-
 		
 	}
 

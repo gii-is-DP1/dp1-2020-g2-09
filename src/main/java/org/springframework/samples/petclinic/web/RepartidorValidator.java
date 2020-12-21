@@ -20,8 +20,8 @@ public class RepartidorValidator implements Validator{
 		Repartidor repartidor = (Repartidor) obj;
 		String apellidos = repartidor.getApellidos();
 		String email= repartidor.getEmail();
-		LocalDate fechaFinContrato = repartidor.getFechaFinContrato();
-		LocalDate fechaInicioContrato = repartidor.getFechaInicioContrato();
+//		LocalDate fechaFinContrato = repartidor.getFechaFinContrato();
+//		LocalDate fechaInicioContrato = repartidor.getFechaInicioContrato();
 		LocalDate fechaNacimiento =repartidor.getFechaNacimiento();
 		String nombre = repartidor.getNombre();
 		Integer telefono = repartidor.getTelefono();
@@ -63,16 +63,13 @@ public class RepartidorValidator implements Validator{
 					REQUIRED + "La fecha de fin de contrato debe ser posterior a la de inicio");
 		}*/
 		
-		//teléfono
-		if(telefono==null ) {
+		//telefono
+		if(telefono==null) {
 			errors.rejectValue("telefono", REQUIRED+" escriba un número válido",
 					REQUIRED+" escriba un número válido");
-		}else  {
-			String telefonoString = telefono.toString();
-			if(telefonoString.length()!=9|| telefonoString.length()<1) {
-				errors.rejectValue("telefono", REQUIRED+" escriba un número válido",
-						REQUIRED+" escriba un número válido");
-			}
+		}else if(telefono<100000000 || telefono>999999999) {
+			errors.rejectValue("telefono", REQUIRED+" escriba un número válido",
+			REQUIRED+" escriba un número válido");
 		}
 		
 		//email

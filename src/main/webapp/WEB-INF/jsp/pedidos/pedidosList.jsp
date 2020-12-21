@@ -28,8 +28,13 @@
                     <c:out value="${pedido.precio}"/>
                 </td>
                 <td>
-                	<c:out value="${pedido.gastosEnvio}"/>
-             	</td>
+                <c:if test="${pedido.tipoEnvio == 'DOMICILIO'}">
+            		<c:out value="3.5"/>
+            	</c:if>
+           		<c:if test="${pedido.tipoEnvio == 'RECOGER EN TIENDA'}">
+            		<c:out value="0.0"/>
+           		</c:if>
+           		</td>
              	<td>
              		<c:out value="${pedido.direccion}"/>
              	</td>

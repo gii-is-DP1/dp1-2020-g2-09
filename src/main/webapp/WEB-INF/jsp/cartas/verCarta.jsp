@@ -60,8 +60,9 @@
              	</td>
              	<td>
              		<sec:authorize access="hasAnyAuthority('cliente')"  >
-                    <spring:url value="/pedidos/{pedidoId}/anadirPizza/{pizzaId}" var="pedidoPizzaUrl">
+                    <spring:url value="/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirPizza/{pizzaId}" var="pedidoPizzaUrl">
                     		<spring:param name="pedidoId" value="${pedido.id}"/>
+                    		<spring:param name="cartaId" value="${cartaId}"/>
 	                        <spring:param name="pizzaId" value="${pizza.id}"/>
 	                </spring:url>
    					<a href=" ${fn:escapeXml(pedidoPizzaUrl)}" class="btn btn-default">Añadir Pizza</a>
@@ -123,8 +124,9 @@
              	</td> -->  
              	<td>
              		<sec:authorize access="hasAnyAuthority('cliente')"  >
-                    <spring:url value="/pedidos/{pedidoId}/anadirBebida/{bebidaId}" var="pedidoBebidaUrl">
+                    <spring:url value="/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirBebida/{bebidaId}" var="pedidoBebidaUrl">
                     		<spring:param name="pedidoId" value="${pedido.id}"/>
+                    		<spring:param name="cartaId" value="${cartaId}"/>
 	                        <spring:param name="bebidaId" value="${bebida.id}"/>
 	                </spring:url>
    					<a href=" ${fn:escapeXml(pedidoBebidaUrl)}" class="btn btn-default">Añadir Bebida</a>
@@ -184,8 +186,9 @@
              	</td>
              	<td>
              		<sec:authorize access="hasAnyAuthority('cliente')"  >
-                    <spring:url value="/pedidos/{pedidoId}/anadirOtros/{otrosId}" var="pedidoOtrosUrl">
+                    <spring:url value="/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirOtros/{otrosId}" var="pedidoOtrosUrl">
                     		<spring:param name="pedidoId" value="${pedido.id}"/>
+                    		<spring:param name="cartaId" value="${cartaId}"/>
 	                        <spring:param name="otrosId" value="${otro.id}"/>
 	                </spring:url>
    					<a href=" ${fn:escapeXml(pedidoOtrosUrl)}" class="btn btn-default">Añadir</a>

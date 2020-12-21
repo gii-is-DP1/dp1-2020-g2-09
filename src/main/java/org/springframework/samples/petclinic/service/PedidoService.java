@@ -78,4 +78,18 @@ public class PedidoService {
 		pedidoRepository.añadirOtrosAPedido(pedidoId, otrosId);
 	}
 
+	@Transactional
+	public Double cogerPrecioPizza(int pizzaId) {
+		return pedidoRepository.cogerPrecioPizza(pizzaId);
+	}
+	
+	@Transactional
+	public Double cogerPrecioBebida(int bebidaId) {
+		return pedidoRepository.cogerPrecioBebida(bebidaId);
+	}
+
+	@Transactional
+	public Double cogerPrecioOtros(int otrosId) {
+		return pedidoRepository.cogerPrecioOtros(otrosId);
+	}
 }
