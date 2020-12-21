@@ -171,11 +171,12 @@ INSERT INTO RESERVAS VALUES(8,'2020-07-12','20:34:09',2,1);
 INSERT INTO RESERVAS VALUES(9,'2020-05-29','10:34:09',5,1);
 INSERT INTO RESERVAS VALUES(10,'2020-07-12','20:34:09',2,1);
 
-INSERT INTO RECLAMACIONES(fecha_reclamacion, observacion)
-VALUES('2020-06-27', 'Había un hueso de aceituna en mi pizza. ¿Qué tipo de broma es esta?');
+INSERT INTO RECLAMACIONES(observacion, respuesta)
+VALUES('Había un hueso de aceituna en mi pizza. ¿Qué tipo de broma es esta?', 'Lo sentimos mucho');
 
-INSERT INTO RECLAMACIONES(fecha_reclamacion, observacion)
-VALUES('2020-11-15', 'Mi pizza carbonara llevaba 1 sola unidad de champiñón.');
+INSERT INTO RECLAMACIONES(observacion, respuesta)
+VALUES('Mi pizza carbonara llevaba 1 sola unidad de champiñón.', 
+'');
 
 INSERT INTO MESAS VALUES(1,6);
 INSERT INTO MESAS VALUES(2,6);

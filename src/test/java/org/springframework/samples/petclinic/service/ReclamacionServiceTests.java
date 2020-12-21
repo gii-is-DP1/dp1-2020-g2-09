@@ -27,7 +27,7 @@ public class ReclamacionServiceTests {
 
 		Reclamacion reclamacion = new Reclamacion();
 		reclamacion.setObservacion("La pizza no llevaba queso");
-		reclamacion.setFechaReclamacion((LocalDate.of(2020, 11, 27)));               
+	//	reclamacion.setFechaReclamacion((LocalDate.of(2020, 11, 27)));               
                 
 		this.reclamacionService.saveReclamacion(reclamacion);
 		Reclamacion reclamacionEncontrada = this.reclamacionService.
@@ -41,7 +41,7 @@ public class ReclamacionServiceTests {
 	public void shouldThrowExceptionInsertingFechaReclamacionAfterCurrentDate(){
 		Reclamacion reclamacion = new Reclamacion();
 		reclamacion.setObservacion("La pizza no llevaba queso");
-		reclamacion.setFechaReclamacion((LocalDate.of(2020, 11, 29)));
+		//reclamacion.setFechaReclamacion((LocalDate.of(2020, 11, 29)));
 		
 		try{
 			this.reclamacionService.saveReclamacion(reclamacion);
@@ -60,7 +60,7 @@ public class ReclamacionServiceTests {
 	public void shouldThrowExceptionInsertingShortObservacion() {
 		Reclamacion reclamacion = new Reclamacion();
 		reclamacion.setObservacion("a");
-		reclamacion.setFechaReclamacion((LocalDate.of(2020, 11, 27)));
+		//reclamacion.setFechaReclamacion((LocalDate.of(2020, 11, 27)));
 		
 		try{
 			this.reclamacionService.saveReclamacion(reclamacion);
@@ -80,7 +80,7 @@ public class ReclamacionServiceTests {
 	@Transactional
 	public void shouldThrowExceptionNullObservacion() {
 		Reclamacion reclamacion = new Reclamacion();
-		reclamacion.setFechaReclamacion((LocalDate.of(2020, 11, 27)));
+		//reclamacion.setFechaReclamacion((LocalDate.of(2020, 11, 27)));
 		
 		try{
 			this.reclamacionService.saveReclamacion(reclamacion);
@@ -101,7 +101,7 @@ public class ReclamacionServiceTests {
 		
 		Reclamacion reclamacion = new Reclamacion();
 		reclamacion.setObservacion("");
-		reclamacion.setFechaReclamacion((LocalDate.of(2020, 11, 27)));
+		//reclamacion.setFechaReclamacion((LocalDate.of(2020, 11, 27)));
 		
 		try{
 			this.reclamacionService.saveReclamacion(reclamacion);
@@ -130,20 +130,20 @@ public class ReclamacionServiceTests {
 	     assertThat(reclamacion.getObservacion()).isEqualTo(observacion);
 	 }
 
-	@Test
-	@Transactional
-	public void shouldNotUpdateReclamacionWithNewDate() {
-		 Reclamacion reclamacion = this.reclamacionService.findReclamacionById(1);
-			LocalDate newFecha = LocalDate.of(2020, 12, 20);
-			reclamacion.setFechaReclamacion(newFecha);
-			try{
-				this.reclamacionService.saveReclamacion(reclamacion);
-				//assertTrue(false);
-			}catch (Exception e) { //La fecha de incidencia no es modificable
-				assertTrue(true);
-			}
-			//assertTrue(false);
-	}
+//	@Test
+//	@Transactional
+//	public void shouldNotUpdateReclamacionWithNewDate() {
+//		 Reclamacion reclamacion = this.reclamacionService.findReclamacionById(1);
+//			LocalDate newFecha = LocalDate.of(2020, 12, 20);
+//			//reclamacion.setFechaReclamacion(newFecha);
+//			try{
+//				this.reclamacionService.saveReclamacion(reclamacion);
+//				//assertTrue(false);
+//			}catch (Exception e) { //La fecha de incidencia no es modificable
+//				assertTrue(true);
+//			}
+//			//assertTrue(false);
+//	}
 
 }
 
