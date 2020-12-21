@@ -29,7 +29,7 @@
             <petclinic:inputField label="Email" name="email" />
             <petclinic:inputField label="Nombre Usuario" name="user.username"/>
             <petclinic:inputField label="Contraseña" name="user.password"/>
-            <!-- <input type="date" value="fechaAlta">  -->
+            <!--  <input type="hidden" name = "fechaAlta" value="fechaAlta">  -->
             <!--<petclinic:inputField label="Id" name="id" />-->
         </div>
         <div class="form-group">

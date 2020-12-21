@@ -11,6 +11,14 @@
     
 <petclinic:layout pageName="carta">
     <h2>Resumen Pedido</h2>
+    
+    <sec:authorize access="hasAnyAuthority('cliente')"  >
+	   			<spring:url value="/pedidos/{pedidoId}/cartas/{cartaId}/verCarta" var="verCarta">
+		        	<spring:param name="pedidoId" value="${pedido.id}"/>
+		        	<spring:param name="cartaId" value="${cartaId}"/> 
+		    </spring:url>
+		    <a href="${fn:escapeXml(verCarta)}" class="btn btn-default">Volver a la carta</a>
+    	</sec:authorize>
 
     <table class="table table-striped">
         <tr>
@@ -19,7 +27,14 @@
         </tr>
         <tr>
             <th>Gastos de Envio</th>
-            <td><c:out value="${pedido.gastosEnvio}"/></td>
+            <td>
+                <c:if test="${pedido.tipoEnvio == 'DOMICILIO'}">
+            		<c:out value="3.5"/>
+            	</c:if>
+           		<c:if test="${pedido.tipoEnvio == 'RECOGER EN TIENDA'}">
+            		<c:out value="0.0"/>
+           		</c:if>
+           	</td> 
         </tr>
         <tr>
             <th>Direccion</th>

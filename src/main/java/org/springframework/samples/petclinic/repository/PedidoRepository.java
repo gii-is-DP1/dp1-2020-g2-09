@@ -48,4 +48,15 @@ public interface PedidoRepository  extends CrudRepository<Pedido, Integer> {
 			nativeQuery = true)
 	void añadirOtrosAPedido(int pedidoId, int otrosId);
 
+    @Query(value = "SELECT COSTE FROM PIZZAS WHERE ID = ?1",
+			nativeQuery = true)
+    Double cogerPrecioPizza(int pizzaId);
+
+    @Query(value = "SELECT COSTE FROM BEBIDAS WHERE ID = ?1",
+			nativeQuery = true)
+    Double cogerPrecioBebida(int bebidaId);
+
+    @Query(value = "SELECT COSTE FROM OTROS WHERE ID = ?1",
+			nativeQuery = true)
+	Double cogerPrecioOtros(int otrosId);
 }

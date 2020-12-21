@@ -12,9 +12,11 @@ import com.sun.istack.NotNull;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper=false)
+@Getter
+@Setter
 @Entity
 @Table(name = "Clientes")
 public class Cliente extends Cuenta {
@@ -22,7 +24,7 @@ public class Cliente extends Cuenta {
 	@Column(name = "fechaAlta")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@NotNull
-	private LocalDate fechaAlta = LocalDate.now();
+	private LocalDate fechaAlta;
 	
 //	@OneToMany
 //	@JoinColumn(name = "pedidocliente")

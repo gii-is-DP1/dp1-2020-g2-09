@@ -7,10 +7,18 @@
     pageEncoding="UTF-8"%>
 
 <petclinic:layout pageName="clientes">
+    <jsp:attribute name="customScript">
+        <script>
+            $(function () {
+                $("#fechaNacimiento").datepicker({dateFormat: 'yy/mm/dd'});
+            });
+        </script>
+    </jsp:attribute>
+    <jsp:body>
     <h2>
-        <c:if test="${repartidores['new']}">Nuevo </c:if> Repartidor
+        <c:if test="${repartidor['new']}">Nuevo </c:if> Repartidor
     </h2>
-    <form:form modelAttribute="repartidores" class="form-horizontal" id="add-owner-form">
+    <form:form modelAttribute="repartidor" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre" name="nombre"/>
             <petclinic:inputField label="Apellidos" name="apellidos"/>
@@ -24,7 +32,7 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
-                    <c:when test="${repartidores['new']}">
+                    <c:when test="${repartidor['new']}">
                         <button class="btn btn-default" type="submit">Añadir repartidor</button>
                     </c:when>
                     <c:otherwise>
@@ -34,4 +42,5 @@
             </div>
         </div>
     </form:form>
+    </jsp:body>
 </petclinic:layout>

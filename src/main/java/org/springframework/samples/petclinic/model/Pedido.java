@@ -17,9 +17,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper=false)
+@Getter
+@Setter
 @Entity
 @Table(name = "Pedido")
 

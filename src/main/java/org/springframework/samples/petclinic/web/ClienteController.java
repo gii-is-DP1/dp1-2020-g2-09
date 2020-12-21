@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
 
+import java.time.LocalDate;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -48,6 +49,7 @@ public class ClienteController {
 	
 	@InitBinder("cliente")
 	public void initClienteBinder(WebDataBinder dataBinder) {
+		//dataBinder.setValidator(new UserValidator());
 		dataBinder.setValidator(new CuentaValidator());
 	}
 	
@@ -77,6 +79,7 @@ public class ClienteController {
 		else {
 //			CuentaValidator cuentaValidator = new CuentaValidator();
 //			ValidationUtils.invokeValidator(cuentaValidator, cliente, result);
+			cliente.setFechaAlta(LocalDate.now());
 			this.clienteService.saveCliente(cliente);
 			return "redirect:/";
 		}
