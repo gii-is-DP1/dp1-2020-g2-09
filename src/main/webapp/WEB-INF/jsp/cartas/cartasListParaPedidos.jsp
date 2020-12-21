@@ -10,7 +10,7 @@
     
 <petclinic:layout pageName="cartas">
     <h2>Cartas</h2>
-<a href="/cartas/new" class="btn btn-default">Añadir carta</a>
+<!-- <a href="/cartas/new" class="btn btn-default">Añadir carta</a> -->
     <table id="cartasTable" class="table table-striped">
         <thead>
         <tr>
