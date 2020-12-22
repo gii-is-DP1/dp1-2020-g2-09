@@ -15,6 +15,7 @@
         <tr>
             <th>Descripción</th>
             <th>Respuesta<th>
+            <th> ID de pedido </th>
         </tr>
         
         <a href="/reclamaciones/new" class="btn btn-default">Añadir reclamación</a>
@@ -31,6 +32,16 @@
              		<td>
              		<c:if test="${reclamacion.respuesta != 'Lo sentimos mucho, ...'}">
              		<c:out value="${reclamacion.respuesta}"></c:out></c:if>
+             		</td>
+             		
+             		<td>
+             		<!-- No sé si esto es así, creo que sí porque el id 
+             		de la reclamación es clave ajena de la tabla pedido ???
+             		
+             		Aunque creo que para asegurarme debería coger los datos 
+             		de una consulta donde haga un Natural Join Pedido con Reclamacion -->
+             		
+             		<c:out value="${reclamacion.id}"></c:out>
              		</td>
              		
              	<c:if test="${empty reclamacion.respuesta || reclamacion.respuesta == 'Lo sentimos mucho, ...'}">
@@ -50,7 +61,6 @@
              	
             </tr>
         </c:forEach>
-        
         </tbody>
     </table>
 </petclinic:layout>
