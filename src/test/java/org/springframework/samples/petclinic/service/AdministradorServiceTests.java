@@ -1,31 +1,38 @@
 package org.springframework.samples.petclinic.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.ComponentScan;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.samples.petclinic.model.Administrador;
 import org.springframework.samples.petclinic.model.User;
-import org.springframework.stereotype.Service;
+import org.springframework.samples.petclinic.repository.AdministradorRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 
-@DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
+
+@ExtendWith(MockitoExtension.class)
 public class AdministradorServiceTests {
 
-	@Autowired
-	protected AdministradorService administradorService;
+	@Mock
+	AdministradorRepository administradorRepository;
 	
+	AdministradorService administradorService;
+	
+	@BeforeEach
+	void setUp() {
+		administradorService = new AdministradorService(administradorRepository);
+	}
 	
 	@Test
 	@Transactional
-	public void shouldInsertAdministrador() {
+	public void shouldFindAdministradorById() {
 
 		Administrador admin = new Administrador();
 		admin.setNombre("Paco");
@@ -38,56 +45,12 @@ public class AdministradorServiceTests {
 		usuario.setUsername("PAquitoO");
 		usuario.setPassword("Tomate y papas");
 		usuario.setEnabled(true);
-		admin.setUser(usuario);                
-                
-		this.administradorService.saveAdministrador(admin);
-		Administrador adminEncontrado = this.administradorService
-				.findAdministradorById(admin.getId());
-		assertThat(admin).isEqualTo(adminEncontrado);
-	}
-	
-	@Test
-	@Transactional
-	void shouldUpdateAdministrador() {
-		Administrador admin = this.administradorService.findAdministradorById(1);
-		String oldNombre = admin.getNombre();
-		String newNombre = oldNombre+"Yeah";
+		admin.setUser(usuario);
 		
-		admin.setNombre(newNombre);
-		this.administradorService.saveAdministrador(admin);
+		when(administradorRepository.findAdministradorById(anyInt())).thenReturn(admin);
+		administradorService.findAdministradorById(99);
+		verify(administradorRepository).findAdministradorById(99);
 		
-		admin = this.administradorService.findAdministradorById(1);
-		assertThat(admin.getNombre()).isEqualTo(newNombre);
-		
-	}
-	
-	@Test
-	@Transactional
-	void shouldNotUpdateAdministrador() {
-		Administrador admin = this.administradorService.findAdministradorById(1);
-		String oldNombre = admin.getNombre();
-		String newNombre = oldNombre+"Yeaaaah";
-		
-		admin.setNombre(newNombre);
-		try{
-			this.administradorService.saveAdministrador(admin);
-			//assertTrue(false);
-		}catch (Exception e) {
-			assertTrue(true);
-		}
-		//assertTrue(false);
-	}
-	
-	@Test
-	@Transactional
-	void shouldDeleteAdministrador() {
-		Administrador admin = this.administradorService.findAdministradorById(1);
-		
-		this.administradorService.deleteAdministrador(admin);
-		
-		Administrador adminEncontrado = this.administradorService.findAdministradorById(1);
-		
-		assertNull(adminEncontrado);
 	}
 	
 	
