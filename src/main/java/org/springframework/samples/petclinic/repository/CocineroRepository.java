@@ -14,4 +14,5 @@ public interface CocineroRepository  extends CrudRepository<Cocina, Integer>{
 	List<Cocina> findAll() throws DataAccessException;
 	
 	Cocina findCocineroById(int cocineroId) throws DataAccessException;
+	
 }
