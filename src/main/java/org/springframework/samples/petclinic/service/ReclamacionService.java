@@ -43,5 +43,10 @@ public class ReclamacionService {
 	 public void añadirReclamacionAPedido(int reclamacionId, int pedidoId) throws DataAccessException {
 		 reclamacionRepository.añadirReclamacionAPedido(reclamacionId, pedidoId);		
 	}		
-
+	 
+	 @Transactional 
+	 public List<Reclamacion> findPedidosConReclamaciones() throws DataAccessException {
+		return reclamacionRepository.findPedidosConReclamaciones();
+	 }
+ 
 }

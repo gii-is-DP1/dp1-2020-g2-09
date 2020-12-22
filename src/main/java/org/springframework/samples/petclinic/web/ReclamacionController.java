@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +36,13 @@ public class ReclamacionController {
 	}
 	
 	@GetMapping(value = { "/allReclamaciones" })
+	
 	public String showReclamacionList(Map<String, Object> model) {
 		Reclamaciones reclamaciones = new Reclamaciones();
-		reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findReclamaciones());
+		reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findPedidosConReclamaciones());
+		//reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findReclamaciones());
+		//List<Integer> pedidosConReclamaciones = this.reclamacionService.findPedidosConReclamaciones();
+		//model.put("pedidosReclamaciones", pedidosConReclamaciones);
 		model.put("reclamaciones", reclamaciones);
 		return "reclamaciones/reclamacionesList";
 	} 
