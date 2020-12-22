@@ -1,32 +1,39 @@
 package org.springframework.samples.petclinic.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.ComponentScan;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.samples.petclinic.model.Repartidor;
 import org.springframework.samples.petclinic.model.User;
-import org.springframework.stereotype.Service;
+import org.springframework.samples.petclinic.repository.RepartidorRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 
-@DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
+@ExtendWith(MockitoExtension.class)
 public class RepartidorServiceTests {
 
+	@Mock
+	RepartidorRepository repartidorRepository;
 	
-	@Autowired
-	protected RepartidorService repartidorService;
+	RepartidorService repartidorService;
 	
+	@BeforeEach
+	void setUp() {
+		repartidorService = new RepartidorService(repartidorRepository);
+	}
 	
 	@Test
 	@Transactional
-	public void shouldInsertRepartidor() {
+	public void shouldFindRepartidorById() {
 
 		Repartidor repartidor = new Repartidor();
 		repartidor.setNombre("Paco");
@@ -39,56 +46,42 @@ public class RepartidorServiceTests {
 		usuario.setUsername("PAquitoO");
 		usuario.setPassword("Tomate y papas");
 		usuario.setEnabled(true);
-		repartidor.setUser(usuario);                
-                
-		this.repartidorService.saveRepartidor(repartidor);
-		Repartidor repartidorEncontrado = this.repartidorService
-				.findRepartidorById(repartidor.getId());
-		assertThat(repartidor).isEqualTo(repartidorEncontrado);
+		repartidor.setUser(usuario); 
+		
+		when(repartidorRepository.findRepartidorById(anyInt())).thenReturn(repartidor);
+		repartidorService.findRepartidorById(8);
+		verify(repartidorRepository).findRepartidorById(8);
 	}
 	
 	@Test
 	@Transactional
-	void shouldUpdateRepartidor() {
-		Repartidor repartidor = this.repartidorService.findRepartidorById(1);
-		String oldNombre = repartidor.getNombre();
-		String newNombre = oldNombre+"Ye";
+	public void shouldNotFindRepartidorById() {
+
+		Repartidor repartidor = new Repartidor();
+		repartidor.setNombre("Paco");
+		repartidor.setApellidos("Florentino");
+		repartidor.setTelefono(683020234);
+		repartidor.setEmail("paquito@gmail.com");
+		repartidor.setFechaNacimiento(LocalDate.of(2000, 12, 9));
+		//cliente.setFechaAlta(LocalDate.now());
+		User usuario = new User();
+		usuario.setUsername("PAquitoO");
+		usuario.setPassword("Tomate y papas");
+		usuario.setEnabled(true);
+		repartidor.setUser(usuario); 
 		
-		repartidor.setNombre(newNombre);
-		this.repartidorService.saveRepartidor(repartidor);
-		
-		repartidor = this.repartidorService.findRepartidorById(1);
-		assertThat(repartidor.getNombre()).isEqualTo(newNombre);
-		
+		when(repartidorRepository.findRepartidorById(anyInt())).thenReturn(repartidor);
+		repartidorService.findRepartidorById(8);
+		verify(repartidorRepository, never()).findRepartidorById(10);
 	}
 	
 	@Test
 	@Transactional
-	void shouldNotUpdateRepartidor() {
-		Repartidor repartidor = this.repartidorService.findRepartidorById(1);
-		String oldNombre = repartidor.getNombre();
-		String newNombre = oldNombre+"Yeah";
+	public void shouldFindAllRepartidores() {
 		
-		repartidor.setNombre(newNombre);
-		try{
-			this.repartidorService.saveRepartidor(repartidor);
-			//assertTrue(false);
-		}catch (Exception e) {
-			assertTrue(true);
-		}
-		//assertTrue(false);
-	}
-	
-	@Test
-	@Transactional
-	void shouldDeleteRepartidor() {
-		Repartidor repartidor = this.repartidorService.findRepartidorById(1);
-		
-		this.repartidorService.deleteRepartidor(repartidor);
-		
-		Repartidor repartidorEncontrado = this.repartidorService.findRepartidorById(1);
-		
-		assertNull(repartidorEncontrado);
+		when(repartidorRepository.findAll()).thenReturn(new ArrayList<>());
+		repartidorService.findRepartidores();
+		verify(repartidorRepository).findAll();
 	}
 	
 }
