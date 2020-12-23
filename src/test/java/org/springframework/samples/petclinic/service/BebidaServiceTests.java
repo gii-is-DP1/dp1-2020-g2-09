@@ -1,104 +1,97 @@
 package org.springframework.samples.petclinic.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertNull;
+import java.util.ArrayList;
 
-import java.util.List;
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.ComponentScan;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.*;
+
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.samples.petclinic.model.Bebida;
-import org.springframework.samples.petclinic.model.TamanoOferta;
 import org.springframework.samples.petclinic.model.TamanoProducto;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.samples.petclinic.repository.BebidaRepository;
 
 
 
-@DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
+@ExtendWith(MockitoExtension.class)
 public class BebidaServiceTests {
 
-	@Autowired
-	protected BebidaService bebidaService;
+	
+	@Mock
+	BebidaRepository bebidaRepository;
+	
+	BebidaService bebidaService;
+	
+	@BeforeEach
+	void setUp() {
+		bebidaService = new BebidaService(bebidaRepository);
+	}
+	
+	
+	@Test
+	void shouldFindAll() {
+		when(bebidaRepository.findAll()).thenReturn(new ArrayList<>());
+		bebidaService.findBebidas();
+		verify(bebidaRepository).findAll();
+	}
 	
 	@Test
 	void shouldFindBebidaById() {
 		
-		Bebida bebidaEncontrada = this.bebidaService.findById(1);
-
-		assertThat(bebidaEncontrada).isNotNull();
+		Bebida bebida = new Bebida();
+		bebida.setContador(0);
+		bebida.setCoste(8);
+		bebida.setEsCarbonatada(true);
+		bebida.setId(99);
+		bebida.setNombre("Coca cola");
+		TamanoProducto tamano = new TamanoProducto();
+		tamano.setName("Grande");
+		bebida.setTamano(tamano);
+		
+		when(bebidaRepository.findBebidaById(anyInt())).thenReturn(bebida);
+		bebidaService.findById(7);
+		verify(bebidaRepository).findBebidaById(7);
 	}
 	
 	@Test
 	void shouldNotFindBebidaById() {
 
-		Bebida bebidaEncontrada = this.bebidaService.findById(99);
-
-		assertThat(bebidaEncontrada).isNull();
+//		when(bebidaRepository.findBebidaById(anyInt())).thenReturn(bebida);
+//		bebidaService.findById(7);
+		verify(bebidaRepository, never()).findBebidaById(99);
 	}
 	
 	@Test
 	void shouldFindIdBebidaById() {
 		
-		List<Integer> lista = this.bebidaService.findIdBebidaByCartaId(1);
-		
-		assertThat(lista).isNotNull();
+		when(bebidaRepository.findIdBebidaByCartaId(anyInt())).thenReturn(new ArrayList<>());
+		bebidaService.findIdBebidaByCartaId(12);
+		verify(bebidaRepository).findIdBebidaByCartaId(12);
 	}
 	
 	@Test
 	void shouldNotFindIdBebidaById() {
 		
-		List<Integer> lista = this.bebidaService.findIdBebidaByCartaId(99);
-		
-		assertThat(lista).isEmpty();
+//		when(bebidaRepository.findIdBebidaByCartaId(anyInt())).thenReturn(new ArrayList<>());
+//		bebidaService.findIdBebidaByCartaId(12);
+		verify(bebidaRepository, never()).findIdBebidaByCartaId(100);
 	}
 	
 	@Test
-	@Transactional
-	public void shouldInsertBebida() {
-
-		TamanoProducto tamano = new TamanoProducto();
-		//tamaño.setId(99);
-		tamano.setName("Grande");
-		Bebida bebida = new Bebida();
-		bebida.setNombre("Pepsi");
-		bebida.setEsCarbonatada(true);
-		bebida.setContador(1);
-		bebida.setCoste(12);
-		bebida.setTamano(tamano);
-		
-		this.bebidaService.saveBebida(bebida);
-        Bebida bebidaEncontrada = this.bebidaService.findById(bebida.getId());
-        assertThat(bebida).isEqualTo(bebidaEncontrada);
+	void shouldFindPizzaPedidoById() {
+		when(bebidaRepository.findBebidaPedidoById(anyInt())).thenReturn(new ArrayList<>());
+		bebidaService.findBebidaPedidoById(10);
+		verify(bebidaRepository).findBebidaPedidoById(10);
 	}
 	
 	@Test
-	@Transactional
-	void shouldUpdateBebida() {
-		Bebida bebida = this.bebidaService.findById(1);
-		String oldNombre = bebida.getNombre();
-		String newNombre = oldNombre+"Yeah";
+	void shouldNotFindPizzaPedidoById() {
 		
-		bebida.setNombre(newNombre);
-		this.bebidaService.saveBebida(bebida);
-
-		bebida = this.bebidaService.findById(1);
-		assertThat(bebida.getNombre()).isEqualTo(newNombre);
-	}
-	
-	@Test
-	@Transactional
-	void shouldDeleteBebida() {
-		Bebida bebida = this.bebidaService.findById(3);
-		
-		this.bebidaService.deleteBebida(bebida);
-		
-		bebida = this.bebidaService.findById(3);
-		
-		assertNull(bebida);
-	
+		verify(bebidaRepository, never()).findBebidaPedidoById(10);
 	}
 	
 }

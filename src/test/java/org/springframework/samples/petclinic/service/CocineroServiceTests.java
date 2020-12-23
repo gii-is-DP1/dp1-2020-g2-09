@@ -58,21 +58,8 @@ public class CocineroServiceTests {
 	@Transactional
 	public void shouldNotFindCocineroById() {
 
-		Cocina cocinero = new Cocina();
-		cocinero.setNombre("Paco");
-		cocinero.setApellidos("Florentino");
-		cocinero.setTelefono(683020234);
-		cocinero.setEmail("paquito@gmail.com");
-		cocinero.setFechaNacimiento(LocalDate.of(2000, 12, 9));
-		//cliente.setFechaAlta(LocalDate.now());
-		User usuario = new User();
-		usuario.setUsername("PAquitoO");
-		usuario.setPassword("Tomate y papas");
-		usuario.setEnabled(true);
-		cocinero.setUser(usuario); 
-		
-		when(cocineroRepository.findCocineroById(anyInt())).thenReturn(cocinero);
-		cocineroService.findCocineroById(7);
+//		when(cocineroRepository.findCocineroById(anyInt())).thenReturn(cocinero);
+//		cocineroService.findCocineroById(7);
 		verify(cocineroRepository, never()).findCocineroById(50);
 		
 	}
