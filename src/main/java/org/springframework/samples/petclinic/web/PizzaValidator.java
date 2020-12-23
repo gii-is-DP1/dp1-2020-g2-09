@@ -14,7 +14,7 @@ import org.springframework.validation.Validator;
 @Component
 public class PizzaValidator implements Validator{
 
-	private static final String REQUIRED = "requerido";
+	//private static final String REQUIRED = "requerido";
 
 	@Override
 	public void validate(Object obj, Errors errors) {
@@ -26,19 +26,27 @@ public class PizzaValidator implements Validator{
 		Collection<Ingrediente> ing = pizza.getIngredientes();
 		
 		if (!StringUtils.hasLength(nombre) || nombre.length()>50 || nombre.length()<3) {
-			errors.rejectValue("nombre", "El nombre debe tener entre 3 y 50 carácteres", "El nombre debe debe tener entre 3 y 50 carácteres");
+			errors.rejectValue("nombre", 
+					"El nombre debe tener entre 3 y 50 carácteres", 
+					"El nombre debe debe tener entre 3 y 50 carácteres");
 		}
 
 		if (tipoMasa==null) {
-			errors.rejectValue("tipoMasa","Debe indicar el tipo de masa que desea", "Debe indicar el tipo de masa que desea");
+			errors.rejectValue("tipoMasa",
+					"Debe indicar el tipo de masa que desea", 
+					"Debe indicar el tipo de masa que desea");
 		}
 		
 		if (tamaño==null) {
-			errors.rejectValue("tamano","El tamaño no puede ser nulo", "El tamaño no puede ser nulo");
+			errors.rejectValue("tamano",
+					"El tamaño no puede ser nulo", 
+					"El tamaño no puede ser nulo");
 		}
 		
 		if (coste==null) {
-			errors.rejectValue("coste","El precio no puede ser negativo o menor que cero","El precio no puede ser negativo o menor que cero" );
+			errors.rejectValue("coste",
+					"El precio no puede ser negativo o menor que cero",
+					"El precio no puede ser negativo o menor que cero" );
 		}else {
 			String costestring= String.valueOf(coste);
 			//if(!costestring.matches("[0-9]*")) {
@@ -46,11 +54,15 @@ public class PizzaValidator implements Validator{
 				errors.rejectValue("coste","El precio debe ser numérico","El precio debe ser numérico" );
 
 			}else*/ if (coste<=0) {
-				errors.rejectValue("coste","El precio no puede ser negativo o menor que cero","El precio no puede ser negativo o menor que cero" );
+				errors.rejectValue("coste",
+						"El precio no puede ser negativo o menor que cero",
+						"El precio no puede ser negativo o menor que cero" );
 		}
 		}
 		if(ing.equals(null) || ing.isEmpty()) {
-			errors.rejectValue("ingredientes","Debe escoger ingredientes","Debe escoger ingredientes" );
+			errors.rejectValue("ingredientes",
+					"Debe escoger ingredientes",
+					"Debe escoger ingredientes" );
 		}
 	}
 

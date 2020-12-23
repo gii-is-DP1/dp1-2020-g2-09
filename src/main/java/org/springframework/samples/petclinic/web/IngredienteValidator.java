@@ -12,7 +12,7 @@ import org.springframework.validation.Validator;
 @Component
 public class IngredienteValidator  implements Validator{
 
-	private static final String REQUIRED = "requerido";
+	private static final String REQUIRED = "Requerido";
 	
 	@Override
 	public boolean supports(Class<?> clazz) {
