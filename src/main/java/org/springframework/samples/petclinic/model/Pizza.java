@@ -1,12 +1,10 @@
 package org.springframework.samples.petclinic.model;
 
-import java.time.LocalDate;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -35,5 +33,8 @@ public class Pizza extends Producto {
 	
 	@ManyToMany(cascade = CascadeType.REFRESH)
 	private Collection<Ingrediente> ingredientes;
+	
+	@ManyToOne(cascade = CascadeType.REFRESH)
+	private Cliente cliente;
 
 }	

@@ -27,6 +27,7 @@ public class CocineroValidator implements Validator {
 		//LocalDate fechaInicioContrato = cocinero.getFechaInicioContrato();
 		LocalDate fechaNacimiento =cocinero.getFechaNacimiento();
 		String nombre = cocinero.getNombre();
+		
 		Integer telefono = cocinero.getTelefono();
 		User nombreUsuario = cocinero.getUser();
 		

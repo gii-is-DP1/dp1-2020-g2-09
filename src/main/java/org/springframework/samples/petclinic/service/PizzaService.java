@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Carta;
+import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.TamanoProducto;
 import org.springframework.samples.petclinic.model.tipoMasa;
@@ -68,5 +69,10 @@ public class PizzaService {
     @Transactional
 	public void añadirPizzaACarta(int pizzaId, int cartaId) throws DataAccessException {
 		pizzaRepository.añadirPizzaACarta(pizzaId, cartaId);		
-	}	
+	}
+    
+    @Transactional(readOnly = true)
+	public List<Pizza> findPizzaByCliente(Cliente cliente){
+    	return pizzaRepository.findPizzaByCliente(cliente);
+    }
 }
