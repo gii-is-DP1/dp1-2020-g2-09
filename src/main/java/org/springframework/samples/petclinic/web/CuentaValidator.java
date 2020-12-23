@@ -13,7 +13,6 @@ import org.springframework.validation.Validator;
 @Component
 public class CuentaValidator implements Validator{
 
-	private static final String REQUIRED = "Requirido";
 	
 	/*@Autowired
 	private ClienteService clienteService;*/
@@ -36,21 +35,31 @@ public class CuentaValidator implements Validator{
 		
 		//nombre
 		if(nombre==null) {
-			errors.rejectValue("nombre","El nombre debe tener entre 2 y 20 caracteres","El nombre debe tener y entre 2 y 20 caracteres");
+			errors.rejectValue("nombre",
+					"El nombre debe tener entre 2 y 20 caracteres",
+					"El nombre debe tener y entre 2 y 20 caracteres");
 		}else if(nombre.length()<2 || nombre.length()>20) {
-			errors.rejectValue("nombre","El nombre debe tener de 2 a 20 caracteres.", "El nombre debe tener de 2 a 20 caracteres.");
+			errors.rejectValue("nombre",
+					"El nombre debe tener de 2 a 20 caracteres", 
+					"El nombre debe tener de 2 a 20 caracteres");
 		}
 		
 		//apellidos
 		if(apellidos==null) {
-			errors.rejectValue("apellidos", "El apellido debe tener y entre 2 y 20 caracteres","El apellido debe tener y entre 2 y 20 caracteres");
+			errors.rejectValue("apellidos", 
+					"El apellido debe tener y entre 2 y 20 caracteres",
+					"El apellido debe tener y entre 2 y 20 caracteres");
 		}else if(apellidos.length()<2 || apellidos.length()>20) {
-			errors.rejectValue("apellidos","El apellido debe tener de 2 a 20 caracteres.", "El apellido debe tener de 2 a 20 caracteres.");
+			errors.rejectValue("apellidos",
+					"El apellido debe tener de 2 a 20 caracteres",
+					"El apellido debe tener de 2 a 20 caracteres");
 		}
 		
 		//fechaNacimiento
 		if(fechaNacimiento==null) {
-			errors.rejectValue("fechaNacimiento", "La fecha no puede estar vacía","La fecha no puede estar vacía");
+			errors.rejectValue("fechaNacimiento", 
+					"La fecha no puede estar vacía",
+					"La fecha no puede estar vacía");
 		}
 		
 		// Patrón para validar el email
@@ -67,8 +76,8 @@ public class CuentaValidator implements Validator{
 			errors.rejectValue("email", "El email es demasiado largo o corto",
 					"El email es demasiado largo o corto");
 		}else if(!matcher.find()) {
-			errors.rejectValue("email", "El email no es correcto",
-					"El email no es correcto");
+			errors.rejectValue("email", "El email no posee el formato correcto",
+					"El email no posee el formato correcto");
 		}
 		//nombreUsuario
 		if(nombreUsuario==null) {
@@ -89,11 +98,11 @@ public class CuentaValidator implements Validator{
 				
 		//telefono
 		if(telefono==null) {
-			errors.rejectValue("telefono", REQUIRED+" escriba un número válido",
-					REQUIRED+" escriba un número válido");
+			errors.rejectValue("telefono", "Escriba un número válido",
+					 "Escriba un número válido");
 		}else if(telefono<100000000 || telefono>999999999) {
-			errors.rejectValue("telefono", REQUIRED+" escriba un número válido",
-			REQUIRED+" escriba un número válido");
+			errors.rejectValue("telefono",  "Escriba un número válido",
+					"Escriba un número válido");
 		}
 		
 	}

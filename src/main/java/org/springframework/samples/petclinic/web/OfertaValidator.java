@@ -29,39 +29,39 @@ public class OfertaValidator implements Validator {
 		NivelSocio nivelSocio = oferta.getNivelSocio();
 		 
 		if(coste==null) {
-			errors.rejectValue("coste", REQUIRED, "Por favor, introduzca un coste");
+			errors.rejectValue("coste", REQUIRED, "Por favor, introduzca un precio");
 		} 
 		else if(coste == 0 || coste<=0 ) {
-			errors.rejectValue("coste", "El coste debe ser un número positivo mayor que cero",
-					"El coste debe ser un número positivo mayor que cero.");
+			errors.rejectValue("coste", "El precio debe ser un número positivo mayor que cero",
+					"El precio debe ser un número positivo mayor que cero");
 		}
 		
 		if(fechaInicial==null) {
-			errors.rejectValue("fechaInicial", REQUIRED,
-					"Por favor, introduzca una fecha de comienzo de la oferta.");
+			errors.rejectValue("fechaInicial", "Por favor, introduzca una fecha de comienzo de la oferta",
+					"Por favor, introduzca una fecha de comienzo de la oferta");
 		} else if(fechaInicial.isBefore(LocalDate.now())) {
 			errors.rejectValue("fechaInicial", 
-					"La fecha de comienzo de la oferta no puede ser anterior al día de hoy.",
-					"La fecha de comienzo de la oferta no puede ser anterior al día de hoy.");
+					"La fecha de comienzo de la oferta no puede ser anterior al día de hoy",
+					"La fecha de comienzo de la oferta no puede ser anterior al día de hoy");
 		}
 	
 		
 		if(fechaFinal==null) {
-			errors.rejectValue("fechaFinal", REQUIRED,
-					"Por favor, introduzca una fecha de fin de la oferta.");
+			errors.rejectValue("fechaFinal", "Por favor, introduzca una fecha de fin de la oferta",
+					"Por favor, introduzca una fecha de fin de la oferta");
 			
 		} else if(fechaFinal.isBefore(fechaInicial)) {
 			errors.rejectValue("fechaFinal",
-					"La fecha de fin de la oferta no puede ser anterior a la fecha de comienzo.",
-					"La fecha de fin de la oferta no puede ser anterior a la fecha de comienzo.");
+					"La fecha de fin de la oferta no puede ser anterior a la fecha de comienzo",
+					"La fecha de fin de la oferta no puede ser anterior a la fecha de comienzo");
 		}
 		
 		if (tamaño==null) {
-			errors.rejectValue("tamanoOferta", REQUIRED,"Por favor, seleccione un tamaño.");
+			errors.rejectValue("tamanoOferta", "Por favor, seleccione un tamaño","Por favor, seleccione un tamaño");
 		}
 		
 		if (nivelSocio==null) {
-			errors.rejectValue("nivelSocio", REQUIRED, "Por favor, seleccione un nivel de socio");
+			errors.rejectValue("nivelSocio", "Por favor, seleccione un nivel de socio", "Por favor, seleccione un nivel de socio");
 		}
 		
 	}

@@ -12,7 +12,7 @@ import org.springframework.validation.Validator;
 @Component
 public class ReservaValidator implements Validator {
 
-	private static final String REQUIRED = "requerido";
+	private static final String REQUIRED = "Requerido";
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return Reserva.class.isAssignableFrom(clazz);
@@ -28,28 +28,34 @@ public class ReservaValidator implements Validator {
 
 		
 		if (numeroPersonas==null) {
-			errors.rejectValue("numeroPersonas", REQUIRED+" debe ser un número real y mayor que cero.", REQUIRED+" debe ser un número real y mayor que cero.");
+			errors.rejectValue("numeroPersonas", REQUIRED+" debe ser un número real y mayor que cero", REQUIRED+" debe ser un número real y mayor que cero");
 		}else {
 			String numString = String.valueOf(numeroPersonas);
 			if(numString.length()<1) {
-				errors.rejectValue("numeroPersonas", REQUIRED+" debe ser un número real y mayor que cero.", REQUIRED+" debe ser un número real y mayor que cero.");
+				errors.rejectValue("numeroPersonas", REQUIRED+" debe ser un número real y mayor que cero", REQUIRED+" debe ser un número real y mayor que cero");
 			}else {
 				 if (numeroPersonas==0 || numeroPersonas<=0) {
-						errors.rejectValue("numeroPersonas", REQUIRED+" debe ser un número real", REQUIRED+" y mayor que cero.");
+						errors.rejectValue("numeroPersonas", REQUIRED+" debe ser un número real", REQUIRED+" y mayor que cero");
 					}else if (numeroPersonas>6) {
 						errors.rejectValue("numeroPersonas", "El numero de personas debe ser inferior a 6 debido a la pandemia del COVID","El numero de personas debe ser inferior a 6 debido a la pandemia del COVID");
 					}	
 			}
 		}
 		
-		if ( fechaReserva==null) {
-			errors.rejectValue("fechaReserva","No puede introducir una reserva con valores nulos.", "No puede introducir una reserva con valores nulos.");
+		if (fechaReserva==null) {
+			errors.rejectValue("fechaReserva",
+					"No puede introducir una reserva con valores nulos", 
+					"No puede introducir una reserva con valores nulos");
 		} 
 		if (hora== null) {
-			errors.rejectValue("hora","No puede introducir una reserva con valores nulos.", "No puede introducir una reserva con valores nulos.");
+			errors.rejectValue("hora",
+					"No puede introducir una reserva con valores nulos", 
+					"No puede introducir una reserva con valores nulos");
 		} 
 		if (tipoReserva==null) {
-			errors.rejectValue("tipoReserva","No puede introducir una reserva con valores nulos.", "No puede introducir una reserva con valores nulos.");
+			errors.rejectValue("tipoReserva",
+					"No puede introducir una reserva con valores nulos", 
+					"No puede introducir una reserva con valores nulos");
 		}
 		
 	}
