@@ -7,11 +7,18 @@
     pageEncoding="UTF-8"%>
 
 <petclinic:layout pageName="cocineros">
-
+	<jsp:attribute name="customScript">
+        <script>
+            $(function () {
+                $("#fechaNacimiento").datepicker({dateFormat: 'yy/mm/dd'});
+            });
+        </script>
+    </jsp:attribute>
+    <jsp:body>
     <h2>
-        <c:if test="${cocinero['new']}">Nuevo/a </c:if> Cocinero/a
+        <c:if test="${cocina['new']}">Nuevo/a </c:if> Cocinero/a
     </h2>
-    <form:form modelAttribute="cocinero" class="form-horizontal" id="add-owner-form">
+    <form:form modelAttribute="cocina" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
             <petclinic:inputField  label="Nombre" name="nombre"/>
             <petclinic:inputField label="Apellidos" name="apellidos"/>
@@ -28,7 +35,7 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
-                    <c:when test="${cocinero['new']}">
+                    <c:when test="${cocina['new']}">
                         <button class="btn btn-default" type="submit">Añadir cocinero</button>
                     </c:when>
                     <c:otherwise>
@@ -39,4 +46,5 @@
         </div>
         
     </form:form>
+    </jsp:body>
 </petclinic:layout>

@@ -30,7 +30,7 @@ public class CocineroController {
 		this.cocineroService = cocineroService;
 	}
 
-	@InitBinder("cocinero")
+	@InitBinder("cocina")
 	public void initCocinaBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new CocineroValidator());
 	}
@@ -52,7 +52,7 @@ public class CocineroController {
 	@GetMapping(value = "/cocineros/new")
 	public String initCreationForm(Map<String, Object> model) {
 		Cocina cocina = new Cocina();
-		model.put("cocinero", cocina);
+		model.put("cocina", cocina);
 		return "cocineros/createOrUpdateCocinaForm";
 	}
 
@@ -60,12 +60,12 @@ public class CocineroController {
 	@PostMapping(value = "/cocineros/new")
 	public String processCreationForm(@Valid Cocina cocinero, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
-			model.put("cocinero", cocinero);//importanteeee
+			model.put("cocina", cocinero);//importanteeee
 			return "cocineros/createOrUpdateCocinaForm";
 		}
 		else {
-			CocineroValidator cocineroValidator = new CocineroValidator();
-			ValidationUtils.invokeValidator(cocineroValidator, cocinero, result);
+//			CocineroValidator cocineroValidator = new CocineroValidator();
+//			ValidationUtils.invokeValidator(cocineroValidator, cocinero, result);
 			cocinero.setFechaInicioContrato(LocalDate.now());
 			this.cocineroService.saveCocinero(cocinero);
 			return "redirect:/allCocineros";
@@ -76,7 +76,7 @@ public class CocineroController {
 	@GetMapping(value = "/cocineros/{cocineroId}/edit")
 	public String initUpdateForm(@PathVariable("cocineroId") int cocineroId, ModelMap model) {
 		Cocina cocinero = this.cocineroService.findCocineroById(cocineroId);
-		model.put("cocinero", cocinero);
+		model.put("cocina", cocinero);
 		return "cocineros/createOrUpdateCocinaForm";
 	}
 	
@@ -85,13 +85,15 @@ public class CocineroController {
 	public String processUpdateCocineroForm(@Valid Cocina cocinero, BindingResult result,
 			@PathVariable("cocineroId") int cocineroId, ModelMap model) {
 		if (result.hasErrors()) {
+
 			cocinero.setId(cocineroId);
 			model.put("cocinero", cocinero);
+
 			return "cocineros/createOrUpdateCocinaForm";
 		}
 		else {
-			CocineroValidator cocineroValidator = new CocineroValidator();
-			ValidationUtils.invokeValidator(cocineroValidator, cocinero, result);
+//			CocineroValidator cocineroValidator = new CocineroValidator();
+//			ValidationUtils.invokeValidator(cocineroValidator, cocinero, result);
 			cocinero.setId(cocineroId);
 			this.cocineroService.saveCocinero(cocinero);
 			return "redirect:/allCocineros";

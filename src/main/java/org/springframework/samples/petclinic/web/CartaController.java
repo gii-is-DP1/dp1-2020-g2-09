@@ -21,6 +21,7 @@ import org.springframework.samples.petclinic.service.IngredienteService;
 import org.springframework.samples.petclinic.service.OtrosService;
 import org.springframework.samples.petclinic.service.PizzaService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ValidationUtils;
@@ -55,10 +56,10 @@ public class CartaController {
 		dataBinder.setValidator(new BebidaValidator());
 	}
 	
-	/*@InitBinder("Otros")
+	@InitBinder("otros")
 	public void initOtrosBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new OtrosValidator());
-	}*/
+	}
 	
 	@Autowired
 	public CartaController(CartaService CartaService, PizzaService PizzaService,
@@ -165,7 +166,7 @@ public class CartaController {
 			Otros otro = this.OtrosService.findOtrosById(otroId);
 			listaOtros.getOtrosList().add(otro);
 		}
-		model.put("otros", listaOtros);
+		model.put("listaOtros", listaOtros);
 
 		
 		return "cartas/verCarta";
@@ -270,7 +271,7 @@ public class CartaController {
 		@GetMapping(value = "/cartas/{cartaId}/otro/new")
 		public String initCreationOtrosForm(@PathVariable("cartaId") Integer cartaId, Map<String, Object> model) {
 			Otros Otros = new Otros();
-			model.put("Otros", Otros);
+			model.put("otros", Otros);
 			model.put("cartaId", cartaId);
 			return "Otros/createOrUpdateOtrosForm";
 		}
@@ -345,7 +346,7 @@ public class CartaController {
 		public String initUpdateOtrosForm(@PathVariable("cartaId") Integer cartaId,
 				@PathVariable("OtrosId") int OtrosId, ModelMap model) {
 			Otros Otros = this.OtrosService.findOtrosById(OtrosId);
-			model.put("Otros", Otros);
+			model.put("otros", Otros);
 			model.put("cartaId", cartaId);
 			return "Otros/createOrUpdateOtrosForm";
 		}
@@ -353,8 +354,9 @@ public class CartaController {
 		//mandar actualizacion de otro
 		@PostMapping(value = "/cartas/{cartaId}/otro/{OtrosId}/edit")
 		public String processUpdateOtrosForm(@Valid Otros otros, BindingResult result,
-				@PathVariable("OtrosId") int OtrosId) {
+				@PathVariable("OtrosId") int OtrosId, ModelMap model) {
 			if (result.hasErrors()) {
+				model.put("otros", otros);
 				return "Otros/createOrUpdateOtrosForm";
 			}
 			else {

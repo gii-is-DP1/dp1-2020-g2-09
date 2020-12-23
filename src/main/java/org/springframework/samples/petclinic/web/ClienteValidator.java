@@ -49,22 +49,27 @@ public class ClienteValidator implements Validator{
 			errors.rejectValue("fechaNacimiento", "La fecha no puede estar vacía","La fecha no puede estar vacía");
 		}
 		//fecha de alta
-		if (fechaAlta.isAfter(LocalDate.now())) {
-			errors.rejectValue("fechaAlta", "La fecha debe de ser pasada", "La fecha debe de ser pasada");
-		}
+//		if (fechaAlta!=LocalDate.now()) {
+//			errors.rejectValue("fechaAlta", "La fecha debe de ser pasada", "La fecha debe de ser pasada");
+//		}
 		
 		//telefono
 		
 		if(telefono==null) {
 			errors.rejectValue("telefono", REQUIRED+" escriba un número válido",
 					REQUIRED+" escriba un número válido");
-		}else {
-			String telefonoString = telefono.toString();
-			if(telefonoString.matches("[0-9]*")) {
-				errors.rejectValue("telefono", REQUIRED+" escriba un número válido",REQUIRED+" escriba un número válido");
-			}else if(telefonoString.length()!=9 || telefonoString.length()<1) {
-				errors.rejectValue("telefono", REQUIRED+" escriba un número válido",REQUIRED+" escriba un número válido");
-			}
+		}
+//		else {
+//			String telefonoString = telefono.toString();
+//			if(telefonoString.matches("[0-9]*")) {
+//				errors.rejectValue("telefono", REQUIRED+" escriba un número válido",REQUIRED+" escriba un número válido");
+//			}else if(telefonoString.length()!=9 || telefonoString.length()<1) {
+//				errors.rejectValue("telefono", REQUIRED+" escriba un número válido",REQUIRED+" escriba un número válido");
+//			}
+//		}
+		else if(telefono<100000000 || telefono>999999999) {
+			errors.rejectValue("telefono", REQUIRED+" escriba un número válido",
+					REQUIRED+" escriba un número válido");
 		}
 		
 		//email
@@ -73,7 +78,7 @@ public class ClienteValidator implements Validator{
 		}
 		//nombreUsuario
 		if(nombreUsuario==null) {
-			errors.rejectValue("nombreUsuario", "El nombre de usuario no puede estar vacío","El nombre de usuario no puede estar vacío");
+			errors.rejectValue("user.username", "El nombre de usuario no puede estar vacío","El nombre de usuario no puede estar vacío");
 		}
 
 		

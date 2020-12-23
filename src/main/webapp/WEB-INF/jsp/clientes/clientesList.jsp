@@ -18,7 +18,7 @@
             <th>Nombre de usuario</th>
             <th>Email</th>
         </tr>
-        <a href="/cuentas/new" class="btn btn-default">Añadir cliente</a>
+        <a href="/clientes/new" class="btn btn-default">Añadir cliente</a>
         </thead>
         <tbody>
         <c:forEach items="${clientes.clientesList}" var="cliente">
@@ -42,13 +42,13 @@
              		<c:out value="${cuenta.id}"></c:out>
              	</td> -->
              	<td>
-             		<spring:url value="/cuentas/{cuentaId}/edit" var="cuentaUrl">
+             		<spring:url value="/clientes/{cuentaId}/edit" var="cuentaUrl">
 	                        <spring:param name="cuentaId" value="${cliente.id}"/>
 	                </spring:url>
    					<a href="${fn:escapeXml(cuentaUrl)}" class="btn btn-default">Editar</a>
              	</td>
              	<td>
-             		<spring:url value="/cuentas/{cuentaId}/delete" var="cuentaUrl2">
+             		<spring:url value="/clientes/{cuentaId}/delete" var="cuentaUrl2">
 	                        <spring:param name="cuentaId" value="${cliente.id}"/>
 	                </spring:url>
              		<a href="${fn:escapeXml(cuentaUrl2)}" class="btn btn-default">Eliminar</a>

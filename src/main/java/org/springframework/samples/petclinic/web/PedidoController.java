@@ -25,6 +25,7 @@ import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.CartaService;
 import org.springframework.samples.petclinic.service.ClienteService;
+import org.springframework.samples.petclinic.service.IngredienteService;
 import org.springframework.samples.petclinic.service.OtrosService;
 import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.samples.petclinic.service.PizzaService;
@@ -34,6 +35,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -44,9 +46,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class PedidoController {
 	
-	private final PedidoService pedidoService;
-	private final UserService userService;
-	private final ClienteService clienteService;
+	private PedidoService pedidoService;
+	private UserService userService;
+	private ClienteService clienteService;
 	
 	private CartaService CartaService;
 	
@@ -56,13 +58,12 @@ public class PedidoController {
 	
 	private BebidaService BebidaService;
 
-	//private IngredienteService IngredienteService;
-
+	//private IngredienteService ingredienteService;
+	
 	@Autowired
 	public PedidoController(PedidoService pedidoService, UserService userService,ClienteService clienteService,
 			AuthoritiesService authoritiesService,PizzaService PizzaService,
-			OtrosService OtrosService, BebidaService BebidaService, CartaService CartaService
-			/*,IngredienteService IngredienteService*/) {
+			OtrosService OtrosService, BebidaService BebidaService, CartaService CartaService) {
 		this.pedidoService = pedidoService;
 		this.userService =  userService;
 		this.clienteService= clienteService;
@@ -72,6 +73,7 @@ public class PedidoController {
 		//this.IngredienteService = IngredienteService;
 		this.CartaService = CartaService;
 	}
+	
 	
 	@ModelAttribute("estadoPedido")
 	public Collection<EstadoPedido> populateEstadoPedido() {
@@ -144,6 +146,7 @@ public class PedidoController {
 			//hay que asociar el pedido creado al usuario que lo ha creado
 			pedido.setCliente((Cliente) cliente);
 			//por defecto
+			pedido.setPrecio(0.0);
 			pedido.setFechaPedido(LocalDate.now());
 			this.pedidoService.savePedido(pedido);
 			return "redirect:/pedidos/user";
@@ -181,20 +184,23 @@ public class PedidoController {
 	}
 	
 	//Mostrar cartas de las que coger productos
-	@GetMapping(value = { "/pedidos/{pedidoId}/allCartas" })
-	public String showCartaParaPedidosList(@PathVariable("pedidoId") int pedidoId, ModelMap model2,  Map<String, Object> model) {
+	@GetMapping(value = { "/pedidos/{pedidoId}/allCartas" })//hacer que lleve a ver carta del tiron
+	public String showCartaParaPedidosList(@PathVariable("pedidoId") int pedidoId,
+			ModelMap model2,  Map<String, Object> model) {
 		LocalDate hoy = LocalDate.now();
 		Carta carta = CartaService.findCartaByFechaCreacionYFechaFinal(hoy);
-		Pedido pedido= pedidoService.findPedidoById(pedidoId);
-		model2.put("cartas", carta);
-		model2.put("pedido", pedido);
-		return "cartas/cartasListParaPedidos"; 
+		//Pedido pedido= pedidoService.findPedidoById(pedidoId);
+		Integer cartaId = carta.getId();
+		//model2.put("cartas", carta);
+		//model2.put("pedido", pedido);
+		return "redirect:/pedidos/"+pedidoId+"/cartas/"+cartaId+"/verCarta"; 
 	}
 	
 	//Acceso a la carta desde un pedido
 		@GetMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/verCarta") 
 		public String verCartaPedido(@PathVariable("pedidoId") Integer pedidoId,
 				@PathVariable("cartaId") Integer cartaId, ModelMap model) {
+			model.put("cartaId", cartaId);
 			
 			Pedido pedido= pedidoService.findPedidoById(pedidoId);
 			model.put("pedido",pedido);
@@ -225,47 +231,104 @@ public class PedidoController {
 				Otros otro = this.OtrosService.findOtrosById(otroId);
 				listaOtros.getOtrosList().add(otro);
 			}
-			model.put("otros", listaOtros);
+			model.put("listaOtros", listaOtros);
 
 			return "cartas/verCarta";
 		}
 		
-		
 		//Aqui tenemos que añadir la pizza seleccionado a un nuevo pedido
-		@GetMapping("/pedidos/{pedidoId}/anadirPizza/{pizzaId}")
+		@GetMapping("/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirPizza/{pizzaId}")
 		public String anadirPizza(Map<String, Object> model, @PathVariable("pedidoId") int pedidoId,
-				@PathVariable("pizzaId") int pizzaId) {
+				@PathVariable("pizzaId") int pizzaId, @PathVariable("cartaId") Integer cartaId) {
+			model.put("cartaId", cartaId);
 			Pedido pedido = pedidoService.findPedidoById(pedidoId);
+			//hacer funcion que incremente el precio del pedido
+			Double precioDeMiPedidoAntesDeAnadirPizza = pedido.getPrecio();
+			Double cantidadASumar = (double) this.pedidoService.cogerPrecioPizza(pizzaId);
+			Double precioDeMiPedidoNuevo = precioDeMiPedidoAntesDeAnadirPizza + cantidadASumar;
+			pedido.setPrecio(precioDeMiPedidoNuevo);
+			//ya está incrementado el coste del pedido
 			model.put("pedido", pedido);
 			this.pedidoService.añadirPizzaAPedido(pedidoId, pizzaId);
-			//this.pedidoService.savePedido(pedido);
-			return "cartas/verCarta";
+			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
 		}
 		
 		//Aqui tenemos que añadir la bebida seleccionado a un nuevo pedido
-		@GetMapping("/pedidos/{pedidoId}/anadirBebida/{bebidaId}")
+		@GetMapping("/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirBebida/{bebidaId}")
 		public String anadirBebida(Map<String, Object> model, @PathVariable("pedidoId") int pedidoId,
-				@PathVariable("bebidaId") int bebidaId) {
+				@PathVariable("bebidaId") int bebidaId, @PathVariable("cartaId") Integer cartaId) {
+			model.put("cartaId", cartaId);
 			Pedido pedido = pedidoService.findPedidoById(pedidoId);
+			//hacer funcion que incremente el precio del pedido
+			Double precioDeMiPedidoAntesDeAnadirPizza = pedido.getPrecio();
+			Double cantidadASumar = (double) this.pedidoService.cogerPrecioBebida(bebidaId);
+			Double precioDeMiPedidoNuevo = precioDeMiPedidoAntesDeAnadirPizza + cantidadASumar;
+			pedido.setPrecio(precioDeMiPedidoNuevo);
+			//ya está incrementado el coste del pedido
 			model.put("pedido", pedido);
 			this.pedidoService.añadirBebidaAPedido(pedidoId, bebidaId);
 			//this.pedidoService.savePedido(pedido);
-			return "cartas/verCarta";
+			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
 		}
 		
 		//Aqui tenemos que añadir los otros seleccionado a un nuevo pedido
-		@GetMapping("/pedidos/{pedidoId}/anadirOtros/{otrosId}")
+		@GetMapping("/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirOtros/{otrosId}")
 		public String anadirOtros(Map<String, Object> model, @PathVariable("pedidoId") int pedidoId,
-				@PathVariable("otrosId") int otrosId) {
+				@PathVariable("otrosId") int otrosId, @PathVariable("cartaId") Integer cartaId) {
+			model.put("cartaId", cartaId);
 			Pedido pedido = pedidoService.findPedidoById(pedidoId);
+			//hacer funcion que incremente el precio del pedido
+			Double precioDeMiPedidoAntesDeAnadirPizza = pedido.getPrecio();
+			Double cantidadASumar = (double) this.pedidoService.cogerPrecioOtros(otrosId);
+			Double precioDeMiPedidoNuevo = precioDeMiPedidoAntesDeAnadirPizza + cantidadASumar;
+			pedido.setPrecio(precioDeMiPedidoNuevo);
+			//ya está incrementado el coste del pedido
 			model.put("pedido", pedido);
 			this.pedidoService.añadirOtrosAPedido(pedidoId, otrosId);
 			//this.pedidoService.savePedido(pedido);
-			return "cartas/verCarta";
+			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
 		}
 		
-					
-	
+		//Resumen de un pedido
+		@GetMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen") 
+		public String verResumenPedido(@PathVariable("pedidoId") Integer pedidoId,
+				@PathVariable("cartaId") Integer cartaId, ModelMap model) {
 			
+			model.put("cartaId", cartaId);
+			Pedido pedido= pedidoService.findPedidoById(pedidoId);
+			model.put("pedido",pedido);
+			
+			//Recogemos las pizzas de la tabla y la guardamos en el modelo
+			List<Integer> listaIdPizzas = PizzaService.findPizzaPedidoById(pedidoId);
+			Pizzas listaPizzas = new Pizzas();
+			for(int i=0; i<listaIdPizzas.size(); i++) {
+				Integer pizzaId = listaIdPizzas.get(i);
+				Pizza pizza = this.PizzaService.findPizzaById(pizzaId);
+				listaPizzas.getPizzasList().add(pizza);
+			}
+			model.put("pizzas", listaPizzas);
+			
+			List<Integer> listaIdBebidas = BebidaService.findBebidaPedidoById(pedidoId);
+			Bebidas listaBebidas = new Bebidas();
+			for(int i=0; i<listaIdBebidas.size(); i++) {
+				Integer bebidaId = listaIdBebidas.get(i);
+				Bebida bebida = this.BebidaService.findById(bebidaId);
+				listaBebidas.getBebidasList().add(bebida);
+			}
+			model.put("bebidas", listaBebidas);
+			
+			List<Integer> listaIdOtros = OtrosService.findOtrosPedidoById(pedidoId);
+			OtrosLista listaOtros = new OtrosLista();
+			for(int i=0; i<listaIdOtros.size(); i++) {
+				Integer otroId = listaIdOtros.get(i);
+				Otros otro = this.OtrosService.findOtrosById(otroId);
+				listaOtros.getOtrosList().add(otro);
+			}
+			model.put("otros", listaOtros);
+
+			return "pedidos/resumenPedido";
+		}
+		
+	
 
 }

@@ -1,31 +1,74 @@
 package org.springframework.samples.petclinic.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.ComponentScan;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.samples.petclinic.model.Cliente;
-import org.springframework.samples.petclinic.model.Cuenta;
 import org.springframework.samples.petclinic.model.User;
-import org.springframework.stereotype.Service;
+import org.springframework.samples.petclinic.repository.ClienteRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-@DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
+
+@ExtendWith(MockitoExtension.class)
 public class ClienteServiceTests {
 
-	@Autowired
-	protected ClienteService clienteService;
 	
+	@Mock
+	ClienteRepository clienteRepository;
+	
+	ClienteService clienteService;
+	
+	@BeforeEach
+	void setUp() {
+		clienteService = new ClienteService(clienteRepository);
+	}
 	
 	@Test
-	void shouldFindClienteByUser() {
+	@Transactional
+	public void shouldFindClienteById() {
+
+		Cliente cliente = new Cliente();
+		cliente.setNombre("Paco");
+		cliente.setApellidos("Florentino");
+		cliente.setTelefono(683020234);
+		cliente.setEmail("paquito@gmail.com");
+		cliente.setFechaNacimiento(LocalDate.of(2000, 12, 9));
+		//cliente.setFechaAlta(LocalDate.now());
+		User usuario = new User();
+		usuario.setUsername("PAquitoO");
+		usuario.setPassword("Tomate y papas");
+		usuario.setEnabled(true);
+        cliente.setUser(usuario);  
 		
+		when(clienteRepository.findById(anyInt())).thenReturn(cliente);
+		clienteService.findCuentaById(7);
+		verify(clienteRepository).findById(7);
+		
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotFindClienteById() {
+		
+//		when(clienteRepository.findById(anyInt())).thenReturn(cliente);
+//		clienteService.findCuentaById(7);
+		verify(clienteRepository, never()).findById(777);
+		
+	}
+	
+	@Test
+	@Transactional
+	public void shouldFindClienteByUser() {
+	
 		Cliente cliente = new Cliente();
 		cliente.setNombre("Paco");
 		cliente.setApellidos("Florentino");
@@ -38,70 +81,27 @@ public class ClienteServiceTests {
 		usuario.setPassword("Tomate y papas");
 		usuario.setEnabled(true);
         cliente.setUser(usuario);
-
-        this.clienteService.saveCliente(cliente);
-		Cuenta clienteEncontrado = this.clienteService.findCuentaByUser(usuario);
-
-		assertThat(cliente).isEqualTo(clienteEncontrado);
+        
+        when(clienteRepository.findByUser(usuario)).thenReturn(cliente);
+		clienteService.findCuentaByUser(usuario);
+		verify(clienteRepository).findByUser(usuario);
+		
 	}
 	
 	@Test
-	void shouldFindClienteByUserYaCreado() {
+	@Transactional
+	public void shouldNotFindClienteByUser() {
 		User usuario = new User();
-		usuario.setUsername("margarcac1");
-		usuario.setPassword("margarcac1");
-		usuario.setEnabled(true);
-		Cuenta clienteEncontrado = this.clienteService.findCuentaByUser(usuario);
-		assertThat(clienteEncontrado.getUser().getUsername()).isEqualTo("margarcac1");
-//		System.out.println("Cliente: " + clienteEncontrado.getUser().getUsername());
+		verify(clienteRepository, never()).findByUser(usuario);
 	}
 	
 	@Test
 	@Transactional
-	public void shouldInsertCliente() {
-
-		Cliente cliente = new Cliente();
-		cliente.setNombre("Paco");
-		cliente.setApellidos("Florentino");
-		cliente.setTelefono(683020234);
-		cliente.setEmail("paquito@gmail.com");
-		cliente.setFechaNacimiento(LocalDate.of(2000, 12, 9));
-		//cliente.setFechaAlta(LocalDate.now());
-		User usuario = new User();
-		usuario.setUsername("PAquitoO");
-		usuario.setPassword("Tomate y papas");
-		usuario.setEnabled(true);
-        cliente.setUser(usuario);                
-                
-		this.clienteService.saveCliente(cliente);
-		Cliente clienteEncontrado = this.clienteService.findCuentaById(cliente.getId());
-		assertThat(cliente).isEqualTo(clienteEncontrado);
-	}
-	
-	@Test
-	@Transactional
-	void shouldUpdateCliente() {
-		Cliente cliente = this.clienteService.findCuentaById(1);
-		String oldNombre = cliente.getNombre();
-		String newNombre = oldNombre+"Yeah";
+	public void shouldFindAllClientes() {
 		
-		cliente.setNombre(newNombre);
-		this.clienteService.saveCliente(cliente);
-
-		cliente = this.clienteService.findCuentaById(1);
-		assertThat(cliente.getNombre()).isEqualTo(newNombre);
-	}
-	
-	@Test
-	@Transactional
-	void shouldDeleteCliente() {
-		Cliente cliente = this.clienteService.findCuentaById(1);
-		
-		this.clienteService.deleteCliente(cliente);
-		
-		cliente = this.clienteService.findCuentaById(1);
-		
-		assertNull(cliente);
+		when(clienteRepository.findAll()).thenReturn(new ArrayList<>());
+		clienteService.findCuentas();
+		verify(clienteRepository).findAll();
 	}
 	
 }

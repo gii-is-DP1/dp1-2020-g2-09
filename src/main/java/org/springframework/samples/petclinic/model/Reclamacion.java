@@ -8,28 +8,35 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.sun.istack.NotNull;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper=false)
+@Getter
+@Setter
 @Entity
 @Table(name = "Reclamaciones")
 public class Reclamacion extends BaseEntity {
 	
 	
-	@Column(name = "fechaReclamacion")
-	@DateTimeFormat(pattern = "yyyy/MM/dd")
-	@NotNull
-	private LocalDate fechaReclamacion;
+//	@Column(name = "fechaReclamacion")
+//	@DateTimeFormat(pattern = "yyyy/MM/dd")
+//	@NotNull
+//	private LocalDate fechaReclamacion;
 	
 	@Column(name = "observacion")
 	@NotNull
 	private String observacion;
+	
+	@Column(name = "respuesta")
+	@Value("Lo sentimos, perdone las molestias")
+	private String respuesta;
 	
 
 }

@@ -18,16 +18,18 @@ import com.sun.istack.NotNull;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper=false)
+@Getter
+@Setter
 @MappedSuperclass
 public class Cuenta extends BaseEntity {
 	
 	
 	@Column(name = "nombre")
 	@NotNull
-	@Size(min = 2, max = 10)
+	@Size(min = 2, max = 20)
 	private String nombre;
 	
 	@Column(name = "apellidos")
@@ -49,6 +51,7 @@ public class Cuenta extends BaseEntity {
 	
 	@OneToOne(cascade = CascadeType.PERSIST)//crea un usuario para una sola cuenta
     @JoinColumn(name = "usuario", referencedColumnName = "username")
+	@NotNull
 	private User user;
 	
 	@Column(name = "email")

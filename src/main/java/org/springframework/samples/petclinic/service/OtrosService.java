@@ -32,6 +32,11 @@ public class OtrosService {
 	}
 	
 	@Transactional(readOnly = true)
+	public List<Integer> findOtrosPedidoById(int pedidoId) throws DataAccessException {
+		return OtrosRepository.findOtrosPedidoById(pedidoId);
+	}
+	
+	@Transactional(readOnly = true)
 	public Otros findOtrosById(int OtrosId) throws DataAccessException {
 		return OtrosRepository.findOtrosById(OtrosId);
 	}

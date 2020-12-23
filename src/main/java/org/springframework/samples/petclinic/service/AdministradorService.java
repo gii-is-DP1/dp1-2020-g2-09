@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Administrador;
 import org.springframework.samples.petclinic.repository.AdministradorRepository;
+import org.springframework.samples.petclinic.repository.AuthoritiesRepository;
+import org.springframework.samples.petclinic.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +16,9 @@ public class AdministradorService {
 
 	private AdministradorRepository administradorRepository;
 	
+//	private UserRepository userRepository;
+	
+//	private AuthoritiesRepository authoritiesRepository;
 	@Autowired
 	private UserService userService;
 	
@@ -23,6 +28,7 @@ public class AdministradorService {
 	@Autowired
 	public AdministradorService(AdministradorRepository administradorRepository) {
 		this.administradorRepository = administradorRepository;
+//		this.userRepository = userRepository;
 	}		
 
 	@Transactional(readOnly = true)	
@@ -39,6 +45,7 @@ public class AdministradorService {
 	public void saveAdministrador(Administrador administrador) throws DataAccessException {
 		this.administradorRepository.save(administrador);	
 		//creating user
+		//userRepository.save(administrador.getUser());
 		userService.saveUser(administrador.getUser());
 		//creating authorities
 		authoritiesService.saveAuthorities(administrador.getUser().getUsername(), "administrador");

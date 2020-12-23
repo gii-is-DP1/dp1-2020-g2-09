@@ -8,15 +8,21 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.Data;
+import com.sun.istack.NotNull;
 
-@Data
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class User{
 	@Id
 	String username;
 	
+	@NotNull
 	String password;
 	
 	boolean enabled;

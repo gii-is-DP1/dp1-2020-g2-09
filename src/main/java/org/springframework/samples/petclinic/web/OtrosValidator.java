@@ -21,9 +21,10 @@ public class OtrosValidator implements Validator{
 		String nombre = otros.getNombre();
 		//Collection<Ingrediente> ingredientes = otros.getIngredientes();
 		Integer coste = otros.getCoste();
+		Collection<Ingrediente> ing = otros.getIngredientes();
 		
-		if (!StringUtils.hasLength(nombre) || nombre.length()>50 || nombre.length()<3) {
-			errors.rejectValue("nombre", REQUIRED+" debe tener entre 3 y 50 carácteres", REQUIRED+" debe tener entre 3 y 50 carácteres");
+		if (!StringUtils.hasLength(nombre) || nombre.length()>20 || nombre.length()<2) {
+			errors.rejectValue("nombre", REQUIRED+" debe tener entre 2 y 20 carácteres", REQUIRED+" debe tener entre 2 y 20 carácteres");
 		}
 
 		/*if (ingredientes==null) {
@@ -34,6 +35,10 @@ public class OtrosValidator implements Validator{
 			errors.rejectValue("coste","El coste no puede ser negativo o menor que cero","El coste no puede ser negativo o menor que cero");
 		}else if (coste == 0 || coste<=0) {
 			errors.rejectValue("coste","El coste no puede ser negativo o menor que cero","El coste no puede ser negativo o menor que cero");
+		}
+		
+		if(ing.equals(null) || ing.isEmpty()) {
+			errors.rejectValue("ingredientes","Debe escoger ingredientes","Debe escoger ingredientes" );
 		}
 	}
 

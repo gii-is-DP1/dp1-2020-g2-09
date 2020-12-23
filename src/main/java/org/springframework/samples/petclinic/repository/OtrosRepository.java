@@ -23,6 +23,10 @@ public interface OtrosRepository extends CrudRepository<Otros, Integer>{
 			nativeQuery = true)
 	List<Integer> findIdOtroById(int cartaId) throws DataAccessException;
 	
+	@Query(value = "SELECT OTROS_EN_PEDIDO_ID FROM PRODUCTO_OTROS_PEDIDO  WHERE PEDIDO_ID = ?1",
+			nativeQuery = true)
+	List<Integer> findOtrosPedidoById(int pedidoId) throws DataAccessException;
+	
 	@Modifying
 	@Query(value = "INSERT INTO COMPOSICION_CARTA_OTROS(OTROS_EN_CARTA_ID, CARTA_ID) VALUES (?1, ?2)",
 			nativeQuery = true)

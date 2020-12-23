@@ -8,19 +8,19 @@
 
 <petclinic:layout pageName="Otros">
     <h2>
-        <c:if test="${Otros['new']}">Otro </c:if> nuevo
+        <c:if test="${otros['new']}">Otro </c:if> nuevo
     </h2>
-    <form:form modelAttribute="Otros" class="form-horizontal" id="add-owner-form">
+    <form:form modelAttribute="otros" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre del plato" name="nombre"/>
-            <petclinic:inputField label="Precio" name="coste"/>
+			<petclinic:input name="coste" label="Precio"/>
             <petclinic:inputField label="contador" name="contador"/>
             <petclinic:selectField name="ingredientes" label="ingredientes" names="${ingredientes}" size="3"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
-                    <c:when test="${Otros['new']}">
+                    <c:when test="${otros['new']}">
                         <button class="btn btn-default" type="submit">Crear Otros</button>
                     </c:when>
                     <c:otherwise>

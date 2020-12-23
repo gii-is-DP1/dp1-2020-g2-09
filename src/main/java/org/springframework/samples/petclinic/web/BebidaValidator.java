@@ -21,8 +21,8 @@ public class BebidaValidator implements Validator {
 		Integer coste = bebida.getCoste();
 		
 		// nombre validation
-		if (!StringUtils.hasLength(nombre) || nombre.length()>50 || nombre.length()<3) {
-			errors.rejectValue("nombre", "El nombre debe tener entre 3 y 50 carácteres", "El nombre  debe tener entre 3 y 50 carácteres");
+		if (!StringUtils.hasLength(nombre) || nombre.length()>20 || nombre.length()<2) {
+			errors.rejectValue("nombre", "El nombre debe tener entre 2 y 20 carácteres", "El nombre  debe tener entre 3 y 20 carácteres");
 		}
 
 		if (carbonatada==null) {
@@ -34,9 +34,9 @@ public class BebidaValidator implements Validator {
 		}
 		
 		if (coste==null) {
-			errors.rejectValue("coste", "El coste no puede ser negativo o menor que cero", "El coste no puede ser negativo o menor que cero");
+			errors.rejectValue("coste", "El precio no puede ser negativo o menor que cero", "El precio no puede ser negativo o menor que cero");
 		}else if (coste == 0 || coste<=0) {
-			errors.rejectValue("coste", "El coste no puede ser negativo o menor que cero", "El coste no puede ser negativo o menor que cero");
+			errors.rejectValue("coste", "El precio no puede ser negativo o menor que cero", "El precio no puede ser negativo o menor que cero");
 		}
 	}
 

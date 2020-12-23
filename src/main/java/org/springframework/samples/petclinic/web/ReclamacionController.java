@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +36,13 @@ public class ReclamacionController {
 	}
 	
 	@GetMapping(value = { "/allReclamaciones" })
+	
 	public String showReclamacionList(Map<String, Object> model) {
 		Reclamaciones reclamaciones = new Reclamaciones();
-		reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findReclamaciones());
+		reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findPedidosConReclamaciones());
+		//reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findReclamaciones());
+		//List<Integer> pedidosConReclamaciones = this.reclamacionService.findPedidosConReclamaciones();
+		//model.put("pedidosReclamaciones", pedidosConReclamaciones);
 		model.put("reclamaciones", reclamaciones);
 		return "reclamaciones/reclamacionesList";
 	} 
@@ -46,6 +51,7 @@ public class ReclamacionController {
 		@GetMapping("/pedidos/{pedidoId}/anadirReclamacion/new")
 		public String initCreationForm(Map<String, Object> model, @PathVariable("pedidoId") int pedidoId) {
 			Reclamacion reclamacion = new Reclamacion();
+			reclamacion.setRespuesta("Lo sentimos mucho, ...");
 			model.put("reclamacion", reclamacion);
 			return "reclamaciones/createOrUpdateReclamacionForm";
 		}
@@ -72,7 +78,7 @@ public class ReclamacionController {
 		@GetMapping(value = "/reclamaciones/{reclamacionId}/edit")
 		public String initUpdateForm(@PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
 			Reclamacion reclamacion = this.reclamacionService.findReclamacionById(reclamacionId);
-		
+			reclamacion.setRespuesta("");
 			model.put("reclamacion", reclamacion);
 			return "reclamaciones/createOrUpdateReclamacionForm";
 		}
@@ -80,8 +86,10 @@ public class ReclamacionController {
 		//mandar actualizacion
 		@PostMapping(value = "/reclamaciones/{reclamacionId}/edit")
 		public String processUpdateReclamacionForm(@Valid Reclamacion reclamacion, BindingResult result,
-				@PathVariable("reclamacionId") int reclamacionId) {
+				@PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
 			if (result.hasErrors()) {
+				reclamacion.setId(reclamacionId);
+				model.put("reclamacion", reclamacion);
 				return "reclamaciones/createOrUpdateReclamacionForm";
 				
 			}

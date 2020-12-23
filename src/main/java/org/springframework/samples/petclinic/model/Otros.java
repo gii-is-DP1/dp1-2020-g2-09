@@ -12,8 +12,11 @@ import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-@Data
-@EqualsAndHashCode(callSuper=false)
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "Otros")
 public class Otros extends Producto {

@@ -28,10 +28,10 @@ public class AdministradorController {
 		this.administradorService = administradorService;
 	}
 
-	/*@InitBinder
+	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
-	}*/
+	}
 	
 	@InitBinder("administrador")
 	public void initPetBinder(WebDataBinder dataBinder) {

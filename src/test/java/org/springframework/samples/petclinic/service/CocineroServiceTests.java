@@ -1,32 +1,39 @@
 package org.springframework.samples.petclinic.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.ComponentScan;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.samples.petclinic.model.Cocina;
 import org.springframework.samples.petclinic.model.User;
-import org.springframework.stereotype.Service;
+import org.springframework.samples.petclinic.repository.CocineroRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-@DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
+
+@ExtendWith(MockitoExtension.class)
 public class CocineroServiceTests {
 
+	@Mock
+	CocineroRepository cocineroRepository;
 	
-	@Autowired
-	protected CocineroService cocineroService;
+	CocineroService cocineroService;
 	
+	@BeforeEach
+	void setUp() {
+		cocineroService = new CocineroService(cocineroRepository);
+	}
 	
 	@Test
 	@Transactional
-	public void shouldInsertCocinero() {
+	public void shouldFindCocineroById() {
 
 		Cocina cocinero = new Cocina();
 		cocinero.setNombre("Paco");
@@ -39,57 +46,32 @@ public class CocineroServiceTests {
 		usuario.setUsername("PAquitoO");
 		usuario.setPassword("Tomate y papas");
 		usuario.setEnabled(true);
-		cocinero.setUser(usuario);                
-                
-		this.cocineroService.saveCocinero(cocinero);
-		Cocina cocineroEncontrado = this.cocineroService.findCocineroById(cocinero.getId());
-		assertThat(cocinero).isEqualTo(cocineroEncontrado);
-	}
-	
-	@Test
-	@Transactional
-	void shouldUpdateCocinero() {
-		Cocina cocinero = this.cocineroService.findCocineroById(1);
-		String oldNombre = cocinero.getNombre();
-		String newNombre = oldNombre+"Yeah";
+		cocinero.setUser(usuario); 
 		
-		cocinero.setNombre(newNombre);
-		this.cocineroService.saveCocinero(cocinero);
-		
-		cocinero = this.cocineroService.findCocineroById(1);
-		assertThat(cocinero.getNombre()).isEqualTo(newNombre);
+		when(cocineroRepository.findCocineroById(anyInt())).thenReturn(cocinero);
+		cocineroService.findCocineroById(7);
+		verify(cocineroRepository).findCocineroById(7);
 		
 	}
 	
 	@Test
 	@Transactional
-	void shouldNotUpdateCocinero() {
-		Cocina oldCocinero = this.cocineroService.findCocineroById(1);
-		String oldNombre = oldCocinero.getNombre();
-		String newNombre = oldNombre+"Yeahhhhhhhhhhhh";
+	public void shouldNotFindCocineroById() {
+
+//		when(cocineroRepository.findCocineroById(anyInt())).thenReturn(cocinero);
+//		cocineroService.findCocineroById(7);
+		verify(cocineroRepository, never()).findCocineroById(50);
 		
-		oldCocinero.setNombre(newNombre);
-		try{
-			this.cocineroService.saveCocinero(oldCocinero);
-			//assertTrue(false);
-		}catch (Exception e) {
-			assertTrue(true);
-		}
-		//assertTrue(false);
 	}
 	
 	@Test
 	@Transactional
-	void shouldDeleteCocinero() {
-		Cocina cocinero = this.cocineroService.findCocineroById(1);
+	public void shouldFindAllCocineros() {
 		
-		this.cocineroService.deleteCocinero(cocinero);
-		
-		cocinero = this.cocineroService.findCocineroById(1);
-		
-		assertNull(cocinero);
+		when(cocineroRepository.findAll()).thenReturn(new ArrayList<>());
+		cocineroService.findCocineros();
+		verify(cocineroRepository).findAll();
 	}
-	
 	
 	
 }

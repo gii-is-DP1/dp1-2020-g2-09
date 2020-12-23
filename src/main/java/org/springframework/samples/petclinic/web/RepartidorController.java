@@ -45,7 +45,7 @@ public class RepartidorController {
 	public String showRepartidoresList(Map<String, Object> model) {
 		Repartidores repartidores = new Repartidores();
 		repartidores.getRepartidoresList().addAll(this.repartidorService.findRepartidores());
-		model.put("repartidores", repartidores);
+		model.put("listarepartidores", repartidores);
 		return "repartidores/repartidoresList";
 	}
 
@@ -53,21 +53,22 @@ public class RepartidorController {
 	@GetMapping(value = "/repartidores/new")
 	public String initCreationForm(Map<String, Object> model) {
 		Repartidor repartidor = new Repartidor();
-		model.put("repartidores", repartidor);
+		model.put("repartidor", repartidor);
 		return "repartidores/createOrUpdateRepartidorForm";
 	}
 
 	//mandar nuevo repartidor
 	@PostMapping(value = "/repartidores/new")
-	public String processCreationForm(@Valid Repartidor repartidor, BindingResult result, ModelMap model) {
+	public String processCreationForm(@Valid Repartidor repartidor, 
+			BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
-			model.put("repartidores", repartidor);
-
+			model.put("repartidor", repartidor);
 			return "repartidores/createOrUpdateRepartidorForm";
 		}
 		else {
-			RepartidorValidator repValidator = new RepartidorValidator();
-			ValidationUtils.invokeValidator(repValidator, repartidor, result);
+//			RepartidorValidator repValidator = new RepartidorValidator();
+//			ValidationUtils.invokeValidator(repValidator, repartidor, result);
+			repartidor.setFechaInicioContrato(LocalDate.now());
 			this.repartidorService.saveRepartidor(repartidor);
 			return "redirect:/allRepartidores";
 		}
@@ -77,7 +78,7 @@ public class RepartidorController {
 	@GetMapping(value = "/repartidores/{repartidorId}/edit")
 	public String initUpdateForm(@PathVariable("repartidorId") int repartidorId, ModelMap model) {
 		Repartidor repartidor = this.repartidorService.findRepartidorById(repartidorId);
-		model.put("repartidores", repartidor);
+		model.put("repartidor", repartidor);
 		return "repartidores/createOrUpdateRepartidorForm";
 	}
 	
@@ -91,8 +92,8 @@ public class RepartidorController {
 			return "repartidores/createOrUpdateRepartidorForm";
 		}
 		else {
-			RepartidorValidator repValidator = new RepartidorValidator();
-			ValidationUtils.invokeValidator(repValidator, repartidor, result);
+//			RepartidorValidator repValidator = new RepartidorValidator();
+//			ValidationUtils.invokeValidator(repValidator, repartidor, result);
 			repartidor.setId(repartidorId);
 			this.repartidorService.saveRepartidor(repartidor);
 			return "redirect:/allRepartidores";
