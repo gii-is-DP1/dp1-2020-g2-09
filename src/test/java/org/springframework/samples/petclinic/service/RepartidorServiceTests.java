@@ -56,22 +56,9 @@ public class RepartidorServiceTests {
 	@Test
 	@Transactional
 	public void shouldNotFindRepartidorById() {
-
-		Repartidor repartidor = new Repartidor();
-		repartidor.setNombre("Paco");
-		repartidor.setApellidos("Florentino");
-		repartidor.setTelefono(683020234);
-		repartidor.setEmail("paquito@gmail.com");
-		repartidor.setFechaNacimiento(LocalDate.of(2000, 12, 9));
-		//cliente.setFechaAlta(LocalDate.now());
-		User usuario = new User();
-		usuario.setUsername("PAquitoO");
-		usuario.setPassword("Tomate y papas");
-		usuario.setEnabled(true);
-		repartidor.setUser(usuario); 
 		
-		when(repartidorRepository.findRepartidorById(anyInt())).thenReturn(repartidor);
-		repartidorService.findRepartidorById(8);
+//		when(repartidorRepository.findRepartidorById(anyInt())).thenReturn(repartidor);
+//		repartidorService.findRepartidorById(8);
 		verify(repartidorRepository, never()).findRepartidorById(10);
 	}
 	
