@@ -1,8 +1,11 @@
 package org.springframework.samples.petclinic.web;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Map;
+
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.NivelSocio;
 import org.springframework.samples.petclinic.model.Oferta;
@@ -19,7 +22,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 
@@ -57,6 +59,7 @@ public class OfertaController {
 		Ofertas ofertas = new Ofertas();
 		ofertas.getOfertasList().addAll(this.ofertaService.findOfertas());
 		model.put("ofertas", ofertas);
+		model.put("hoy",LocalDate.now());
 		return "ofertas/ofertasList";
 	}
 
