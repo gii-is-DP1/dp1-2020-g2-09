@@ -13,7 +13,7 @@ import org.springframework.validation.Validator;
 @Component
 public class OtrosValidator implements Validator{
 
-	private static final String REQUIRED = "requerido";
+	private static final String REQUIRED = "Requerido";
 
 	@Override
 	public void validate(Object obj, Errors errors) {
@@ -32,9 +32,9 @@ public class OtrosValidator implements Validator{
 		}*/
 		
 		if (coste==null) {
-			errors.rejectValue("coste","El coste no puede ser negativo o menor que cero","El coste no puede ser negativo o menor que cero");
+			errors.rejectValue("coste","El precio no puede ser negativo o menor que cero","El precio no puede ser negativo o menor que cero");
 		}else if (coste == 0 || coste<=0) {
-			errors.rejectValue("coste","El coste no puede ser negativo o menor que cero","El coste no puede ser negativo o menor que cero");
+			errors.rejectValue("coste","El precio no puede ser negativo o menor que cero","El precio no puede ser negativo o menor que cero");
 		}
 		
 		if(ing.equals(null) || ing.isEmpty()) {

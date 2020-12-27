@@ -25,6 +25,7 @@
     </h2>
     <form:form modelAttribute="oferta" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
+        	<petclinic:inputField label="Name" name="name"/>
             <petclinic:inputField label="Coste" name="coste"/>
             <petclinic:inputField label="Fecha Inicial" name="fechaInicial"/>
             <petclinic:inputField label="Fecha Final" name="fechaFinal"/>

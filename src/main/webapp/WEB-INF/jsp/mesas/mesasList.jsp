@@ -13,6 +13,7 @@
         <thead>
         <tr>
         	<th>Capacidad</th>
+        	<th>Nº Mesa</th>
 
         </tr>
         <a href="/mesas/new" class="btn btn-default">Añadir mesa</a>
@@ -24,7 +25,7 @@
              		<c:out value="${mesa.capacidad}"></c:out>
              	</td>
              	<td>
-             		<!--<c:out value="${mesa.id}"></c:out>-->
+             		<c:out value="${mesa.id}"></c:out>
              	</td>
              	<td>
              		<spring:url value="/mesas/{mesaId}/edit" var="mesaUrl">

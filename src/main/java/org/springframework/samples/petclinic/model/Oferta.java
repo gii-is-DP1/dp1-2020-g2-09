@@ -9,17 +9,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 import com.sun.istack.NotNull;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+
 import lombok.Getter;
 import lombok.Setter;
-
 
 @Getter
 @Setter
 @Entity
 @Table(name = "Ofertas")
-public class Oferta extends BaseEntity{
+public class Oferta extends NamedEntity{
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "tamano_oferta")
@@ -47,6 +45,10 @@ public class Oferta extends BaseEntity{
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@NotNull
 	private LocalDate fechaFinal;
+	
+	@Column(name = "estadoOferta")
+	@NotNull
+	private Boolean estadoOferta=true;
 	
 //	public TamanoProducto getTamanoProducto() {
 //		return this.tamanoProducto;
