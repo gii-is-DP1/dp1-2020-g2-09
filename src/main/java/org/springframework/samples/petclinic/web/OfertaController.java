@@ -57,7 +57,7 @@ public class OfertaController {
 	}
 	
 	@GetMapping(value = { "/allOfertas" })
-	public String showPedidoList(Map<String, Object> model) {
+	public String showOfertaList(Map<String, Object> model) {
 		Ofertas ofertas = new Ofertas();
 		ofertas.getOfertasList().addAll(this.ofertaService.findOfertas());
 		model.put("ofertas", ofertas);

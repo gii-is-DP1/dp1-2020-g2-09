@@ -48,5 +48,10 @@ public class ReclamacionService {
 	 public List<Reclamacion> findPedidosConReclamaciones() throws DataAccessException {
 		return reclamacionRepository.findPedidosConReclamaciones();
 	 }
+	 
+	 @Transactional
+	 public List<Reclamacion> findReclamacionesByCliente(int userId) throws DataAccessException {
+		 return reclamacionRepository.findReclamacionesByCliente(userId);
+	 }
  
 }

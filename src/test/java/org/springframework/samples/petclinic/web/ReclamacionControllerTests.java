@@ -37,10 +37,10 @@ class ReclamacionControllerTests {
 	private static final int TEST_RECLAMACION_ID = 9;
 
 	private static final int TEST_PEDIDO_ID = 99;
-
+	
 	@Autowired
 	private ReclamacionController reclamacionController;
-
+	
 
 	@MockBean
 	private ReclamacionService reclamacionService;
@@ -77,7 +77,8 @@ class ReclamacionControllerTests {
 		
 		r.setId(3); 
 		//r.setFechaReclamacion(LocalDate.of(2020, 11, 24));
-		r.setObservacion("aaaaa");
+		r.setObservacion("aaaaaaaaaaaaaaa"); 
+		r.setRespuesta("aaaaaaaaaaaaaaaaaaaa");
 		
 		given(this.reclamacionService.findReclamaciones()).willReturn(Lists.newArrayList(r));
 		given(this.pedidoService.findPedidoById(TEST_PEDIDO_ID)).willReturn(new Pedido());
@@ -92,17 +93,18 @@ class ReclamacionControllerTests {
 				.andExpect(view().name("reclamaciones/createOrUpdateReclamacionForm"));
 	}
 
-	//En el validador pone que la fecha de reclamación no puede ser posterior a la actual
-	//Me da una excepción cuando quiero redirigir a una vista.
+	
 	@WithMockUser(value = "spring")
         @Test
 	void testProcessCreationFormSuccess() throws Exception {
 		mockMvc.perform(post("/pedidos/{pedidoId}/anadirReclamacion/new", TEST_PEDIDO_ID)
 				.with(csrf())
-				.param("fechaReclamacion", "2020/11/27")
-				.param("observacion", "No se que ocurre")).andExpect(model().hasNoErrors());
+				//.param("fechaReclamacion", "2020/11/27")
+				.param("observacion", "No se que ocurre")
+				.param("respuesta", "Lo sentimos mucho"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/allReclamaciones"));
 		//.andExpect(view().name("reclamaciones/reclamacionesList"));
-		//.andExpect(status().is3xxRedirection())
 	//.andExpect(view().name("reclamaciones/createOrUpdateReclamacionForm"));
 } 
 
