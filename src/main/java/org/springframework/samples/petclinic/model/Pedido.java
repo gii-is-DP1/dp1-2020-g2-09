@@ -59,7 +59,7 @@ public class Pedido extends BaseEntity{
 	
 	@ManyToMany (cascade = CascadeType.PERSIST)
 	@JoinTable(name = "productoOtrosPedido", joinColumns =@JoinColumn(name= "pedidoId" ))
-	private Collection<Otros> otrosEnPedido;
+	private Collection<Otro> otrosEnPedido;
 	
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)

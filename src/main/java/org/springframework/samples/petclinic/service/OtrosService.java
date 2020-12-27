@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Otros;
+import org.springframework.samples.petclinic.model.Otro;
 import org.springframework.samples.petclinic.repository.OtrosRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +22,7 @@ public class OtrosService {
 	}		
 
 	@Transactional(readOnly = true)	
-	public List<Otros> findOtros() throws DataAccessException {
+	public List<Otro> findOtros() throws DataAccessException {
 		return OtrosRepository.findAll();
 	}	
 	
@@ -37,7 +37,7 @@ public class OtrosService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Otros findOtrosById(int OtrosId) throws DataAccessException {
+	public Otro findOtrosById(int OtrosId) throws DataAccessException {
 		return OtrosRepository.findOtrosById(OtrosId);
 	}
 	
@@ -52,12 +52,12 @@ public class OtrosService {
 //	}
 	
 	@Transactional
-	public void saveOtros(Otros Otros) throws DataAccessException {
+	public void saveOtros(Otro Otros) throws DataAccessException {
 		OtrosRepository.save(Otros);		
 	}	
 	
 	@Transactional
-	public void deleteOtros(Otros Otros) throws DataAccessException {
+	public void deleteOtros(Otro Otros) throws DataAccessException {
 		OtrosRepository.deleteComposicionIngredientes(Otros.getId());
 		OtrosRepository.deleteComposicion(Otros.getId());
 		OtrosRepository.delete(Otros);		

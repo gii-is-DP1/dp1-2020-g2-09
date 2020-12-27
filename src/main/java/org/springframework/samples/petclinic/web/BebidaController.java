@@ -28,7 +28,7 @@ public class BebidaController {
 		this.bebidaService = bebidaService;
 	}
 
-	@InitBinder("bebida")
+	@InitBinder("bebida") 
 	public void initBebidaBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new BebidaValidator());
 	}
@@ -61,8 +61,8 @@ public class BebidaController {
 			model.put("bebida", bebida);//importanteeee
 			return "bebidas/createOrUpdateBebidaForm";
 		} else {
-			BebidaValidator bebidaValidator = new BebidaValidator();
-			ValidationUtils.invokeValidator(bebidaValidator, bebida, result);
+//			BebidaValidator bebidaValidator = new BebidaValidator();
+//			ValidationUtils.invokeValidator(bebidaValidator, bebida, result);
 			this.bebidaService.saveBebida(bebida);
 			return "redirect:/allBebidas";
 		}
@@ -84,8 +84,8 @@ public class BebidaController {
 			return "bebidas/createOrUpdateBebidaForm";
 		} else {
 			bebida.setId(bebidaId);
-			BebidaValidator bebidaValidator = new BebidaValidator();
-			ValidationUtils.invokeValidator(bebidaValidator, bebida, result);
+//			BebidaValidator bebidaValidator = new BebidaValidator();
+//			ValidationUtils.invokeValidator(bebidaValidator, bebida, result);
 			this.bebidaService.saveBebida(bebida);
 			return "redirect:/allBebidas";
 		}

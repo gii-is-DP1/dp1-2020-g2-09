@@ -9,8 +9,8 @@ import org.springframework.samples.petclinic.model.Bebida;
 import org.springframework.samples.petclinic.model.Bebidas;
 import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.model.Ingrediente;
+import org.springframework.samples.petclinic.model.Otro;
 import org.springframework.samples.petclinic.model.Otros;
-import org.springframework.samples.petclinic.model.OtrosLista;
 import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.Pizzas;
 import org.springframework.samples.petclinic.model.TamanoProducto;
@@ -56,7 +56,7 @@ public class CartaController {
 		dataBinder.setValidator(new BebidaValidator());
 	}
 	
-	@InitBinder("otros")
+	@InitBinder("otro")
 	public void initOtrosBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new OtrosValidator());
 	}
@@ -160,13 +160,13 @@ public class CartaController {
 		model.put("bebidas", listaBebidas);
 		
 		List<Integer> listaIdOtros = OtrosService.findIdOtroById(cartaId);
-		OtrosLista listaOtros = new OtrosLista();
+		Otros listaOtros = new Otros();
 		for(int i=0; i<listaIdOtros.size(); i++) {
 			Integer otroId = listaIdOtros.get(i);
-			Otros otro = this.OtrosService.findOtrosById(otroId);
-			listaOtros.getOtrosList().add(otro);
+			Otro otro = this.OtrosService.findOtrosById(otroId);
+			listaOtros.getOtrosLista().add(otro);
 		}
-		model.put("listaOtros", listaOtros);
+		model.put("otros", listaOtros);
 
 		
 		return "cartas/verCarta";
@@ -196,9 +196,9 @@ public class CartaController {
 	@GetMapping(value = "/cartas/{cartaId}/otros" )
 	public String showOtrosLista(@PathVariable("cartaId") Integer cartaId, Map<String, Object> model) {
 		model.put("cartaId", cartaId);
-		OtrosLista otros = new OtrosLista();
-		otros.getOtrosList().addAll(this.OtrosService.findOtros());
-		model.put("Otros", otros);
+		Otros otros = new Otros();
+		otros.getOtrosLista().addAll(this.OtrosService.findOtros());
+		model.put("otros", otros);
 		
 		return "Otros/OtrosList";
 	}
@@ -240,8 +240,8 @@ public class CartaController {
 			model.put("pizza", Pizza);//importanteeee
 			return "pizzas/createOrUpdatePizzaForm";
 		} else {
-			PizzaValidator pizzaValidator = new PizzaValidator();
-			ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
+//			PizzaValidator pizzaValidator = new PizzaValidator();
+//			ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
 			this.PizzaService.savePizza(Pizza);
 			return "redirect:/cartas/{cartaId}/pizzas";
 		}
@@ -260,8 +260,8 @@ public class CartaController {
 			model.put("bebida", bebida);//importanteeee
 			return "bebidas/createOrUpdateBebidaForm";
 		} else {
-			BebidaValidator bebidaValidator = new BebidaValidator();
-			ValidationUtils.invokeValidator(bebidaValidator, bebida, result);
+//			BebidaValidator bebidaValidator = new BebidaValidator();
+//			ValidationUtils.invokeValidator(bebidaValidator, bebida, result);
 			this.BebidaService.saveBebida(bebida);//el tamaño se pone a null
 			return "redirect:/cartas/{cartaId}/bebidas";
 		}
@@ -270,23 +270,23 @@ public class CartaController {
 	//crear nuevo Otros
 		@GetMapping(value = "/cartas/{cartaId}/otro/new")
 		public String initCreationOtrosForm(@PathVariable("cartaId") Integer cartaId, Map<String, Object> model) {
-			Otros Otros = new Otros();
-			model.put("otros", Otros);
+			Otro otro = new Otro();
+			model.put("otro", otro);
 			model.put("cartaId", cartaId);
 			return "Otros/createOrUpdateOtrosForm";
 		}
 
 		//mandar nuevo Otros
 		@PostMapping(value = "/cartas/{cartaId}/otro/new")
-		public String processCreationOtrosForm(@Valid Otros otros, BindingResult result, ModelMap model) {
+		public String processCreationOtrosForm(@Valid Otro otro, BindingResult result, ModelMap model) {
 			if (result.hasErrors()) {
-					model.put("otros", otros);//importanteeee
+					model.put("otro", otro);//importanteeee
 				return "Otros/createOrUpdateOtrosForm";
 			}
 			else {
-				OtrosValidator ostrosValidator = new OtrosValidator();
-				ValidationUtils.invokeValidator(ostrosValidator, otros, result);
-				this.OtrosService.saveOtros(otros);
+//				OtrosValidator ostrosValidator = new OtrosValidator();
+//				ValidationUtils.invokeValidator(ostrosValidator, otros, result);
+				this.OtrosService.saveOtros(otro);
 				return "redirect:/cartas/{cartaId}/otros";
 			}
 		}
@@ -310,8 +310,8 @@ public class CartaController {
 				return "pizzas/createOrUpdatePizzaForm";
 			} else {
 				Pizza.setId(pizzaId);
-				PizzaValidator pizzaValidator = new PizzaValidator();
-				ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
+//				PizzaValidator pizzaValidator = new PizzaValidator();
+//				ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
 				this.PizzaService.savePizza(Pizza);
 				return "redirect:/cartas/{cartaId}/pizzas";
 			}
@@ -334,8 +334,8 @@ public class CartaController {
 				return "bebidas/createOrUpdateBebidaForm";
 			} else {
 				bebida.setId(bebidaId);
-				BebidaValidator bebidaValidator = new BebidaValidator();
-				ValidationUtils.invokeValidator(bebidaValidator, bebida, result);
+//				BebidaValidator bebidaValidator = new BebidaValidator();
+//				ValidationUtils.invokeValidator(bebidaValidator, bebida, result);
 				this.BebidaService.saveBebida(bebida);
 				return "redirect:/cartas/{cartaId}/bebidas";
 			}
@@ -345,25 +345,25 @@ public class CartaController {
 		@GetMapping(value = "/cartas/{cartaId}/otro/{OtrosId}/edit")
 		public String initUpdateOtrosForm(@PathVariable("cartaId") Integer cartaId,
 				@PathVariable("OtrosId") int OtrosId, ModelMap model) {
-			Otros Otros = this.OtrosService.findOtrosById(OtrosId);
-			model.put("otros", Otros);
+			Otro otro = this.OtrosService.findOtrosById(OtrosId);
+			model.put("otro", otro);
 			model.put("cartaId", cartaId);
 			return "Otros/createOrUpdateOtrosForm";
 		}
 		
 		//mandar actualizacion de otro
 		@PostMapping(value = "/cartas/{cartaId}/otro/{OtrosId}/edit")
-		public String processUpdateOtrosForm(@Valid Otros otros, BindingResult result,
+		public String processUpdateOtrosForm(@Valid Otro otro, BindingResult result,
 				@PathVariable("OtrosId") int OtrosId, ModelMap model) {
 			if (result.hasErrors()) {
-				model.put("otros", otros);
+				model.put("otro", otro);
 				return "Otros/createOrUpdateOtrosForm";
 			}
 			else {
-				OtrosValidator otrosValidator = new OtrosValidator();
-				ValidationUtils.invokeValidator(otrosValidator, otros, result);
-				otros.setId(OtrosId);
-				this.OtrosService.saveOtros(otros);
+//				OtrosValidator otrosValidator = new OtrosValidator();
+//				ValidationUtils.invokeValidator(otrosValidator, otros, result);
+				otro.setId(OtrosId);
+				this.OtrosService.saveOtros(otro);
 				return "redirect:/cartas/{cartaId}/otros";
 			}
 		}
@@ -393,7 +393,7 @@ public class CartaController {
 		public String initDeleteOtros(@PathVariable("cartaId") Integer cartaId, 
 				@PathVariable("OtrosId") int OtrosId, ModelMap model) {
 			model.put("cartaId", cartaId);
-			Otros Otros = this.OtrosService.findOtrosById(OtrosId);
+			Otro Otros = this.OtrosService.findOtrosById(OtrosId);
 			this.OtrosService.deleteOtros(Otros);
 			return "redirect:/cartas/{cartaId}/otros";
 		}

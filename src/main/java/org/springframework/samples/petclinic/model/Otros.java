@@ -1,31 +1,23 @@
 package org.springframework.samples.petclinic.model;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import com.sun.xml.txw2.annotation.XmlElement;
 
-@Getter
-@Setter
-@Entity
-@Table(name = "Otros")
-public class Otros extends Producto {
+@XmlRootElement
+public class Otros {
 
-	@ManyToMany(cascade = CascadeType.REFRESH)
-	private Collection<Ingrediente> ingredientes;
 	
-//	@ManyToMany(cascade = CascadeType.ALL)
-//	@JoinTable(name = "composicionCartaOtros", joinColumns =@JoinColumn(name= "otrosEnCarta"))
-//	private Collection<Carta> cartaDeOtros;
+private List<Otro> otrosLista;
 	
+	@XmlElement
+	public List<Otro> getOtrosLista() {
+		if (otrosLista == null) {
+			otrosLista = new ArrayList<>();
+		}
+		return otrosLista;
+	}
 }

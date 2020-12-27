@@ -164,7 +164,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${listaOtros.otrosList}" var="otro">
+        <c:forEach items="${otros.otrosLista}" var="otro">
             <tr>
                 <td>
                     <c:out value="${otro.nombre}"/>
