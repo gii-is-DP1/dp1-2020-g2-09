@@ -52,5 +52,5 @@ public class Carta extends BaseEntity{
 	
 	@ManyToMany (cascade = CascadeType.PERSIST)
 	@JoinTable(name = "composicionCartaOtros", joinColumns =@JoinColumn(name= "cartaId" ))
-	private Collection<Otros> otrosEnCarta;
+	private Collection<Otro> otrosEnCarta;
 }

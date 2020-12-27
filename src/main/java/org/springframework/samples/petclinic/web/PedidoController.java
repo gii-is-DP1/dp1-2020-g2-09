@@ -12,8 +12,8 @@ import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Cuenta;
 import org.springframework.samples.petclinic.model.EstadoPedido;
+import org.springframework.samples.petclinic.model.Otro;
 import org.springframework.samples.petclinic.model.Otros;
-import org.springframework.samples.petclinic.model.OtrosLista;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Pedidos;
 import org.springframework.samples.petclinic.model.Pizza;
@@ -225,11 +225,11 @@ public class PedidoController {
 			model.put("bebidas", listaBebidas);
 			
 			List<Integer> listaIdOtros = OtrosService.findIdOtroById(cartaId);
-			OtrosLista listaOtros = new OtrosLista();
+			Otros listaOtros = new Otros();
 			for(int i=0; i<listaIdOtros.size(); i++) {
 				Integer otroId = listaIdOtros.get(i);
-				Otros otro = this.OtrosService.findOtrosById(otroId);
-				listaOtros.getOtrosList().add(otro);
+				Otro otro = this.OtrosService.findOtrosById(otroId);
+				listaOtros.getOtrosLista().add(otro);
 			}
 			model.put("listaOtros", listaOtros);
 
@@ -318,11 +318,11 @@ public class PedidoController {
 			model.put("bebidas", listaBebidas);
 			
 			List<Integer> listaIdOtros = OtrosService.findOtrosPedidoById(pedidoId);
-			OtrosLista listaOtros = new OtrosLista();
+			Otros listaOtros = new Otros();
 			for(int i=0; i<listaIdOtros.size(); i++) {
 				Integer otroId = listaIdOtros.get(i);
-				Otros otro = this.OtrosService.findOtrosById(otroId);
-				listaOtros.getOtrosList().add(otro);
+				Otro otro = this.OtrosService.findOtrosById(otroId);
+				listaOtros.getOtrosLista().add(otro);
 			}
 			model.put("otros", listaOtros);
 

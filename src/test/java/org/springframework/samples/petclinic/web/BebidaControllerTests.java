@@ -49,6 +49,7 @@ import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 /**
  * Test class for the {@link BebidaController}
@@ -109,10 +110,10 @@ public class BebidaControllerTests {
 	}
 	
 	@WithMockUser(value = "spring")
-    	@Test
+    @Test
     void testInitCreationForm() throws Exception {
 
-		mockMvc.perform(get("/bebidas/new", TEST_CARTA_ID))
+		mockMvc.perform(get("/bebidas/new"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("bebidas/createOrUpdateBebidaForm"))
 			.andExpect(model().attributeExists("bebida"));
@@ -126,17 +127,17 @@ public class BebidaControllerTests {
 	}
 	
 	@WithMockUser(value = "spring")
-		@Test
+	@Test
     void testProcessCreationFormSuccess() throws Exception {
-		mockMvc.perform(post("/bebidas/new", TEST_CARTA_ID)
-							.with(csrf())
-							.param("contador","1")
-							.param("nombre","Hidromiel")
-							.param("coste","10")
-							.param("tamano", "ENORME")
-							.param("esCarbonatada","true"))
-				.andExpect(status().is3xxRedirection())
-				.andExpect(view().name("redirect:/cartas/{cartaId}"));
+		mockMvc.perform(post("/bebidas/new")
+				.with(csrf())
+				.param("contador","3")
+				.param("nombre","Hidromiel")
+				.param("coste","10")
+				.param("tamano", "Enorme")
+				.param("esCarbonatada","true"))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/allBebidas"));
 			
 //		mockMvc.perform(post("/pedidos/{pedidoId}/bebidas/new", TEST_PEDIDO_ID)
 //							.with(csrf())
@@ -160,9 +161,9 @@ public class BebidaControllerTests {
 	}
 	
 	@WithMockUser(value = "spring")
-		@Test
+	@Test
 	void testProcessCreationFormHasErrors() throws Exception {
-		mockMvc.perform(post("/bebidas/{bebidaId}/edit", TEST_CARTA_ID, TEST_BEBIDA_ID)
+		mockMvc.perform(post("/bebidas/new")
 							.with(csrf())
 							.param("contador","ttt")
 							.param("nombre","Hidromiel")
@@ -200,9 +201,9 @@ public class BebidaControllerTests {
 	}
 	
 	@WithMockUser(value = "spring")
-		@Test
+	@Test
 	void testInitUpdateForm() throws Exception {
-		mockMvc.perform(get("/bebidas/{bebidaId}/edit", TEST_CARTA_ID, TEST_BEBIDA_ID))
+		mockMvc.perform(get("/bebidas/{bebidaId}/edit", TEST_BEBIDA_ID))
 				.andExpect(status().isOk())
 				.andExpect(model().attributeExists("bebida"))
 				.andExpect(view().name("bebidas/createOrUpdateBebidaForm"));
@@ -217,17 +218,18 @@ public class BebidaControllerTests {
 	}
 	
 	@WithMockUser(value = "spring")
-		@Test
+	@Test
 	void testProcessUpdateFormSuccess() throws Exception {
 		mockMvc.perform(post("/bebidas/{bebidaId}/edit", TEST_BEBIDA_ID)
 				.with(csrf())
-				.param("contador","1")
+				//.param("id", "99")
+				.param("contador","5")
 				.param("nombre","Hidromiel")
 				.param("coste","10")
-				.param("tamano", "ENORME")
+				.param("tamano", "Enorme")
 				.param("esCarbonatada","true"))
-				.andExpect(status().is3xxRedirection())
-				.andExpect(view().name("redirect:/bebidas/{bebidaId}"));
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/allBebidas"));
 		
 //		mockMvc.perform(post("/pedidos/{pedidoId}/bebidas/{bebidaId}/edit", TEST_PEDIDO_ID, TEST_BEBIDA_ID)
 //				.with(csrf())
@@ -252,7 +254,7 @@ public class BebidaControllerTests {
 	@WithMockUser(value = "spring")
 	@Test
 	void testProcessUpdateFormHasErrors() throws Exception {
-		mockMvc.perform(post("/bebidas/{bebidaId}/edit", TEST_CARTA_ID, TEST_BEBIDA_ID)
+		mockMvc.perform(post("/bebidas/{bebidaId}/edit", TEST_BEBIDA_ID)
 							.with(csrf())
 							.param("contador","ttt")
 							.param("nombre","Hidromiel")
