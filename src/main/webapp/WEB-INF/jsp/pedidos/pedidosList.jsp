@@ -51,11 +51,32 @@
              		<c:out value="${pedido.tipoPago}"></c:out>
              	</td>
              	<td>
+             	<sec:authorize access="hasAnyAuthority('cliente')"  >
              		<spring:url value="/pedidos/{pedidoId}/edit" var="pedidoUrl">
 	                        <spring:param name="pedidoId" value="${pedido.id}"/>
 	                </spring:url>
    					<a href="${fn:escapeXml(pedidoUrl)}" class="btn btn-default">Editar</a>
+   				</sec:authorize>
              	</td>
+             	
+             	<td>
+             	<sec:authorize access="hasAnyAuthority('cocinero')"  >
+					<spring:url value="/pedidos/{pedidoId}/estadoPedido" var="pedidoUrl">
+	                        <spring:param name="pedidoId" value="${pedido.id}"/>
+	                </spring:url>
+   					<a href="${fn:escapeXml(pedidoUrl)}" class="btn btn-default">Actualizar estado pedido</a>
+				</sec:authorize>
+				</td>
+             	
+             	<td>
+             	<sec:authorize access="hasAnyAuthority('repartidor')"  >
+					<spring:url value="/pedidos/{pedidoId}/estadoPedido" var="pedidoUrl">
+	                        <spring:param name="pedidoId" value="${pedido.id}"/>
+	                </spring:url>
+   					<a href="${fn:escapeXml(pedidoUrl)}" class="btn btn-default">Actualizar estado pedido</a>
+				</sec:authorize>
+				</td>
+				
              	<td>
              		<spring:url value="/pedidos/{pedidoId}/anadirReclamacion/new" var="pedidoreclamacionUrl">
 	                        <spring:param name="pedidoId" value="${pedido.id}"/>
