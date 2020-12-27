@@ -85,10 +85,10 @@ public class PizzaController {
 			model.put("pizza", pizza);//importanteeee
 			return "pizzas/createOrUpdatePizzaForm";
 		} else {
+
 			pizza.setCliente(null);
 			pizza.setPersonalizada(false);
-			PizzaValidator pizzaValidator = new PizzaValidator();
-			ValidationUtils.invokeValidator(pizzaValidator, pizza, result);
+
 			this.pizzaService.savePizza(pizza);
 			return "redirect:/allPizzas";
 		}
@@ -137,9 +137,9 @@ public class PizzaController {
 			return "pizzas/createOrUpdatePizzaForm";
 		} else {
 			Pizza.setId(pizzaId);
-			
-			PizzaValidator pizzaValidator = new PizzaValidator();
-			ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
+//			PizzaValidator pizzaValidator = new PizzaValidator();
+//			ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
+
 			this.pizzaService.savePizza(Pizza);
 			return "redirect:/allPizzas";
 		}

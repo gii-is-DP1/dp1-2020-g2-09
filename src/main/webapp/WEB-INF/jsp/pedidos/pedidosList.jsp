@@ -19,6 +19,7 @@
             <th>Estado pedido</th>
             <th>Tipo Envio</th>
             <th>Tipo Pago</th>
+            <th>Cliente</th>
         </tr>
         </thead>
         <tbody>
@@ -50,8 +51,14 @@
              	<td>
              		<c:out value="${pedido.tipoPago}"></c:out>
              	</td>
-             	<td>
+
              	<sec:authorize access="hasAnyAuthority('cliente')"  >
+
+                    <c:out value="${pedido.cliente.nombre}"/>
+                    <c:out value=" ${pedido.cliente.apellidos}"></c:out>
+                </td>
+             	<td>
+
              		<spring:url value="/pedidos/{pedidoId}/edit" var="pedidoUrl">
 	                        <spring:param name="pedidoId" value="${pedido.id}"/>
 	                </spring:url>

@@ -8,9 +8,9 @@
 
 <petclinic:layout pageName="Otros">
     <h2>
-        <c:if test="${otros['new']}">Otro </c:if> nuevo
+        <c:if test="${otro['new']}">Nuevo </c:if> otro
     </h2>
-    <form:form modelAttribute="otros" class="form-horizontal" id="add-owner-form">
+    <form:form modelAttribute="otro" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre del plato" name="nombre"/>
 			<petclinic:input name="coste" label="Precio"/>
@@ -20,7 +20,7 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
-                    <c:when test="${otros['new']}">
+                    <c:when test="${otro['new']}">
                         <button class="btn btn-default" type="submit">Crear Otros</button>
                     </c:when>
                     <c:otherwise>

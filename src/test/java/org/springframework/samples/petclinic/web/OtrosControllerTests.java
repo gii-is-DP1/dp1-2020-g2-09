@@ -22,7 +22,7 @@ import org.springframework.http.MediaType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.model.Oferta;
-import org.springframework.samples.petclinic.model.Otros;
+import org.springframework.samples.petclinic.model.Otro;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.service.CartaService;
 import org.springframework.samples.petclinic.service.IngredienteService;
@@ -69,13 +69,13 @@ class OtrosControllerTests {
 
 	@BeforeEach
 	void setup() {
-		Otros patatas = new Otros();
+		Otro patatas = new Otro();
 		patatas.setId(3);
 		patatas.setCoste(12);
 		patatas.setNombre("Patatas fritas");
 		patatas.setContador(1);
 		given(this.otrosService.findOtros()).willReturn(Lists.newArrayList(patatas));
-		given(this.otrosService.findOtrosById(TEST_OTROS_ID)).willReturn(new Otros());
+		given(this.otrosService.findOtrosById(TEST_OTROS_ID)).willReturn(new Otro());
 		//given(this.otrosService.findIdOtrosByCartaId(TEST_CARTA_ID)).willReturn(new ArrayList<Integer>());
 		
 		given(this.pedidoService.findPedidoById(TEST_PEDIDO_ID)).willReturn(new Pedido());

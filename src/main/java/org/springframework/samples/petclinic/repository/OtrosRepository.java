@@ -6,16 +6,16 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.samples.petclinic.model.Otros;
+import org.springframework.samples.petclinic.model.Otro;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface OtrosRepository extends CrudRepository<Otros, Integer>{
+public interface OtrosRepository extends CrudRepository<Otro, Integer>{
 
 	
-	List<Otros> findAll() throws DataAccessException;
+	List<Otro> findAll() throws DataAccessException;
 	
-	Otros findOtrosById(int OtrosId) throws DataAccessException;
+	Otro findOtrosById(int OtrosId) throws DataAccessException;
 	
 	//List<Otros> findByCartaDeOtros(int cartaId) throws DataAccessException;
 	
@@ -33,7 +33,7 @@ public interface OtrosRepository extends CrudRepository<Otros, Integer>{
 	void añadirOtroACarta(int otroId, int cartaId);
 	
 	@Modifying
-	@Query(value = "DELETE FROM OTROS_INGREDIENTES WHERE OTROS_ID = ?1",
+	@Query(value = "DELETE FROM OTROS_INGREDIENTES WHERE OTRO_ID = ?1",
 			nativeQuery = true)
 	void deleteComposicionIngredientes(Integer id);
 

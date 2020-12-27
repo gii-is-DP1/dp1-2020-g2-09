@@ -4,7 +4,7 @@ package org.springframework.samples.petclinic.web;
 import java.util.Collection;
 
 import org.springframework.samples.petclinic.model.Ingrediente;
-import org.springframework.samples.petclinic.model.Otros;
+import org.springframework.samples.petclinic.model.Otro;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
@@ -17,7 +17,7 @@ public class OtrosValidator implements Validator{
 
 	@Override
 	public void validate(Object obj, Errors errors) {
-		Otros otros = (Otros) obj;
+		Otro otros = (Otro) obj;
 		String nombre = otros.getNombre();
 		//Collection<Ingrediente> ingredientes = otros.getIngredientes();
 		Integer coste = otros.getCoste();
@@ -44,6 +44,6 @@ public class OtrosValidator implements Validator{
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return Otros.class.isAssignableFrom(clazz);
+		return Otro.class.isAssignableFrom(clazz);
 	}
 }

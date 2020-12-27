@@ -15,7 +15,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.samples.petclinic.model.Otros;
+import org.springframework.samples.petclinic.model.Otro;
 import org.springframework.samples.petclinic.service.OtrosService;
 
 
@@ -34,7 +34,7 @@ class OtrosFormatterTests {
 
 	@Test
 	void testPrint() {
-		Otros otros = new Otros();
+		Otro otros = new Otro();
 		otros.setNombre("Patatitas");
 		String OtrosName = otrosFormatter.print(otros, Locale.ENGLISH);
 		assertEquals("Patatitas", OtrosName);
@@ -42,27 +42,27 @@ class OtrosFormatterTests {
 
 	@Test
 	void shouldParse() throws ParseException {
-		Mockito.when(otrosService.findOtros()).thenReturn((List<Otros>) makeOtros());
-		Otros otros = otrosFormatter.parse("Patatuelas", Locale.ENGLISH);
+		Mockito.when(otrosService.findOtros()).thenReturn((List<Otro>) makeOtros());
+		Otro otros = otrosFormatter.parse("Patatuelas", Locale.ENGLISH);
 		assertEquals("Patatuelas", otros.getNombre());
 	}
 
 	@Test
 	void shouldThrowParseException() throws ParseException {
-		Mockito.when(otrosService.findOtros()).thenReturn((List<Otros>) makeOtros());
+		Mockito.when(otrosService.findOtros()).thenReturn((List<Otro>) makeOtros());
 		Assertions.assertThrows(ParseException.class, () -> {
 			otrosFormatter.parse("Patatillas", Locale.ENGLISH);
 		});
 	}
 
-	private Collection<Otros> makeOtros() {
-		Collection<Otros> otros = new ArrayList<>();
-		otros.add(new Otros() {
+	private Collection<Otro> makeOtros() {
+		Collection<Otro> otros = new ArrayList<>();
+		otros.add(new Otro() {
 			{
 				setNombre("Patata");
 			}
 		});
-		otros.add(new Otros() {
+		otros.add(new Otro() {
 			{
 				setNombre("Patatuelas");
 			}

@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
 
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.samples.petclinic.model.Ingrediente;
-import org.springframework.samples.petclinic.model.Otros;
+import org.springframework.samples.petclinic.model.Otro;
 import org.springframework.samples.petclinic.repository.OtrosRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -40,7 +40,7 @@ public class OtrosServiceTests {
 	@Test
 	void shouldFindOtroById() {
 		
-		Otros otro = new Otros();
+		Otro otro = new Otro();
 		otro.setContador(1);
 		otro.setCoste(12);
 		otro.setId(16);

@@ -17,7 +17,7 @@ import org.springframework.samples.petclinic.model.Alergenos;
 import org.springframework.samples.petclinic.model.Bebida;
 import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.model.Ingrediente;
-import org.springframework.samples.petclinic.model.Otros;
+import org.springframework.samples.petclinic.model.Otro;
 import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.TamanoProducto;
 import org.springframework.samples.petclinic.model.tipoMasa;
@@ -72,7 +72,7 @@ public class CartaServiceTestsSinMockito {
 			ingredientes.add(i1);
 			ingredientes.add(i2);
 		
-		Otros otro=new Otros();
+		Otro otro=new Otro();
 		otro.setContador(0);
 		otro.setCoste(20);
 		otro.setNombre("pollo");
@@ -91,7 +91,7 @@ public class CartaServiceTestsSinMockito {
 		cartaDePizzas.add(pizza);
 		carta.setPizzasEnCarta(cartaDePizzas);
 		
-		Collection<Otros> cartaDeOtros=new HashSet<Otros>();
+		Collection<Otro> cartaDeOtros=new HashSet<Otro>();
 		cartaDeOtros.add(otro);
 		carta.setOtrosEnCarta(cartaDeOtros);
 	        
