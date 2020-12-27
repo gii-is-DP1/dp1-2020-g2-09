@@ -137,8 +137,8 @@ public class PizzaController {
 			return "pizzas/createOrUpdatePizzaForm";
 		} else {
 			Pizza.setId(pizzaId);
-//			PizzaValidator pizzaValidator = new PizzaValidator();
-//			ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
+			PizzaValidator pizzaValidator = new PizzaValidator();
+			ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
 
 			this.pizzaService.savePizza(Pizza);
 			return "redirect:/allPizzas";
@@ -208,8 +208,7 @@ public class PizzaController {
   
    @ModelAttribute("ingredientes")
     public Collection<Ingrediente> populateIngrediente() {
-    	Collection<Ingrediente> c = this.ingredienteService.findIngredientes();
-    	return c;
+    	return this.ingredienteService.findIngredientes();
    }
     
 }

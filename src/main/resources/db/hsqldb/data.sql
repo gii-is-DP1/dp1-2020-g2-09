@@ -117,6 +117,15 @@ VALUES ('Jesús','Roldán Cadena','2000-08-07','632145879','jesrolcad@alum.us.es
 INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
 VALUES ('Lucía','Torres Gómez','2000-03-30','614589725','luctorgom@alum.us.es', 'luctorgom');
 
+/*cocinero util */
+INSERT INTO users(username,password,enabled) VALUES ('cocinero1','cocinero1',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (11,'cocinero1','cocinero');
+
+/*repartidor util*/
+INSERT INTO users(username,password,enabled) VALUES ('repartidor1','repartidor1',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (12,'repartidor1','repartidor');
+
+
 INSERT INTO cocineros(nombre,apellidos,fecha_nacimiento,telefono,email, fecha_inicio_contrato, usuario) 
 VALUES ('Paco','Pérez Maldonado','1998-12-29','777777777','paquitorechulon@gmail.com', '2020-10-01', 'ejemplo1');
 
@@ -226,7 +235,9 @@ VALUES ('29','3','C/Ferrara, 5, 7b', '2020-11-16',3,1,1, '1');
 INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio,pedidocliente)
 VALUES ('50','2.30','C/Ferrara, 5, 7b', '2020-11-18',2,1,1,'2');
 INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio,pedidocliente)
-VALUES ('57','2','C/Ferrara, 5, 7b', '2020-11-30',3,1,1, '3');
+VALUES ('57','2','C/Ferrara, 5, 7b', '2020-11-30',3,1,2, '3');
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio,pedidocliente)
+VALUES ('57','2','C/Ferrara, 5, 7b', '2020-11-30',3,1,2, '3');
 
 
 INSERT INTO OFERTA_PEDIDO(PEDIDO_ID, OFERTAS_EN_PEDIDO_ID) values (1, 1);

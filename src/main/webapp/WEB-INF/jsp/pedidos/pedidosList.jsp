@@ -51,14 +51,14 @@
              	<td>
              		<c:out value="${pedido.tipoPago}"></c:out>
              	</td>
-
+             	
+				<td>
              	<sec:authorize access="hasAnyAuthority('cliente')"  >
-
                     <c:out value="${pedido.cliente.nombre}"/>
                     <c:out value=" ${pedido.cliente.apellidos}"></c:out>
                 </td>
+                
              	<td>
-
              		<spring:url value="/pedidos/{pedidoId}/edit" var="pedidoUrl">
 	                        <spring:param name="pedidoId" value="${pedido.id}"/>
 	                </spring:url>
@@ -68,19 +68,19 @@
              	
              	<td>
              	<sec:authorize access="hasAnyAuthority('cocinero')"  >
-					<spring:url value="/pedidos/{pedidoId}/estadoPedido" var="pedidoUrl">
+					<spring:url value="/cocinero/{pedidoId}/estadoPedido" var="pedidoUrl3">
 	                        <spring:param name="pedidoId" value="${pedido.id}"/>
 	                </spring:url>
-   					<a href="${fn:escapeXml(pedidoUrl)}" class="btn btn-default">Actualizar estado pedido</a>
+   					<a href="${fn:escapeXml(pedidoUrl3)}" class="btn btn-default">Actualizar estado pedido</a>
 				</sec:authorize>
 				</td>
              	
              	<td>
              	<sec:authorize access="hasAnyAuthority('repartidor')"  >
-					<spring:url value="/pedidos/{pedidoId}/estadoPedido" var="pedidoUrl">
+					<spring:url value="/repartidor/{pedidoId}/estadoPedido" var="pedidoUrl2">
 	                        <spring:param name="pedidoId" value="${pedido.id}"/>
 	                </spring:url>
-   					<a href="${fn:escapeXml(pedidoUrl)}" class="btn btn-default">Actualizar estado pedido</a>
+   					<a href="${fn:escapeXml(pedidoUrl2)}" class="btn btn-default">Actualizar estado pedido</a>
 				</sec:authorize>
 				</td>
 				
