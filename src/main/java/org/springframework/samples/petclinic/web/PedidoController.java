@@ -10,7 +10,6 @@ import org.springframework.samples.petclinic.model.Bebida;
 import org.springframework.samples.petclinic.model.Bebidas;
 import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.model.Cliente;
-import org.springframework.samples.petclinic.model.Cocina;
 import org.springframework.samples.petclinic.model.Cuenta;
 import org.springframework.samples.petclinic.model.EstadoPedido;
 import org.springframework.samples.petclinic.model.Otro;
