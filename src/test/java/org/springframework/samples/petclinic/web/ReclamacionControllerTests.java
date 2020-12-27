@@ -22,8 +22,10 @@ import org.springframework.samples.petclinic.configuration.SecurityConfiguration
 import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Reclamacion;
+import org.springframework.samples.petclinic.service.ClienteService;
 import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.samples.petclinic.service.ReclamacionService;
+import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -38,12 +40,19 @@ class ReclamacionControllerTests {
 
 	private static final int TEST_PEDIDO_ID = 99;
 	
-	@Autowired
-	private ReclamacionController reclamacionController;
+//	@Autowired
+//	private ReclamacionController reclamacionController;
 	
+	//Muy importante añadir los MockBean necesarios para el ApplicationContext
 
 	@MockBean
 	private ReclamacionService reclamacionService;
+	
+	 @MockBean
+	    private UserService userService;
+	 
+	 @MockBean
+	    private ClienteService clienteService;
         
     @MockBean
 	private PedidoService pedidoService;
