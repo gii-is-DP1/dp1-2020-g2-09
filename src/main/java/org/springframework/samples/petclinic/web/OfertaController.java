@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 
@@ -96,8 +98,7 @@ public class OfertaController {
 	
 	//mandar actualizacion
 	@PostMapping(value = "/ofertas/{ofertaId}/edit")
-	public String processUpdatePedidoForm(@Valid Oferta oferta, BindingResult result,
-			@PathVariable("ofertaId") int ofertaId, ModelMap model) {
+	public String processUpdatePedidoForm(@Valid Oferta oferta, BindingResult result,@PathVariable("ofertaId") int ofertaId, ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("oferta", oferta);
 			return "ofertas/createOrUpdateOfertaForm";
@@ -110,6 +111,20 @@ public class OfertaController {
 			return "redirect:/allOfertas";
 		}
 	}
+	
+	@RequestMapping(value = "/ofertas/{ofertaId}/changeState",method = RequestMethod.GET)
+	public String changeOfertaState(@PathVariable("ofertaId") int ofertaId, ModelMap model){
+	
+			Oferta oferta= ofertaService.findOfertaById(ofertaId);
+			if(oferta.getEstadoOferta().equals(false)) {
+				oferta.setEstadoOferta(true);
+			}else {
+				oferta.setEstadoOferta(false);
+			}
+			this.ofertaService.saveOferta(oferta);
+			return "redirect:/allOfertas";
+		}
+	
 	
 	//borrar oferta
 	@GetMapping(value = "/ofertas/{ofertasId}/delete")

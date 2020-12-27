@@ -41,13 +41,11 @@ public class OfertaService {
 	public Collection<NivelSocio> findNivelSocio() throws DataAccessException{
 		return ofertaRepository.findNivelSocio();
 	}
-
 	
 	@Transactional
 	public void saveOferta(Oferta oferta) throws DataAccessException {
 		ofertaRepository.save(oferta);		
-	}	
-	
+	}
 	@Transactional
 	public void deleteOferta(Oferta oferta) throws DataAccessException {
 		ofertaRepository.delete(oferta);		
