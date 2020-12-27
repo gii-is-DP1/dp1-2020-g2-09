@@ -25,7 +25,6 @@ import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.CartaService;
 import org.springframework.samples.petclinic.service.ClienteService;
-import org.springframework.samples.petclinic.service.IngredienteService;
 import org.springframework.samples.petclinic.service.OtrosService;
 import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.samples.petclinic.service.PizzaService;
@@ -35,7 +34,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -119,6 +117,26 @@ public class PedidoController {
 		model.put("pedidos", pedidos);
 		return "pedidos/pedidoUser";
 	}
+	
+	//ver pedidos cocinero
+	@GetMapping(value = { "/pedidos/cocinero" })
+	public String showPedidoCocinero(Map<String, Object> model) {
+		Pedidos pedidos = new Pedidos();
+		pedidos.getPedidosList().addAll(this.pedidoService.findPedidoForCocinero());
+		model.put("pedidos", pedidos);
+		return "pedidos/pedidosList";
+	}
+	
+	//ver pedidos repartidor
+		@GetMapping(value = { "/pedidos/repartidor" })
+		public String showPedidoReparto(Map<String, Object> model) {
+			Pedidos pedidos = new Pedidos();
+			pedidos.getPedidosList().addAll(this.pedidoService.findPedidoForRepartidor());
+			model.put("pedidos", pedidos);
+			return "pedidos/pedidosList";
+		}
+	
+	
 	
 	//añadir un pedido nuevo
 	@GetMapping(value = "/pedidos/new")
@@ -329,6 +347,38 @@ public class PedidoController {
 			return "pedidos/resumenPedido";
 		}
 		
+		
+		//iniciar actualizacion estado pedido
+		@GetMapping(value = "/pedidos/{pedidoId}/estadoPedido")
+		public String initUpdateForm3(@PathVariable("pedidoId") int pedidoId, ModelMap model) {
+			Pedido pedido = this.pedidoService.findPedidoById(pedidoId);
+			model.put("pedido", pedido);
+			return "pedidos/createOrUpdateEstadoPedidoForm";
+		}
+		
+		//mandar actualizacion
+		@PostMapping(value = "/pedidos/{pedidoId}/estadoPedido")
+		public String processUpdatePedidoForm3(@Valid Pedido pedido, BindingResult result,
+				@PathVariable("pedidoId") int pedidoId) {
+			if (result.hasErrors()) {
+				return "pedidos/createOrUpdateEstadoPedidoForm";
+			}
+			else {
+				pedido.setId(pedidoId);
+				/*pedido.setCliente(pedido.getCliente());
+				pedido.setPrecio(pedido.getPrecio());
+				pedido.setDireccion(pedido.getDireccion());
+				pedido.setTipoPago(pedido.getTipoPago());
+				pedido.setTipoEnvio(pedido.getTipoEnvio());
+				pedido.setReclamacion(pedido.getReclamacion());
+				pedido.setPizzasEnPedido(pedido.getPizzasEnPedido());
+				pedido.setBebidasEnPedido(pedido.getBebidasEnPedido());
+				pedido.setOtrosEnPedido(pedido.getOtrosEnPedido());
+				pedido.setOfertasEnPedido(pedido.getOfertasEnPedido());*/
+				this.pedidoService.savePedido(pedido);
+				return "redirect:/pedidos/repartidor";
+			}
+		}
 	
 
 }

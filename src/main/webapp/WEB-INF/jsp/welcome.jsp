@@ -46,6 +46,17 @@
       		<a href="/pedidos/user">Hola quiero ver mis pedidos.</a>
       	</sec:authorize>
      </div>
+     
+      <div>
+     	<sec:authorize access="hasAnyAuthority('cocinero')"  >
+      		<a href="/pedidos/cocinero">Hola quiero ver mis pedidos a cocinar.</a>
+      	</sec:authorize>
+     </div>
+      <div>
+     	<sec:authorize access="hasAnyAuthority('repartidor')"  >
+      		<a href="/pedidos/repartidor">Hola quiero ver mis pedidos a repartir.</a>
+      	</sec:authorize>
+     </div>
   
      <div>
      <a href="/allReclamaciones">H-007: Visualizar reclamaciones. Pruebas hechas.</a>

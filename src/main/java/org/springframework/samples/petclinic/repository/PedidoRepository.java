@@ -33,6 +33,12 @@ public interface PedidoRepository  extends CrudRepository<Pedido, Integer> {
 	@Query("SELECT tipEnvio FROM TipoEnvio tipEnvio")
 	List<TipoEnvio> findTipoEnvio() throws DataAccessException;
 	
+	@Query(value ="SELECT * FROM Pedido WHERE Estado_Pedido='1' or Estado_Pedido='2'", nativeQuery = true)
+	List<Pedido> findPedidoForCocinero() throws DataAccessException;
+	
+	@Query(value ="SELECT * FROM Pedido WHERE Estado_Pedido='3' or Estado_Pedido='4'", nativeQuery = true)
+	List<Pedido> findPedidoForRepartidor() throws DataAccessException;
+
 	@Modifying
     @Query(value = "INSERT INTO PRODUCTO_PIZZA_PEDIDO(PEDIDO_ID, PIZZAS_EN_PEDIDO_ID) VALUES (?1, ?2)",
 			nativeQuery = true)
