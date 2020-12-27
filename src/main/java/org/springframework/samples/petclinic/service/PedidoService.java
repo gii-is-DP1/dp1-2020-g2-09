@@ -39,6 +39,16 @@ public class PedidoService {
 	}
 	
 	@Transactional(readOnly = true)	
+	public void findPreparado(int pedidoId) throws DataAccessException {
+		pedidoRepository.findPreparado(pedidoId);
+	}
+	
+	@Transactional(readOnly = true)	
+	public void  findEnReparto(int pedidoId) throws DataAccessException {
+		pedidoRepository.findEnReparto(pedidoId);
+	}
+	
+	@Transactional(readOnly = true)	
 	public List<Pedido> findPedidosByCliente(int userId) throws DataAccessException {
 		return pedidoRepository.findPedidosByCliente(userId);
 	}
