@@ -25,7 +25,7 @@ List<Reclamacion> findAll() throws DataAccessException;
 			nativeQuery = true)
 	List<Reclamacion> findPedidosConReclamaciones();
 	
-	
-	
+	@Query(value = "SELECT RECLAMACIONES.ID, OBSERVACION, RESPUESTA FROM PEDIDO NATURAL JOIN RECLAMACIONES NATURAL JOIN CLIENTES WHERE CLIENTES.ID = ?1", nativeQuery = true)
+	List<Reclamacion> findReclamacionesByCliente(int userId);
 
 }

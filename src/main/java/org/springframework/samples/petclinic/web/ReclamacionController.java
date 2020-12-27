@@ -1,14 +1,18 @@
 package org.springframework.samples.petclinic.web;
 
-import java.time.LocalDate;
-import java.util.List;
+
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Oferta;
+import org.springframework.samples.petclinic.model.Cuenta;
 import org.springframework.samples.petclinic.model.Reclamacion;
 import org.springframework.samples.petclinic.model.Reclamaciones;
+import org.springframework.samples.petclinic.model.User;
+import org.springframework.samples.petclinic.service.ClienteService;
 import org.springframework.samples.petclinic.service.ReclamacionService;
+import org.springframework.samples.petclinic.service.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -18,21 +22,37 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class ReclamacionController {
 
-	private final ReclamacionService reclamacionService;
+	private ReclamacionService reclamacionService;
+	private UserService userService;
+	private ClienteService clienteService;
 	
+	//PROBLEMA: EL CONSTRUCTOR HACE QUE ME FALLEN TODAS LAS PRUEBAS DEL RECLAMACIONCONTROLLERTESTS
+	//Me dice Failed to load application context
+	//Si quito el userService y el clienteService como parámetros del constructor 
+	//y quito todo lo de dentro del método menos lo de reclamacionService
+	//vuelve a funcionar, pero claro si lo quito después me mete 
+	//un NullPointer a la hora de crear la sesión del usuario  y mostrar sus reclamaciones.
 	@Autowired
-	public ReclamacionController(ReclamacionService reclamacionService) {
+	public ReclamacionController(ReclamacionService reclamacionService, 
+			UserService userService, ClienteService clienteService) {
 		this.reclamacionService = reclamacionService;
+			this.userService = userService;
+			this.clienteService = clienteService;
 	}
 	
 	@InitBinder("reclamacion")
 	public void initReclamacionBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new ReclamacionValidator());
+	}
+	
+	@InitBinder
+	public void setAllowedFields(WebDataBinder dataBinder) {
+		dataBinder.setDisallowedFields("id");
 	}
 	
 	@GetMapping(value = { "/allReclamaciones" })
@@ -46,6 +66,23 @@ public class ReclamacionController {
 		model.put("reclamaciones", reclamaciones);
 		return "reclamaciones/reclamacionesList";
 	} 
+	
+	//para ver las reclamaciones del cliente que ha iniciado sesión
+		@GetMapping("/reclamaciones/user")
+		public String showMisReclamaciones(Map<String, Object> model) {
+			Reclamaciones reclamaciones = new Reclamaciones();
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			UserDetails userDetails = null;
+			if (principal instanceof UserDetails) {
+			  userDetails = (UserDetails) principal;
+			}
+			String userName = userDetails.getUsername();
+		    User usuario = this.userService.findUser(userName).get();
+		    Cuenta cliente= this.clienteService.findCuentaByUser(usuario);
+		    reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findReclamacionesByCliente(cliente.getId()));
+			model.put("reclamaciones", reclamaciones);
+			return "reclamaciones/reclamacionUser";
+		} 
 	
 		//Aqui tenemos que añadir la reclamación sobre un pedido seleccionado
 		@GetMapping("/pedidos/{pedidoId}/anadirReclamacion/new")
