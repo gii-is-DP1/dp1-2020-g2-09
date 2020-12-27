@@ -73,8 +73,8 @@ public class ReservaController {
 			return "reservas/createOrUpdateReservaForm";
 		}
 		else {
-			ReservaValidator reservaValidator = new ReservaValidator();
-			ValidationUtils.invokeValidator(reservaValidator, reserva, result);
+//			ReservaValidator reservaValidator = new ReservaValidator();
+//			ValidationUtils.invokeValidator(reservaValidator, reserva, result);
 			this.reservaService.saveReserva(reserva);
 			return "redirect:/allReservas";
 		}
@@ -97,8 +97,8 @@ public class ReservaController {
 			return "reservas/createOrUpdateReservaForm";
 		}
 		else {
-			ReservaValidator reservaValidator = new ReservaValidator();
-			ValidationUtils.invokeValidator(reservaValidator, reserva, result);
+//			ReservaValidator reservaValidator = new ReservaValidator();
+//			ValidationUtils.invokeValidator(reservaValidator, reserva, result);
 			reserva.setId(reservaId);
 			this.reservaService.saveReserva(reserva);
 			return "redirect:/allReservas";

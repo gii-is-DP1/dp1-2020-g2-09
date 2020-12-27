@@ -125,7 +125,7 @@ class ReservaControllerTests {
 							.param("fechaReserva", "2015/02/12")
 							.param("hora","12:20:09")
 							.param("mesasEnReserva","1"))
-				//.andExpect(model().attributeHasErrors("reserva"))
+				.andExpect(model().attributeHasErrors("reserva"))
 				.andExpect(status().isOk())
 				.andExpect(view().name("reservas/createOrUpdateReservaForm"));
 	}
@@ -135,7 +135,7 @@ class ReservaControllerTests {
 	void testInitUpdateForm() throws Exception {
 		mockMvc.perform(get("/reservas/{reservaId}/edit", TEST_RESERVA_ID))
 				.andExpect(status().isOk())
-				//.andExpect(model().attributeExists("reserva"))
+				.andExpect(model().attributeExists("reserva"))
 				.andExpect(view().name("reservas/createOrUpdateReservaForm"));
 	}
     
@@ -164,7 +164,7 @@ class ReservaControllerTests {
 							.param("fechaReserva", "2015/02/12")
 							.param("hora","12:20:09")
 							.param("mesasEnReserva","1"))	
-				//.andExpect(model().attributeHasErrors("reserva"))
+				.andExpect(model().attributeHasErrors("reserva"))
 				.andExpect(status().isOk())
 				.andExpect(view().name("reservas/createOrUpdateReservaForm"));
 	}

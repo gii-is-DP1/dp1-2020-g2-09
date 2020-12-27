@@ -68,7 +68,7 @@ public class CocineroControllerTests {
 		mockMvc.perform(get("/cocineros/new"))
 				.andExpect(status().isOk())
 				.andExpect(view().name("cocineros/createOrUpdateCocinaForm"))
-				.andExpect(model().attributeExists("cocinero"));
+				.andExpect(model().attributeExists("cocina"));
 	}
 
 	@WithMockUser(value = "spring")
@@ -94,8 +94,9 @@ public class CocineroControllerTests {
 							.param("apellidos", "85885")
 							.param("fechaNacimiento", "bb")
 							.param("telefono", "123698745")
-							.param("email", "5hcwu@gmail.com"))
-		
+							.param("email", "5hcwu@gmail.com")
+							.param("user", "anolo")
+							.param("password", "jeje"))
 				.andExpect(status().isOk())
 				.andExpect(view().name("cocineros/createOrUpdateCocinaForm"));
 	}
@@ -106,6 +107,7 @@ public class CocineroControllerTests {
 		mockMvc.perform(get("/cocineros/{cocineroId}/edit", TEST_COCINA_ID))
 				.andExpect(status().isOk())
 				.andExpect(view().name("cocineros/createOrUpdateCocinaForm"));
+				//.andExpect(model().attributeExists("cocina"));
 	}
     
     @WithMockUser(value = "spring")

@@ -1,19 +1,4 @@
 package org.springframework.samples.petclinic.web;
-/*
- * Copyright 2012-2019 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 import static org.hamcrest.xml.HasXPath.hasXPath;
 import static org.mockito.BDDMockito.given;
@@ -40,7 +25,6 @@ import org.springframework.samples.petclinic.configuration.SecurityConfiguration
 import org.springframework.samples.petclinic.model.Bebida;
 import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.model.Oferta;
-import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.TamanoProducto;
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.CartaService;
@@ -49,7 +33,6 @@ import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 
 /**
  * Test class for the {@link BebidaController}
@@ -128,14 +111,17 @@ public class BebidaControllerTests {
 	
 	@WithMockUser(value = "spring")
 	@Test
+	//Falla en que no redireciona y lo lleva a createOrUpdate
     void testProcessCreationFormSuccess() throws Exception {
 		mockMvc.perform(post("/bebidas/new")
 				.with(csrf())
 				.param("contador","3")
-				.param("nombre","Hidromiel")
+				.param("nombre","coca-cola")
 				.param("coste","10")
-				.param("tamano", "Enorme")
-				.param("esCarbonatada","true"))
+				.param("tamano", "GRANDE")
+				.param("esCarbonatada", "true"))
+//		.andExpect(view().name("bebidas/createOrUpdateBebidaForm"))
+//		.andExpect(model().attributeExists("bebida"));
 		.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/allBebidas"));
 			
@@ -219,15 +205,21 @@ public class BebidaControllerTests {
 	
 	@WithMockUser(value = "spring")
 	@Test
+	//Falla en que no redireciona y lo lleva a createOrUpdate
 	void testProcessUpdateFormSuccess() throws Exception {
+		TamanoProducto tamanoP = new TamanoProducto();
+		tamanoP.setName("GRANDE");
 		mockMvc.perform(post("/bebidas/{bebidaId}/edit", TEST_BEBIDA_ID)
 				.with(csrf())
 				//.param("id", "99")
 				.param("contador","5")
 				.param("nombre","Hidromiel")
 				.param("coste","10")
-				.param("tamano", "Enorme")
+				.flashAttr("tamano", tamanoP)
+				.param("tamano","tamanoP")//creo que el fallo es esto que no puede hacer un TamanoProducto de GRANDE
 				.param("esCarbonatada","true"))
+//		.andExpect(model().attributeExists("bebida"))
+//		.andExpect(view().name("bebidas/createOrUpdateBebidaForm"));
 		.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/allBebidas"));
 		
