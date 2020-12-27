@@ -8,9 +8,9 @@
 
 <petclinic:layout pageName="Otros">
     <h2>
-        <c:if test="${otro['new']}">Otro </c:if> nuevo
+        <c:if test="${otro['new']}">Nuevo </c:if> otro
     </h2>
-    <form:form modelAttribute="otros" class="form-horizontal" id="add-owner-form">
+    <form:form modelAttribute="otro" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre del plato" name="nombre"/>
 			<petclinic:input name="coste" label="Precio"/>

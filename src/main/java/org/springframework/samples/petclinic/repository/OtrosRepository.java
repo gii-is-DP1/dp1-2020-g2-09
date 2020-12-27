@@ -33,7 +33,7 @@ public interface OtrosRepository extends CrudRepository<Otro, Integer>{
 	void añadirOtroACarta(int otroId, int cartaId);
 	
 	@Modifying
-	@Query(value = "DELETE FROM OTROS_INGREDIENTES WHERE OTROS_ID = ?1",
+	@Query(value = "DELETE FROM OTROS_INGREDIENTES WHERE OTRO_ID = ?1",
 			nativeQuery = true)
 	void deleteComposicionIngredientes(Integer id);
 
