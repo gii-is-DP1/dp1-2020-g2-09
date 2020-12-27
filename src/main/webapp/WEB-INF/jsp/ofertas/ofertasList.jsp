@@ -66,6 +66,14 @@
 	                        <spring:param name="ofertaId" value="${oferta.id}"/>
 	                </spring:url>
    					<a href="${fn:escapeXml(ofertaUrl)}" class="btn btn-default">Editar</a>
+   					
+             	</td>
+             	<td>
+             		<spring:url value="/ofertas/{ofertaId}/changeState" var="ofertaUrl">
+	                        <spring:param name="ofertaId" value="${oferta.id}"/>
+	                </spring:url>
+   					<a href="${fn:escapeXml(ofertaUrl)}" class="btn btn-default">Activar/Desactivar</a>
+   					
              	</td>
              <!--	<td>
              		<spring:url value="/ofertas/{ofertaId}/delete" var="ofertaUrl2">
