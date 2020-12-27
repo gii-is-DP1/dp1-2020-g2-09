@@ -42,9 +42,9 @@ public class CocineroController {
 	
 	@GetMapping(value = { "/allCocineros" })
 	public String showCocineroList(Map<String, Object> model) {
-		Cocinas cocineros = new Cocinas();
-		cocineros.getCocinerosList().addAll(this.cocineroService.findCocineros());
-		model.put("cocineros", cocineros);
+		Cocinas cocinas = new Cocinas();
+		cocinas.getCocinerosList().addAll(this.cocineroService.findCocineros());
+		model.put("cocinas", cocinas);
 		return "cocineros/cocinerosList";
 	}
 
@@ -58,25 +58,25 @@ public class CocineroController {
 
 	//mandar nuevo cocinero
 	@PostMapping(value = "/cocineros/new")
-	public String processCreationForm(@Valid Cocina cocinero, BindingResult result, ModelMap model) {
+	public String processCreationForm(@Valid Cocina cocina, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
-			model.put("cocina", cocinero);//importanteeee
+			model.put("cocina", cocina);//importanteeee
 			return "cocineros/createOrUpdateCocinaForm";
 		}
 		else {
 //			CocineroValidator cocineroValidator = new CocineroValidator();
 //			ValidationUtils.invokeValidator(cocineroValidator, cocinero, result);
-			cocinero.setFechaInicioContrato(LocalDate.now());
-			this.cocineroService.saveCocinero(cocinero);
+			cocina.setFechaInicioContrato(LocalDate.now());
+			this.cocineroService.saveCocinero(cocina);
 			return "redirect:/allCocineros";
 		}
-	}
+	} 
 
 	//iniciar actualizacion
 	@GetMapping(value = "/cocineros/{cocineroId}/edit")
 	public String initUpdateForm(@PathVariable("cocineroId") int cocineroId, ModelMap model) {
-		Cocina cocinero = this.cocineroService.findCocineroById(cocineroId);
-		model.put("cocina", cocinero);
+		Cocina cocina = this.cocineroService.findCocineroById(cocineroId);
+		model.put("cocina", cocina);
 		return "cocineros/createOrUpdateCocinaForm";
 	}
 	
@@ -87,7 +87,7 @@ public class CocineroController {
 		if (result.hasErrors()) {
 
 			cocinero.setId(cocineroId);
-			model.put("cocinero", cocinero);
+			model.put("cocina", cocinero);
 
 			return "cocineros/createOrUpdateCocinaForm";
 		}

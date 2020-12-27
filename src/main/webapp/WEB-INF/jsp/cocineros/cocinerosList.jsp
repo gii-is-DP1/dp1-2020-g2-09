@@ -8,6 +8,8 @@
     pageEncoding="UTF-8"%>
 <petclinic:layout pageName="clientes">
     <h2>Cocineros</h2>
+    
+    <a href="/cocineros/new" class="btn btn-default">Añadir cocinero</a>
 
     <table id="cocinerosTable" class="table table-striped">
         <thead>
@@ -20,10 +22,9 @@
             <th>Fecha de Alta</th>
             <th>Fecha de Baja</th>
         </tr>
-        <a href="/cocineros/new" class="btn btn-default">Añadir cocinero</a>
         </thead>
         <tbody>
-        <c:forEach items="${cocineros.cocinerosList}" var="cocinero">
+        <c:forEach items="${cocinas.cocinerosList}" var="cocinero">
             <tr>
                 <td>
                     <c:out value="${cocinero.nombre}"/>
