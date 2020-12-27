@@ -50,7 +50,11 @@ public interface PizzaRepository extends CrudRepository<Pizza, Integer> {
 			nativeQuery = true)
 	void deleteComposicion(Integer pizzaId);
 	
-	@Query(value = "SELECT * FROM PIZZA WHERE CLIENTE_ID = ?1",
+	@Query(value = "SELECT * FROM PIZZAS WHERE CLIENTE_ID = ?1",
 			nativeQuery = true)
 	List<Pizza> findPizzaByCliente(Cliente cliente) throws DataAccessException;
+	
+	@Query(value = "SELECT * FROM PIZZAS WHERE PERSONALIZADA = false",
+			nativeQuery = true)
+	List<Pizza> findPizzaNoPersonalizada() throws DataAccessException;
 }

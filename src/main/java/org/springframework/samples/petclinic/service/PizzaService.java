@@ -81,4 +81,9 @@ public class PizzaService {
 	public List<Pizza> findPizzaByCliente(Cliente cliente){
     	return pizzaRepository.findPizzaByCliente(cliente);
     }
+    
+    @Transactional(readOnly = true)
+	public List<Pizza> findPizzaNoPersonalizada(){
+    	return pizzaRepository.findPizzaNoPersonalizada();
+    }
 }

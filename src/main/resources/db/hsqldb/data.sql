@@ -264,15 +264,15 @@ INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021
 INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ( '2021-06-06' , 'Soja', 'Verduras y frutas', 6);
 
 
-INSERT INTO PIZZAS(id, contador, coste, nombre, tamano_producto, tipo_masa, cliente_id) values (1, 1, 20, 'PROSCIUTTO E FUNGHI', 1 ,2, null);
-INSERT INTO PIZZAS(id, contador, coste, nombre, tamano_producto, tipo_masa, cliente_id) values (2, 1, 22, 'PROSCIUTTO', 2 ,3, null);
-INSERT INTO PIZZAS(id, contador, coste, nombre, tamano_producto, tipo_masa, cliente_id) values (3, 1, 10, 'HAWAIANA', 2 ,1, null);
-INSERT INTO PIZZAS(id, contador, coste, nombre, tamano_producto, tipo_masa, cliente_id) values (4, 1, 15, 'DIAVOLA', 1 ,3, null);
-INSERT INTO PIZZAS(id, contador, coste, nombre, tamano_producto, tipo_masa, cliente_id) values (5, 2, 19, '4 STAGIONI', 1 ,1, null);
-INSERT INTO PIZZAS(id, contador, coste, nombre, tamano_producto, tipo_masa, cliente_id) values (6, 1, 22, 'TONNATA', 2 ,3, null);
-INSERT INTO PIZZAS(id, contador, coste, nombre, tamano_producto, tipo_masa, cliente_id) values (7, 1, 10, '4 FORMAGGI ', 2 ,1, null);
-INSERT INTO PIZZAS(id, contador, coste, nombre, tamano_producto, tipo_masa, cliente_id) values (8, 1, 15, 'POMODORINI', 1 ,3, null);
-INSERT INTO PIZZAS(id, contador, coste, nombre, tamano_producto, tipo_masa, cliente_id) values (9, 2, 19, 'BARBACOA', 1 ,1, null);
+INSERT INTO PIZZAS(id, contador, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (1, 1, 20, 'PROSCIUTTO E FUNGHI', 1 ,2, null, false);
+INSERT INTO PIZZAS(id, contador, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (2, 1, 22, 'PROSCIUTTO', 2 ,3, null, false);
+INSERT INTO PIZZAS(id, contador, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (3, 1, 10, 'HAWAIANA', 2 ,1, null, false);
+INSERT INTO PIZZAS(id, contador, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (4, 1, 15, 'DIAVOLA', 1 ,3, null, false);
+INSERT INTO PIZZAS(id, contador, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (5, 2, 19, '4 STAGIONI', 1 ,1, null, false);
+INSERT INTO PIZZAS(id, contador, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (6, 1, 22, 'TONNATA', 2 ,3, null, false);
+INSERT INTO PIZZAS(id, contador, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (7, 1, 10, '4 FORMAGGI ', 2 ,1, null, false);
+INSERT INTO PIZZAS(id, contador, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (8, 1, 15, 'POMODORINI', 1 ,3, null, false);
+INSERT INTO PIZZAS(id, contador, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (9, 2, 19, 'BARBACOA', 1 ,1, null, false);
 
 
 INSERT INTO OTROS values (1, 1, 20, 'patatas bravas');
