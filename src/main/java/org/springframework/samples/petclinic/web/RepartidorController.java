@@ -59,8 +59,7 @@ public class RepartidorController {
 
 	//mandar nuevo repartidor
 	@PostMapping(value = "/repartidores/new")
-	public String processCreationForm(@Valid Repartidor repartidor, 
-			BindingResult result, ModelMap model) {
+	public String processCreationForm(@Valid Repartidor repartidor, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("repartidor", repartidor);
 			return "repartidores/createOrUpdateRepartidorForm";
