@@ -348,37 +348,26 @@ public class PedidoController {
 		}
 		
 		
-		//iniciar actualizacion estado pedido
-		@GetMapping(value = "/pedidos/{pedidoId}/estadoPedido")
-		public String initUpdateForm3(@PathVariable("pedidoId") int pedidoId, ModelMap model) {
-			Pedido pedido = this.pedidoService.findPedidoById(pedidoId);
-			model.put("pedido", pedido);
-			return "pedidos/createOrUpdateEstadoPedidoForm";
+		//Cambiar En cocina a Preparado
+		@GetMapping(value = "/cocinero/{pedidoId}/estadoPedido")
+		public String enCocinaPreparado(@PathVariable("pedidoId") int pedidoId, ModelMap model) {
+				pedidoService.findPreparado(pedidoId);
+			return "redirect:/pedidos/cocinero";
 		}
 		
-		//mandar actualizacion
-		@PostMapping(value = "/pedidos/{pedidoId}/estadoPedido")
-		public String processUpdatePedidoForm3(@Valid Pedido pedido, BindingResult result,
-				@PathVariable("pedidoId") int pedidoId) {
-			if (result.hasErrors()) {
-				return "pedidos/createOrUpdateEstadoPedidoForm";
-			}
-			else {
-				pedido.setId(pedidoId);
-				/*pedido.setCliente(pedido.getCliente());
-				pedido.setPrecio(pedido.getPrecio());
-				pedido.setDireccion(pedido.getDireccion());
-				pedido.setTipoPago(pedido.getTipoPago());
-				pedido.setTipoEnvio(pedido.getTipoEnvio());
-				pedido.setReclamacion(pedido.getReclamacion());
-				pedido.setPizzasEnPedido(pedido.getPizzasEnPedido());
-				pedido.setBebidasEnPedido(pedido.getBebidasEnPedido());
-				pedido.setOtrosEnPedido(pedido.getOtrosEnPedido());
-				pedido.setOfertasEnPedido(pedido.getOfertasEnPedido());*/
-				this.pedidoService.savePedido(pedido);
-				return "redirect:/pedidos/repartidor";
-			}
+		//Cambiar En cocina a Preparado
+		@GetMapping(value = "/repartidor/{pedidoId}/estadoPedido")
+			public String PreparadoEnReparto(@PathVariable("pedidoId") int pedidoId, ModelMap model) {
+				Pedido pedido=this.pedidoService.findPedidoById(pedidoId);
+				EstadoPedido est=new EstadoPedido();
+				est.setName("PREPARADO");
+				if(pedido.getEstadoPedido().getName()==est.getName()) {
+					pedidoService.findEnReparto(pedidoId);
+				}
+			return "redirect:/pedidos/repartidor";
 		}
+		
+		
 	
 
 }
