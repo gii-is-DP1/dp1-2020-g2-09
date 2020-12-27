@@ -87,8 +87,8 @@ public class RepartidorController {
 	public String processUpdateCocineroForm(@Valid Repartidor repartidor, BindingResult result,
 			@PathVariable("repartidorId") int repartidorId, ModelMap model) {
 		if (result.hasErrors()) { 
-			//repartidor.setId(repartidorId);
-			model.put("repartidor", repartidor);
+			repartidor.setId(repartidorId);
+			model.put("repartidores", repartidor);
 			return "repartidores/createOrUpdateRepartidorForm";
 		}
 		else {

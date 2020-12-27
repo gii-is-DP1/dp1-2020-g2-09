@@ -10,7 +10,7 @@
 <petclinic:layout pageName="pizzas">
     <h2>Pizzas</h2>
 
-	<spring:url value="/cartas/{cartaId}/pizza/new" var="crearPizzas">
+	<spring:url value="/pizzas/admin/new" var="crearPizzas">
 	         <spring:param name="cartaId" value="${cartaId}"/> 
 	    </spring:url>
 	    <a href="${fn:escapeXml(crearPizzas)}" class="btn btn-default">Crear pizza</a>

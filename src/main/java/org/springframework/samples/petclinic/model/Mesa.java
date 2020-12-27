@@ -36,5 +36,5 @@ public class Mesa extends BaseEntity{
 //	@JoinTable(name = "reservaAsociada", joinColumns =@JoinColumn(name= "mesa_id"))
 //	private Collection<Reserva> reservaAsociada;
 
-
+	
 }

@@ -5,6 +5,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+
+import org.springframework.samples.petclinic.model.Cliente;
+
 import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.TamanoProducto;
 import org.springframework.samples.petclinic.model.tipoMasa;
@@ -46,4 +49,12 @@ public interface PizzaRepository extends CrudRepository<Pizza, Integer> {
 	@Query(value = "DELETE FROM COMPOSICION_CARTA_PIZZA WHERE PIZZAS_EN_CARTA_ID = ?1",
 			nativeQuery = true)
 	void deleteComposicion(Integer pizzaId);
+	
+	@Query(value = "SELECT * FROM PIZZAS WHERE CLIENTE_ID = ?1",
+			nativeQuery = true)
+	List<Pizza> findPizzaByCliente(Cliente cliente) throws DataAccessException;
+	
+	@Query(value = "SELECT * FROM PIZZAS WHERE PERSONALIZADA = false",
+			nativeQuery = true)
+	List<Pizza> findPizzaNoPersonalizada() throws DataAccessException;
 }
