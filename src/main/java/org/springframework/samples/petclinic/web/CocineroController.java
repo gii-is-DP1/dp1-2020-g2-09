@@ -85,7 +85,10 @@ public class CocineroController {
 	public String processUpdateCocineroForm(@Valid Cocina cocinero, BindingResult result,
 			@PathVariable("cocineroId") int cocineroId, ModelMap model) {
 		if (result.hasErrors()) {
-			model.put("cocina", cocinero);
+
+			cocinero.setId(cocineroId);
+			model.put("cocinero", cocinero);
+
 			return "cocineros/createOrUpdateCocinaForm";
 		}
 		else {
