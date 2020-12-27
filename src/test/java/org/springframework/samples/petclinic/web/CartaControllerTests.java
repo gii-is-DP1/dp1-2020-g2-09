@@ -14,7 +14,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
-import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.CartaService;
 import org.springframework.samples.petclinic.service.IngredienteService;
@@ -34,7 +33,7 @@ excludeAutoConfiguration= SecurityConfiguration.class)
 class CartaControllerTests {
 	
 	private static final int TEST_BEBIDA_ID = 1;
-	private static final int TEST_PEDIDO_ID = 1;
+	private static final int TEST_OTROS_ID = 1;
 	private static final int TEST_CARTA_ID = 1;
 	private static final int TEST_PIZZA_ID = 1;
 	
@@ -111,10 +110,10 @@ class CartaControllerTests {
 	void testprocessCreationFormHasErrors() throws Exception {
 		mockMvc.perform(post("/cartas/new")
 					.with(csrf())
-					.param("nombre", "11111")
-					.param("fecha", "aaaa"))
-			.andExpect(status().isOk())
-			.andExpect(view().name("cartas/createOrUpdateCartaForm"));
+					.param("nombre", "q")
+					.param("fecha", "j"))
+		.andExpect(model().attributeHasErrors())			
+		.andExpect(view().name("cartas/createOrUpdateCartaForm"));
 	}
 
     @WithMockUser(value = "spring")
@@ -141,21 +140,21 @@ class CartaControllerTests {
 	void testprocessUpdateOtrosFormHasErrors() throws Exception {
 		mockMvc.perform(post("/cartas/{cartaId}/edit", TEST_CARTA_ID)
 				.with(csrf())
-				.param("nombre", "11111")
-				.param("fecha", "aaaa"))
-		.andExpect(status().isOk())
+				.param("nombre", "d")
+				.param("fecha", "d"))
+		.andExpect(model().attributeHasErrors())			
 		.andExpect(view().name("cartas/createOrUpdateCartaForm"));
     }
     
     @WithMockUser(value = "spring")
    	@Test
    	void testinitDeleteCartaSuccess() throws Exception {
-    	Carta carta = new Carta();
-        
-        int cartaId = 10;
-
-        // given
-        //given(this.CartaService.findCartaById(cartaId)).willReturn(carta);
+//    	Carta carta = new Carta();
+//        
+//        int cartaId = 10;
+//
+//        // given
+//        //given(this.CartaService.findCartaById(cartaId)).willReturn(carta);
         
     	mockMvc.perform(post("/cartas/{cartaId}/delete", TEST_CARTA_ID))
     	.andExpect(status().isNoContent())
@@ -201,21 +200,18 @@ class CartaControllerTests {
     	mockMvc.perform(get("/cartas/{cartaId}/otros", TEST_CARTA_ID))
     	.andExpect(status().isOk())
 		.andExpect(view().name("Otros/OtrosList"))
-		.andExpect(model().attributeExists("Otros"));
+		.andExpect(model().attributeExists("otros"));
     }
     
     
     @WithMockUser(value = "spring")
    	@Test
    	void testañadirPizzaACartaSuccess() throws Exception {
-    	mockMvc.perform(post("/cartas/{cartaId}/anadirPizzaACarta/{pizzaId}", TEST_CARTA_ID, TEST_PIZZA_ID)
+    	mockMvc.perform(get("/cartas/{cartaId}/anadirPizzaACarta/{pizzaId}", TEST_CARTA_ID, TEST_PIZZA_ID)
 				.with(csrf())
-				.param("nombre", "cartaPrincipal")
-				.param("fecha", "2020/11/12")
-				.param("tamano", "Grande")
-				.param("tipoMasa", "Fina")
-				.param("ingredientes", "queso"))
-		.andExpect(status().isOk())
+				.param("carta.nombre", "cartaPrincipal")
+				.param("carta.fechaFinal", "2021/11/12"))
+
 		.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/cartas/{cartaId}/VerCarta"));
     }
@@ -223,13 +219,11 @@ class CartaControllerTests {
     @WithMockUser(value = "spring")
    	@Test
    	void testañadirBebidaACartaSuccess() throws Exception {
-    	mockMvc.perform(post("/cartas/{cartaId}/anadirBebidaACarta/{bebidaId}", TEST_CARTA_ID, TEST_BEBIDA_ID)
+    	mockMvc.perform(get("/cartas/{cartaId}/anadirBebidaACarta/{bebidaId}", TEST_CARTA_ID, TEST_BEBIDA_ID)
 				.with(csrf())
-				.param("nombre", "cartaPrincipal")
-				.param("fecha", "2020/11/12")
-				.param("tamano", "Grande")
-				.param("esCarbonatada", "true"))
-		.andExpect(status().isOk())
+				.param("carta.nombre", "cartaPrincipal")
+				.param("carta.fechaFinal", "2021/11/12"))
+
 		.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/cartas/{cartaId}/VerCarta"));
     }
@@ -237,12 +231,10 @@ class CartaControllerTests {
     @WithMockUser(value = "spring")
    	@Test
    	void testañadirOtroACartaSuccess() throws Exception {
-    	mockMvc.perform(post("/cartas/{cartaId}/anadirOtroACarta/{otroId}", TEST_CARTA_ID, TEST_BEBIDA_ID)
+    	mockMvc.perform(get("/cartas/{cartaId}/anadirOtroACarta/{otroId}", TEST_CARTA_ID, TEST_OTROS_ID)
 				.with(csrf())
-				.param("nombre", "cartaPrincipal")
-				.param("fecha", "2020/11/12")
-				.param("ingredientes", "queso"))
-		.andExpect(status().isOk())
+				.param("carta.nombre", "cartaPrincipal")
+				.param("carta.fechaFinal", "2021/11/12"))
 		.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/cartas/{cartaId}/VerCarta"));
     }
@@ -262,13 +254,13 @@ class CartaControllerTests {
     void testprocessCreationPizzaFormSuccess() throws Exception {
     	mockMvc.perform(post("/cartas/{cartaId}/pizza/new", TEST_CARTA_ID)
 						.with(csrf())
-						.param("tamano", "Grande")
-						.param("tipoMasa", "Fina")
-						.param("ingredientes", "queso")
 						.param("nombre", "PEPE")
-						.param("coste", "20.0")
-						.param("contador", "1"))
-			.andExpect(status().isOk())
+						.param("coste", "20")
+						.param("contador", "3")
+						.param("tamano.name", "GRANDE")
+						.param("tipoMasa.name", "FINA")
+						.param("ingredientes", "queso"))
+			//.andExpect(status().isOk())
 			.andExpect(status().is3xxRedirection())
 			.andExpect(view().name("redirect:/cartas/{cartaId}/pizzas"));
     }

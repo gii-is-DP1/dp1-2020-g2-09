@@ -25,6 +25,7 @@ import org.springframework.samples.petclinic.service.RepartidorService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 @WebMvcTest(value = RepartidorController.class,
 excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
@@ -43,23 +44,23 @@ public class RepartidorControllerTests {
 	@Autowired
 	private MockMvc mockMvc;
 
-	@BeforeEach
-	void setup() {
-		Repartidor rep = new Repartidor();
-		rep.setId(3);
-		rep.setApellidos("Gonz");
-		rep.setFechaFinContrato(LocalDate.of(2022, 05, 05));
-		rep.setFechaNacimiento(LocalDate.of(2010, 06, 06));
-		rep.setEmail("gonzalito@gmail.com");
-		rep.setNombre("Gonzalo");
-		rep.setTelefono(321145698);
-		
-		User usuario = new User();
-		usuario.setUsername("gonz");
-		usuario.setPassword("gonz");
-		rep.setUser(usuario);
-		given(this.repartidorService.findRepartidores()).willReturn(Lists.newArrayList(rep));
-	}
+//	@BeforeEach
+//	void setup() {
+//		Repartidor rep = new Repartidor();
+//		rep.setId(3);
+//		rep.setApellidos("Gonz");
+//		rep.setFechaFinContrato(LocalDate.of(2022, 05, 05));
+//		rep.setFechaNacimiento(LocalDate.of(2010, 06, 06));
+//		rep.setEmail("gonzalito@gmail.com");
+//		rep.setNombre("Gonzalo");
+//		rep.setTelefono(321145698);
+//		
+//		User usuario = new User();
+//		usuario.setUsername("gonz");
+//		usuario.setPassword("gonz");
+//		rep.setUser(usuario);
+//		given(this.repartidorService.findRepartidores()).willReturn(Lists.newArrayList(rep));
+//	}
 
 	@WithMockUser(value = "spring")
         @Test
@@ -67,21 +68,33 @@ public class RepartidorControllerTests {
 		mockMvc.perform(get("/repartidores/new"))
 				.andExpect(status().isOk())
 				.andExpect(view().name("repartidores/createOrUpdateRepartidorForm"))
-				.andExpect(model().attributeExists("repartidores"));
+				.andExpect(model().attributeExists("repartidor"));
 	}
 
 	@WithMockUser(value = "spring")
-        @Test
+    @Test
 	void testProcessCreationFormSuccess() throws Exception {
 		mockMvc.perform(post("/repartidores/new")
 							.with(csrf())
+//							.param("Cuenta.nombre", "Antonio")
+//							.param("Cuenta.apellidos", "Antom")
+//							.param("Cuenta.fechaNacimiento", "2000/05/05")
+//							.param("Cuenta.telefono", "123698745")
+//							.param("Cuenta.user", "jaja")
+//							.param("Cuenta.email", "5hcwu@gmail.com")
 							.param("nombre", "Antonio")
 							.param("apellidos", "Antom")
-							.param("fechaNacimiento", "2012/05/05")
+							.param("fechaNacimiento", "2000/05/05")
 							.param("telefono", "123698745")
-							.param("email", "5hcwu@gmail.com"))
+							.param("user", "jaja")
+							.param("email", "5hcwu@gmail.com")
+							//.param("Cuenta.fechaInicioContrato", "2012/05/05")
+							//.param("Cuenta.fechaFinContrato", "2022/11/11")
+)
 				.andExpect(status().is3xxRedirection())
-				.andExpect(view().name("redirect:/allRepartidores"));
+				.andExpect(view().name("redirect:/allRepartidores"))
+				.andDo(MockMvcResultHandlers.print ());
+
 	}
 
 	@WithMockUser(value = "spring")
@@ -89,14 +102,17 @@ public class RepartidorControllerTests {
 	void testprocessCreationFormHasErrors() throws Exception {
 		mockMvc.perform(post("/repartidores/new")
 							.with(csrf())
-							.param("nombre", "2525252")
-							.param("apellidos", "85885")
+							.param("nombre", "frdede")
+							.param("apellidos", "jbnhbjhb")
 							.param("fechaNacimiento", "bb")
 							.param("telefono", "123698745")
+							.param("user", "huhu")
 							.param("email", "5hcwu@gmail.com"))
-		
-				.andExpect(status().isOk())
-				.andExpect(view().name("repartidores/createOrUpdateRepartidorForm"));
+				.andExpect(model().attributeHasErrors("repartidor"))
+				.andExpect(model().attributeHasFieldErrors("repartidor", "fechaNacimiento"))
+				//.andExpect(status().isOk())
+				.andExpect(view().name("repartidores/createOrUpdateRepartidorForm"))
+				.andDo(MockMvcResultHandlers.print ());
 	}
 
     @WithMockUser(value = "spring")
@@ -119,7 +135,8 @@ public class RepartidorControllerTests {
 				.param("email", "5hcwu@gmail.com"))
 		
 	.andExpect(status().is3xxRedirection())
-	.andExpect(view().name("redirect:/allRepartidores"));
+	.andExpect(view().name("redirect:/allRepartidores"))
+	.andDo(MockMvcResultHandlers.print ());
 
 	}
     
@@ -128,14 +145,15 @@ public class RepartidorControllerTests {
 	void testprocessUpdateRepartidorFormHasErrors() throws Exception {
 		mockMvc.perform(post("/repartidores/{repartidorId}/edit", TEST_REPARTIDOR_ID)
 				.with(csrf())
-				.param("nombre", "7")
+				.param("nombre", "")
 				.param("apellidos", "Antom")
 				.param("fechaNacimiento", "5161")
 				.param("telefono", "123698745")
 				.param("email", "5hcwu@gmail.com"))
 
 		.andExpect(status().isOk())
-		.andExpect(view().name("repartidores/createOrUpdateRepartidorForm"));
+		.andExpect(view().name("repartidores/createOrUpdateRepartidorForm"))
+		.andDo(MockMvcResultHandlers.print ());
     }
 
 }

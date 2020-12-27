@@ -61,6 +61,11 @@ public class CartaController {
 		dataBinder.setValidator(new OtrosValidator());
 	}
 	
+	@InitBinder("carta")//añadido nuevo
+	public void initCartaBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new CartaValidator());
+	}
+	
 	@Autowired
 	public CartaController(CartaService CartaService, PizzaService PizzaService,
 			OtrosService OtrosService, BebidaService BebidaService, IngredienteService IngredienteService) {
@@ -95,8 +100,9 @@ public class CartaController {
 
 	//mandar nueva Carta
 	@PostMapping(value = "/cartas/new")
-	public String processCreationForm(@Valid Carta carta, BindingResult result) {
+	public String processCreationForm(@Valid Carta carta, BindingResult result/*, ModelMap model*/) {
 		if (result.hasErrors()) {
+			//model.put("carta", carta);//si se ha roto-> preguntar a maria
 			return "cartas/createOrUpdateCartaForm";
 		}
 		else {
