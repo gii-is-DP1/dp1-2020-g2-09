@@ -33,20 +33,31 @@ public interface PedidoRepository  extends CrudRepository<Pedido, Integer> {
 	@Query("SELECT tipEnvio FROM TipoEnvio tipEnvio")
 	List<TipoEnvio> findTipoEnvio() throws DataAccessException;
 	
+	//FILTRAR PEDIDOS SEGUN SU ESTADO
 	@Query(value ="SELECT * FROM Pedido WHERE Estado_Pedido='1' or Estado_Pedido='2'", nativeQuery = true)
 	List<Pedido> findPedidoForCocinero() throws DataAccessException;
 	
-	@Query(value ="SELECT * FROM Pedido WHERE Tipo_Envio='2' and  Estado_Pedido='2' or Estado_Pedido='3' or Estado_Pedido='4'", nativeQuery = true)
+	@Query(value ="SELECT * FROM Pedido WHERE Tipo_Envio='1' and  Estado_Pedido='2' or Estado_Pedido='3' or Estado_Pedido='4'", nativeQuery = true)
 	List<Pedido> findPedidoForRepartidor() throws DataAccessException;
 	
-	@Modifying
+	//ACTUALIZAR ESTADO DE UN PEDIDO
+	@Modifying //al finalizar pedido
+	@Query(value ="UPDATE Pedido SET Estado_Pedido='1' WHERE id=?1", nativeQuery = true)
+	void putEnCocina(int pedidoId) throws DataAccessException;
+	
+	@Modifying //cocinero
 	@Query(value ="UPDATE Pedido SET Estado_Pedido='2' WHERE id=?1", nativeQuery = true)
-	void findPreparado(int pedidoId) throws DataAccessException;
+	void putPreparado(int pedidoId) throws DataAccessException;
+	
+	@Modifying //repartidor
+	@Query(value ="UPDATE Pedido SET Estado_Pedido='3' WHERE id=?1", nativeQuery = true)
+	void putEnReparto(int pedidoId) throws DataAccessException;
 	
 	@Modifying
 	@Query(value ="UPDATE Pedido SET Estado_Pedido='4' WHERE id=?1", nativeQuery = true)
-	void findEnReparto(int pedidoId) throws DataAccessException;
+	void putEntregado(int pedidoId) throws DataAccessException;
 	
+	//INSERTAR PRODUCTOS EN PEDIDO
 	@Modifying
     @Query(value = "INSERT INTO PRODUCTO_PIZZA_PEDIDO(PEDIDO_ID, PIZZAS_EN_PEDIDO_ID) VALUES (?1, ?2)",
 			nativeQuery = true)
@@ -61,7 +72,24 @@ public interface PedidoRepository  extends CrudRepository<Pedido, Integer> {
     @Query(value = "INSERT INTO PRODUCTO_OTROS_PEDIDO(PEDIDO_ID, OTROS_EN_PEDIDO_ID) VALUES (?1, ?2)",
 			nativeQuery = true)
 	void añadirOtrosAPedido(int pedidoId, int otrosId);
+	
+	/*//ELIMINAR PRODUCTOS DE UN PEDIDO
+	@Modifying
+    @Query(value = "DELETE FROM PRODUCTO_PIZZA_PEDIDO WHERE PEDIDO_ID='?1'",
+			nativeQuery = true)
+	void eliminarPizzaPedido(int pedidoId);
+	
+	@Modifying
+    @Query(value = "DELETE FROM PRODUCTO_BEBIDA_PEDIDO WHERE PEDIDO_ID='?1'",
+			nativeQuery = true)
+	void eliminarBebidaPedido(int pedidoId);
+	
+	@Modifying
+    @Query(value = "DELETE FROM PRODUCTO_OTROS_PEDIDO WHERE PEDIDO_ID='?1'",
+			nativeQuery = true)
+	void eliminarOtrosPedido(int pedidoId);*/
 
+	//COGER PRECIOS DE PRODUCTOS
     @Query(value = "SELECT COSTE FROM PIZZAS WHERE ID = ?1",
 			nativeQuery = true)
     Double cogerPrecioPizza(int pizzaId);
