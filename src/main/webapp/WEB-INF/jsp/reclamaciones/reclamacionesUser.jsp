@@ -8,7 +8,8 @@
     pageEncoding="utf-8"%>
    
 <petclinic:layout pageName="clientes">
-    <h2>Reclamaciones de clientes</h2>
+    <h2>Tus Reclamaciones</h2>
+
     <table id="reclamacionTable" class="table table-striped">
         <thead>
         <tr>

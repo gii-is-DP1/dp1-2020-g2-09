@@ -1,6 +1,8 @@
 package org.springframework.samples.petclinic.service;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -45,8 +47,13 @@ public class ReclamacionService {
 	}		
 	 
 	 @Transactional 
-	 public List<Reclamacion> findPedidosConReclamaciones() throws DataAccessException {
+	 public List<Integer> findPedidosConReclamaciones() throws DataAccessException {
 		return reclamacionRepository.findPedidosConReclamaciones();
+	 }
+ 
+	 @Transactional 
+	 public List<Integer> findPedidosConReclamacionesDeUnCliente(int clienteId) throws DataAccessException {
+		return reclamacionRepository.findPedidosConReclamacionesDeUnCliente(clienteId);
 	 }
  
 }

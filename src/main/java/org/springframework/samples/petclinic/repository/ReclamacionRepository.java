@@ -1,6 +1,8 @@
 package org.springframework.samples.petclinic.repository;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Modifying;
@@ -21,11 +23,13 @@ List<Reclamacion> findAll() throws DataAccessException;
 			nativeQuery = true)
 	void añadirReclamacionAPedido(int reclamacionId, int pedidoId);
 	
-	@Query(value = "SELECT RECLAMACIONES.ID, OBSERVACION, RESPUESTA FROM PEDIDO NATURAL JOIN RECLAMACIONES", 
+	@Query(value = "SELECT DISTINCT PEDIDO_RECLAMACION.RECLAMACION_ID FROM PEDIDO NATURAL JOIN PEDIDO_RECLAMACION", 
 			nativeQuery = true)
-	List<Reclamacion> findPedidosConReclamaciones();
+	List<Integer> findPedidosConReclamaciones();
 	
-	
+	@Query(value = "SELECT DISTINCT PEDIDO_RECLAMACION.RECLAMACION_ID FROM PEDIDO NATURAL JOIN PEDIDO_RECLAMACION WHERE (PEDIDO.PEDIDOCLIENTE LIKE ?1)", 
+			nativeQuery = true)
+	List<Integer> findPedidosConReclamacionesDeUnCliente(int clienteId);
 	
 
 }

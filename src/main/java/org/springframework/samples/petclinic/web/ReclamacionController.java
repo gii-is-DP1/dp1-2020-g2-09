@@ -1,13 +1,16 @@
 package org.springframework.samples.petclinic.web;
 
-import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Oferta;
+import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Reclamacion;
 import org.springframework.samples.petclinic.model.Reclamaciones;
+import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.samples.petclinic.service.ReclamacionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,16 +21,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ReclamacionController {
 
 	private final ReclamacionService reclamacionService;
+	private final PedidoService pedidoService;
+
 	
 	@Autowired
-	public ReclamacionController(ReclamacionService reclamacionService) {
+	public ReclamacionController(ReclamacionService reclamacionService,PedidoService pedidoService) {
 		this.reclamacionService = reclamacionService;
+		this.pedidoService = pedidoService;
+
 	}
 	
 	@InitBinder("reclamacion")
@@ -36,16 +42,32 @@ public class ReclamacionController {
 	}
 	
 	@GetMapping(value = { "/allReclamaciones" })
-	
 	public String showReclamacionList(Map<String, Object> model) {
 		Reclamaciones reclamaciones = new Reclamaciones();
-		reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findPedidosConReclamaciones());
+		List<Integer> l =this.reclamacionService.findPedidosConReclamaciones();
+		for(int i=0;i<l.size();i++) {
+			reclamaciones.getReclamacionesList().add(reclamacionService.findReclamacionById(l.get(i)));
+		}
 		//reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findReclamaciones());
 		//List<Integer> pedidosConReclamaciones = this.reclamacionService.findPedidosConReclamaciones();
 		//model.put("pedidosReclamaciones", pedidosConReclamaciones);
 		model.put("reclamaciones", reclamaciones);
 		return "reclamaciones/reclamacionesList";
 	} 
+	
+	@GetMapping(value = { "/reclamaciones/{clienteId}" })
+		public String showReclamacionListDeUnCliente(Map<String, Object> model, @PathVariable("clienteId") int clienteId) {
+			Reclamaciones reclamaciones = new Reclamaciones();
+			List<Integer> l =this.reclamacionService.findPedidosConReclamacionesDeUnCliente(clienteId);
+			for(int i=0;i<l.size();i++) {
+				reclamaciones.getReclamacionesList().add(reclamacionService.findReclamacionById(l.get(i)));
+			}
+			//reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findReclamaciones());
+			//List<Integer> pedidosConReclamaciones = this.reclamacionService.findPedidosConReclamaciones();
+			//model.put("pedidosReclamaciones", pedidosConReclamaciones);
+			model.put("reclamaciones", reclamaciones);
+			return "reclamaciones/reclamacionesUser";
+		} 
 	
 		//Aqui tenemos que añadir la reclamación sobre un pedido seleccionado
 		@GetMapping("/pedidos/{pedidoId}/anadirReclamacion/new")
@@ -67,10 +89,11 @@ public class ReclamacionController {
 				ReclamacionValidator ofValidator = new ReclamacionValidator();
 				ValidationUtils.invokeValidator(ofValidator, reclamacion, result);
 				this.reclamacionService.saveReclamacion(reclamacion);
+				Cliente c=pedidoService.findPedidoById(pedidoId).getCliente();
 				Integer reclamacionId=reclamacion.getId();
 				this.reclamacionService.añadirReclamacionAPedido(pedidoId, reclamacionId);
-				return "redirect:/allReclamaciones";
-			} 
+				return "redirect:/reclamaciones/"+c.getId().toString();//SI QUIERES VER TODAS LAS RECLAMACIONES "redirect:/allReclamaciones"
+			} //SI QUIERES VER LAS RECLAMACIONES DE UN CLIENTE "redirect:/reclamaciones/"+c.getId().toString();
 		}
 		
 		
