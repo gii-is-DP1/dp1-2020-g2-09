@@ -42,6 +42,24 @@ public class CocineroControllerTests {
 	private MockMvc mockMvc;
 
 	
+	@BeforeEach
+	void setup() {
+		Cocina cocinero = new Cocina();
+		cocinero.setNombre("Paco");
+		cocinero.setApellidos("Florentino");
+		cocinero.setTelefono(683020234);
+		cocinero.setEmail("paquito@gmail.com");
+		cocinero.setFechaNacimiento(LocalDate.of(2000, 12, 9));
+		//cliente.setFechaAlta(LocalDate.now());
+		User usuario = new User();
+		usuario.setUsername("PAquitoO");
+		usuario.setPassword("Tomate y papas");
+		usuario.setEnabled(true);
+		cocinero.setUser(usuario); 
+		
+		given(this.cocineroService.findCocineros()).willReturn(Lists.newArrayList(cocinero));
+		given(this.cocineroService.findCocineroById(TEST_COCINA_ID)).willReturn(cocinero);
+	}
 
 	@WithMockUser(value = "spring")
         @Test
@@ -90,8 +108,8 @@ public class CocineroControllerTests {
 	void testInitUpdateForm() throws Exception {
 		mockMvc.perform(get("/cocineros/{cocineroId}/edit", TEST_COCINA_ID))
 				.andExpect(status().isOk())
-				.andExpect(view().name("cocineros/createOrUpdateCocinaForm"));
-				//.andExpect(model().attributeExists("cocina"));
+				.andExpect(view().name("cocineros/createOrUpdateCocinaForm"))
+				.andExpect(model().attributeExists("cocina"));
 	}
     
     @WithMockUser(value = "spring")

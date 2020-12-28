@@ -1,6 +1,8 @@
 package org.springframework.samples.petclinic.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,8 +12,10 @@ import org.mockito.Mock;
 import static org.mockito.Mockito.*;
 
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.TamanoProducto;
+import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.model.tipoMasa;
 import org.springframework.samples.petclinic.repository.PizzaRepository;
 
@@ -94,4 +98,71 @@ public class PizzaServiceTests {
 		verify(pizzaRepository, never()).findPizzaPedidoById(10);
 	}
 	
+	@Test
+	void shouldFindTipoMasa() {
+		when(pizzaRepository.findTipoMasa()).thenReturn(new ArrayList<>());
+		pizzaService.findTipoMasa();
+		verify(pizzaRepository).findTipoMasa();
+	}
+	
+	@Test
+	void shouldFindTamaño() {
+		when(pizzaRepository.findTamaño()).thenReturn(new ArrayList<>());
+		pizzaService.findTamaño();
+		verify(pizzaRepository).findTamaño();
+	}
+	
+	@Test
+	void shouldFindPizzaByCliente() {
+		List<Pizza> pizzas = new ArrayList<>();
+		TamanoProducto tamanoProducto = new TamanoProducto();
+		tamanoProducto.setName("Grande");
+		Pizza pizza = new Pizza();
+		pizza.setNombre("Probando");
+		pizza.setContador(1);
+		pizza.setCoste(14);
+		pizza.setTamano(tamanoProducto);
+		tipoMasa tipo = new tipoMasa();
+		tipo.setName("Fina");
+		pizza.setTipoMasa(tipo);
+		
+		Cliente cliente = new Cliente();
+		cliente.setNombre("Paco");
+		cliente.setApellidos("Florentino");
+		cliente.setTelefono(683020234);
+		cliente.setEmail("paquito@gmail.com");
+		cliente.setFechaNacimiento(LocalDate.of(2000, 12, 9));
+		User usuario = new User();
+		usuario.setUsername("PAquitoO");
+		usuario.setPassword("Tomate y papas");
+		usuario.setEnabled(true);
+        cliente.setUser(usuario);  
+        
+        pizza.setCliente(cliente);
+        pizzas.add(pizza);
+		
+		when(pizzaRepository.findPizzaByCliente(cliente)).thenReturn(pizzas);
+		pizzaService.findPizzaByCliente(cliente);
+		verify(pizzaRepository).findPizzaByCliente(cliente);
+	}
+	
+	@Test
+	void shouldFindPizzaNoPersonalizada() {
+		List<Pizza> pizzas = new ArrayList<>();
+		TamanoProducto tamanoProducto = new TamanoProducto();
+		tamanoProducto.setName("Grande");
+		Pizza pizza = new Pizza();
+		pizza.setNombre("Probando");
+		pizza.setContador(1);
+		pizza.setCoste(14);
+		pizza.setTamano(tamanoProducto);
+		tipoMasa tipo = new tipoMasa();
+		tipo.setName("Fina");
+		pizza.setTipoMasa(tipo);
+		pizzas.add(pizza);
+		
+		when(pizzaRepository.findPizzaNoPersonalizada()).thenReturn(pizzas);
+		pizzaService.findPizzaNoPersonalizada();
+		verify(pizzaRepository).findPizzaNoPersonalizada();
+	}
 }

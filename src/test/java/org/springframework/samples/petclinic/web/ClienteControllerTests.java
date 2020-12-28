@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
+import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -7,6 +8,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.time.LocalDate;
+
+import org.assertj.core.util.Lists;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -14,7 +19,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
-
+import org.springframework.samples.petclinic.model.Cliente;
+import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.service.ClienteService;
 import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
@@ -38,6 +44,25 @@ public class ClienteControllerTests {
 	@Autowired
 	private MockMvc mockMvc;
 
+	@BeforeEach
+	void setup() {
+		Cliente cliente = new Cliente();
+		cliente.setNombre("Paco");
+		cliente.setApellidos("Florentino");
+		cliente.setTelefono(683020234);
+		cliente.setEmail("paquito@gmail.com");
+		cliente.setFechaNacimiento(LocalDate.of(2000, 12, 9));
+		User usuario = new User();
+		usuario.setUsername("PAquitoO");
+		usuario.setPassword("Tomate y papas");
+		usuario.setEnabled(true);
+        cliente.setUser(usuario);  
+        
+        given(this.clienteService.findCuentas()).willReturn(Lists.newArrayList(cliente));
+		given(this.clienteService.findCuentaById(TEST_CLIENTE_ID)).willReturn(cliente);
+		given(this.clienteService.findCuentaByUser(usuario)).willReturn(cliente);
+        
+	}
 
 	
 	@WithMockUser(value = "spring")
@@ -104,9 +129,8 @@ public class ClienteControllerTests {
     @Test
 	void initUpdateForm() throws Exception {
 		mockMvc.perform(get("/clientes/{cuentaId}/edit", TEST_CLIENTE_ID))
-		.andExpect(view().name("clientes/createOrUpdateCuentaForm"));
-		//dice que el modelo cliente no existe -.-
-		//.andExpect(model().attributeExists("cliente"));
+		.andExpect(view().name("clientes/createOrUpdateCuentaForm"))
+		.andExpect(model().attributeExists("cliente"));
 	}
 	
 	@WithMockUser(value = "spring")
@@ -121,6 +145,7 @@ public class ClienteControllerTests {
 				.param("email", "pepe2000@gmail.com")
 				.param("user.username", "escoba2000")
 				.param("user.password", "escoba2000"))
+		.andExpect(model().attributeExists("cliente"))
 		.andExpect(view().name("clientes/clienteDetails"));
 	}
 	
