@@ -41,7 +41,6 @@ public class RepartidorServiceTests {
 		repartidor.setTelefono(683020234);
 		repartidor.setEmail("paquito@gmail.com");
 		repartidor.setFechaNacimiento(LocalDate.of(2000, 12, 9));
-		//cliente.setFechaAlta(LocalDate.now());
 		User usuario = new User();
 		usuario.setUsername("PAquitoO");
 		usuario.setPassword("Tomate y papas");

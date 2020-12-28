@@ -25,7 +25,6 @@ import org.springframework.samples.petclinic.service.RepartidorService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 @WebMvcTest(value = RepartidorController.class,
 excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
@@ -35,15 +34,29 @@ public class RepartidorControllerTests {
 	
 	private static final int TEST_REPARTIDOR_ID = 1;
 
-	@Autowired
-	private RepartidorController repartidorController;
-
 	@MockBean
 	private RepartidorService repartidorService;
     
 	@Autowired
 	private MockMvc mockMvc;
 
+	@BeforeEach
+	void setup() {
+		Repartidor repartidor = new Repartidor();
+		repartidor.setNombre("Paco");
+		repartidor.setApellidos("Florentino");
+		repartidor.setTelefono(683020234);
+		repartidor.setEmail("paquito@gmail.com");
+		repartidor.setFechaNacimiento(LocalDate.of(2000, 12, 9));
+		User usuario = new User();
+		usuario.setUsername("PAquitoO");
+		usuario.setPassword("Tomate y papas");
+		usuario.setEnabled(true);
+		repartidor.setUser(usuario); 
+		
+		given(this.repartidorService.findRepartidores()).willReturn(Lists.newArrayList(repartidor));
+		given(this.repartidorService.findRepartidorById(TEST_REPARTIDOR_ID)).willReturn(repartidor);
+	}
 
 	@WithMockUser(value = "spring")
         @Test
@@ -93,7 +106,7 @@ public class RepartidorControllerTests {
 	void testInitUpdateForm() throws Exception {
 		mockMvc.perform(get("/repartidores/{repartidorId}/edit", TEST_REPARTIDOR_ID))
 				.andExpect(status().isOk())
-				//.andExpect(model().attributeExists("repartidor"))
+				.andExpect(model().attributeExists("repartidor"))
 				.andExpect(view().name("repartidores/createOrUpdateRepartidorForm"));
 	}
     

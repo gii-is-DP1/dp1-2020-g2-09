@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
+import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -7,6 +8,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.time.LocalDate;
+
+import org.assertj.core.util.Lists;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -14,11 +19,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
+import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.CartaService;
 import org.springframework.samples.petclinic.service.IngredienteService;
 import org.springframework.samples.petclinic.service.OtrosService;
-import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.samples.petclinic.service.PizzaService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -29,16 +34,14 @@ import org.springframework.test.web.servlet.MockMvc;
 excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,
 classes = WebSecurityConfigurer.class),
 excludeAutoConfiguration= SecurityConfiguration.class)
-
-class CartaControllerTests {
+public class CartaControllerTests {
 	
 	private static final int TEST_BEBIDA_ID = 1;
 	private static final int TEST_OTROS_ID = 1;
 	private static final int TEST_CARTA_ID = 1;
 	private static final int TEST_PIZZA_ID = 1;
 	
-
-
+	
 	@MockBean
 	private CartaService CartaService;
     @MockBean
@@ -49,12 +52,23 @@ class CartaControllerTests {
     private BebidaService BebidaService;
     @MockBean
     private IngredienteService ingredienteService;
-    @MockBean
-    private PedidoService pedidoService;
+    
     
 	@Autowired
 	private MockMvc mockMvc;
 
+	@BeforeEach
+	void setup() {
+		Carta carta = new Carta();
+		carta.setNombre("CartitaGonsi");
+		carta.setFechaCreacion(LocalDate.of(2020, 2, 2));
+		carta.setFechaFinal(LocalDate.of(2021, 4, 10));
+		LocalDate hoy = LocalDate.now();
+		
+		given(this.CartaService.findCartas()).willReturn(Lists.newArrayList(carta));
+		given(this.CartaService.findCartaById(TEST_CARTA_ID)).willReturn(carta);
+		given(this.CartaService.findCartaByFechaCreacionYFechaFinal(hoy)).willReturn(carta);
+	}
 
 	@WithMockUser(value = "spring")
    	@Test
@@ -103,7 +117,8 @@ class CartaControllerTests {
 	void testInitUpdateForm() throws Exception {
 		mockMvc.perform(get("/cartas/{cartaId}/edit", TEST_CARTA_ID))
 				.andExpect(status().isOk())
-				.andExpect(view().name("cartas/createOrUpdateCartaForm"));
+				.andExpect(view().name("cartas/createOrUpdateCartaForm"))
+				.andExpect(model().attributeExists("carta"));
 	}
     
     @WithMockUser(value = "spring")
@@ -181,7 +196,7 @@ class CartaControllerTests {
     @WithMockUser(value = "spring")
    	@Test
    	void testañadirPizzaACartaSuccess() throws Exception {
-    	mockMvc.perform(get("/cartas/{cartaId}/anadirPizzaACarta/{pizzaId}", TEST_CARTA_ID, TEST_PIZZA_ID)
+    	mockMvc.perform(post("/cartas/{cartaId}/anadirPizzaACarta/{pizzaId}", TEST_CARTA_ID, TEST_PIZZA_ID)
 				.with(csrf())
 				.param("carta.nombre", "cartaPrincipal")
 				.param("carta.fechaFinal", "2021/11/12"))
@@ -193,7 +208,7 @@ class CartaControllerTests {
     @WithMockUser(value = "spring")
    	@Test
    	void testañadirBebidaACartaSuccess() throws Exception {
-    	mockMvc.perform(get("/cartas/{cartaId}/anadirBebidaACarta/{bebidaId}", TEST_CARTA_ID, TEST_BEBIDA_ID)
+    	mockMvc.perform(post("/cartas/{cartaId}/anadirBebidaACarta/{bebidaId}", TEST_CARTA_ID, TEST_BEBIDA_ID)
 				.with(csrf())
 				.param("carta.nombre", "cartaPrincipal")
 				.param("carta.fechaFinal", "2021/11/12"))
@@ -205,7 +220,7 @@ class CartaControllerTests {
     @WithMockUser(value = "spring")
    	@Test
    	void testañadirOtroACartaSuccess() throws Exception {
-    	mockMvc.perform(get("/cartas/{cartaId}/anadirOtroACarta/{otroId}", TEST_CARTA_ID, TEST_OTROS_ID)
+    	mockMvc.perform(post("/cartas/{cartaId}/anadirOtroACarta/{otroId}", TEST_CARTA_ID, TEST_OTROS_ID)
 				.with(csrf())
 				.param("carta.nombre", "cartaPrincipal")
 				.param("carta.fechaFinal", "2021/11/12"))
