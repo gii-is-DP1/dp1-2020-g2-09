@@ -29,7 +29,8 @@
               	<c:out value="${reclamacion.observacion}"></c:out>
            		</td>
              	<td>
-             		<c:out value="${reclamacion.respuesta}"></c:out>
+             	<c:if test="${reclamacion.respuesta != 'Lo sentimos mucho, ...'}">
+             		<c:out value="${reclamacion.respuesta}"></c:out> </c:if>
              	</td>
         </c:forEach>
         

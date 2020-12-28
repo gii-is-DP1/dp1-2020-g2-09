@@ -45,13 +45,13 @@ public class ReclamacionService {
 	}		
 	 
 	 @Transactional 
-	 public List<Reclamacion> findPedidosConReclamaciones() throws DataAccessException {
+	 public List<Integer> findPedidosConReclamaciones() throws DataAccessException {
 		return reclamacionRepository.findPedidosConReclamaciones();
 	 }
-	 
-	 @Transactional
-	 public List<Reclamacion> findReclamacionesByCliente(int userId) throws DataAccessException {
-		 return reclamacionRepository.findReclamacionesByCliente(userId);
+ 
+	 @Transactional 
+	 public List<Integer> findPedidosConReclamacionesDeUnCliente(int clienteId) throws DataAccessException {
+		return reclamacionRepository.findPedidosConReclamacionesDeUnCliente(clienteId);
 	 }
  
 }

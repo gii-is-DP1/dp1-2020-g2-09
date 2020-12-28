@@ -40,8 +40,8 @@ class ReclamacionControllerTests {
 
 	private static final int TEST_PEDIDO_ID = 1;
 	
-//	@Autowired
-//	private ReclamacionController reclamacionController;
+	@Autowired
+	private ReclamacionController reclamacionController;
 	
 	//Muy importante añadir los MockBean necesarios para el ApplicationContext
 
@@ -75,6 +75,7 @@ class ReclamacionControllerTests {
 		
 		p.setCliente(cliente);
 		p.setDireccion("Bda San Diego");
+		
 		//p.setEstadoPedido(estadoPedido);
 		p.setFechaPedido(LocalDate.of(2020, 12, 1));
 		p.setId(1);
@@ -84,7 +85,7 @@ class ReclamacionControllerTests {
 		//p.setTipoPago(tipoPago);
 		
 		
-		r.setId(3); 
+		r.setId(1); 
 		//r.setFechaReclamacion(LocalDate.of(2020, 11, 24));
 		r.setObservacion("aaaaaaaaaaaaaaa"); 
 		r.setRespuesta("aaaaaaaaaaaaaaaaaaaa");
@@ -144,7 +145,8 @@ class ReclamacionControllerTests {
 		mockMvc.perform(post("/reclamaciones/{reclamacionId}/edit", TEST_RECLAMACION_ID)
 							.with(csrf())
 							//.param("fechaReclamacion", "2020/11/24")
-							.param("observacion", "pizza muy cara"))
+							.param("observacion", "pizza muy cara")
+							.param("respuesta", "Sentimos las molestias"))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/allReclamaciones"));
 	}
@@ -155,7 +157,9 @@ class ReclamacionControllerTests {
 		mockMvc.perform(post("/reclamaciones/{reclamacionId}/edit", TEST_RECLAMACION_ID)
 							.with(csrf())
 							//.param("fechaReclamacion", "2020/12/25")
-							.param("observacion", " "))
+
+							.param("observacion", "otra reclamacion")
+							.param("respuesta", ""))
 				//.andExpect(model().attributeHasErrors("reclamacion"))
 				.andExpect(view().name("reclamaciones/createOrUpdateReclamacionForm"));
 	}
