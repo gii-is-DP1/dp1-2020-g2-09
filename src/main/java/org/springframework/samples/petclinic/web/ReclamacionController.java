@@ -101,8 +101,8 @@ public class ReclamacionController {
 				return "reclamaciones/createOrUpdateReclamacionForm";
 			}
 			else {
-				ReclamacionValidator ofValidator = new ReclamacionValidator();
-				ValidationUtils.invokeValidator(ofValidator, reclamacion, result);
+//				ReclamacionValidator ofValidator = new ReclamacionValidator();
+//				ValidationUtils.invokeValidator(ofValidator, reclamacion, result);
 				this.reclamacionService.saveReclamacion(reclamacion);
 				Integer reclamacionId=reclamacion.getId();
 				this.reclamacionService.añadirReclamacionAPedido(pedidoId, reclamacionId);
@@ -125,14 +125,14 @@ public class ReclamacionController {
 		public String processUpdateReclamacionForm(@Valid Reclamacion reclamacion, BindingResult result,
 				@PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
 			if (result.hasErrors()) {
-				reclamacion.setId(reclamacionId);
+				//reclamacion.setId(reclamacionId);
 				model.put("reclamacion", reclamacion);
 				return "reclamaciones/createOrUpdateReclamacionForm";
 				
 			}
 			else {
-				ReclamacionValidator ofValidator = new ReclamacionValidator();
-				ValidationUtils.invokeValidator(ofValidator, reclamacion, result);
+//				ReclamacionValidator ofValidator = new ReclamacionValidator();
+//				ValidationUtils.invokeValidator(ofValidator, reclamacion, result);
 				reclamacion.setId(reclamacionId);
 				this.reclamacionService.saveReclamacion(reclamacion);
 				return "redirect:/allReclamaciones";

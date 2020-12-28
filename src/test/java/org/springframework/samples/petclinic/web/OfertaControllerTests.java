@@ -134,16 +134,16 @@ public class OfertaControllerTests {
 	@Test
 	void testProcessUpdateFormSuccess() throws Exception {
 		mockMvc.perform(post("/ofertas/{ofertaId}/edit", TEST_OFERTA_ID)
-							.with(csrf())
-							.param("coste", "20.0")
-							.param("fechaInicial", "2020/12/27")
-							.param("fechaFinal", "2020/12/30")
-							.param("nivelSocio.name", "ORO")
-							.param("tamanoOferta.name", "GRANDE")
-							.param("estadoOferta.name", "true"))
-							.andExpect(status().is3xxRedirection())
-							//.andExpect(model().attributeHasNoErrors("oferta")); 
-		.andExpect(view().name("redirect:/allOfertas"));
+						.with(csrf())
+						.param("coste", "20.0")
+						.param("fechaInicial", "2021/12/19")
+						.param("fechaFinal", "2021/12/22")
+						.param("nivelSocio.name", "ORO") 
+						.param("tamanoOferta.name", "GRANDE")
+						.param("estadoOferta.name", "true"))
+				.andExpect(status().is3xxRedirection())
+				//.andExpect(model().attributeHasNoErrors("oferta"))
+				.andExpect(view().name("redirect:/allOfertas"));
 	}
     
     @WithMockUser(value = "spring")

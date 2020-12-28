@@ -37,7 +37,7 @@ public class Reserva extends BaseEntity {
 	@NotNull
 	private Integer numeroPersonas;
 
-	@Column(name = "fecha_reserva")
+	@Column(name = "fecha_reserva") 
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@NotNull
 	private LocalDate fechaReserva;
