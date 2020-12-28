@@ -19,7 +19,7 @@ List<Reclamacion> findAll() throws DataAccessException;
 	@Modifying
     @Query(value = "INSERT INTO PEDIDO_RECLAMACION(PEDIDO_ID, RECLAMACION_ID) VALUES (?1, ?2)",
 			nativeQuery = true)
-	void añadirReclamacionAPedido(int reclamacionId, int pedidoId);
+	void anadirReclamacionAPedido(int reclamacionId, int pedidoId);
 	
 	@Query(value = "SELECT DISTINCT PEDIDO_RECLAMACION.RECLAMACION_ID FROM PEDIDO NATURAL JOIN PEDIDO_RECLAMACION", 
 			nativeQuery = true)

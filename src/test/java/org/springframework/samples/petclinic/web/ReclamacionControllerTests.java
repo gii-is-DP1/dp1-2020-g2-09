@@ -20,8 +20,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.Cliente;
+import org.springframework.samples.petclinic.model.EstadoPedido;
+import org.springframework.samples.petclinic.model.Ofertas;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Reclamacion;
+import org.springframework.samples.petclinic.model.Reclamaciones;
+import org.springframework.samples.petclinic.model.TipoEnvio;
+import org.springframework.samples.petclinic.model.TipoPago;
 import org.springframework.samples.petclinic.service.ClienteService;
 import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.samples.petclinic.service.ReclamacionService;
@@ -29,6 +34,7 @@ import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 @WebMvcTest(value = ReclamacionController.class,
 excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,
@@ -75,15 +81,21 @@ class ReclamacionControllerTests {
 		
 		p.setCliente(cliente);
 		p.setDireccion("Bda San Diego");
-		
-		//p.setEstadoPedido(estadoPedido);
+		EstadoPedido ep = new EstadoPedido();
+		ep.setName("EN COCINA");
+		p.setEstadoPedido(ep);
 		p.setFechaPedido(LocalDate.of(2020, 12, 1));
-		p.setId(1);
-		//p.setOfertasEnPedido(ofertasEnPedido);
+		//p.setId(1);
 		p.setPrecio(40.5);
-		//p.setTipoEnvio(tipoEnvio);
-		//p.setTipoPago(tipoPago);
+	
+		TipoEnvio te = new TipoEnvio();
+		te.setName("A DOMICILIO");
+		p.setTipoEnvio(te);
 		
+		TipoPago tp = new TipoPago();
+		tp.setName("TARJETA");
+		p.setTipoPago(tp);
+		p.setGastosEnvio(3.90);
 		
 		r.setId(1); 
 		//r.setFechaReclamacion(LocalDate.of(2020, 11, 24));
@@ -109,13 +121,13 @@ class ReclamacionControllerTests {
         @Test
 	void testProcessCreationFormSuccess() throws Exception {
 		mockMvc.perform(post("/pedidos/{pedidoId}/anadirReclamacion/new", TEST_PEDIDO_ID)
-				.with(csrf()))
+				.with(csrf())
 				//.param("fechaReclamacion", "2020/11/27")
-				//.param("observacion", "No se que ocurre"))
-				//.param("respuesta", "Lo sentimos mucho"))
-				.andExpect(status().is3xxRedirection())
-				.andExpect(view().name("redirect:/allReclamaciones"));
-		//.andExpect(view().name("reclamaciones/reclamacionesList"));
+				.param("observacion", "No se que ocurre")
+				.param("respuesta", "Lo sentimos mucho, ..."))
+				.andExpect(status().is3xxRedirection()) 
+				.andExpect(view().name("redirect:/allReclamaciones")); 
+		//.andExpect(view().name("reclamaciones/reclamacionesList")); 
 	//.andExpect(view().name("reclamaciones/createOrUpdateReclamacionForm"));
 } 
 
@@ -125,8 +137,10 @@ class ReclamacionControllerTests {
 		mockMvc.perform(post("/pedidos/{pedidoId}/anadirReclamacion/new", TEST_PEDIDO_ID)
 							.with(csrf())
 							//.param("fechaReclamacion", "2020/12/25")
-							.param("observacion", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"))
+							.param("observacion", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+							.param("respuesta", ""))	
 				.andExpect(model().attributeHasErrors("reclamacion"))
+				.andExpect(model().attributeHasFieldErrors("reclamacion", "respuesta"))
 				.andExpect(view().name("reclamaciones/createOrUpdateReclamacionForm"));
 	}
 
@@ -160,9 +174,19 @@ class ReclamacionControllerTests {
 
 							.param("observacion", "otra reclamacion")
 							.param("respuesta", ""))
-				//.andExpect(model().attributeHasErrors("reclamacion"))
+				.andExpect(model().attributeHasErrors("reclamacion"))
+				.andExpect(model().attributeHasFieldErrors("reclamacion", "respuesta"))
 				.andExpect(view().name("reclamaciones/createOrUpdateReclamacionForm"));
 	}
+    
+    @WithMockUser(value = "spring")
+    @Test
+    void testShowReclamacionList() throws Exception {
+    	mockMvc.perform(get("/allReclamaciones")).andExpect(status().isOk())
+		.andExpect(view().name("reclamaciones/reclamacionesList"))
+		.andExpect(model().attributeExists("reclamaciones"));
+    }
+    
 	
 
 }

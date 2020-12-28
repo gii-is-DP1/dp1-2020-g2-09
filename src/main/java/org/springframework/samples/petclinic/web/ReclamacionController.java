@@ -133,7 +133,7 @@ public class ReclamacionController {
 		
 		//mandar nueva reclamacion
 		@PostMapping(value = "/pedidos/{pedidoId}/anadirReclamacion/new")
-		public String processCreationForm(@PathVariable("pedidoId") int pedidoId, @Valid Reclamacion reclamacion, BindingResult result, ModelMap model) {
+		public String processCreationForm(@Valid Reclamacion reclamacion, BindingResult result, @PathVariable("pedidoId") int pedidoId, ModelMap model) {
 			if (result.hasErrors()) {
 				model.put("reclamacion", reclamacion);
 				return "reclamaciones/createOrUpdateReclamacionForm";
@@ -142,8 +142,15 @@ public class ReclamacionController {
 //				ReclamacionValidator ofValidator = new ReclamacionValidator();
 //				ValidationUtils.invokeValidator(ofValidator, reclamacion, result);
 				this.reclamacionService.saveReclamacion(reclamacion);
+				
+				//ESTAS DOS LÍNEAS SON LAS QUE HACEN QUE EL testProcessCreationFormSuccess de fallo
+				//=====================
+				//FIJARME EN CARTA E INTENTAR HACERLO DE FORMA SIMILAR
+				//COMO SI ESTUVIERA AÑADIENDO UNA PIZZA A LA CARTA, 
+				//PERO EN VEZ DE ESO ESTOY AÑADIENDO UNA RECLAMACION AL PEDIDO
 				Integer reclamacionId=reclamacion.getId();
-				this.reclamacionService.añadirReclamacionAPedido(pedidoId, reclamacionId);
+				this.reclamacionService.anadirReclamacionAPedido(pedidoId, reclamacionId);
+				//======================
 				return "redirect:/allReclamaciones";
 			} 
 		}
