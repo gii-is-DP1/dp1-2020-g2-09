@@ -8,9 +8,9 @@
 
 <petclinic:layout pageName="administradores">
     <h2>
-        <c:if test="${administradores['new']}">Nuevo </c:if> Administrador
+        <c:if test="${administrador['new']}">Nuevo </c:if> Administrador
     </h2>
-    <form:form modelAttribute="administradores" class="form-horizontal" id="add-owner-form">
+    <form:form modelAttribute="administrador" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre" name="nombre"/>
             <petclinic:inputField label="Apellidos" name="apellidos"/>
@@ -24,7 +24,7 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
-                    <c:when test="${administradores['new']}">
+                    <c:when test="${administrador['new']}">
                         <button class="btn btn-default" type="submit">Añadir administrador</button>
                     </c:when>
                     <c:otherwise>

@@ -196,7 +196,7 @@ public class CartaControllerTests {
     @WithMockUser(value = "spring")
    	@Test
    	void testañadirPizzaACartaSuccess() throws Exception {
-    	mockMvc.perform(post("/cartas/{cartaId}/anadirPizzaACarta/{pizzaId}", TEST_CARTA_ID, TEST_PIZZA_ID)
+    	mockMvc.perform(get("/cartas/{cartaId}/anadirPizzaACarta/{pizzaId}", TEST_CARTA_ID, TEST_PIZZA_ID)
 				.with(csrf())
 				.param("carta.nombre", "cartaPrincipal")
 				.param("carta.fechaFinal", "2021/11/12"))
@@ -208,7 +208,7 @@ public class CartaControllerTests {
     @WithMockUser(value = "spring")
    	@Test
    	void testañadirBebidaACartaSuccess() throws Exception {
-    	mockMvc.perform(post("/cartas/{cartaId}/anadirBebidaACarta/{bebidaId}", TEST_CARTA_ID, TEST_BEBIDA_ID)
+    	mockMvc.perform(get("/cartas/{cartaId}/anadirBebidaACarta/{bebidaId}", TEST_CARTA_ID, TEST_BEBIDA_ID)
 				.with(csrf())
 				.param("carta.nombre", "cartaPrincipal")
 				.param("carta.fechaFinal", "2021/11/12"))
@@ -220,7 +220,7 @@ public class CartaControllerTests {
     @WithMockUser(value = "spring")
    	@Test
    	void testañadirOtroACartaSuccess() throws Exception {
-    	mockMvc.perform(post("/cartas/{cartaId}/anadirOtroACarta/{otroId}", TEST_CARTA_ID, TEST_OTROS_ID)
+    	mockMvc.perform(get("/cartas/{cartaId}/anadirOtroACarta/{otroId}", TEST_CARTA_ID, TEST_OTROS_ID)
 				.with(csrf())
 				.param("carta.nombre", "cartaPrincipal")
 				.param("carta.fechaFinal", "2021/11/12"))

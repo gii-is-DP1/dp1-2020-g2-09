@@ -66,12 +66,105 @@ public class AdministradorControllerTests {
 	
 	@WithMockUser(value = "spring")
     @Test
-	void showAdministradoresList() throws Exception{
+	void showAdministradoresList() throws Exception {
 		mockMvc.perform(get("/allAdministradores"))
 		.andExpect(status().isOk())
 		.andExpect(view().name("administradores/administradoresList"))
 		.andExpect(model().attributeExists("administradores"));
 	}
 	
+	@WithMockUser(value = "spring")
+    @Test
+	void initCreationForm() throws Exception {
+		mockMvc.perform(get("/administradores/new"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("administradores/createOrUpdateAdministradorForm"))
+		.andExpect(model().attributeExists("administrador"));
+	}
+	
+	@WithMockUser(value = "spring")
+    @Test
+	void processCreationFormSuccess() throws Exception {
+		mockMvc.perform(post("/administradores/new")
+				.with(csrf())
+				.param("nombre", "Pepe")
+				.param("apellidos", "escobar paez")
+				.param("fechaNacimiento", "2000/07/12")
+				.param("telefono", "543972343")
+				.param("email", "pepe2000@gmail.com")
+				.param("user.username", "escoba2000")
+				.param("user.password", "escoba2000"))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/allAdministradores"));
+	}
+	
+	@WithMockUser(value = "spring")
+    @Test
+	void processCreationFormHasErrors() throws Exception {
+		mockMvc.perform(post("/administradores/new")
+				.with(csrf())
+				.param("nombre", "Pepe")
+				.param("apellidos", "escobar paez")
+				.param("fechaNacimiento", "falloJeje")
+				.param("telefono", "no soy un numero")
+				.param("email", "mal formato salu2")
+				.param("user.username", "escoba2000")
+				.param("user.password", "escoba2000"))
+		.andExpect(model().attributeHasErrors("administrador"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("administradores/createOrUpdateAdministradorForm"));
+
+	}
+	
+	@WithMockUser(value = "spring")
+    @Test
+	void initUpdateForm() throws Exception {
+		mockMvc.perform(get("/administradores/{administradorId}/edit", TEST_ADMIN_ID))
+		.andExpect(status().isOk())
+		.andExpect(view().name("administradores/createOrUpdateAdministradorForm"))
+		.andExpect(model().attributeExists("administrador"));
+	}
+	
+	@WithMockUser(value = "spring")
+    @Test
+	void processUpdateCuentaFormSuccess() throws Exception {
+		mockMvc.perform(post("/administradores/{administradorId}/edit", TEST_ADMIN_ID)
+				.with(csrf())
+				.param("nombre", "Pepe")
+				.param("apellidos", "escobar paez")
+				.param("fechaNacimiento", "2000/07/12")
+				.param("telefono", "543972343")
+				.param("email", "pepe2000@gmail.com")
+				.param("user.username", "escoba2000")
+				.param("user.password", "escoba2000"))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/allAdministradores"));
+	}
+	
+	@WithMockUser(value = "spring")
+    @Test
+	void processUpdateCuentaFormHasErrors() throws Exception {
+		mockMvc.perform(post("/administradores/{administradorId}/edit", TEST_ADMIN_ID)
+				.with(csrf())
+				.param("nombre", "Pepe")
+				.param("apellidos", "escobar paez")
+				.param("fechaNacimiento", "no es fecha")
+				.param("telefono", "5439 muy corto")
+				.param("email", "pepe2000@gmail.com")
+				.param("user.username", "escoba2000")
+				.param("user.password", "escoba2000"))
+		.andExpect(model().attributeHasErrors("administrador"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("administradores/createOrUpdateAdministradorForm"));
+	}
+	
+	@WithMockUser(value = "spring")
+    @Test
+	void initDeleteCuenta() throws Exception {
+		mockMvc.perform(get("/administradores/{administradorId}/delete", TEST_ADMIN_ID))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/allAdministradores"))
+		.andExpect(model().attributeDoesNotExist("administrador"));
+	}
 	
 }
