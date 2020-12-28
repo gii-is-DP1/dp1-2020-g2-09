@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
 
+import java.util.List;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,18 +56,32 @@ public class ReclamacionController {
 		dataBinder.setDisallowedFields("id");
 	}
 	
-	@GetMapping(value = { "/allReclamaciones" })
+//	@GetMapping(value = { "/allReclamaciones" })
+//	
+//	public String showReclamacionList(Map<String, Object> model) {
+//		Reclamaciones reclamaciones = new Reclamaciones();
+//		reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findPedidosConReclamaciones());
+//		//reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findReclamaciones());
+//		//List<Integer> pedidosConReclamaciones = this.reclamacionService.findPedidosConReclamaciones();
+//		//model.put("pedidosReclamaciones", pedidosConReclamaciones);
+//		model.put("reclamaciones", reclamaciones);
+//		return "reclamaciones/reclamacionesList";
+//	} 
 	
+	@GetMapping(value = { "/allReclamaciones" })
 	public String showReclamacionList(Map<String, Object> model) {
 		Reclamaciones reclamaciones = new Reclamaciones();
-		reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findPedidosConReclamaciones());
+		List<Integer> l =this.reclamacionService.findPedidosConReclamaciones();
+		for(int i=0;i<l.size();i++) {
+			reclamaciones.getReclamacionesList().add(reclamacionService.findReclamacionById(l.get(i)));
+		}
 		//reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findReclamaciones());
 		//List<Integer> pedidosConReclamaciones = this.reclamacionService.findPedidosConReclamaciones();
 		//model.put("pedidosReclamaciones", pedidosConReclamaciones);
 		model.put("reclamaciones", reclamaciones);
 		return "reclamaciones/reclamacionesList";
-	} 
-	
+	}
+//	
 	//para ver las reclamaciones del cliente que ha iniciado sesión
 		@GetMapping("/reclamaciones/user")
 		public String showMisReclamaciones(Map<String, Object> model) {
@@ -79,10 +94,33 @@ public class ReclamacionController {
 			String userName = userDetails.getUsername();
 		    User usuario = this.userService.findUser(userName).get();
 		    Cuenta cliente= this.clienteService.findCuentaByUser(usuario);
-		    reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findReclamacionesByCliente(cliente.getId()));
+		    
+		    List<Integer> l =this.reclamacionService.
+		    		findPedidosConReclamacionesDeUnCliente(cliente.getId());
+		    for(int i=0;i<l.size();i++) {
+		    	reclamaciones.getReclamacionesList().add(reclamacionService.
+		    			findReclamacionById(l.get(i)));
+		    }
+		    //reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findPedidosConReclamacionesDeUnCliente(cliente.getId()));
 			model.put("reclamaciones", reclamaciones);
 			return "reclamaciones/reclamacionUser";
 		} 
+		
+	//Método de Parri -> No sé para qué sirve, preguntarle.
+		
+//	@GetMapping(value = { "/reclamaciones/{clienteId}" })
+//	public String showReclamacionListDeUnCliente(Map<String, Object> model, @PathVariable("clienteId") int clienteId) {
+//		Reclamaciones reclamaciones = new Reclamaciones();
+//		List<Integer> l =this.reclamacionService.findPedidosConReclamacionesDeUnCliente(clienteId);
+//		for(int i=0;i<l.size();i++) {
+//			reclamaciones.getReclamacionesList().add(reclamacionService.findReclamacionById(l.get(i)));
+//		}
+//		//reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findReclamaciones());
+//		//List<Integer> pedidosConReclamaciones = this.reclamacionService.findPedidosConReclamaciones();
+//		//model.put("pedidosReclamaciones", pedidosConReclamaciones);
+//		model.put("reclamaciones", reclamaciones);
+//		return "reclamaciones/reclamacionesUser";
+//	}
 	
 		//Aqui tenemos que añadir la reclamación sobre un pedido seleccionado
 		@GetMapping("/pedidos/{pedidoId}/anadirReclamacion/new")
@@ -101,8 +139,8 @@ public class ReclamacionController {
 				return "reclamaciones/createOrUpdateReclamacionForm";
 			}
 			else {
-				ReclamacionValidator ofValidator = new ReclamacionValidator();
-				ValidationUtils.invokeValidator(ofValidator, reclamacion, result);
+//				ReclamacionValidator ofValidator = new ReclamacionValidator();
+//				ValidationUtils.invokeValidator(ofValidator, reclamacion, result);
 				this.reclamacionService.saveReclamacion(reclamacion);
 				Integer reclamacionId=reclamacion.getId();
 				this.reclamacionService.añadirReclamacionAPedido(pedidoId, reclamacionId);
