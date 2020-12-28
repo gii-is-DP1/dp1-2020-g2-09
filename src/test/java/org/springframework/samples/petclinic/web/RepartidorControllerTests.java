@@ -86,7 +86,8 @@ public class RepartidorControllerTests {
 							.param("apellidos", "Antom")
 							.param("fechaNacimiento", "2000/05/05")
 							.param("telefono", "123698745")
-							.param("user", "jaja")
+							.param("usuario.name", "jaja")
+							.param("usuario.password", "jaja")
 							.param("email", "5hcwu@gmail.com")
 							//.param("Cuenta.fechaInicioContrato", "2012/05/05")
 							//.param("Cuenta.fechaFinContrato", "2022/11/11")
@@ -145,15 +146,14 @@ public class RepartidorControllerTests {
 	void testprocessUpdateRepartidorFormHasErrors() throws Exception {
 		mockMvc.perform(post("/repartidores/{repartidorId}/edit", TEST_REPARTIDOR_ID)
 				.with(csrf())
-				.param("nombre", "")
+				.param("nombre", "77")
 				.param("apellidos", "Antom")
 				.param("fechaNacimiento", "5161")
 				.param("telefono", "123698745")
 				.param("email", "5hcwu@gmail.com"))
 
 		.andExpect(status().isOk())
-		.andExpect(view().name("repartidores/createOrUpdateRepartidorForm"))
-		.andDo(MockMvcResultHandlers.print ());
+		.andExpect(view().name("repartidores/createOrUpdateRepartidorForm"));
     }
 
 }

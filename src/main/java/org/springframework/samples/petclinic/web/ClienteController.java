@@ -36,8 +36,7 @@ public class ClienteController {
 	private final UserService userService;
 
 	@Autowired
-	public ClienteController(ClienteService clienteService, UserService userService,
-			AuthoritiesService authoritiesService) {
+	public ClienteController(ClienteService clienteService, UserService userService) {
 		this.clienteService = clienteService;
 		this.userService =  userService;
 	}
@@ -81,7 +80,7 @@ public class ClienteController {
 //			ValidationUtils.invokeValidator(cuentaValidator, cliente, result);
 			cliente.setFechaAlta(LocalDate.now());
 			this.clienteService.saveCliente(cliente);
-			return "redirect:/";
+			return "redirect:/welcome";
 		}
 	}
 	

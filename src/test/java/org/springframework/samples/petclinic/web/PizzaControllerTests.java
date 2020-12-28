@@ -48,7 +48,6 @@ import org.springframework.test.web.servlet.MockMvc;
 includeFilters = @ComponentScan.Filter(value = PizzaFormatter.class, type = FilterType.ASSIGNABLE_TYPE),
 excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
 excludeAutoConfiguration= SecurityConfiguration.class)
-
 class PizzaControllerTests {
 	
 	private static final int TEST_PIZZA_ID = 1;
@@ -225,12 +224,12 @@ class PizzaControllerTests {
 		mockMvc.perform(post("/pizzas/cliente/new")
 						.with(csrf())
 						.param("contador", "1")
-						.param("coste", "13")
-						.param("nombre", "pizzacontomate")
+						.param("coste", "1")
+						.param("nombre", "miPizza")
 						.param("tamano.name", "mini")
-						.param("tipoMasa.name", "extrafina")
+						.param("tipoMasa.name", "fina")
 						.param("ingredientes", "tomate"))
-			//.andExpect(model().attributeHasErrors("pizza"))
+			//.andExpect(model().attributeHasNoErrors("pizza"))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(view().name("redirect:/allPizzas"));
 	}
@@ -293,7 +292,7 @@ class PizzaControllerTests {
 	
 	@WithMockUser(value = "spring")
     @Test
-	void testActualizarPizza() throws Exception {
+	void testActualizarPizza() throws Exception { 
 		mockMvc.perform(get("/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/{pizzaId}/edit",TEST_PEDIDO_ID,TEST_CARTA_ID,TEST_PIZZA_ID))
 				.andExpect(status().isOk())
 				.andExpect(view().name("/pizzas/UpdatePizzaFormPedido"))
