@@ -38,11 +38,6 @@ class CartaControllerTests {
 	private static final int TEST_PIZZA_ID = 1;
 	
 
-	@Autowired
-	private CartaController cartaController;
-
-//	@Autowired
-//	private IngredienteController ingredienteController;
 
 	@MockBean
 	private CartaService CartaService;
@@ -60,19 +55,6 @@ class CartaControllerTests {
 	@Autowired
 	private MockMvc mockMvc;
 
-//	@BeforeEach
-//	void setup() {
-//		Otros patatas = new Otros();
-//		patatas.setId(3);
-//		patatas.setCoste(12);
-//		patatas.setNombre("Patatas fritas");
-//		patatas.setContador(1);
-//		given(this.OtrosService.findOtros()).willReturn(Lists.newArrayList(patatas));
-//		given(this.OtrosService.findOtrosById(TEST_OTROS_ID)).willReturn(new Otros());
-//		//given(this.otrosService.findIdOtrosByCartaId(TEST_CARTA_ID)).willReturn(new ArrayList<Integer>());
-//		
-//		given(this.pedidoService.findPedidoById(TEST_PEDIDO_ID)).willReturn(new Pedido());
-//	}
 
 	@WithMockUser(value = "spring")
    	@Test
@@ -148,16 +130,8 @@ class CartaControllerTests {
     
     @WithMockUser(value = "spring")
    	@Test
-   	void testinitDeleteCartaSuccess() throws Exception {
-//    	Carta carta = new Carta();
-//        
-//        int cartaId = 10;
-//
-//        // given
-//        //given(this.CartaService.findCartaById(cartaId)).willReturn(carta);
-        
-    	mockMvc.perform(post("/cartas/{cartaId}/delete", TEST_CARTA_ID))
-    	.andExpect(status().isNoContent())
+   	void testinitDeleteCartaSuccess() throws Exception {       
+    	mockMvc.perform(get("/cartas/{cartaId}/delete", TEST_CARTA_ID))
     	.andExpect(status().is3xxRedirection())
         .andExpect(view().name("redirect:/allCartas"));
     }

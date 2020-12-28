@@ -81,8 +81,8 @@ public class OfertaController {
 			return "ofertas/createOrUpdateOfertaForm";
 		}
 		else {
-			OfertaValidator ofValidator = new OfertaValidator();
-			ValidationUtils.invokeValidator(ofValidator, oferta, result);
+//			OfertaValidator ofValidator = new OfertaValidator();
+//			ValidationUtils.invokeValidator(ofValidator, oferta, result);
 			this.ofertaService.saveOferta(oferta);
 			return "redirect:/allOfertas";
 		}
@@ -104,8 +104,8 @@ public class OfertaController {
 			return "ofertas/createOrUpdateOfertaForm";
 		}
 		else { 
-			OfertaValidator ofValidator = new OfertaValidator();
-			ValidationUtils.invokeValidator(ofValidator, oferta, result);
+//			OfertaValidator ofValidator = new OfertaValidator();
+//			ValidationUtils.invokeValidator(ofValidator, oferta, result);
 			oferta.setId(ofertaId);
 			this.ofertaService.saveOferta(oferta);
 			return "redirect:/allOfertas";

@@ -44,23 +44,6 @@ public class RepartidorControllerTests {
 	@Autowired
 	private MockMvc mockMvc;
 
-//	@BeforeEach
-//	void setup() {
-//		Repartidor rep = new Repartidor();
-//		rep.setId(3);
-//		rep.setApellidos("Gonz");
-//		rep.setFechaFinContrato(LocalDate.of(2022, 05, 05));
-//		rep.setFechaNacimiento(LocalDate.of(2010, 06, 06));
-//		rep.setEmail("gonzalito@gmail.com");
-//		rep.setNombre("Gonzalo");
-//		rep.setTelefono(321145698);
-//		
-//		User usuario = new User();
-//		usuario.setUsername("gonz");
-//		usuario.setPassword("gonz");
-//		rep.setUser(usuario);
-//		given(this.repartidorService.findRepartidores()).willReturn(Lists.newArrayList(rep));
-//	}
 
 	@WithMockUser(value = "spring")
         @Test
@@ -76,25 +59,15 @@ public class RepartidorControllerTests {
 	void testProcessCreationFormSuccess() throws Exception {
 		mockMvc.perform(post("/repartidores/new")
 							.with(csrf())
-//							.param("Cuenta.nombre", "Antonio")
-//							.param("Cuenta.apellidos", "Antom")
-//							.param("Cuenta.fechaNacimiento", "2000/05/05")
-//							.param("Cuenta.telefono", "123698745")
-//							.param("Cuenta.user", "jaja")
-//							.param("Cuenta.email", "5hcwu@gmail.com")
 							.param("nombre", "Antonio")
 							.param("apellidos", "Antom")
 							.param("fechaNacimiento", "2000/05/05")
 							.param("telefono", "123698745")
-							.param("usuario.name", "jaja")
-							.param("usuario.password", "jaja")
-							.param("email", "5hcwu@gmail.com")
-							//.param("Cuenta.fechaInicioContrato", "2012/05/05")
-							//.param("Cuenta.fechaFinContrato", "2022/11/11")
-)
+							.param("user.username", "jaja")
+							.param("user.password", "jaja")
+							.param("email", "antonioJajas@gmail.com"))
 				.andExpect(status().is3xxRedirection())
-				.andExpect(view().name("redirect:/allRepartidores"))
-				.andDo(MockMvcResultHandlers.print ());
+				.andExpect(view().name("redirect:/allRepartidores"));
 
 	}
 
@@ -106,14 +79,13 @@ public class RepartidorControllerTests {
 							.param("nombre", "frdede")
 							.param("apellidos", "jbnhbjhb")
 							.param("fechaNacimiento", "bb")
-							.param("telefono", "123698745")
-							.param("user", "huhu")
+							.param("telefono", "123")
+							.param("user.username", "jaja")
+							.param("user.password", "jaja")
 							.param("email", "5hcwu@gmail.com"))
 				.andExpect(model().attributeHasErrors("repartidor"))
-				.andExpect(model().attributeHasFieldErrors("repartidor", "fechaNacimiento"))
-				//.andExpect(status().isOk())
-				.andExpect(view().name("repartidores/createOrUpdateRepartidorForm"))
-				.andDo(MockMvcResultHandlers.print ());
+				.andExpect(status().isOk())
+				.andExpect(view().name("repartidores/createOrUpdateRepartidorForm"));
 	}
 
     @WithMockUser(value = "spring")
@@ -121,6 +93,7 @@ public class RepartidorControllerTests {
 	void testInitUpdateForm() throws Exception {
 		mockMvc.perform(get("/repartidores/{repartidorId}/edit", TEST_REPARTIDOR_ID))
 				.andExpect(status().isOk())
+				//.andExpect(model().attributeExists("repartidor"))
 				.andExpect(view().name("repartidores/createOrUpdateRepartidorForm"));
 	}
     
@@ -133,11 +106,11 @@ public class RepartidorControllerTests {
 				.param("apellidos", "Antom")
 				.param("fechaNacimiento", "2012/05/05")
 				.param("telefono", "123698745")
+				.param("user.username", "jaja")
+				.param("user.password", "jaja")
 				.param("email", "5hcwu@gmail.com"))
-		
 	.andExpect(status().is3xxRedirection())
-	.andExpect(view().name("redirect:/allRepartidores"))
-	.andDo(MockMvcResultHandlers.print ());
+	.andExpect(view().name("redirect:/allRepartidores"));
 
 	}
     
@@ -150,10 +123,20 @@ public class RepartidorControllerTests {
 				.param("apellidos", "Antom")
 				.param("fechaNacimiento", "5161")
 				.param("telefono", "123698745")
+				.param("user.username", "jaja")
+				.param("user.password", "jaja")
 				.param("email", "5hcwu@gmail.com"))
-
+		.andExpect(model().attributeHasErrors("repartidor"))
 		.andExpect(status().isOk())
 		.andExpect(view().name("repartidores/createOrUpdateRepartidorForm"));
+    }
+    
+    @WithMockUser(value = "spring")
+   	@Test
+   	void initDeleteCuenta() throws Exception {
+    	mockMvc.perform(get("/repartidores/{repartidorId}/delete", TEST_REPARTIDOR_ID))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/allRepartidores"));
     }
 
 }
