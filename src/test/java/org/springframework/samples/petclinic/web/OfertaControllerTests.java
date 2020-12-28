@@ -189,6 +189,29 @@ public class OfertaControllerTests {
 		.andExpect(model().attributeExists("ofertas"));
     }
     
+    //No sé muy bien cómo se prueba esto
+    @WithMockUser(value = "spring")
+    @Test
+    void testChangeOfertaStateTrue() throws Exception {
+    	mockMvc.perform(get("/ofertas/{ofertaId}/changeState", TEST_OFERTA_ID)
+				.with(csrf())
+				.param("estadoOferta.name", "true"))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/allOfertas"));
+    }
+    
+//    @WithMockUser(value = "spring")
+//    @Test
+//    void testChangeOfertaStateFalse() throws Exception {
+//    	mockMvc.perform(get("/ofertas/{ofertaId}/changeState", TEST_OFERTA_ID)
+//				.with(csrf())
+//				.param("estadoOferta.name", "false"))
+//		.andExpect(status().is3xxRedirection())
+//		.andExpect(view().name("redirect:/allOfertas"));
+//    }
+    
+    
+    
 
 	
 
