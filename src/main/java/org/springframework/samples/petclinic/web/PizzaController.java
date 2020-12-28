@@ -111,8 +111,8 @@ public class PizzaController {
 			Cliente c = getClienteActivo();
 			pizza.setCliente(c);
 			pizza.setPersonalizada(true);
-			PizzaValidator pizzaValidator = new PizzaValidator();
-			ValidationUtils.invokeValidator(pizzaValidator, pizza, result);
+//			PizzaValidator pizzaValidator = new PizzaValidator();
+//			ValidationUtils.invokeValidator(pizzaValidator, pizza, result);
 			this.pizzaService.savePizza(pizza);
 			return "redirect:/allPizzas";
 		}
@@ -137,8 +137,8 @@ public class PizzaController {
 			return "pizzas/createOrUpdatePizzaForm";
 		} else {
 			Pizza.setId(pizzaId);
-			PizzaValidator pizzaValidator = new PizzaValidator();
-			ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
+//			PizzaValidator pizzaValidator = new PizzaValidator();
+//			ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
 
 			this.pizzaService.savePizza(Pizza);
 			return "redirect:/allPizzas";
@@ -177,9 +177,8 @@ public class PizzaController {
 					Pizza.setIngredientes(Pizza.getIngredientes());
 					Pizza.setNombre(Pizza.getNombre());
 					Pizza.setContador(Pizza.getContador());
-					PizzaValidator pizzaValidator = new PizzaValidator();
-					ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
-					System.out.println(Pizza);
+//					PizzaValidator pizzaValidator = new PizzaValidator();
+//					ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
 					this.pizzaService.savePizza(Pizza);
 					return "redirect:/allPizzas";
 				}

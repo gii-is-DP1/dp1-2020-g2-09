@@ -93,6 +93,7 @@ public class PedidoController {
 		dataBinder.setDisallowedFields("id");
 	}
 	
+	//muestra todos los pedidos
 	@GetMapping(value = { "/allPedidos" })
 	public String showPedidoList(Map<String, Object> model) {
 		Pedidos pedidos = new Pedidos();
@@ -193,12 +194,12 @@ public class PedidoController {
 		}
 	}
 	
-	//borrar pedido
+	//BORRAR PEDIDO
 	@GetMapping(value = "/pedidos/{pedidoId}/delete")
 	public String initDeleteCuenta(@PathVariable("pedidoId") int pedidoId, ModelMap model) {
 		Pedido pedido = this.pedidoService.findPedidoById(pedidoId);
 		this.pedidoService.deletePedido(pedido);
-		return "redirect:/allPedidos";
+		return "redirect:/pedidos/user";
 	}
 	
 	//Mostrar cartas de las que coger productos
@@ -347,25 +348,33 @@ public class PedidoController {
 			return "pedidos/resumenPedido";
 		}
 		
-		
+		//Poner En cocina al finalizar un pedido
+		@GetMapping(value = "/pedidos/{pedidoId}/finalizarPedido")
+		public String enCocina(@PathVariable("pedidoId") int pedidoId, ModelMap model) {
+			pedidoService.putEnCocina(pedidoId);
+			return "redirect:/pedidos/user";
+		}
+				
+				
 		//Cambiar En cocina a Preparado
 		@GetMapping(value = "/cocinero/{pedidoId}/estadoPedido")
 		public String enCocinaPreparado(@PathVariable("pedidoId") int pedidoId, ModelMap model) {
-				pedidoService.findPreparado(pedidoId);
+				pedidoService.putPreparado(pedidoId);
 			return "redirect:/pedidos/cocinero";
 		}
 		
-		//Cambiar En cocina a Preparado
+		//Cambiar Preparado a En Reparto Y En Reparto a Entregado
 		@GetMapping(value = "/repartidor/{pedidoId}/estadoPedido")
 			public String PreparadoEnReparto(@PathVariable("pedidoId") int pedidoId, ModelMap model) {
 				Pedido pedido=this.pedidoService.findPedidoById(pedidoId);
-				EstadoPedido est=new EstadoPedido();
-				est.setName("PREPARADO");
-				if(pedido.getEstadoPedido().getName()==est.getName()) {
-					pedidoService.findEnReparto(pedidoId);
-				}
+				if(pedido.getEstadoPedido().getId()==2) {
+					pedidoService.putEnReparto(pedidoId);
+				}else
+					pedidoService.putEntregado(pedidoId);
 			return "redirect:/pedidos/repartidor";
 		}
+		
+		
 		
 		
 	

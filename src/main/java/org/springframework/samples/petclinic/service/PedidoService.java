@@ -17,7 +17,6 @@ public class PedidoService {
 	
 	private PedidoRepository pedidoRepository;
 
-
 	@Autowired
 	public PedidoService(PedidoRepository pedidoRepository) {
 		this.pedidoRepository = pedidoRepository;
@@ -26,26 +25,11 @@ public class PedidoService {
 	@Transactional(readOnly = true)	
 	public List<Pedido> findPedidos() throws DataAccessException {
 		return pedidoRepository.findAll();
-	}	
-	
-	@Transactional(readOnly = true)	
-	public List<Pedido> findPedidoForCocinero() throws DataAccessException {
-		return pedidoRepository.findPedidoForCocinero();
 	}
 	
-	@Transactional(readOnly = true)	
-	public List<Pedido> findPedidoForRepartidor() throws DataAccessException {
-		return pedidoRepository.findPedidoForRepartidor();
-	}
-	
-	@Transactional(readOnly = true)	
-	public void findPreparado(int pedidoId) throws DataAccessException {
-		pedidoRepository.findPreparado(pedidoId);
-	}
-	
-	@Transactional(readOnly = true)	
-	public void  findEnReparto(int pedidoId) throws DataAccessException {
-		pedidoRepository.findEnReparto(pedidoId);
+	@Transactional(readOnly = true)
+	public Pedido findPedidoById(int pedidoId) throws DataAccessException {
+		return pedidoRepository.findPedidoById(pedidoId);
 	}
 	
 	@Transactional(readOnly = true)	
@@ -53,10 +37,6 @@ public class PedidoService {
 		return pedidoRepository.findPedidosByCliente(userId);
 	}
 	
-	@Transactional(readOnly = true)
-	public Pedido findPedidoById(int pedidoId) throws DataAccessException {
-		return pedidoRepository.findPedidoById(pedidoId);
-	}
 	
 	@Transactional
 	public void savePedido(Pedido pedido) throws DataAccessException {
@@ -83,6 +63,39 @@ public class PedidoService {
 		return pedidoRepository.findTipoEnvio();
 	}
 	
+	//FILTRAR PEDIDOS SEGUN SU ESTADO
+	@Transactional(readOnly = true)	
+	public List<Pedido> findPedidoForCocinero() throws DataAccessException {
+		return pedidoRepository.findPedidoForCocinero();
+	}
+	
+	@Transactional(readOnly = true)	
+	public List<Pedido> findPedidoForRepartidor() throws DataAccessException {
+		return pedidoRepository.findPedidoForRepartidor();
+	}
+	
+	//ACTUALIZAR ESTADO DE UN PEDIDO
+	@Transactional(readOnly = true)	
+	public void  putEnCocina(int pedidoId) throws DataAccessException {
+		pedidoRepository.putEnCocina(pedidoId);
+	}
+	
+	@Transactional(readOnly = true)	
+	public void putPreparado(int pedidoId) throws DataAccessException {
+		pedidoRepository.putPreparado(pedidoId);
+	}
+	
+	@Transactional(readOnly = true)	
+	public void  putEnReparto(int pedidoId) throws DataAccessException {
+		pedidoRepository.putEnReparto(pedidoId);
+	}
+	
+	@Transactional(readOnly = true)	
+	public void  putEntregado(int pedidoId) throws DataAccessException {
+		pedidoRepository.putEntregado(pedidoId);
+	}
+	
+	//AÑADIR PRODUCTOS A UN PEDIDO
 	@Transactional
 	public void añadirPizzaAPedido(int pedidoId, int pizzaId) throws DataAccessException {
 		pedidoRepository.añadirPizzaAPedido(pedidoId, pizzaId);
@@ -97,7 +110,24 @@ public class PedidoService {
 	public void añadirOtrosAPedido(int pedidoId, int otrosId) throws DataAccessException {
 		pedidoRepository.añadirOtrosAPedido(pedidoId, otrosId);
 	}
-
+	
+	/*//ELIMINAR PRODUCTOS DE UN PEDIDO 
+	@Transactional
+	public void añadirPizzaAPedido(int pedidoId, int pizzaId) throws DataAccessException {
+		pedidoRepository.añadirPizzaAPedido(pedidoId, pizzaId);
+	}
+		
+	@Transactional
+	public void añadirBebidaAPedido(int pedidoId, int bebidaId) throws DataAccessException {
+		pedidoRepository.añadirBebidaAPedido(pedidoId, bebidaId);
+	}
+		
+	@Transactional
+	public void añadirOtrosAPedido(int pedidoId, int otrosId) throws DataAccessException {
+		pedidoRepository.añadirOtrosAPedido(pedidoId, otrosId);
+	}*/
+	
+	//COGER PRECIOS DE UN PRODUCTO
 	@Transactional
 	public Double cogerPrecioPizza(int pizzaId) {
 		return pedidoRepository.cogerPrecioPizza(pizzaId);

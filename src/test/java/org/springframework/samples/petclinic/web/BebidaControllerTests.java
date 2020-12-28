@@ -92,7 +92,6 @@ public class BebidaControllerTests {
 	
 	@WithMockUser(value = "spring")
 	@Test
-	//Falla en que no redireciona y lo lleva a createOrUpdate
     void testProcessCreationFormSuccess() throws Exception {
 		
 		mockMvc.perform(post("/bebidas/new")
@@ -103,10 +102,9 @@ public class BebidaControllerTests {
 				.param("tamano.name", "PEQUEÑO")
 				.param("esCarbonatada", "true"))
 	.andExpect(view().name("redirect:/allBebidas"))
-		.andExpect(status().is3xxRedirection())
-		.andDo(MockMvcResultHandlers.print ());
+		.andExpect(status().is3xxRedirection());
 
-}
+	}
 	
 	@WithMockUser(value = "spring")
 	@Test
@@ -120,9 +118,8 @@ public class BebidaControllerTests {
 							.param("esCarbonatada","true"))
 				.andExpect(model().attributeHasErrors("bebida"))
 				.andExpect(status().isOk())
-				.andExpect(view().name("bebidas/createOrUpdateBebidaForm"))
-;
-		}
+				.andExpect(view().name("bebidas/createOrUpdateBebidaForm"));
+	}
 	
 	@WithMockUser(value = "spring")
 	@Test
@@ -132,25 +129,22 @@ public class BebidaControllerTests {
 				.andExpect(model().attributeExists("bebida"))
 				.andExpect(view().name("bebidas/createOrUpdateBebidaForm"));
 		
-}
+	}
 	
 	@WithMockUser(value = "spring")
 	@Test
-	//Falla en que no redireciona y lo lleva a createOrUpdate
 	void testProcessUpdateFormSuccess() throws Exception {
 		mockMvc.perform(post("/bebidas/{bebidaId}/edit", TEST_BEBIDA_ID)
 				.with(csrf())
-				//.param("id", "99")
 				.param("contador","5")
 				.param("nombre","Hidromiel")
 				.param("coste","10")
-				.param("tamano.name","GRANDE")//creo que el fallo es esto que no puede hacer un TamanoProducto de GRANDE
+				.param("tamano.name","GRANDE")
 				.param("esCarbonatada","true"))
-//		.andExpect(model().attributeExists("bebida"))
-//		.andExpect(view().name("bebidas/createOrUpdateBebidaForm"));
 		.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/allBebidas"));
 	}
+	
 	@WithMockUser(value = "spring")
 	@Test
 	void testProcessUpdateFormHasErrors() throws Exception {
@@ -165,13 +159,13 @@ public class BebidaControllerTests {
 				.andExpect(status().isOk())
 				.andExpect(view().name("bebidas/createOrUpdateBebidaForm"));
 		}
+	@WithMockUser(value = "spring")
+	@Test
+	void initDeleteBebida() throws Exception {
+		mockMvc.perform(get("/bebidas/{bebidaId}/delete", TEST_BEBIDA_ID))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/allBebidas"))
+		.andExpect(model().attributeDoesNotExist("bebida"));
+	}
 	
-//	@WithMockUser(value = "spring")
-//    	@Test
-//		void testShowBebidasListXml() throws Exception {
-//			mockMvc.perform(get("/bebidas.xml").accept(MediaType.APPLICATION_XML))
-//					.andExpect(status().isOk())
-//					.andExpect(content().contentType(MediaType.APPLICATION_XML_VALUE))
-//					.andExpect(content().node(hasXPath("/bebidas/bebidaList[id=3]/id")));
-//	}
 }

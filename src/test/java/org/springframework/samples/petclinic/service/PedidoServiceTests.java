@@ -1,109 +1,217 @@
 package org.springframework.samples.petclinic.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertNull;
-import java.time.LocalDate;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.ComponentScan;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.*;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.samples.petclinic.model.Cliente;
-import org.springframework.samples.petclinic.model.EstadoPedido;
 import org.springframework.samples.petclinic.model.Pedido;
-import org.springframework.samples.petclinic.model.TipoEnvio;
-import org.springframework.samples.petclinic.model.TipoPago;
-import org.springframework.stereotype.Service;
+import org.springframework.samples.petclinic.model.User;
+import org.springframework.samples.petclinic.repository.PedidoRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-@DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
+
+@ExtendWith(MockitoExtension.class)
 public class PedidoServiceTests {
 
-	@Autowired
-	protected PedidoService pedidoService;
+	@Mock
+	PedidoRepository pedidoRepository;
+	
+	PedidoService pedidoService;
+	
+	@BeforeEach
+	void setUp() {
+		pedidoService = new PedidoService(pedidoRepository);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldFindPedidos() {
+		when(pedidoRepository.findAll()).thenReturn(new ArrayList<>());
+		pedidoService.findPedidos();
+		verify(pedidoRepository).findAll();
+	}
+	
+	@Test
+	@Transactional
+	public void shouldFindPedidoForCocinero() {
+		when(pedidoRepository.findPedidoForCocinero()).thenReturn(new ArrayList<>());
+		pedidoService.findPedidoForCocinero();
+		verify(pedidoRepository).findPedidoForCocinero();
+	}
+	
+	@Test
+	@Transactional
+	public void shouldFindPedidoForRepartidor() {
+		when(pedidoRepository.findPedidoForRepartidor()).thenReturn(new ArrayList<>());
+		pedidoService.findPedidoForRepartidor();
+		verify(pedidoRepository).findPedidoForRepartidor();
+	}
+	
+	//A Mockito no le gustan las funciones que devuelven void
+//	@Test
+//	@Transactional
+//	public void findPreparado() {
+//		when(pedidoRepository.findPreparado(anyInt()));
+//	}
+//	
+//	@Test
+//	@Transactional
+//	public void findEnReparto() {
+//		
+//	}
 	
 	
-/*	@Test
-	void shouldFindPedidoByUser() {
+	@Test
+	@Transactional
+	public void shouldFindPedidosByCliente() {
+		
+		List<Pedido> pedidos = new ArrayList<>();
+		Pedido pedido = new Pedido();
+		pedido.setDireccion("C/ Niña de la Alfalfa");
+		pedido.setFechaPedido(LocalDate.now());
+		pedido.setGastosEnvio(0.0);
+		pedido.setPrecio(0.0);
+		
 		Cliente cliente = new Cliente();
 		cliente.setNombre("Paco");
 		cliente.setApellidos("Florentino");
 		cliente.setTelefono(683020234);
 		cliente.setEmail("paquito@gmail.com");
 		cliente.setFechaNacimiento(LocalDate.of(2000, 12, 9));
-		//cliente.setFechaAlta(LocalDate.now());
 		User usuario = new User();
 		usuario.setUsername("PAquitoO");
 		usuario.setPassword("Tomate y papas");
 		usuario.setEnabled(true);
-        cliente.setUser(usuario);
-
-        this.clienteService.saveCliente(cliente);
-		Cuenta clienteEncontrado = this.clienteService.findCuentaByUser(usuario);
-
-		assertThat(cliente).isEqualTo(clienteEncontrado);
-	}*/
-	
-/*	@Test
-	void shouldFindClienteByUserYaCreado() {
-		User usuario = new User();
-		usuario.setUsername("margarcac1");
-		usuario.setPassword("margarcac1");
-		usuario.setEnabled(true);
-		Cuenta clienteEncontrado = this.clienteService.findCuentaByUser(usuario);
-		assertThat(clienteEncontrado.getUser().getUsername()).isEqualTo("margarcac1");
-//		System.out.println("Cliente: " + clienteEncontrado.getUser().getUsername());
-	}*/
+        cliente.setUser(usuario);  
+        
+		pedido.setCliente(cliente);
+		pedidos.add(pedido);
+		
+		when(pedidoRepository.findPedidosByCliente(anyInt())).thenReturn(pedidos);
+		pedidoService.findPedidosByCliente(777);
+		verify(pedidoRepository).findPedidosByCliente(777);
+	}
 	
 	@Test
 	@Transactional
-	public void shouldInsertPedido() {
+	public void shouldNotFindPedidosByCliente() {
+		
+		verify(pedidoRepository, never()).findPedidosByCliente(777);
+	}
+	
+	
+	@Test
+	@Transactional
+	public void shouldFindPedidoById() {
+		
 		Pedido pedido = new Pedido();
-		TipoPago pago = new TipoPago();
-		TipoEnvio envio = new TipoEnvio();
-		EstadoPedido estado = new EstadoPedido();
-		Cliente cliente=new Cliente();
+		pedido.setDireccion("C/ Niña de la Alfalfa");
+		pedido.setFechaPedido(LocalDate.now());
+		pedido.setGastosEnvio(0.0);
+		pedido.setPrecio(0.0);
+		
+		Cliente cliente = new Cliente();
 		cliente.setNombre("Paco");
 		cliente.setApellidos("Florentino");
 		cliente.setTelefono(683020234);
 		cliente.setEmail("paquito@gmail.com");
 		cliente.setFechaNacimiento(LocalDate.of(2000, 12, 9));
-		pedido.setDireccion("C/Ferrara 4, 9A");
-		pedido.setPrecio(50.65);
-		pedido.setGastosEnvio(3.5);
-		pedido.setEstadoPedido(estado);
-		pedido.setFechaPedido(LocalDate.of(2020, 11, 9));
+		User usuario = new User();
+		usuario.setUsername("PAquitoO");
+		usuario.setPassword("Tomate y papas");
+		usuario.setEnabled(true);
+        cliente.setUser(usuario);  
+        
 		pedido.setCliente(cliente);
-		pedido.setTipoEnvio(envio);
-		pedido.setTipoPago(pago);              
-		this.pedidoService.savePedido(pedido);
-		Pedido pedidoEncontrado = this.pedidoService.findPedidoById(pedido.getId());
-		assertThat(pedido).isEqualTo(pedidoEncontrado);
+		
+		when(pedidoRepository.findPedidoById(anyInt())).thenReturn(pedido);
+		pedidoService.findPedidoById(777);
+		verify(pedidoRepository).findPedidoById(777);
 	}
 	
 	@Test
 	@Transactional
-	void shouldUpdatePedido() {
-		Pedido pedido = this.pedidoService.findPedidoById(2);
-		Double newPrecio=55.2;
+	public void shouldNotFindPedidoById() {
 		
-		pedido.setPrecio(newPrecio);
-		this.pedidoService.savePedido(pedido);
-
-		pedido = this.pedidoService.findPedidoById(2);
-		assertThat(pedido.getPrecio()).isEqualTo(newPrecio);
+		verify(pedidoRepository, never()).findPedidoById(777);
 	}
 	
 	@Test
 	@Transactional
-	void shouldDeletePedido() {
-		Pedido pedido = this.pedidoService.findPedidoById(1);
+	public void shouldFindEstadoPedido() {
+		when(pedidoRepository.findEstadoPedido()).thenReturn(new ArrayList<>());
+		pedidoService.findEstadoPedido();
+		verify(pedidoRepository).findEstadoPedido();
+	}
+	
+	@Test
+	@Transactional
+	public void findTipoPago() {
+		when(pedidoRepository.findTipoPago()).thenReturn(new ArrayList<>());
+		pedidoService.findTipoPago();
+		verify(pedidoRepository).findTipoPago();
+	}
+	
+	@Test
+	@Transactional
+	public void findTipoEnvio() {
+		when(pedidoRepository.findTipoEnvio()).thenReturn(new ArrayList<>());
+		pedidoService.findTipoEnvio();
+		verify(pedidoRepository).findTipoEnvio();
+	}
+	
+	@Test
+	@Transactional
+	public void shouldCogerPrecioPizza() {
+		when(pedidoRepository.cogerPrecioPizza(anyInt())).thenReturn(12.25);
+		pedidoService.cogerPrecioPizza(2);
+		verify(pedidoRepository).cogerPrecioPizza(2);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotCogerPrecioPizza() {
+		verify(pedidoRepository, never()).cogerPrecioPizza(2);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldCogerPrecioBebida() {
+		when(pedidoRepository.cogerPrecioBebida(anyInt())).thenReturn(7.9);
+		pedidoService.cogerPrecioBebida(3);
+		verify(pedidoRepository).cogerPrecioBebida(3);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotCogerPrecioBebida() {
+	
+		verify(pedidoRepository, never()).cogerPrecioBebida(3);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldCogerPrecioOtros() {
+		when(pedidoRepository.cogerPrecioOtros(anyInt())).thenReturn(22.5);
+		pedidoService.cogerPrecioOtros(4);
+		verify(pedidoRepository).cogerPrecioOtros(4);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotCogerPrecioOtros() {
 		
-		this.pedidoService.deletePedido(pedido);
-		
-		pedido = this.pedidoService.findPedidoById(1);
-		
-		assertNull(pedido);
+		verify(pedidoRepository, never()).cogerPrecioOtros(4);
 	}
 	
 }
-

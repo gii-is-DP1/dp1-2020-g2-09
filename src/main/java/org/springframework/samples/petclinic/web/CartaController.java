@@ -19,6 +19,7 @@ import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.CartaService;
 import org.springframework.samples.petclinic.service.IngredienteService;
 import org.springframework.samples.petclinic.service.OtrosService;
+import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.samples.petclinic.service.PizzaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,7 +69,8 @@ public class CartaController {
 	
 	@Autowired
 	public CartaController(CartaService CartaService, PizzaService PizzaService,
-			OtrosService OtrosService, BebidaService BebidaService, IngredienteService IngredienteService) {
+			OtrosService OtrosService, BebidaService BebidaService,
+			IngredienteService IngredienteService) {
 		this.CartaService = CartaService;
 		this.PizzaService = PizzaService;
 		this.OtrosService = OtrosService;
@@ -100,9 +102,10 @@ public class CartaController {
 
 	//mandar nueva Carta
 	@PostMapping(value = "/cartas/new")
-	public String processCreationForm(@Valid Carta carta, BindingResult result/*, ModelMap model*/) {
+	public String processCreationForm(@Valid Carta carta, BindingResult result,
+			ModelMap model) {
 		if (result.hasErrors()) {
-			//model.put("carta", carta);//si se ha roto-> preguntar a maria
+			model.put("carta", carta);//si se ha roto-> preguntar a maria
 			return "cartas/createOrUpdateCartaForm";
 		}
 		else {
@@ -122,8 +125,9 @@ public class CartaController {
 	//mandar actualizacion de carta
 	@PostMapping(value = "/cartas/{cartaId}/edit")
 	public String processUpdateCartaForm(@Valid Carta carta, BindingResult result,
-			@PathVariable("cartaId") int cartaId) {
+			@PathVariable("cartaId") int cartaId, ModelMap model) {
 		if (result.hasErrors()) {
+			model.put("carta", carta);
 			return "cartas/createOrUpdateCartaForm";
 		}
 		else {
@@ -384,7 +388,7 @@ public class CartaController {
 			model.put("cartaId", cartaId);
 			return "redirect:/cartas/{cartaId}/pizzas";
 		}
-	
+		//borrar Bebida
 		@GetMapping(value = "/cartas/{cartaId}/bebida/{bebidaId}/delete")
 		public String initDeleteBebida(@PathVariable("cartaId") Integer cartaId,
 				@PathVariable("bebidaId") int bebidaId, ModelMap model) {
