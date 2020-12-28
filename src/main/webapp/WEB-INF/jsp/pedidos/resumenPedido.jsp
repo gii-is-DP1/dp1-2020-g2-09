@@ -149,7 +149,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${otros.otrosList}" var="otro">
+        <c:forEach items="${otros.otrosLista}" var="otro">
             <tr>
                 <td>
                     <c:out value="${otro.nombre}"/>
@@ -168,9 +168,19 @@
              	</td>
             </tr>
         </c:forEach>
-        
         </tbody>
+        
     </table>
+    
+     <spring:url value="/pedidos/{pedidoId}/delete" var="borrarPedido">
+		<spring:param name="pedidoId" value="${pedido.id}"/>			 	
+	</spring:url>
+	<a href="${fn:escapeXml(borrarPedido)}" class="btn btn-default">Cancelar pedido</a>
+	
+	<spring:url value="/pedidos/{pedidoId}/finalizarPedido" var="finalizarPedido">
+        <spring:param name="pedidoId" value="${pedido.id}"/>			 	
+	</spring:url>
+	<a href="${fn:escapeXml(finalizarPedido)}" class="btn btn-default">Finalizar pedido</a>
     
     
 </petclinic:layout>
