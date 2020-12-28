@@ -47,12 +47,6 @@ class OtrosControllerTests {
 	private static final int TEST_OFERTA_ID = 1;
 	
 
-	@Autowired
-	private OtrosController otrosController;
-
-//	@Autowired
-//	private IngredienteController ingredienteController;
-
 	@MockBean
 	private OtrosService otrosService;
     @MockBean
@@ -160,12 +154,13 @@ class OtrosControllerTests {
 		
 		}
     
-    
-	/*@WithMockUser(value = "spring")
-    @Test
-void testShowOtrosListXml() throws Exception {
-	mockMvc.perform(get("/Otros.xml").accept(MediaType.APPLICATION_XML)).andExpect(status().isOk())
-			.andExpect(content().contentType(MediaType.APPLICATION_XML_VALUE))
-			.andExpect(content().node(hasXPath("/Otros/OtrosList[id=3]/id")));
-}*/
+    @WithMockUser(value = "spring")
+	@Test
+	void initDeleteOtros() throws Exception {
+    	mockMvc.perform(get("/Otros/{OtrosId}/delete", TEST_OTROS_ID))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/allOtros"))
+		.andExpect(model().attributeDoesNotExist("otro"));
+    }
+	
 }

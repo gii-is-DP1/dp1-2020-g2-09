@@ -31,9 +31,6 @@ public class MesaControllerTests {
 	
 	private static final int TEST_MESA_ID = 1;
 
-	@Autowired
-	private MesaController mesaController;
-
 	@MockBean
 	private MesaService mesaService;
     

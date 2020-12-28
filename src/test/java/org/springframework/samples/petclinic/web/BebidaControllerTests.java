@@ -159,5 +159,13 @@ public class BebidaControllerTests {
 				.andExpect(status().isOk())
 				.andExpect(view().name("bebidas/createOrUpdateBebidaForm"));
 		}
+	@WithMockUser(value = "spring")
+	@Test
+	void initDeleteBebida() throws Exception {
+		mockMvc.perform(get("/bebidas/{bebidaId}/delete", TEST_BEBIDA_ID))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/allBebidas"))
+		.andExpect(model().attributeDoesNotExist("bebida"));
+	}
 	
 }

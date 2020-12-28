@@ -214,21 +214,21 @@ public class CartaController {
 	}
 	
 	//AÑADIR A LA CARTA
-	@PostMapping(value = "/cartas/{cartaId}/anadirPizzaACarta/{pizzaId}")
+	@GetMapping(value = "/cartas/{cartaId}/anadirPizzaACarta/{pizzaId}")
     public String añadirPizzaACarta(@PathVariable("pizzaId") int pizzaId,
     		@PathVariable("cartaId") int cartaId) {
     	this.PizzaService.añadirPizzaACarta(pizzaId, cartaId);
     	return "redirect:/cartas/{cartaId}/VerCarta";
     }
 	
-	@PostMapping(value = "/cartas/{cartaId}/anadirBebidaACarta/{bebidaId}")
+	@GetMapping(value = "/cartas/{cartaId}/anadirBebidaACarta/{bebidaId}")
     public String añadirBebidaACarta(@PathVariable("bebidaId") int bebidaId,
     		@PathVariable("cartaId") int cartaId) {
     	this.BebidaService.añadirBebidaACarta(bebidaId, cartaId);
     	return "redirect:/cartas/{cartaId}/VerCarta";
     }
 	
-	@PostMapping(value = "/cartas/{cartaId}/anadirOtroACarta/{otroId}")
+	@GetMapping(value = "/cartas/{cartaId}/anadirOtroACarta/{otroId}")
     public String añadirOtroACarta(@PathVariable("otroId") int otroId,
     		@PathVariable("cartaId") int cartaId) {
     	this.OtrosService.añadirOtroACarta(otroId, cartaId);

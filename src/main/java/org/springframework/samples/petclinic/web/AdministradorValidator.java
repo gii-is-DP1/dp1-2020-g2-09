@@ -28,8 +28,10 @@ public class AdministradorValidator implements Validator{
 		LocalDate fechaNacimiento =administrador.getFechaNacimiento();
 		String nombre = administrador.getNombre();
 		Integer telefono = administrador.getTelefono();
-		User Usuario = administrador.getUser();
-		String nombreUsuario = Usuario.getUsername();		
+		User usuario = administrador.getUser();
+		String nombreUsuario = usuario.getUsername();	
+		String contraseña = usuario.getPassword();
+		
 		//nombre
 		if(nombre==null) {
 			errors.rejectValue("nombre",
@@ -109,6 +111,13 @@ public class AdministradorValidator implements Validator{
 					"El nombre tiene que estar entre 2 y 20 caracteres");
 		}
 
+		if(contraseña==null) {
+			errors.rejectValue("user.password", "La contraseña de usuario no puede estar vacía",
+					"La contraseña de usuario no puede estar vacía");
+		}else if(contraseña.length()<2 || contraseña.length()>20) {
+			errors.rejectValue("user.password", "La contraseña de usuario tiene que estar entre 2 y 20 caracteres",
+					"La contraseña de usuario tiene que estar entre 2 y 20 caracteres");
+		}
 		
 	}
 }

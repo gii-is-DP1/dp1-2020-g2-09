@@ -50,7 +50,7 @@ public class AdministradorController {
 	@GetMapping(value = "/administradores/new")
 	public String initCreationForm(Map<String, Object> model) {
 		Administrador administrador = new Administrador();
-		model.put("administradores", administrador);
+		model.put("administrador", administrador);
 		return "administradores/createOrUpdateAdministradorForm";
 	}
 
@@ -58,7 +58,7 @@ public class AdministradorController {
 	@PostMapping(value = "/administradores/new")
 	public String processCreationForm(@Valid Administrador administrador, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
-			model.put("administradores", administrador);//importanteeee
+			model.put("administrador", administrador);//importanteeee
 			return "administradores/createOrUpdateAdministradorForm";
 		}
 		else {
@@ -73,7 +73,7 @@ public class AdministradorController {
 	@GetMapping(value = "/administradores/{administradorId}/edit")
 	public String initUpdateForm(@PathVariable("administradorId") int administradorId, ModelMap model) {
 		Administrador administrador = this.administradorService.findAdministradorById(administradorId);
-		model.put("administradores", administrador);
+		model.put("administrador", administrador);
 		return "administradores/createOrUpdateAdministradorForm";
 	}
 	
@@ -83,7 +83,7 @@ public class AdministradorController {
 			@PathVariable("administradorId") int administradorId, ModelMap model) {
 		if (result.hasErrors()) {
 			//model.put("cuenta", administrador);
-			model.put("administradores", administrador);
+			model.put("administrador", administrador);
 			return "administradores/createOrUpdateAdministradorForm";
 		}
 		else {
