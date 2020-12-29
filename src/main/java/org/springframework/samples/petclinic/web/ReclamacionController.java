@@ -106,7 +106,7 @@ public class ReclamacionController {
 			return "reclamaciones/reclamacionUser";
 		} 
 		
-	//Método de Parri -> No sé para qué sirve, preguntarle.
+	//Método de Parri -> No sé para qué sirve, preguntarle.//Esto coge el id del cliente y filtra las reclamaciones para un cliente 
 		
 //	@GetMapping(value = { "/reclamaciones/{clienteId}" })
 //	public String showReclamacionListDeUnCliente(Map<String, Object> model, @PathVariable("clienteId") int clienteId) {
