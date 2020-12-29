@@ -35,7 +35,7 @@ public class Reclamacion extends BaseEntity {
 	private String observacion;
 	
 	@Column(name = "respuesta")
-	@Value("Lo sentimos, perdone las molestias")
+	//@Value("Lo sentimos, perdone las molestias")
 	private String respuesta;
 	
 

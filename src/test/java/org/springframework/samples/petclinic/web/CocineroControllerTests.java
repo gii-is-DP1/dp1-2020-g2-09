@@ -35,31 +35,30 @@ public class CocineroControllerTests {
 	
 	private static final int TEST_COCINA_ID = 1;
 
-	@Autowired
-	private CocineroController cocineroController;
-
 	@MockBean
 	private CocineroService cocineroService;
     
 	@Autowired
 	private MockMvc mockMvc;
 
+	
 	@BeforeEach
 	void setup() {
-		Cocina coci = new Cocina();
-		coci.setId(3);
-		coci.setApellidos("Gonz");
-		coci.setFechaFinContrato(LocalDate.of(2022, 05, 05));
-		coci.setFechaNacimiento(LocalDate.of(2010, 06, 06));
-		coci.setEmail("gonzalito@gmail.com");
-		coci.setNombre("Gonzalo");
-		coci.setTelefono(321145698);
-		
+		Cocina cocinero = new Cocina();
+		cocinero.setNombre("Paco");
+		cocinero.setApellidos("Florentino");
+		cocinero.setTelefono(683020234);
+		cocinero.setEmail("paquito@gmail.com");
+		cocinero.setFechaNacimiento(LocalDate.of(2000, 12, 9));
+		//cliente.setFechaAlta(LocalDate.now());
 		User usuario = new User();
-		usuario.setUsername("gonz");
-		usuario.setPassword("gonz");
-		coci.setUser(usuario);
-		given(this.cocineroService.findCocineros()).willReturn(Lists.newArrayList(coci));
+		usuario.setUsername("PAquitoO");
+		usuario.setPassword("Tomate y papas");
+		usuario.setEnabled(true);
+		cocinero.setUser(usuario); 
+		
+		given(this.cocineroService.findCocineros()).willReturn(Lists.newArrayList(cocinero));
+		given(this.cocineroService.findCocineroById(TEST_COCINA_ID)).willReturn(cocinero);
 	}
 
 	@WithMockUser(value = "spring")
@@ -80,6 +79,8 @@ public class CocineroControllerTests {
 							.param("apellidos", "Antom")
 							.param("fechaNacimiento", "2012/05/05")
 							.param("telefono", "123698745")
+							.param("user.username", "escoba2000")
+							.param("user.password", "escoba2000")
 							.param("email", "5hcwu@gmail.com"))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/allCocineros"));
@@ -95,8 +96,9 @@ public class CocineroControllerTests {
 							.param("fechaNacimiento", "bb")
 							.param("telefono", "123698745")
 							.param("email", "5hcwu@gmail.com")
-							.param("user", "anolo")
-							.param("password", "jeje"))
+							.param("user.username", "escoba2000")
+							.param("user.password", "escoba2000"))
+				.andExpect(model().attributeHasErrors("cocina"))
 				.andExpect(status().isOk())
 				.andExpect(view().name("cocineros/createOrUpdateCocinaForm"));
 	}
@@ -106,8 +108,8 @@ public class CocineroControllerTests {
 	void testInitUpdateForm() throws Exception {
 		mockMvc.perform(get("/cocineros/{cocineroId}/edit", TEST_COCINA_ID))
 				.andExpect(status().isOk())
-				.andExpect(view().name("cocineros/createOrUpdateCocinaForm"));
-				//.andExpect(model().attributeExists("cocina"));
+				.andExpect(view().name("cocineros/createOrUpdateCocinaForm"))
+				.andExpect(model().attributeExists("cocina"));
 	}
     
     @WithMockUser(value = "spring")
@@ -119,8 +121,9 @@ public class CocineroControllerTests {
 				.param("apellidos", "Antom")
 				.param("fechaNacimiento", "2012/05/05")
 				.param("telefono", "123698745")
-				.param("email", "5hcwu@gmail.com"))
-		
+				.param("email", "5hcwu@gmail.com")
+				.param("user.username", "escoba2000")
+				.param("user.password", "escoba2000"))
 	.andExpect(status().is3xxRedirection())
 	.andExpect(view().name("redirect:/allCocineros"));
 
@@ -135,10 +138,36 @@ public class CocineroControllerTests {
 				.param("apellidos", "Antom")
 				.param("fechaNacimiento", "5161")
 				.param("telefono", "123698745")
-				.param("email", "5hcwu@gmail.com"))
-
+				.param("email", "5hcwu@gmail.com")
+				.param("user.username", "escoba2000")
+				.param("user.password", "escoba2000"))
+		.andExpect(model().attributeHasErrors("cocina"))
 		.andExpect(status().isOk())
 		.andExpect(view().name("cocineros/createOrUpdateCocinaForm"));
     }
+    
+    @WithMockUser(value = "spring")
+   	@Test
+   	void initDeleteCuenta() throws Exception {
+    	mockMvc.perform(get("/cocineros/{cocineroId}/delete", TEST_COCINA_ID))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/allCocineros"));
+    }
+    
+//    @WithMockUser(value = "spring")
+//   	@Test
+//   	void darAltayBaja() throws Exception {
+//    	mockMvc.perform(get("/cocineros/{cocineroId}/altaobaja", TEST_COCINA_ID)
+//    			.with(csrf())
+//    			.param("nombre", "Pepe")
+//				.param("apellidos", "Antom")
+//				.param("fechaNacimiento", "2000/12/12")
+//				.param("telefono", "123698745")
+//				.param("email", "5hcwu@gmail.com")
+//				.param("user.username", "escoba2000")
+//				.param("user.password", "escoba2000"))
+//    	.andExpect(status().is3xxRedirection())
+//		.andExpect(view().name("redirect:/allCocineros"));
+//    }
 
 }

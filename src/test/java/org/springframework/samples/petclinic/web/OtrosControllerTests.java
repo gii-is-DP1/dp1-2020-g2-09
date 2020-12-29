@@ -47,12 +47,6 @@ class OtrosControllerTests {
 	private static final int TEST_OFERTA_ID = 1;
 	
 
-	@Autowired
-	private OtrosController otrosController;
-
-//	@Autowired
-//	private IngredienteController ingredienteController;
-
 	@MockBean
 	private OtrosService otrosService;
     @MockBean
@@ -91,12 +85,7 @@ class OtrosControllerTests {
 				.andExpect(view().name("Otros/createOrUpdateOtrosForm"))
 				.andExpect(model().attributeExists("otro"));
 		
-		/*mockMvc.perform(get("/pedidos/{pedidoId}/pedidos/new", TEST_PEDIDO_ID)).andExpect(status().isOk())
-				.andExpect(view().name("pedidos/createOrUpdatePedidoForm")).andExpect(model().attributeExists("Otros"));
-		
-		mockMvc.perform(get("/cartas/{cartaId}/cartas/new", TEST_CARTA_ID)).andExpect(status().isOk())
-				.andExpect(view().name("cartas/createOrUpdateCartaForm")).andExpect(model().attributeExists("Otros"));*/
-	}
+		}
 
 	@WithMockUser(value = "spring")
         @Test
@@ -110,21 +99,6 @@ class OtrosControllerTests {
 				.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/allOtros"));
 		
-		/*mockMvc.perform(post("/pedidos/{pedidoId}/Otros/new", TEST_PEDIDO_ID)
-						.with(csrf())
-						.param("contador", "2")
-						.param("coste", "13")
-						.param("nombre", "Nachos"))
-				.andExpect(status().is3xxRedirection())
-				.andExpect(view().name("redirect:/pedidos/{pedidoId}"));
-		
-		mockMvc.perform(post("/cartas/{cartaId}/Otros/new", TEST_CARTA_ID)
-						.with(csrf())
-						.param("contador", "2")
-						.param("coste", "13")
-						.param("nombre", "Nachos"))
-			.andExpect(status().is3xxRedirection())
-			.andExpect(view().name("redirect:/cartas/{cartaId}"));*/
 	}
 
 	@WithMockUser(value = "spring")
@@ -139,25 +113,6 @@ class OtrosControllerTests {
 				.andExpect(status().isOk())
 				.andExpect(view().name("Otros/createOrUpdateOtrosForm"));
 		
-		/*mockMvc.perform(post("/pedidos/{pedidoId}/Otros/{OtrosId}/edit", TEST_PEDIDO_ID, TEST_OTROS_ID)
-							.with(csrf())
-							.param("contador", "2")
-							.param("coste", "13")
-							.param("nombre", "Nachos"))
-				.andExpect(model().attributeHasNoErrors("pedido"))
-				.andExpect(model().attributeHasErrors("Otros"))
-				.andExpect(status().isOk())
-				.andExpect(view().name("Otros/createOrUpdateOtrosForm"));
-		
-		mockMvc.perform(post("/cartas/{cartaId}/Otros/{OtrosId}/edit", TEST_CARTA_ID, TEST_OTROS_ID)
-							.with(csrf())
-							.param("contador", "2")
-							.param("coste", "13")
-							.param("nombre", "Nachos"))
-				.andExpect(model().attributeHasNoErrors("carta"))
-				.andExpect(model().attributeHasErrors("Otros"))
-				.andExpect(status().isOk())
-				.andExpect(view().name("Otros/createOrUpdateOtrosForm"));*/
 	}
 
     @WithMockUser(value = "spring")
@@ -168,14 +123,7 @@ class OtrosControllerTests {
 				.andExpect(model().attributeExists("otro"))
 				.andExpect(view().name("Otros/createOrUpdateOtrosForm"));
 		
-		/*mockMvc.perform(get("/pedidos/{pedidoId}/Otros/{OtrosId}/edit", TEST_PEDIDO_ID, TEST_OTROS_ID))
-				.andExpect(status().isOk()).andExpect(model().attributeExists("Otros"))
-				.andExpect(view().name("Otros/createOrUpdateOtrosForm"));
-		
-		mockMvc.perform(get("/cartas/{cartaId}/Otros/{OtrosId}/edit", TEST_CARTA_ID, TEST_OTROS_ID))
-				.andExpect(status().isOk()).andExpect(model().attributeExists("Otros"))
-				.andExpect(view().name("Otros/createOrUpdateOtrosForm"));*/
-	}
+		}
     
     @WithMockUser(value = "spring")
 	@Test
@@ -190,21 +138,6 @@ class OtrosControllerTests {
 	.andExpect(status().is3xxRedirection())
 	.andExpect(view().name("redirect:/allOtros"));
 
-		/*mockMvc.perform(post("/pedidos/{pedidoId}/Otros/{OtrosId}/edit", TEST_PEDIDO_ID, TEST_OTROS_ID)
-				.with(csrf())
-				.param("contador", "2")
-				.param("coste", "13")
-				.param("nombre", "Nachos"))
-	.andExpect(status().is3xxRedirection())
-	.andExpect(view().name("redirect:/pedidos/{pedidoId}"));
-		
-		mockMvc.perform(post("/cartas/{cartaId}/Otros/{OtrosId}/edit", TEST_CARTA_ID, TEST_OTROS_ID)
-				.with(csrf())
-				.param("contador", "2")
-				.param("coste", "13")
-				.param("nombre", "Nachos"))
-	.andExpect(status().is3xxRedirection())
-	.andExpect(view().name("redirect:/cartas/{cartaId}"));*/
 	}
     
     @WithMockUser(value = "spring")
@@ -219,31 +152,15 @@ class OtrosControllerTests {
 		.andExpect(status().isOk())
 		.andExpect(view().name("Otros/createOrUpdateOtrosForm"));
 		
-		/*mockMvc.perform(post("/pedidos/{pedidoId}/Otros/{OtrosId}/edit", TEST_PEDIDO_ID, TEST_OTROS_ID)
-				.with(csrf())
-				.param("contador", "2")
-				.param("coste", "13")
-				.param("nombre", "Nachos"))
-	.andExpect(model().attributeHasNoErrors("pedido"))
-	.andExpect(model().attributeHasErrors("Otros")).andExpect(status().isOk())
-	.andExpect(view().name("Otros/createOrUpdateOtrosForm"));
-		
-		mockMvc.perform(post("/cartas/{cartaId}/Otros/{OtrosId}/edit", TEST_CARTA_ID, TEST_OTROS_ID)
-				.with(csrf())
-				.param("contador", "2")
-				.param("coste", "13")
-				.param("nombre", "Nachos"))
-	.andExpect(model().attributeHasNoErrors("carta"))
-	.andExpect(model().attributeHasErrors("Otros")).andExpect(status().isOk())
-	.andExpect(view().name("Otros/createOrUpdateOtrosForm"));*/
-	}
+		}
     
-    
-	/*@WithMockUser(value = "spring")
-    @Test
-void testShowOtrosListXml() throws Exception {
-	mockMvc.perform(get("/Otros.xml").accept(MediaType.APPLICATION_XML)).andExpect(status().isOk())
-			.andExpect(content().contentType(MediaType.APPLICATION_XML_VALUE))
-			.andExpect(content().node(hasXPath("/Otros/OtrosList[id=3]/id")));
-}*/
+    @WithMockUser(value = "spring")
+	@Test
+	void initDeleteOtros() throws Exception {
+    	mockMvc.perform(get("/Otros/{OtrosId}/delete", TEST_OTROS_ID))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/allOtros"))
+		.andExpect(model().attributeDoesNotExist("otro"));
+    }
+	
 }

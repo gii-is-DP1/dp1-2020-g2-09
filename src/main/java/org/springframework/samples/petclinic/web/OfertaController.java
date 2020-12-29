@@ -57,7 +57,7 @@ public class OfertaController {
 	}
 	
 	@GetMapping(value = { "/allOfertas" })
-	public String showPedidoList(Map<String, Object> model) {
+	public String showOfertaList(Map<String, Object> model) {
 		Ofertas ofertas = new Ofertas();
 		ofertas.getOfertasList().addAll(this.ofertaService.findOfertas());
 		model.put("ofertas", ofertas);
@@ -81,8 +81,8 @@ public class OfertaController {
 			return "ofertas/createOrUpdateOfertaForm";
 		}
 		else {
-			OfertaValidator ofValidator = new OfertaValidator();
-			ValidationUtils.invokeValidator(ofValidator, oferta, result);
+//			OfertaValidator ofValidator = new OfertaValidator();
+//			ValidationUtils.invokeValidator(ofValidator, oferta, result);
 			this.ofertaService.saveOferta(oferta);
 			return "redirect:/allOfertas";
 		}
@@ -104,8 +104,8 @@ public class OfertaController {
 			return "ofertas/createOrUpdateOfertaForm";
 		}
 		else { 
-			OfertaValidator ofValidator = new OfertaValidator();
-			ValidationUtils.invokeValidator(ofValidator, oferta, result);
+//			OfertaValidator ofValidator = new OfertaValidator();
+//			ValidationUtils.invokeValidator(ofValidator, oferta, result);
 			oferta.setId(ofertaId);
 			this.ofertaService.saveOferta(oferta);
 			return "redirect:/allOfertas";

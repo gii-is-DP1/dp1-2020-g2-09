@@ -42,8 +42,8 @@ public class ReclamacionService {
 	}
 	
 	 @Transactional
-	 public void añadirReclamacionAPedido(int reclamacionId, int pedidoId) throws DataAccessException {
-		 reclamacionRepository.añadirReclamacionAPedido(reclamacionId, pedidoId);		
+	 public void anadirReclamacionAPedido(int reclamacionId, int pedidoId) throws DataAccessException {
+		 reclamacionRepository.anadirReclamacionAPedido(reclamacionId, pedidoId);		
 	}		
 	 
 	 @Transactional 

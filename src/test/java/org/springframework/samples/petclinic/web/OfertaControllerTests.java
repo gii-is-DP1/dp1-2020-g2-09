@@ -7,11 +7,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.xml.HasXPath.hasXPath;
 
 import java.time.LocalDate;
 
 import org.assertj.core.util.Lists;
+import org.hibernate.sql.Delete;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,8 @@ import org.springframework.samples.petclinic.service.OfertaService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 @WebMvcTest(value = OfertaController.class,
 includeFilters = @ComponentScan.Filter(value = OfertaFormatter.class, type = FilterType.ASSIGNABLE_TYPE),
@@ -46,7 +51,7 @@ public class OfertaControllerTests {
 	private OfertaService ofertaService;
 
         
-//        @MockBean
+// @MockBean
 //	private OwnerService ownerService;
 
 	@Autowired
@@ -58,7 +63,8 @@ public class OfertaControllerTests {
 		o.setCoste(20.0);
 		o.setFechaInicial(LocalDate.of(2020, 11, 10));
 		o.setFechaFinal(LocalDate.of(2020, 11, 22));
-		o.setId(2);
+		o.setEstadoOferta(true);
+		o.setId(2); 
 		
 		NivelSocio ns = new NivelSocio();
 		ns.setId(2);
@@ -87,19 +93,13 @@ public class OfertaControllerTests {
 		mockMvc.perform(post("/ofertas/new")
 							.with(csrf())
 							.param("coste", "20.0")
-
 							.param("fechaInicial", "2021/12/19")
 							.param("fechaFinal", "2021/12/22")
-							.param("nivelSocio", "ORO")
-							.param("tamanoOferta", "GRANDE"))
-							//.andExpect(status().is3xxRedirection())
-							.andExpect(view().name("ofertas/createOrUpdateOfertaForm"));
-							//.andExpect(view().name("redirect:/allOfertas"));
-//
-//							.param("fechaInicial", "2021/11/12")
-//							.param("fechaFinal", "2022/11/02"))
-//							.andExpect(status().is3xxRedirection())
-//							.andExpect(view().name("redirect:/allOfertas"));
+							.param("nivelSocio.name", "ORO") 
+							.param("tamanoOferta.name", "GRANDE")
+							.param("estadoOferta.name", "true"))
+							.andExpect(status().is3xxRedirection())
+							.andExpect(view().name("redirect:/allOfertas"));
 
 	}
 
@@ -110,8 +110,13 @@ public class OfertaControllerTests {
 		mockMvc.perform(post("/ofertas/{ofertaId}/edit", TEST_OFERTA_ID)
 							.with(csrf())
 							.param("coste", "20.0")
-							.param("fechaFinal", "aaaa"))
+							.param("fechaInicial", "x")
+							.param("fechaFinal", "z")
+							.param("nivelSocio.name", "ORO") 
+							.param("tamanoOferta.name", "GRANDE")
+							.param("estadoOferta.name", "true"))
 				.andExpect(model().attributeHasErrors("oferta"))
+				.andExpect(model().attributeHasFieldErrors("oferta", "fechaInicial", "fechaFinal"))
 				.andExpect(status().isOk())
 				.andExpect(view().name("ofertas/createOrUpdateOfertaForm"));
 	}
@@ -124,20 +129,21 @@ public class OfertaControllerTests {
 				.andExpect(view().name("ofertas/createOrUpdateOfertaForm"));
 	}
     
-    //REVISAR REDIRECCIÓN NO FUNCIONA EL CONTROLADOR :)
+    
     @WithMockUser(value = "spring")
 	@Test
 	void testProcessUpdateFormSuccess() throws Exception {
 		mockMvc.perform(post("/ofertas/{ofertaId}/edit", TEST_OFERTA_ID)
-							.with(csrf())
-							.param("coste", "20.0")
-							.param("fechaInicial", "2021/11/12")
-							.param("fechaFinal", "2021/11/22")
-							.param("nivelSocio", "ORO")
-							.param("tamanoOferta", "GRANDE"))
-		//.andExpect(status().is3xxRedirection())
-		//.andExpect(model().attributeHasNoErrors("oferta")); 
-		.andExpect(view().name("ofertas/createOrUpdateOfertaForm"));
+						.with(csrf())
+						.param("coste", "20.0")
+						.param("fechaInicial", "2021/12/19")
+						.param("fechaFinal", "2021/12/22")
+						.param("nivelSocio.name", "ORO") 
+						.param("tamanoOferta.name", "GRANDE")
+						.param("estadoOferta.name", "true"))
+				.andExpect(status().is3xxRedirection())
+				//.andExpect(model().attributeHasNoErrors("oferta"))
+				.andExpect(view().name("redirect:/allOfertas"));
 	}
     
     @WithMockUser(value = "spring")
@@ -145,12 +151,67 @@ public class OfertaControllerTests {
 	void testProcessUpdateFormHasErrors() throws Exception {
 		mockMvc.perform(post("/ofertas/{ofertaId}/edit", TEST_OFERTA_ID)
 							.with(csrf())
-							.param("coste", "20.0")
-							.param("fechaInicial", "aaa"))
+							.param("coste", "abcd")
+							.param("fechaInicial", "b")
+							.param("fechaFinal", "a")
+							.param("nivelSocio.name", "ORO")
+							.param("tamanoOferta.name", "GRANDE")
+							.param("estadoOferta.name", "true"))
 				.andExpect(model().attributeHasErrors("oferta"))
+				.andExpect(model().attributeHasFieldErrors
+						("oferta", "coste", "fechaInicial", "fechaFinal"))
 				.andExpect(status().isOk())
 				.andExpect(view().name("ofertas/createOrUpdateOfertaForm"));
 	}
+    
+    @WithMockUser(value = "spring")
+    @Test
+    void testInitDeleteOferta() throws Exception {
+    	
+    	//Creo que el MockMvcRequestBuilders es para json y eso pero ni idea 
+    	//Con este test me da 403 forbidden
+//    	mockMvc.perform(MockMvcRequestBuilders.delete("/ofertas/{ofertasId}/delete", TEST_OFERTA_ID))
+//    	.andExpect(status().is3xxRedirection())
+//    	.andExpect(view().name("redirect:/allOfertas"))
+//    	.andExpect(model().attributeDoesNotExist("oferta"));
+    	
+    	mockMvc.perform(get("/ofertas/{ofertasId}/delete", TEST_OFERTA_ID))
+    			.andExpect(status().is3xxRedirection()).andExpect(view()
+    					.name("redirect:/allOfertas"))
+    			.andExpect(model().attributeDoesNotExist("oferta"));
+    }
+    
+    @WithMockUser(value = "spring")
+    @Test
+    void testShowOfertaList() throws Exception {
+    	mockMvc.perform(get("/allOfertas")).andExpect(status().isOk())
+		.andExpect(view().name("ofertas/ofertasList"))
+		.andExpect(model().attributeExists("ofertas"));
+    }
+    
+    //No sé muy bien cómo se prueba esto
+    @WithMockUser(value = "spring")
+    @Test
+    void testChangeOfertaStateTrue() throws Exception {
+    	mockMvc.perform(get("/ofertas/{ofertaId}/changeState", TEST_OFERTA_ID)
+				.with(csrf())
+				.param("estadoOferta.name", "true"))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/allOfertas"));
+    }
+    
+//    @WithMockUser(value = "spring")
+//    @Test
+//    void testChangeOfertaStateFalse() throws Exception {
+//    	mockMvc.perform(get("/ofertas/{ofertaId}/changeState", TEST_OFERTA_ID)
+//				.with(csrf())
+//				.param("estadoOferta.name", "false"))
+//		.andExpect(status().is3xxRedirection())
+//		.andExpect(view().name("redirect:/allOfertas"));
+//    }
+    
+    
+    
 
 	
 

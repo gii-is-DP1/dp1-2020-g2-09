@@ -20,30 +20,45 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.Cliente;
+import org.springframework.samples.petclinic.model.EstadoPedido;
+import org.springframework.samples.petclinic.model.Ofertas;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Reclamacion;
+import org.springframework.samples.petclinic.model.Reclamaciones;
+import org.springframework.samples.petclinic.model.TipoEnvio;
+import org.springframework.samples.petclinic.model.TipoPago;
+import org.springframework.samples.petclinic.service.ClienteService;
 import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.samples.petclinic.service.ReclamacionService;
+import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 @WebMvcTest(value = ReclamacionController.class,
-includeFilters = @ComponentScan.Filter(value = ReclamacionFormatter.class, type = FilterType.ASSIGNABLE_TYPE),
-excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
+excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,
+classes = WebSecurityConfigurer.class),
 excludeAutoConfiguration= SecurityConfiguration.class)
 class ReclamacionControllerTests {
 
-	private static final int TEST_RECLAMACION_ID = 9;
+	private static final int TEST_RECLAMACION_ID = 1;
 
-	private static final int TEST_PEDIDO_ID = 99;
-
+	private static final int TEST_PEDIDO_ID = 1;
+	
 	@Autowired
 	private ReclamacionController reclamacionController;
-
+	
+	//Muy importante añadir los MockBean necesarios para el ApplicationContext
 
 	@MockBean
 	private ReclamacionService reclamacionService;
+	
+	 @MockBean
+	    private UserService userService;
+	 
+	 @MockBean
+	    private ClienteService clienteService;
         
     @MockBean
 	private PedidoService pedidoService;
@@ -66,24 +81,33 @@ class ReclamacionControllerTests {
 		
 		p.setCliente(cliente);
 		p.setDireccion("Bda San Diego");
-		//p.setEstadoPedido(estadoPedido);
+		EstadoPedido ep = new EstadoPedido();
+		ep.setName("EN COCINA");
+		p.setEstadoPedido(ep);
 		p.setFechaPedido(LocalDate.of(2020, 12, 1));
-		p.setId(1);
-		//p.setOfertasEnPedido(ofertasEnPedido);
+		//p.setId(1);
 		p.setPrecio(40.5);
-		//p.setTipoEnvio(tipoEnvio);
-		//p.setTipoPago(tipoPago);
+	
+		TipoEnvio te = new TipoEnvio();
+		te.setName("A DOMICILIO");
+		p.setTipoEnvio(te);
 		
+		TipoPago tp = new TipoPago();
+		tp.setName("TARJETA");
+		p.setTipoPago(tp);
+		p.setGastosEnvio(3.90);
 		
-		r.setId(3); 
+		r.setId(1); 
 		//r.setFechaReclamacion(LocalDate.of(2020, 11, 24));
-		r.setObservacion("aaaaa");
+		r.setObservacion("aaaaaaaaaaaaaaa"); 
+		r.setRespuesta("aaaaaaaaaaaaaaaaaaaa");
 		
 		given(this.reclamacionService.findReclamaciones()).willReturn(Lists.newArrayList(r));
 		given(this.pedidoService.findPedidoById(TEST_PEDIDO_ID)).willReturn(new Pedido());
 		given(this.reclamacionService.findReclamacionById(TEST_RECLAMACION_ID)).willReturn(new Reclamacion());
 	}
 
+	
 	@WithMockUser(value = "spring")
         @Test
 	void testInitCreationForm() throws Exception {
@@ -92,17 +116,18 @@ class ReclamacionControllerTests {
 				.andExpect(view().name("reclamaciones/createOrUpdateReclamacionForm"));
 	}
 
-	//En el validador pone que la fecha de reclamación no puede ser posterior a la actual
-	//Me da una excepción cuando quiero redirigir a una vista.
+	
 	@WithMockUser(value = "spring")
         @Test
 	void testProcessCreationFormSuccess() throws Exception {
 		mockMvc.perform(post("/pedidos/{pedidoId}/anadirReclamacion/new", TEST_PEDIDO_ID)
 				.with(csrf())
-				.param("fechaReclamacion", "2020/11/27")
-				.param("observacion", "No se que ocurre")).andExpect(model().hasNoErrors());
-		//.andExpect(view().name("reclamaciones/reclamacionesList"));
-		//.andExpect(status().is3xxRedirection())
+				//.param("fechaReclamacion", "2020/11/27")
+				.param("observacion", "No se que ocurre")
+				.param("respuesta", "Lo sentimos mucho, ..."))
+				.andExpect(status().is3xxRedirection()) 
+				.andExpect(view().name("redirect:/allReclamaciones")); 
+		//.andExpect(view().name("reclamaciones/reclamacionesList")); 
 	//.andExpect(view().name("reclamaciones/createOrUpdateReclamacionForm"));
 } 
 
@@ -112,8 +137,10 @@ class ReclamacionControllerTests {
 		mockMvc.perform(post("/pedidos/{pedidoId}/anadirReclamacion/new", TEST_PEDIDO_ID)
 							.with(csrf())
 							//.param("fechaReclamacion", "2020/12/25")
-							.param("observacion", "aaaaaaaaaaaaaaaaaa"))
+							.param("observacion", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+							.param("respuesta", ""))	
 				.andExpect(model().attributeHasErrors("reclamacion"))
+				.andExpect(model().attributeHasFieldErrors("reclamacion", "respuesta"))
 				.andExpect(view().name("reclamaciones/createOrUpdateReclamacionForm"));
 	}
 
@@ -121,7 +148,8 @@ class ReclamacionControllerTests {
 	@Test
 	void testInitUpdateForm() throws Exception {
 		mockMvc.perform(get("/reclamaciones/{reclamacionId}/edit", TEST_RECLAMACION_ID))
-				.andExpect(status().isOk()).andExpect(model().attributeExists("reclamacion"))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeExists("reclamacion"))
 				.andExpect(view().name("reclamaciones/createOrUpdateReclamacionForm"));
 	}
     
@@ -131,7 +159,8 @@ class ReclamacionControllerTests {
 		mockMvc.perform(post("/reclamaciones/{reclamacionId}/edit", TEST_RECLAMACION_ID)
 							.with(csrf())
 							//.param("fechaReclamacion", "2020/11/24")
-							.param("observacion", "pizza muy cara"))
+							.param("observacion", "pizza muy cara")
+							.param("respuesta", "Sentimos las molestias"))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/allReclamaciones"));
 	}
@@ -142,10 +171,22 @@ class ReclamacionControllerTests {
 		mockMvc.perform(post("/reclamaciones/{reclamacionId}/edit", TEST_RECLAMACION_ID)
 							.with(csrf())
 							//.param("fechaReclamacion", "2020/12/25")
-							.param("observacion", "otra reclamacion"))
-				//.andExpect(model().attributeHasErrors("reclamacion"))
+
+							.param("observacion", "otra reclamacion")
+							.param("respuesta", ""))
+				.andExpect(model().attributeHasErrors("reclamacion"))
+				.andExpect(model().attributeHasFieldErrors("reclamacion", "respuesta"))
 				.andExpect(view().name("reclamaciones/createOrUpdateReclamacionForm"));
 	}
+    
+    @WithMockUser(value = "spring")
+    @Test
+    void testShowReclamacionList() throws Exception {
+    	mockMvc.perform(get("/allReclamaciones")).andExpect(status().isOk())
+		.andExpect(view().name("reclamaciones/reclamacionesList"))
+		.andExpect(model().attributeExists("reclamaciones"));
+    }
+    
 	
 
 }

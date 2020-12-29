@@ -48,6 +48,12 @@
      </div>
      
       <div>
+     	<sec:authorize access="hasAnyAuthority('cliente')"  >
+      		<a href="/reclamaciones/user">Hola quiero ver mis reclamaciones.</a>
+      	</sec:authorize>
+     </div>
+     
+      <div>
      	<sec:authorize access="hasAnyAuthority('cocinero')"  >
       		<a href="/pedidos/cocinero">Hola quiero ver mis pedidos a cocinar.</a>
       	</sec:authorize>

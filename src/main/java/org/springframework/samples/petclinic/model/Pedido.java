@@ -11,12 +11,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import org.springframework.format.annotation.DateTimeFormat;
-
 import com.sun.istack.NotNull;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -74,7 +70,7 @@ public class Pedido extends BaseEntity{
 	@JoinColumn(name = "tipo_envio")
 	private TipoEnvio tipoEnvio;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "pedidocliente")
 	private Cliente cliente;
 	
