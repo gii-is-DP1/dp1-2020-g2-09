@@ -7,14 +7,7 @@
     pageEncoding="UTF-8"%>
 
 <petclinic:layout pageName="pedidos">
-	<jsp:attribute name="customScript">
-        <script>
-            $(function () {
-                $("#fechaPedido").datepicker({dateFormat: 'yy/mm/dd'});
-            });
-        </script>
-    </jsp:attribute>
-   <jsp:body>
+	
     <h2>
         <c:if test="${pedido['new']}">Nuevo </c:if> Pedido
     </h2>
@@ -43,5 +36,4 @@
             </div>
         </div>
     </form:form>
-     </jsp:body>
 </petclinic:layout>

@@ -58,4 +58,10 @@ public class ClienteService {
 		clienteRepository.delete(cliente);	
 	}	
 	
+	//Para RN-1
+	@Transactional
+	public Integer findNumeroDePedidosRealizados(int clienteId) throws DataAccessException {
+		return clienteRepository.findNumeroDePedidosRealizados(clienteId);
+	}
+	
 }
