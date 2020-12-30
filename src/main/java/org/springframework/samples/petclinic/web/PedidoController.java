@@ -250,7 +250,7 @@ public class PedidoController {
 				Otro otro = this.OtrosService.findOtrosById(otroId);
 				listaOtros.getOtrosLista().add(otro);
 			}
-			model.put("listaOtros", listaOtros);
+			model.put("otros", listaOtros);
 
 			return "cartas/verCarta";
 		}
