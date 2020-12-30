@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
@@ -30,9 +31,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class CrashController {
 
 	@GetMapping(value = "/oups")
-	public String triggerException() {
-		throw new RuntimeException(
-				"Expected: controller used to showcase what " + "happens when an exception is thrown");
+	public String triggerException(ModelMap model) {
+		model.put("mensaje", "No puede dar de baja a alguien que no ha cumplido aun 1 mes de contrato, reglas de negocio.");
+		return "exception";
 	}
 
 }

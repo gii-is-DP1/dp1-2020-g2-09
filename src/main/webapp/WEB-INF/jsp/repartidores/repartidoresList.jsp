@@ -9,6 +9,7 @@
 <petclinic:layout pageName="clientes">
     <h2>Repartidores</h2>
 
+	<a href="/repartidores/new" class="btn btn-default">Añadir repartidor</a>
     <table id="repartidorTable" class="table table-striped">
         <thead>
         <tr>
@@ -20,7 +21,7 @@
             <th>Fecha de Alta</th>
             <th>Fecha de Baja</th>
         </tr>
-        <a href="/repartidores/new" class="btn btn-default">Añadir repartidor</a>
+        
         </thead>
         <tbody>
         <c:forEach items="${listarepartidores.repartidoresList}" var="repartidor">
@@ -78,7 +79,8 @@
              	
             </tr>
         </c:forEach>
-        
+
         </tbody>
     </table>
+   
 </petclinic:layout>
