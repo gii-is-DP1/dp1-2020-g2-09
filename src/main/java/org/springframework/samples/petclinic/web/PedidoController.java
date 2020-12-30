@@ -87,6 +87,11 @@ public class PedidoController {
 	public Collection<TipoEnvio> populateTipoEnvio() {
 		return this.pedidoService.findTipoEnvio();
 	}
+	
+	@InitBinder("pedido")
+	public void initPedidoBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new PedidoValidator());
+	}
 
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
@@ -164,7 +169,7 @@ public class PedidoController {
 		    Cuenta cliente= this.clienteService.findCuentaByUser(usuario);
 			//hay que asociar el pedido creado al usuario que lo ha creado
 			pedido.setCliente((Cliente) cliente);
-			//por defecto
+			//por defecto 
 			pedido.setPrecio(0.0);
 			pedido.setFechaPedido(LocalDate.now());
 			this.pedidoService.savePedido(pedido);
@@ -183,8 +188,9 @@ public class PedidoController {
 	//mandar actualizacion
 	@PostMapping(value = "/pedidos/{pedidoId}/edit")
 	public String processUpdatePedidoForm(@Valid Pedido pedido, BindingResult result,
-			@PathVariable("pedidoId") int pedidoId) {
+			@PathVariable("pedidoId") int pedidoId, ModelMap model) {
 		if (result.hasErrors()) {
+			model.put("pedido", pedido);
 			return "pedidos/createOrUpdatePedidoForm";
 		}
 		else {

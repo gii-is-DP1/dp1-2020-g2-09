@@ -31,6 +31,9 @@ INSERT INTO authorities(id,username,authority) VALUES (9,'ejemplo1','ejemplo');
 INSERT INTO users(username,password,enabled) VALUES ('serfiggom1','serfiggom1',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (10, 'serfiggom1','cliente');
 
+INSERT INTO users(username,password,enabled) VALUES ('cliente1','cliente1',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (13,'cliente1','cliente');
+
 
 INSERT INTO vets VALUES (1, 'James', 'Carter');
 INSERT INTO vets VALUES (2, 'Helen', 'Leary');
@@ -109,7 +112,7 @@ INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario)
 VALUES ('Raúl','Parrado Gordón','2000-05-29','717548963','raupargor@alum.us.es', 'raupargor');
 
 INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
-VALUES ('Álvaro','Sánchez González','2000-01-30','687452196','alvsangon@alum.us.es', 'raupargor');
+VALUES ('Álvaro','Sánchez González','2000-01-30','687452196','alvsangon@alum.us.es', 'cliente1');
 
 INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
 VALUES ('Jesús','Roldán Cadena','2000-08-07','632145879','jesrolcad@alum.us.es', 'jesrolcad');
