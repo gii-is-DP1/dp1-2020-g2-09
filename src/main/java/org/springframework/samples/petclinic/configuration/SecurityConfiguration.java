@@ -41,7 +41,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/informe/**").hasAnyAuthority("administrador")
 				.antMatchers("/owners/**").hasAnyAuthority("owner","administrador")
 				.antMatchers("/clientes/**").permitAll()//mirar aqui la autoridad
-				.antMatchers("/pizzas/**").permitAll()
+				.antMatchers("/pizzas/cliente/**").hasAnyAuthority("cliente")
+				.antMatchers("/pizzas/admin/**").hasAnyAuthority("administrador")
 				.antMatchers("/bebidas/**").hasAnyAuthority("administrador")
 				.antMatchers("/cartas/**/VerCarta").hasAnyAuthority("administrador", "cliente")
 				.antMatchers("/cartas/**").hasAnyAuthority("administrador")
@@ -75,7 +76,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/Ingredientes/**").permitAll()
 				.antMatchers("/allMesas/**").permitAll()
 				.antMatchers("/allCartas/**").permitAll()
-				.antMatchers("/allPizzas/**").permitAll()
 				.antMatchers("/allOtros/**").permitAll()
 				.antMatchers("/allRepartidores/**").hasAnyAuthority("administrador")
 				.antMatchers("/allAdministradores/**").hasAnyAuthority("administrador")
