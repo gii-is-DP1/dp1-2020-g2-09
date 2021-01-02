@@ -362,10 +362,13 @@ public class PedidoController {
 		}
 				
 				
-		//Cambiar En cocina a Preparado
+		//Cambiar En cocina a Preparado y Preparado a Recogido si es Recoger en local
 		@GetMapping(value = "/cocinero/{pedidoId}/estadoPedido")
 		public String enCocinaPreparado(@PathVariable("pedidoId") int pedidoId, ModelMap model) {
-				pedidoService.putPreparado(pedidoId);
+			Pedido pedido=this.pedidoService.findPedidoById(pedidoId);
+			if(pedido.getTipoEnvio().getId()==1 && pedido.getEstadoPedido().getId()==2) {
+				pedidoService.putRecogido(pedidoId);
+			}else pedidoService.putPreparado(pedidoId);
 			return "redirect:/pedidos/cocinero";
 		}
 		
@@ -380,7 +383,54 @@ public class PedidoController {
 			return "redirect:/pedidos/repartidor";
 		}
 		
+		//Borrar productos de un pedido
+		@GetMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/{pizzaId}/borrarP")
+		public String eliminarPizza(@PathVariable("pedidoId") int pedidoId, @PathVariable("pizzaId") int pizzaId,
+				@PathVariable("cartaId") Integer cartaId, ModelMap model) {
+			model.put("cartaId", cartaId);
+			Pedido pedido = this.pedidoService.findPedidoById(pedidoId);
+			Pizza pizza= this.PizzaService.findPizzaById(pizzaId);
+			this.pedidoService.eliminarPizzaPedido(pedidoId, pizzaId);
+			Double costePizza=pizza.getCoste().doubleValue();
+			Double coste=pedido.getPrecio();
+			Double precioActual=coste-costePizza;
+			pedido.setPrecio(precioActual);
+			model.put("pedido",pedido);
+			this.pedidoService.savePedido(pedido);
+			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
+		}
 		
+		@GetMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/bebidas/{bebidaId}/borrarB")
+		public String eliminarBebida(@PathVariable("pedidoId") int pedidoId, @PathVariable("bebidaId") int bebidaId,
+				@PathVariable("cartaId") Integer cartaId, ModelMap model) {
+			model.put("cartaId", cartaId);
+			Pedido pedido = this.pedidoService.findPedidoById(pedidoId);
+			Bebida bebida= this.BebidaService.findById(bebidaId);
+			this.pedidoService.eliminarBebidaPedido(pedidoId, bebidaId);
+			Double costeBebida=bebida.getCoste().doubleValue();
+			Double coste=pedido.getPrecio();
+			Double precioActual=coste-costeBebida;
+			pedido.setPrecio(precioActual);
+			model.put("pedido",pedido);
+			this.pedidoService.savePedido(pedido);
+			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
+		}
+		
+		@GetMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/otros/{otrosId}/borrarO")
+		public String eliminarOtros(@PathVariable("pedidoId") int pedidoId, @PathVariable("otrosId") int otrosId,
+				@PathVariable("cartaId") Integer cartaId, ModelMap model) {
+			model.put("cartaId", cartaId);
+			Pedido pedido = this.pedidoService.findPedidoById(pedidoId);
+			Otro otros=this.OtrosService.findOtrosById(otrosId);
+			this.pedidoService.eliminarOtrosPedido(pedidoId, otrosId);
+			Double costeOtros=otros.getCoste().doubleValue();
+			Double coste=pedido.getPrecio();
+			Double precioActual=coste-costeOtros;
+			pedido.setPrecio(precioActual);
+			model.put("pedido",pedido);
+			this.pedidoService.savePedido(pedido);
+			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
+		}
 		
 		
 	
