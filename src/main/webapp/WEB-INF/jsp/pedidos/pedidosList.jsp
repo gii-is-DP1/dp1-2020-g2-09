@@ -20,7 +20,9 @@
             <th>Estado pedido</th>
             <th>Tipo Envio</th>
             <th>Tipo Pago</th>
-            <th>Cliente</th>
+<%--             <sec:authorize access="hasAnyAuthority('cliente')"  > --%>
+            	<th>Cliente</th>
+<%--             </sec:authorize> --%>
         </tr>
         </thead>
         <tbody>
@@ -54,12 +56,14 @@
              	</td>
              	
 				<td>
-             	<sec:authorize access="hasAnyAuthority('cliente')"  >
+<%--              		<sec:authorize access="hasAnyAuthority('cliente')"  > --%>
                     <c:out value="${pedido.cliente.nombre}"/>
                     <c:out value=" ${pedido.cliente.apellidos}"></c:out>
+<%--                     </sec:authorize> --%>
                 </td>
                 
              	<td>
+             	<sec:authorize access="hasAnyAuthority('administrador')"  >
              		<spring:url value="/pedidos/{pedidoId}/edit" var="pedidoUrl">
 	                        <spring:param name="pedidoId" value="${pedido.id}"/>
 	                </spring:url>
@@ -78,24 +82,29 @@
              	
              	<td>
              	<sec:authorize access="hasAnyAuthority('repartidor')"  >
-					<spring:url value="/repartidor/{pedidoId}/estadoPedido" var="pedidoUrl2">
+					<spring:url value="/repartidor/{pedidoId}/estadoPedido" var="pedidoUrl4">
 	                        <spring:param name="pedidoId" value="${pedido.id}"/>
 	                </spring:url>
-   					<a href="${fn:escapeXml(pedidoUrl2)}" class="btn btn-default">Actualizar estado pedido</a>
+   					<a href="${fn:escapeXml(pedidoUrl4)}" class="btn btn-default">Actualizar estado pedido</a>
 				</sec:authorize>
 				</td>
 				
              	<td>
+             		<sec:authorize access="hasAnyAuthority('cliente')"  >
              		<spring:url value="/pedidos/{pedidoId}/anadirReclamacion/new" var="pedidoreclamacionUrl">
 	                        <spring:param name="pedidoId" value="${pedido.id}"/>
 	                </spring:url>
    					<a href=" ${fn:escapeXml(pedidoreclamacionUrl)}" class="btn btn-default">Nueva reclamacion</a>
+   					</sec:authorize>
              	</td>
+             	
              	<td>
+             		<sec:authorize access="hasAnyAuthority('administrador')"  >
              		<spring:url value="/pedidos/{pedidoId}/delete" var="pedidoUrl2">
 	                        <spring:param name="pedidoId" value="${pedido.id}"/>
 	                </spring:url>
              		<a href="${fn:escapeXml(pedidoUrl2)}" class="btn btn-default">Eliminar</a>
+             		</sec:authorize>
              	</td>
              	
             </tr>

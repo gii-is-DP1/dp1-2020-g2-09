@@ -9,7 +9,7 @@
     pageEncoding="UTF-8"%>
  
     
-<petclinic:layout pageName="carta">
+<petclinic:layout pageName="resumenPedido">
     <h2>Resumen Pedido</h2>
     
     <sec:authorize access="hasAnyAuthority('cliente')"  >
@@ -98,6 +98,15 @@
 				 	</spring:url>
 					<a href="${fn:escapeXml(editarPizza)}" class="btn btn-default">Editar</a>
              	</td>
+             	
+             	<td>
+             		<spring:url value="/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/{pizzaId}/borrarP" var="borrarPizza">
+             			<spring:param name="cartaId" value="${cartaId}"/>
+             			<spring:param name="pedidoId" value="${pedido.id}"/>
+						<spring:param name="pizzaId" value="${pizza.id}"/>
+				 	</spring:url>
+					<a href="${fn:escapeXml(borrarPizza)}" class="btn btn-default">Eliminar</a>
+             	</td>
             </tr>
         </c:forEach>
         </tbody>
@@ -133,6 +142,15 @@
              	<td>
              		<c:out value="${bebida.coste}"/>
              	</td> 	
+             	
+             	<td>
+             		<spring:url value="/pedidos/{pedidoId}/cartas/{cartaId}/bebidas/{bebidaId}/borrarB" var="borrarB">
+             			<spring:param name="cartaId" value="${cartaId}"/>
+             			<spring:param name="pedidoId" value="${pedido.id}"/>
+						<spring:param name="bebidaId" value="${bebida.id}"/>
+				 	</spring:url>
+					<a href="${fn:escapeXml(borrarB)}" class="btn btn-default">Eliminar</a>
+             	</td>
             </tr>
         </c:forEach>
         
@@ -165,6 +183,14 @@
              				</li>
              			</c:forEach>
              		</ul>
+             	</td>
+             	<td>
+             		<spring:url value="/pedidos/{pedidoId}/cartas/{cartaId}/otros/{otrosId}/borrarO" var="borrarO">
+             			<spring:param name="cartaId" value="${cartaId}"/>
+             			<spring:param name="pedidoId" value="${pedido.id}"/>
+						<spring:param name="otrosId" value="${otro.id}"/>
+				 	</spring:url>
+					<a href="${fn:escapeXml(borrarO)}" class="btn btn-default">Eliminar</a>
              	</td>
             </tr>
         </c:forEach>
