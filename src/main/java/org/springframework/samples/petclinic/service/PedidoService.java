@@ -95,6 +95,11 @@ public class PedidoService {
 		pedidoRepository.putEntregado(pedidoId);
 	}
 	
+	@Transactional(readOnly = true)	
+	public void  putRecogido(int pedidoId) throws DataAccessException {
+		pedidoRepository.putRecogido(pedidoId);
+	}
+	
 	//AÑADIR PRODUCTOS A UN PEDIDO
 	@Transactional
 	public void añadirPizzaAPedido(int pedidoId, int pizzaId) throws DataAccessException {
@@ -111,21 +116,21 @@ public class PedidoService {
 		pedidoRepository.añadirOtrosAPedido(pedidoId, otrosId);
 	}
 	
-	/*//ELIMINAR PRODUCTOS DE UN PEDIDO 
+	//ELIMINAR PRODUCTOS DE UN PEDIDO 
 	@Transactional
-	public void añadirPizzaAPedido(int pedidoId, int pizzaId) throws DataAccessException {
-		pedidoRepository.añadirPizzaAPedido(pedidoId, pizzaId);
+	public void eliminarPizzaPedido(int pedidoId, int pizzaId) throws DataAccessException {
+		pedidoRepository.eliminarPizzaPedido(pedidoId, pizzaId);;
 	}
 		
 	@Transactional
-	public void añadirBebidaAPedido(int pedidoId, int bebidaId) throws DataAccessException {
-		pedidoRepository.añadirBebidaAPedido(pedidoId, bebidaId);
+	public void eliminarBebidaPedido(int pedidoId, int bebidaId) throws DataAccessException {
+		pedidoRepository.eliminarBebidaPedido(pedidoId, bebidaId);
 	}
 		
 	@Transactional
-	public void añadirOtrosAPedido(int pedidoId, int otrosId) throws DataAccessException {
-		pedidoRepository.añadirOtrosAPedido(pedidoId, otrosId);
-	}*/
+	public void eliminarOtrosPedido(int pedidoId, int otrosId) throws DataAccessException {
+		pedidoRepository.eliminarOtrosPedido(pedidoId, otrosId);
+	}
 	
 	//COGER PRECIOS DE UN PRODUCTO
 	@Transactional

@@ -69,9 +69,7 @@ INSERT INTO owners VALUES (7, 'Jeff', 'Black', '1450 Oak Blvd.', 'Monona', '6085
 INSERT INTO owners VALUES (8, 'Maria', 'Escobito', '345 Maple St.', 'Madison', '6085557683', 'owner1');
 INSERT INTO owners VALUES (9, 'David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435', 'owner1');
 INSERT INTO owners VALUES (10, 'Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487', 'owner1');
-
 INSERT INTO owners VALUES (14, 'Jesus', 'Roldan', 'San Diego 14', 'Sevilla', '633438316', 'jesrolcad');
-
 INSERT INTO owners VALUES (11, 'Lucia', 'Torres', 'Ferrara 4, 41089','Montequinto', '654987321', 'luctorgom');
 INSERT INTO owners VALUES (13, 'Maria', 'Garcia', 'Laguillo 27, 41003','Sevilla', '601242743', 'margarcac1');
 INSERT INTO owners VALUES (12, 'Raul', 'Parrado', 'Sirio 5, 41015','PinoMontano', '622682440', 'raupargor');
@@ -151,6 +149,7 @@ INSERT INTO ESTADO_PEDIDO VALUES(1,'EN COCINA');
 INSERT INTO ESTADO_PEDIDO VALUES(2,'PREPARADO');
 INSERT INTO ESTADO_PEDIDO VALUES(3,'EN REPARTO');
 INSERT INTO ESTADO_PEDIDO VALUES(4,'ENTREGADO');
+INSERT INTO ESTADO_PEDIDO VALUES(5,'RECOGIDO');
 
 INSERT INTO TIPO_ENVIO VALUES(2,'DOMICILIO');
 INSERT INTO TIPO_ENVIO VALUES(1,'RECOGER EN TIENDA');
@@ -187,8 +186,7 @@ INSERT INTO RECLAMACIONES(observacion, respuesta)
 VALUES('Había un hueso de aceituna en mi pizza. ¿Qué tipo de broma es esta?', 'Lo sentimos mucho');
 
 INSERT INTO RECLAMACIONES(observacion, respuesta)
-VALUES('Mi pizza carbonara llevaba 1 sola unidad de champiñón.', 
-'');
+VALUES('Mi pizza carbonara llevaba 1 sola unidad de champiñón.', '');
 
 INSERT INTO MESAS VALUES(1,6);
 INSERT INTO MESAS VALUES(2,6);
