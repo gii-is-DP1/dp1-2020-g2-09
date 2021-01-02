@@ -110,7 +110,7 @@ public class PizzaController {
 	public String initCreationFormCliente(Map<String, Object> model) {
 		Pizza pizza = new Pizza();
 		model.put("pizza", pizza);
-		return "pizzas/createOrUpdatePizzaForm";
+		return "pizzas/createOrUpdatePizzaFormCliente";
 	}
 
 	// mandar nuevo Pizza
@@ -118,11 +118,13 @@ public class PizzaController {
 	public String processCreationFormCliente(@Valid Pizza pizza, BindingResult result,ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("pizza", pizza);//importanteeee
-			return "pizzas/createOrUpdatePizzaForm";
+			return "pizzas/createOrUpdatePizzaFormCliente";
 		} else {
 			Cliente c = getClienteActivo();
 			pizza.setCliente(c);
 			pizza.setPersonalizada(true);
+			Integer numIng = pizza.getIngredientes().size();
+			pizza.setCoste(6 + numIng);
 //			PizzaValidator pizzaValidator = new PizzaValidator();
 //			ValidationUtils.invokeValidator(pizzaValidator, pizza, result);
 			this.pizzaService.savePizza(pizza);
