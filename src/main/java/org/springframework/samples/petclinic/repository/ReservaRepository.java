@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -26,5 +27,9 @@ public interface ReservaRepository extends CrudRepository<Reserva, Integer>{
 	@Query("SELECT tr FROM tipoReserva tr")
     List<tipoReserva> findTipoReserva() throws DataAccessException;
 
+    @Modifying
+    @Query(value = "INSERT INTO RESERVA_MESA(RESERVA_ID, MESAS_EN_RESERVA_ID) VALUES (?1, ?2)",
+			nativeQuery = true)
+	void anadirMesaAReserva(int reservaId, int mesaId);
 
 }

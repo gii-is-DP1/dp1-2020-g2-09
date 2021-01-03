@@ -51,5 +51,10 @@ public class ReservaService {
     public Collection<tipoReserva> findTipoReserva() throws DataAccessException {
         return reservaRepository.findTipoReserva();
     }
+    
+    @Transactional
+	 public void anadirMesaAReserva(int reservaId, int mesaId) throws DataAccessException {
+		 reservaRepository.anadirMesaAReserva(reservaId, mesaId);		
+	}
 
 }
