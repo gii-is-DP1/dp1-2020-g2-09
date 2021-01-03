@@ -3,22 +3,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 
 <petclinic:layout pageName="reservas">
 	<jsp:attribute name="customScript">
   		  <script>
-            $(function () {
+            $(function() {
                 $("#fechaReserva").datepicker({dateFormat: 'yy/mm/dd'});
             });
   		</script>
-      	<!--<script>
-            $(function () {
-                $("#hora").timepicker();
-            });
-  		</script>-->
-  </jsp:attribute>
+  	</jsp:attribute>
+
     <jsp:body>
     <h2>
         <c:if test="${reserva['new']}">Nueva </c:if> Reserva
@@ -37,7 +33,7 @@
             </div>
            <!--  <label>Hora de la reserva</label>
             <input type="time" name="hora">-->
-            <petclinic:inputField label="Hora de la reserva" name="hora"/> 
+            <petclinic:time label="Hora de la reserva" names="${hora}" name="hora" size="3"/> 
             <!--<petclinic:inputField label="Id" name="id" />-->
         </div>
         <div class="form-group">
