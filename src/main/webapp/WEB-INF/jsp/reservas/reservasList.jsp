@@ -37,6 +37,12 @@
                 <td>
                     <c:out value="${reserva.hora}"/>
                 </td>
+                <td>					
+             		<spring:url value="/reservas/{reservaId}/allMesasDisponibles" var="reservamesaUrl">
+	                        <spring:param name="reservaId" value="${reserva.id}"/> 
+	                </spring:url>
+   					<a href="${fn:escapeXml(reservamesaUrl)}" class="btn btn-default">Seleccionar mesa</a>
+             	</td>
                 <td>
              		<spring:url value="/reservas/{reservaId}/edit" var="reservaUrl">
 	                        <spring:param name="reservaId" value="${reserva.id}"/>

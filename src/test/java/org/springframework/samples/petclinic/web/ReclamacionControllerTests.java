@@ -126,7 +126,7 @@ class ReclamacionControllerTests {
 				.param("observacion", "No se que ocurre")
 				.param("respuesta", "Lo sentimos mucho, ..."))
 				.andExpect(status().is3xxRedirection()) 
-				.andExpect(view().name("redirect:/allReclamaciones")); 
+				.andExpect(view().name("redirect:/allReclamaciones"));
 		//.andExpect(view().name("reclamaciones/reclamacionesList")); 
 	//.andExpect(view().name("reclamaciones/createOrUpdateReclamacionForm"));
 } 

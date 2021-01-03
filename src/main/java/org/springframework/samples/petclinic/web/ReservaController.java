@@ -1,5 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -33,8 +35,9 @@ public class ReservaController {
 	private MesaService mesaService;
 	
 	@Autowired
-	public ReservaController(ReservaService reservaService) {
+	public ReservaController(ReservaService reservaService, MesaService mesaService) {
 		this.reservaService = reservaService;
+		this.mesaService = mesaService;
 	}
 	
 	@InitBinder
@@ -61,7 +64,8 @@ public class ReservaController {
 		model.put("reserva", reserva);
 		return "reservas/createOrUpdateReservaForm";
 	}
-
+	//Creo una reserva -> Me lleva a un listado de mesas disponibles según número de personas 
+	// -> selecciono la mesa -> y entonces ahí asocio mesa y reserva y creo la reserva
 	//mandar nueva reserva
 	@PostMapping(value = "/reservas/new")
 	public String processCreationForm(@Valid Reserva reserva, BindingResult result,ModelMap model) {
@@ -76,6 +80,43 @@ public class ReservaController {
 			return "redirect:/allReservas";
 		}
 	}
+	
+	@GetMapping(value = "/reservas/{reservaId}/allMesasDisponibles")
+	public String mesasDisponibles(@PathVariable("reservaId") int reservaId, ModelMap model) {
+		Reserva reserva = this.reservaService.findById(reservaId);
+		Integer numPersonas = reserva.getNumeroPersonas();
+		List<Mesa> mesas = this.mesaService.findMesas();
+		List<Mesa> mesasPorCapacidad = new ArrayList<Mesa>();
+		for(Mesa m: mesas) {
+			//Si la capacidad de la mesa es mayor que el número de personas 
+			// 
+			if(m.getCapacidad()>=numPersonas /* y que para esta mesa ver si 
+			hay alguna reserva y en ese caso que estén diferenciadas 40 min por ej*/) {
+				mesasPorCapacidad.add(m);
+			}
+			
+		}
+		
+		model.put("mesasPorCapacidad", mesasPorCapacidad);
+		return "mesas/mesasDisponibles";
+	}
+	
+	@GetMapping(value = "/reservas/{reservaId}/allMesasDisponibles/{mesaId}")
+	public String anadirMesaAReserva(@PathVariable("reservaId") int reservaId, @PathVariable("mesaId") int mesaId, ModelMap model) {
+		model.put("reserva", reservaId);
+		this.reservaService.anadirMesaAReserva(reservaId, mesaId);
+		return "redirect:/allReservas";
+	}
+	
+
+	
+//	//AÑADIR MESA A UNA RESERVA 
+//		@GetMapping("/reservas/{reservaId}/anadirMesaAReserva/{mesaId}")
+//		public String anadirMesa(Map<String, Object> model, @PathVariable("reservaId") int reservaId,
+//					@PathVariable("mesaId") int mesaId) {
+//			this.reservaService.anadirMesaAReserva(reservaId, mesaId);
+//			return "redirect:/allReservas";
+//		}
 
 	//iniciar actualizacion
 	@GetMapping(value = "/reservas/{reservaId}/edit")
