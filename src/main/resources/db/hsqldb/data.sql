@@ -184,8 +184,7 @@ INSERT INTO RECLAMACIONES(observacion, respuesta)
 VALUES('Había un hueso de aceituna en mi pizza. ¿Qué tipo de broma es esta?', 'Lo sentimos mucho');
 
 INSERT INTO RECLAMACIONES(observacion, respuesta)
-VALUES('Mi pizza carbonara llevaba 1 sola unidad de champiñón.', 
-'');
+VALUES('Mi pizza carbonara llevaba 1 sola unidad de champiñón.', '');
 
 INSERT INTO MESAS VALUES(1,6);
 INSERT INTO MESAS VALUES(2,6);
@@ -270,9 +269,41 @@ INSERT INTO Alergenos VALUES(14,'Moluscos y productos a base de moluscos');
 INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ( '2021-01-01' ,'Pan', 'Rico en carbohidratos', 2); 
 INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-02-02' ,'Queso', 'Rico en proteinas', 7);
 INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-03-03' , 'Tomate', 'Verduras y frutas');
-INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-04-04' ,'Anchoas', 'Rico en proteinas', 4);
 INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-05-05' ,'Huevo', 'Rico en proteinas', 3);
 INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ( '2021-06-06' , 'Soja', 'Verduras y frutas', 6);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ( '2021-01-01' ,'Salami', 'Carnes, pescados y huevos'); 
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-02-02' ,'Jamón York', 'Carnes, pescados y huevos');
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-02-02' ,'Pollo kebab', 'Carnes, pescados y huevos');
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-02-02' ,'Pollo', 'Carnes, pescados y huevos');
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-02-02' ,'Ternera', 'Carnes, pescados y huevos');
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-02-02' ,'Ternera kebab', 'Carnes, pescados y huevos');
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-03-03' , 'Atún', 'Carnes, pescados y huevos', 4);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-04-04' ,'Anchoas', 'Rico en proteinas', 4);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-03-03' , 'Merluza', 'Carnes, pescados y huevos', 4);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ( '2021-06-06' , 'Huevo', 'Huevo', 3);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-02-02' ,'Gorgonzola', 'Rico en proteinas', 7);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-02-02' ,'Camembert', 'Rico en proteinas', 7);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-02-02' ,'Roquefort', 'Rico en proteinas', 7);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-02-02' ,'Emmental', 'Rico en proteinas', 7);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-02-02' ,'Gouda', 'Rico en proteinas', 7);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-02-02' ,'Queso', 'Rico en proteinas', 7);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-03-03' , 'Pepino', 'Verduras y frutas');
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-03-03' , 'Rúcula', 'Verduras y frutas');
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-03-03' , 'Berenjena', 'Verduras y frutas');
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-03-03' , 'Rúcula', 'Verduras y frutas');
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-03-03' , 'Calabacín', 'Verduras y frutas');
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-03-03' , 'Calabaza', 'Verduras y frutas');
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-03-03' , 'Pimiento verde', 'Verduras y frutas');
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-03-03' , 'Pimiento rojo', 'Verduras y frutas');
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-03-03' , 'Pimiento amarillo', 'Verduras y frutas');
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-04-04' ,'Barbacoa', 'Rico en proteinas', 10);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-05-05' ,'Salsa de yogurt', 'Rico en proteinas', 7);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-04-04' ,'Salsa Belouté', 'Rico en proteinas', 8);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-05-05' ,'Salsa holandesa', 'Rico en proteinas', 3);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-04-04' ,'Salsa española', 'Rico en proteinas', 5);
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-05-05' ,'Mayonesa', 'Rico en proteinas', 3);
+
+
 
 
 INSERT INTO PIZZAS(id, contador, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (1, 1, 20, 'PROSCIUTTO E FUNGHI', 1 ,2, null, false);
@@ -286,24 +317,48 @@ INSERT INTO PIZZAS(id, contador, coste, nombre, tamano_producto, tipo_masa, clie
 INSERT INTO PIZZAS(id, contador, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (9, 2, 19, 'BARBACOA', 1 ,1, null, false);
 
 
-INSERT INTO OTROS values (1, 1, 20, 'patatas bravas');
-INSERT INTO OTROS values (2, 1, 22, 'Spaghetti con salsa de tomate casera');
-INSERT INTO OTROS values (3, 1, 10, 'crema catalana');
-INSERT INTO OTROS values (4, 1, 15, 'tiramisú');
-INSERT INTO OTROS values (5, 2, 19, 'brownie');
+INSERT INTO OTROS(contador, coste,nombre) values (1, 10, 'Patatas bravas');
+INSERT INTO OTROS(contador, coste,nombre) values ( 1, 22, 'Papitas Rellenas con Carne Molida');
+INSERT INTO OTROS(contador, coste,nombre) values ( 1, 10, 'papas aliñás');
+INSERT INTO OTROS(contador, coste,nombre) values ( 1, 11, 'Gazpacho');
+INSERT INTO OTROS(contador, coste,nombre) values ( 1, 15, 'Salmorejo');
+INSERT INTO OTROS(contador, coste,nombre) values ( 2, 19, 'Pescaíto frito');
+INSERT INTO OTROS(contador, coste,nombre) values ( 1, 2, 'Aceitunas');
+INSERT INTO OTROS(contador, coste,nombre) values ( 1, 22, 'Boquerones en vinagre');
+INSERT INTO OTROS(contador, coste,nombre) values ( 1, 10, 'Tortillita de camarones');
+INSERT INTO OTROS(contador, coste,nombre) values ( 1, 15, 'Adobos de pescado');
+INSERT INTO OTROS(contador, coste,nombre) values ( 2, 19, 'Ortiguillas');
+INSERT INTO OTROS(contador, coste,nombre) values ( 1, 15, 'Bacalao deshebrado');
+INSERT INTO OTROS(contador, coste,nombre) values ( 1, 22, 'Huevos tontos');
+INSERT INTO OTROS(contador, coste,nombre) values ( 1, 11, 'Pastel de pescado');
+INSERT INTO OTROS(contador, coste,nombre) values ( 1, 15, 'Chipirones afogaos');
+INSERT INTO OTROS(contador, coste,nombre) values ( 1, 15, 'Adobos de pescado');
+INSERT INTO OTROS(contador, coste,nombre) values ( 2, 19, 'Ortiguillas');
+INSERT INTO OTROS(contador, coste,nombre) values ( 1, 2, 'Bollos preñaos');
+INSERT INTO OTROS(contador, coste,nombre) values ( 1, 2, 'Chorizo de untar');
+INSERT INTO OTROS(contador, coste,nombre) values ( 1, 10, 'Papas arrugadas');
+INSERT INTO OTROS(contador, coste,nombre) values ( 1, 15, 'Morcilla dulce');
+INSERT INTO OTROS(contador, coste,nombre) values ( 2, 9, 'Berenjenas de Almagro');
+/*INSERT INTO OTROS values ( 1, 20, 'patatas bravas', 5);
+INSERT INTO OTROS values ( 1, 22, 'Spaghetti con salsa de tomate casera',	2);
+INSERT INTO OTROS values ( 1, 10, 'crema catalana',1);
+INSERT INTO OTROS values ( 1, 15, 'tiramisú',	4);
+INSERT INTO OTROS values ( 2, 19, 'brownie',	3);*/
 
-/*INSERT INTO OTROS values (1, 1, 20, 'patatas bravas', 5);
-INSERT INTO OTROS values (2, 1, 22, 'Spaghetti con salsa de tomate casera',	2);
-INSERT INTO OTROS values (3, 1, 10, 'crema catalana',1);
-INSERT INTO OTROS values (4, 1, 15, 'tiramisú',	4);
-INSERT INTO OTROS values (5, 2, 19, 'brownie',	3);*/
 
+INSERT INTO BEBIDAS(contador, coste,nombre,es_carbonatada, tamano_producto) values (1, 2, 'Nestea', false ,1);
+INSERT INTO BEBIDAS(contador, coste,nombre,es_carbonatada, tamano_producto) values (1, 2, 'Fanta naranja', false ,1);
+INSERT INTO BEBIDAS(contador, coste,nombre,es_carbonatada, tamano_producto) values (1, 2, 'Fanta limon', true ,2);
+INSERT INTO BEBIDAS(contador, coste,nombre,es_carbonatada, tamano_producto) values (2, 2, 'Agua', false ,1);
+INSERT INTO BEBIDAS(contador, coste,nombre,es_carbonatada, tamano_producto) values (1, 2, 'Coca-cola', true ,2);
+INSERT INTO BEBIDAS(contador, coste,nombre,es_carbonatada, tamano_producto) values ( 1, 2, 'Coca-cola Zero azúcar y Zero cafeína', true ,2);
+INSERT INTO BEBIDAS(contador, coste,nombre,es_carbonatada, tamano_producto) values (1, 2, 'Coca-cola Sabor light', true ,2);
+INSERT INTO BEBIDAS(contador, coste,nombre,es_carbonatada, tamano_producto) values ( 1, 2, 'Coca-cola Zero azúcar', true ,2);
+INSERT INTO BEBIDAS(contador, coste,nombre,es_carbonatada, tamano_producto) values ( 1, 2, 'Sprite', true ,1);
+INSERT INTO BEBIDAS(contador, coste,nombre,es_carbonatada, tamano_producto) values ( 1, 2, 'Powerade', false ,1);
+INSERT INTO BEBIDAS(contador, coste,nombre,es_carbonatada, tamano_producto) values ( 1, 2, 'Aquarius', true ,2);
+INSERT INTO BEBIDAS(contador, coste,nombre,es_carbonatada, tamano_producto) values ( 2, 2, 'Schweppes', true ,1);
 
-INSERT INTO BEBIDAS values (1, 1, 20, 'Coca-cola', true ,2);
-INSERT INTO BEBIDAS values (2, 1, 22, 'Nestea', false ,1);
-INSERT INTO BEBIDAS values (3, 1, 10, 'Fanta naranja', false ,1);
-INSERT INTO BEBIDAS values (4, 1, 15, 'Fanta limon', true ,2);
-INSERT INTO BEBIDAS values (5, 2, 19, 'Agua', false ,1);
 /*NO ME TOQUEIS LAS FECHAS DE CARTAS*/
 INSERT INTO CARTAS(nombre, fecha_Creacion, fecha_Final) values ('CartaPrincipal', '2020-12-15', '2020-12-31');
 INSERT INTO CARTAS(nombre, fecha_Creacion, fecha_Final) values ('CartaPrueba','2021-01-01', '2021-11-20');
