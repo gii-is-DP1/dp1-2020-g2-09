@@ -1,10 +1,14 @@
 package org.springframework.samples.petclinic.model;
 
 import java.time.LocalDate;
+import java.util.Collection;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -49,6 +53,18 @@ public class Oferta extends NamedEntity{
 	@Column(name = "estadoOferta")
 	@NotNull
 	private Boolean estadoOferta=true;
+	
+//	@ManyToMany (cascade = CascadeType.MERGE)
+//	@JoinTable(name = "OfertaPizza", joinColumns =@JoinColumn(name= "pizzaId" ))
+//	private Collection<Pizza> pizzasEnOferta;
+//	
+//	@ManyToMany (cascade = CascadeType.MERGE)
+//	@JoinTable(name = "OfertaBebida", joinColumns =@JoinColumn(name= "bebidaId" ))
+//	private Collection<Bebida> bebidasEnOferta;
+//	
+//	@ManyToMany (cascade = CascadeType.MERGE)
+//	@JoinTable(name = "OfertaOtro", joinColumns =@JoinColumn(name= "otroId" ))
+//	private Collection<Otro> otroEnOferta;
 	
 //	public TamanoProducto getTamanoProducto() {
 //		return this.tamanoProducto;
