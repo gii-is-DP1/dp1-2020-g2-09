@@ -29,9 +29,14 @@
 			<!--  <label for="precio">Precio </label>	<input type="number" id="precio" name="coste">-->
 			<petclinic:input name="coste" label="Precio"/>
 			
-            <petclinic:selectField name="ingredientes" label="ingredientes" names="${ingredientes}" size="3"/>
-            
-             <!--<petclinic:inputField label="contador" name="contador"/> -->
+			  <!--<c:forEach items="${ingredientes}" var="ingrediente1">
+			<label name="ingrediente1">${ingrediente1.nombre}</label>
+   				 <input type="checkbox" value="ingrediente1" /><br>
+			</c:forEach>  -->
+			
+          <petclinic:selectField name="ingredientes" label="Ingredientes (Para seleccionar más de uno debe mantener ctrl)" names="${ingredientes}" size="15"/>
+           
+            <!-- <petclinic:inputField label="contador" name="contador"/> -->
             <!--<petclinic:inputField label="Id" name="id"/> -->
             </div>
         </div>
