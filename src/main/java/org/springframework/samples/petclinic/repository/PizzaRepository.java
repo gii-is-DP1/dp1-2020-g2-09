@@ -54,7 +54,7 @@ public interface PizzaRepository extends CrudRepository<Pizza, Integer> {
 			nativeQuery = true)
 	List<Pizza> findPizzaByCliente(Cliente cliente) throws DataAccessException;
 	
-	@Query(value = "SELECT * FROM PIZZAS WHERE PERSONALIZADA = false",
+	@Query(value = "SELECT * FROM PIZZAS WHERE PERSONALIZADA = FALSE",
 			nativeQuery = true)
 	List<Pizza> findPizzaNoPersonalizada() throws DataAccessException;
 }

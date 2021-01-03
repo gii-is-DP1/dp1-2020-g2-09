@@ -9,8 +9,8 @@
     <spring:url value="/resources/images/pizza.jpg" var="pizzaImagen"/>
     <img src="${pizzaImagen}"/>
 
-    <h2>Something happened...</h2>
+    <h2>Algo paso...</h2>
 
-    <p>${exception.message}</p>
+    <p>${mensaje}</p>
 
 </petclinic:layout>

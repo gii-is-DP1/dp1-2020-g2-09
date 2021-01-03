@@ -91,4 +91,5 @@
         
         </tbody>
     </table>
+   
 </petclinic:layout>

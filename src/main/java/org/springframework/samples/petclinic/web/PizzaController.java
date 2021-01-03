@@ -69,6 +69,18 @@ public class PizzaController {
 		model.put("Pizzas", pizzas);  //si pongo Pizzas me pone la tabla vacia, si pongo pizza me da un error de tamaño
 		return "pizzas/pizzasList";
 	}
+	
+	@GetMapping(value = { "/pizzas/cliente" })
+	public String showPizzaListCliente(Map<String, Object> model) {
+		Pizzas pizzas = new Pizzas();
+		pizzas.getPizzasList().addAll(this.pizzaService.findPizzaNoPersonalizada());
+		model.put("Pizzas", pizzas);  //si pongo Pizzas me pone la tabla vacia, si pongo pizza me da un error de tamaño
+		
+		Pizzas pizzasP = new Pizzas();
+		pizzasP.getPizzasList().addAll(this.pizzaService.findPizzaByCliente(getClienteActivo()));
+		model.put("PizzasP", pizzasP);  //si pongo Pizzas me pone la tabla vacia, si pongo pizza me da un error de tamaño
+		return "pizzas/PizzaClienteList";
+	}
 
 	// crear nuevo Pizza
 	@GetMapping(value = "/pizzas/admin/new")
@@ -98,7 +110,7 @@ public class PizzaController {
 	public String initCreationFormCliente(Map<String, Object> model) {
 		Pizza pizza = new Pizza();
 		model.put("pizza", pizza);
-		return "pizzas/createOrUpdatePizzaForm";
+		return "pizzas/createOrUpdatePizzaFormCliente";
 	}
 
 	// mandar nuevo Pizza
@@ -106,15 +118,17 @@ public class PizzaController {
 	public String processCreationFormCliente(@Valid Pizza pizza, BindingResult result,ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("pizza", pizza);//importanteeee
-			return "pizzas/createOrUpdatePizzaForm";
+			return "pizzas/createOrUpdatePizzaFormCliente";
 		} else {
 			Cliente c = getClienteActivo();
 			pizza.setCliente(c);
 			pizza.setPersonalizada(true);
+			Integer numIng = pizza.getIngredientes().size();
+			pizza.setCoste(6 + numIng);
 //			PizzaValidator pizzaValidator = new PizzaValidator();
 //			ValidationUtils.invokeValidator(pizzaValidator, pizza, result);
 			this.pizzaService.savePizza(pizza);
-			return "redirect:/allPizzas";
+			return "redirect:/pizzas/cliente";
 		}
 	}
 	

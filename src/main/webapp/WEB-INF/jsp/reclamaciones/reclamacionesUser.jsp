@@ -8,15 +8,14 @@
     pageEncoding="utf-8"%>
    
 <petclinic:layout pageName="clientes">
-    <h2>Reclamaciones de clientes</h2>
+    <h2>Tus Reclamaciones</h2>
+
     <table id="reclamacionTable" class="table table-striped">
         <thead>
         <tr>
-            <th>ID de pedido</th>
-            <th>Observación<th>
-            <th>Respuesta </th>
-            
-            
+            <th>Descripción</th>
+            <th>Respuesta<th>
+            <th> ID de pedido </th>
         </tr>
         
 <!--         <a href="/reclamaciones/new" class="btn btn-default">Añadir reclamación</a>
@@ -28,16 +27,21 @@
              		<c:out value="${reclamacion.fechaReclamacion}"></c:out>
              		</td> --%>
              		<td>
-             		<c:out value="${reclamacion.id}"></c:out>
-             		</td>
-             		<td>
              		<c:out value="${reclamacion.observacion}"></c:out>
              		</td>
-             		
              		<td>
              		<c:if test="${reclamacion.respuesta != 'Lo sentimos mucho, ...'}">
              		<c:out value="${reclamacion.respuesta}"></c:out></c:if>
+             		</td>
              		
+             		<td>
+             		<!-- No sé si esto es así, creo que sí porque el id 
+             		de la reclamación es clave ajena de la tabla pedido ???
+             		
+             		Aunque creo que para asegurarme debería coger los datos 
+             		de una consulta donde haga un Natural Join Pedido con Reclamacion -->
+             		
+             		<c:out value="${reclamacion.id}"></c:out>
              		</td>
              		
              	<c:if test="${empty reclamacion.respuesta || reclamacion.respuesta == 'Lo sentimos mucho, ...'}">

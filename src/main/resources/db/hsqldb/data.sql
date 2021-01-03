@@ -31,6 +31,9 @@ INSERT INTO authorities(id,username,authority) VALUES (9,'ejemplo1','ejemplo');
 INSERT INTO users(username,password,enabled) VALUES ('serfiggom1','serfiggom1',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (10, 'serfiggom1','cliente');
 
+INSERT INTO users(username,password,enabled) VALUES ('cliente1','cliente1',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (13,'cliente1','cliente');
+
 
 INSERT INTO vets VALUES (1, 'James', 'Carter');
 INSERT INTO vets VALUES (2, 'Helen', 'Leary');
@@ -66,9 +69,7 @@ INSERT INTO owners VALUES (7, 'Jeff', 'Black', '1450 Oak Blvd.', 'Monona', '6085
 INSERT INTO owners VALUES (8, 'Maria', 'Escobito', '345 Maple St.', 'Madison', '6085557683', 'owner1');
 INSERT INTO owners VALUES (9, 'David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435', 'owner1');
 INSERT INTO owners VALUES (10, 'Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487', 'owner1');
-
 INSERT INTO owners VALUES (14, 'Jesus', 'Roldan', 'San Diego 14', 'Sevilla', '633438316', 'jesrolcad');
-
 INSERT INTO owners VALUES (11, 'Lucia', 'Torres', 'Ferrara 4, 41089','Montequinto', '654987321', 'luctorgom');
 INSERT INTO owners VALUES (13, 'Maria', 'Garcia', 'Laguillo 27, 41003','Sevilla', '601242743', 'margarcac1');
 INSERT INTO owners VALUES (12, 'Raul', 'Parrado', 'Sirio 5, 41015','PinoMontano', '622682440', 'raupargor');
@@ -109,7 +110,7 @@ INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario)
 VALUES ('Raúl','Parrado Gordón','2000-05-29','717548963','raupargor@alum.us.es', 'raupargor');
 
 INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
-VALUES ('Álvaro','Sánchez González','2000-01-30','687452196','alvsangon@alum.us.es', 'raupargor');
+VALUES ('Álvaro','Sánchez González','2000-01-30','687452196','alvsangon@alum.us.es', 'cliente1');
 
 INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
 VALUES ('Jesús','Roldán Cadena','2000-08-07','632145879','jesrolcad@alum.us.es', 'jesrolcad');
@@ -148,6 +149,7 @@ INSERT INTO ESTADO_PEDIDO VALUES(1,'EN COCINA');
 INSERT INTO ESTADO_PEDIDO VALUES(2,'PREPARADO');
 INSERT INTO ESTADO_PEDIDO VALUES(3,'EN REPARTO');
 INSERT INTO ESTADO_PEDIDO VALUES(4,'ENTREGADO');
+INSERT INTO ESTADO_PEDIDO VALUES(5,'RECOGIDO');
 
 INSERT INTO TIPO_ENVIO VALUES(2,'DOMICILIO');
 INSERT INTO TIPO_ENVIO VALUES(1,'RECOGER EN TIENDA');

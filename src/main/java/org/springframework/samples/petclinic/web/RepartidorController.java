@@ -115,8 +115,18 @@ public class RepartidorController {
 				repartidor.setFechaInicioContrato(LocalDate.now());
 				repartidor.setFechaFinContrato(null);
 			}else {
-				repartidor.setFechaFinContrato(LocalDate.now());
+				if(repartidor.getFechaInicioContrato().plusDays(31)
+						.isBefore(LocalDate.now())){
+					repartidor.setFechaFinContrato(LocalDate.now());
+				}else {
+					//mandar mensaje
+					Boolean noDarDeBaja = true;
+					model.put("noDarDebaja", noDarDeBaja);
+					return "redirect:/oups";
+				}
 			}
+					
+			
 			this.repartidorService.saveRepartidor(repartidor);
 			return "redirect:/allRepartidores";
 		}
