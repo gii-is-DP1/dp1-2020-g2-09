@@ -79,6 +79,16 @@
    					<a href="${fn:escapeXml(pedidoUrl3)}" class="btn btn-default">Actualizar estado pedido</a>
 				</sec:authorize>
 				</td>
+				
+				<td>
+             	<sec:authorize access="hasAnyAuthority('cocinero')"  >
+					<spring:url value="/pedidos/{pedidoId}/VerPedido" var="pedidoR">
+	                        <spring:param name="pedidoId" value="${pedido.id}"/>
+	                </spring:url>
+   					<a href="${fn:escapeXml(pedidoR)}" class="btn btn-default">Consultar pedido</a>
+				</sec:authorize>
+				</td>
+				
              	
              	<td>
              	<sec:authorize access="hasAnyAuthority('repartidor')"  >
