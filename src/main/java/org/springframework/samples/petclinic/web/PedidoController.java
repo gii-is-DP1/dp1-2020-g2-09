@@ -229,34 +229,8 @@ public class PedidoController {
 			
 			Pedido pedido= pedidoService.findPedidoById(pedidoId);
 			model.put("pedido",pedido);
-			
-			//Recogemos las pizzas de la tabla y la guardamos en el modelo
-			List<Integer> listaIdPizzas = PizzaService.findIdPizzaById(cartaId);
-			Pizzas listaPizzas = new Pizzas();
-			for(int i=0; i<listaIdPizzas.size(); i++) {
-				Integer pizzaId = listaIdPizzas.get(i);
-				Pizza pizza = this.PizzaService.findPizzaById(pizzaId);
-				listaPizzas.getPizzasList().add(pizza);
-			}
-			model.put("pizzas", listaPizzas);
-			
-			List<Integer> listaIdBebidas = BebidaService.findIdBebidaByCartaId(cartaId);
-			Bebidas listaBebidas = new Bebidas();
-			for(int i=0; i<listaIdBebidas.size(); i++) {
-				Integer bebidaId = listaIdBebidas.get(i);
-				Bebida bebida = this.BebidaService.findById(bebidaId);
-				listaBebidas.getBebidasList().add(bebida);
-			}
-			model.put("bebidas", listaBebidas);
-			
-			List<Integer> listaIdOtros = OtrosService.findIdOtroById(cartaId);
-			Otros listaOtros = new Otros();
-			for(int i=0; i<listaIdOtros.size(); i++) {
-				Integer otroId = listaIdOtros.get(i);
-				Otro otro = this.OtrosService.findOtrosById(otroId);
-				listaOtros.getOtrosLista().add(otro);
-			}
-			model.put("otros", listaOtros);
+
+			recogerProductos(pedidoId,model);
 
 			return "cartas/verCarta";
 		}
@@ -322,35 +296,7 @@ public class PedidoController {
 			model.put("cartaId", cartaId);
 			Pedido pedido= pedidoService.findPedidoById(pedidoId);
 			model.put("pedido",pedido);
-			
-			//Recogemos las pizzas de la tabla y la guardamos en el modelo
-			List<Integer> listaIdPizzas = PizzaService.findPizzaPedidoById(pedidoId);
-			Pizzas listaPizzas = new Pizzas();
-			for(int i=0; i<listaIdPizzas.size(); i++) {
-				Integer pizzaId = listaIdPizzas.get(i);
-				Pizza pizza = this.PizzaService.findPizzaById(pizzaId);
-				listaPizzas.getPizzasList().add(pizza);
-			}
-			model.put("pizzas", listaPizzas);
-			
-			List<Integer> listaIdBebidas = BebidaService.findBebidaPedidoById(pedidoId);
-			Bebidas listaBebidas = new Bebidas();
-			for(int i=0; i<listaIdBebidas.size(); i++) {
-				Integer bebidaId = listaIdBebidas.get(i);
-				Bebida bebida = this.BebidaService.findById(bebidaId);
-				listaBebidas.getBebidasList().add(bebida);
-			}
-			model.put("bebidas", listaBebidas);
-			
-			List<Integer> listaIdOtros = OtrosService.findOtrosPedidoById(pedidoId);
-			Otros listaOtros = new Otros();
-			for(int i=0; i<listaIdOtros.size(); i++) {
-				Integer otroId = listaIdOtros.get(i);
-				Otro otro = this.OtrosService.findOtrosById(otroId);
-				listaOtros.getOtrosLista().add(otro);
-			}
-			model.put("otros", listaOtros);
-
+			recogerProductos(pedidoId,model);
 			return "pedidos/resumenPedido";
 		}
 		
@@ -384,6 +330,7 @@ public class PedidoController {
 		}
 		
 		//Borrar productos de un pedido
+		//PIZZAS
 		@GetMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/{pizzaId}/borrarP")
 		public String eliminarPizza(@PathVariable("pedidoId") int pedidoId, @PathVariable("pizzaId") int pizzaId,
 				@PathVariable("cartaId") Integer cartaId, ModelMap model) {
@@ -399,7 +346,7 @@ public class PedidoController {
 			this.pedidoService.savePedido(pedido);
 			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
 		}
-		
+		//BEBIDAS
 		@GetMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/bebidas/{bebidaId}/borrarB")
 		public String eliminarBebida(@PathVariable("pedidoId") int pedidoId, @PathVariable("bebidaId") int bebidaId,
 				@PathVariable("cartaId") Integer cartaId, ModelMap model) {
@@ -415,7 +362,7 @@ public class PedidoController {
 			this.pedidoService.savePedido(pedido);
 			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
 		}
-		
+		//OTROS
 		@GetMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/otros/{otrosId}/borrarO")
 		public String eliminarOtros(@PathVariable("pedidoId") int pedidoId, @PathVariable("otrosId") int otrosId,
 				@PathVariable("cartaId") Integer cartaId, ModelMap model) {
@@ -432,7 +379,44 @@ public class PedidoController {
 			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
 		}
 		
+		//Control elaboracion del pedido
+			@GetMapping(value = "/pedidos/{pedidoId}/VerPedido") 
+			public String verPedido(@PathVariable("pedidoId") Integer pedidoId, ModelMap model) {		
+				Pedido pedido= pedidoService.findPedidoById(pedidoId);
+				model.put("pedido",pedido);
+				recogerProductos(pedidoId,model);
+				return "pedidos/resumenPedido";
+			}
 		
+	//Recoger productos de un pedido		
+	private void recogerProductos(Integer pedidoId, ModelMap model) {
+		List<Integer> listaIdPizzas = PizzaService.findPizzaPedidoById(pedidoId);
+		Pizzas listaPizzas = new Pizzas();
+		for(int i=0; i<listaIdPizzas.size(); i++) {
+			Integer pizzaId = listaIdPizzas.get(i);
+			Pizza pizza = this.PizzaService.findPizzaById(pizzaId);
+			listaPizzas.getPizzasList().add(pizza);
+		}
+		model.put("pizzas", listaPizzas);
+	
+		List<Integer> listaIdBebidas = BebidaService.findBebidaPedidoById(pedidoId);
+		Bebidas listaBebidas = new Bebidas();
+		for(int i=0; i<listaIdBebidas.size(); i++) {
+			Integer bebidaId = listaIdBebidas.get(i);
+			Bebida bebida = this.BebidaService.findById(bebidaId);						
+			listaBebidas.getBebidasList().add(bebida);
+		}
+		model.put("bebidas", listaBebidas);
+			
+		List<Integer> listaIdOtros = OtrosService.findOtrosPedidoById(pedidoId);
+		Otros listaOtros = new Otros();
+		for(int i=0; i<listaIdOtros.size(); i++) {
+			Integer otroId = listaIdOtros.get(i);
+			Otro otro = this.OtrosService.findOtrosById(otroId);
+			listaOtros.getOtrosLista().add(otro);
+		}
+		model.put("otros", listaOtros);
+	}
 	
 
 }
