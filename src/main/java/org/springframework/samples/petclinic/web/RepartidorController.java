@@ -122,7 +122,7 @@ public class RepartidorController {
 					//mandar mensaje
 					Boolean noDarDeBaja = true;
 					model.put("noDarDebaja", noDarDeBaja);
-					return "redirect:/oups";
+					return "redirect:/NoEsPosibleDarDeBaja";
 				}
 			}
 					
