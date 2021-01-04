@@ -28,9 +28,65 @@
 			<div class="control-group">
 			<petclinic:selectField name="tamanoOferta" label="Tamaño producto" names="${tamanoOferta}" size="2"/>
 			<petclinic:selectField name="nivelSocio" label="Nivel Socio" names="${nivelSocio}" size="3"/>
-           <!--  <c:forEach var="p" items="${productos}">
-          	<c:out value="${p.id}"/>
-         	 </c:forEach> -->
+			 <table id="pizzasTable" class="table table-striped">
+             <thead>
+       		 <tr>
+            	<th>Pizza</th>
+            	<th>Agregar</th>
+       	 	 </tr>
+       		 </thead>
+       		 <tbody>
+       		 <c:forEach items="${pizzas}" var="pizza">
+       		 <tr>
+       		 <td>${pizza.nombre}</td>
+       		 <td><form:checkbox path="pizzasEnOferta" value="${pizza}"/> Añadir</td>
+       		 </tr>
+       		 </c:forEach>
+
+       		 
+       		 </tbody>
+             </table>
+             
+			<table id="bebidasTable" class="table table-striped">
+             <thead>
+       		 <tr>
+            	<th>Bebida</th>
+            	<th>Agregar</th>
+       	 	 </tr>
+       		 </thead>
+       		 <tbody>
+       		 <c:forEach items="${bebidas}" var="bebida">
+       		 <tr>
+       		 <td>${bebida.nombre}</td>
+       		 <td><form:checkbox path="bebidasEnOferta" value="${bebida}"/> Añadir</td>
+       		 </tr>
+       		 </c:forEach>
+
+       		 
+       		 </tbody>
+             </table>
+             
+             <table id="otrosTable" class="table table-striped">
+             <thead>
+       		 <tr>
+            	<th>Producto</th>
+            	<th>Agregar</th>
+       	 	 </tr>
+       		 </thead>
+       		 <tbody>
+       		 <c:forEach items="${otros}" var="otro">
+       		 <tr>
+       		 <td>${otro.nombre}</td>
+       		 <td><form:checkbox path="otrosEnOferta" value="${otro}"/> Añadir</td>
+       		 </tr>
+       		 </c:forEach>
+
+       		 
+       		 </tbody>
+             </table>
+            <%--  <c:forEach var="p" items="${pizzas}">
+          	<c:out value="${p.nombre}"/><br>
+         	 </c:forEach> --%>
             </div>
         </div>
         <div class="form-group">
