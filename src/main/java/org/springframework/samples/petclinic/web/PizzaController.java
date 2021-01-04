@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -110,6 +111,8 @@ public class PizzaController {
 	public String initCreationFormCliente(Map<String, Object> model) {
 		Pizza pizza = new Pizza();
 		model.put("pizza", pizza);
+		Cliente cliente = getClienteActivo();
+		model.put("cliente", cliente);
 		return "pizzas/createOrUpdatePizzaFormCliente";
 	}
 
@@ -120,17 +123,30 @@ public class PizzaController {
 			model.put("pizza", pizza);//importanteeee
 			return "pizzas/createOrUpdatePizzaFormCliente";
 		} else {
-			Cliente c = getClienteActivo();
-			pizza.setCliente(c);
+			Cliente cliente = getClienteActivo();
+			pizza.setCliente(cliente);
 			pizza.setPersonalizada(true);
 			Integer numIng = pizza.getIngredientes().size();
 			pizza.setCoste(6 + numIng);
+			
+			//comprobamos que el nombre de la pizza personalizada no está duplicado (RN-4)
+			Boolean duplicado = false;
+			List<Pizza> pizzasCliente = pizzaService.findPizzaByCliente(cliente);
+			for(int i=0; i<pizzasCliente.size() && !duplicado; i++) {
+				if(pizza.getNombre().equals(pizzasCliente.get(i).getNombre())) {
+					 duplicado = true;
+				}
+			}
+			if(duplicado) {
+				return "redirect:/NombreDePizzaPersonalizadaDuplicado";
+			}
+		}
 //			PizzaValidator pizzaValidator = new PizzaValidator();
 //			ValidationUtils.invokeValidator(pizzaValidator, pizza, result);
 			this.pizzaService.savePizza(pizza);
 			return "redirect:/pizzas/cliente";
 		}
-	}
+	
 	
 	
 	

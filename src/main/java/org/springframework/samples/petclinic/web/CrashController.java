@@ -19,20 +19,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
-/**
- * Controller used to showcase what happens when an exception is thrown
- *
- * @author Michael Isvy
- * <p/>
- * Also see how the bean of type 'SimpleMappingExceptionResolver' has been declared inside
- * /WEB-INF/mvc-core-config.xml
- */
+
 @Controller
 public class CrashController {
 
-	@GetMapping(value = "/oups")
-	public String triggerException(ModelMap model) {
+	@GetMapping(value = "/NoEsPosibleDarDeBaja")
+	public String triggerExceptionRN5(ModelMap model) {
 		model.put("mensaje", "No puede dar de baja a alguien que no ha cumplido aun 1 mes de contrato, reglas de negocio.");
+		return "exception";
+	}
+	
+	@GetMapping(value = "/NombreDePizzaPersonalizadaDuplicado")
+	public String triggerExceptionRN4(ModelMap model) {
+		model.put("mensaje", "Ha intentado guardar una pizza personalizada con el nombre que ya existía de una pizza que ya había guardado y que le pertenece.");
 		return "exception";
 	}
 

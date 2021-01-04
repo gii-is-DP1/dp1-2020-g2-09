@@ -27,6 +27,7 @@
 			<petclinic:selectField name="tamano" label="Tamaño" names="${tamanyo}" size="3"/>
                      
 			<input id="coste" name="coste" type="hidden" value="6">
+			<!-- <input id="cliente" name="cliente" type="hidden" value="${cliente.nombre}"/> -->
 			
             <table id="ingredientesTable" class="table table-striped">
              <thead>
