@@ -22,4 +22,7 @@ public interface OfertaRepository  extends CrudRepository<Oferta, Integer> {
 	@Query("SELECT nsocio FROM NivelSocio nsocio")
 	List<NivelSocio> findNivelSocio() throws DataAccessException;
 
+//	@Modifying
+//	  @Query(value = "INSERT INTO OFERTA_PRODUCTO(OFERTA_ID, PRODUCTO_EN_OFERTA_ID) VALUES (?1, ?2)",	nativeQuery = true)
+//		void asociarOfertaAProducto(int ofertaId, int productoEnOfertaId);
 }

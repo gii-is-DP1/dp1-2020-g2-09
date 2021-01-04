@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.NivelSocio;
@@ -50,6 +51,11 @@ public class OfertaService {
 	public void deleteOferta(Oferta oferta) throws DataAccessException {
 		ofertaRepository.delete(oferta);		
 	}
-
 	
+//	@Transactional
+//	public void asociarOfertaAProductos(int ofertaId,List<Producto> productosEnOfertaId) throws DataAccessException {
+//		for(int i =0;i<=productosEnOfertaId.size();i++) {		
+//		ofertaRepository.asociarOfertaAProducto(ofertaId, productosEnOfertaId.get(i).getId());
+//		}
+//	}
 }

@@ -15,7 +15,6 @@ import org.springframework.samples.petclinic.service.OfertaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -30,11 +29,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class OfertaController {
 	
 	private final OfertaService ofertaService;
-
+//	private final BebidaService bebidaService;
+//	private final PizzaService pizzaService;
+//	private final OtrosService otrosService;
 	@Autowired
 	public OfertaController(OfertaService ofertaService) {
 		this.ofertaService = ofertaService;
+
 	}
+//	@Autowired
+//	public OfertaController(OfertaService ofertaService,OtrosService otrosService,PizzaService pizzaService,BebidaService bebidaService) {
+//		this.ofertaService = ofertaService;
+//		this.bebidaService = bebidaService;
+//		this.pizzaService = pizzaService;
+//		this.otrosService = otrosService;
+//	}
 
 	@InitBinder("oferta")
 	public void initOfertaBinder(WebDataBinder dataBinder) {
@@ -69,21 +78,25 @@ public class OfertaController {
 	@GetMapping(value = "/ofertas/new")
 	public String initCreationForm(Map<String, Object> model) {
 		Oferta oferta = new Oferta();
+//		List<Producto> productos=new ArrayList<Producto>();
+//		model.put("productos", productos);
 		model.put("oferta", oferta);
 		return "ofertas/createOrUpdateOfertaForm";
 	}
 
 	//mandar nueva oferta
 	@PostMapping(value = "/ofertas/new")
-	public String processCreationForm(@Valid Oferta oferta,  BindingResult result, ModelMap model) {
+	public String processCreationForm(@Valid Oferta oferta,BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("oferta", oferta);//importanteeee
+			//model.put("productos", productos);
 			return "ofertas/createOrUpdateOfertaForm";
 		}
 		else {
 //			OfertaValidator ofValidator = new OfertaValidator();
 //			ValidationUtils.invokeValidator(ofValidator, oferta, result);
 			this.ofertaService.saveOferta(oferta);
+		//	this.ofertaService.asociarOfertaAProductos(oferta.getId(), productos);
 			return "redirect:/allOfertas";
 		}
 	}
