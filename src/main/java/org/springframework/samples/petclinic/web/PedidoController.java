@@ -417,6 +417,9 @@ public class PedidoController {
 			listaOtros.getOtrosLista().add(otro);
 		}
 		model.put("otros", listaOtros);
+		Pizzas pizzasP = new Pizzas();
+		pizzasP.getPizzasList().addAll(this.PizzaService.findPizzaByCliente(getClienteActivo()));
+		model.put("PizzasP", pizzasP);  //si pongo Pizzas me pone la tabla vacia, si pongo pizza me da un error de tamaño
 
 	}
 	
@@ -449,6 +452,17 @@ public class PedidoController {
 			}
 			model.put("otros", listaOtros);
 
+		}
+		private Cliente getClienteActivo() {
+			UserDetails userDetails = null;
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	        if (principal instanceof UserDetails) {
+	          userDetails = (UserDetails) principal;
+	        }
+	        String userName = userDetails.getUsername();
+	        User usuario = this.userService.findUser(userName).get();
+	        Cuenta cliente= this.clienteService.findCuentaByUser(usuario);
+	        return  (Cliente) cliente;
 		}
 	
 
