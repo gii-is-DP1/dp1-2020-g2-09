@@ -15,7 +15,24 @@
             <petclinic:inputField label="Nombre del plato" name="nombre"/>
 			<petclinic:input name="coste" label="Precio"/>
             <petclinic:inputField label="contador" name="contador"/>
-            <petclinic:selectField name="ingredientes" label="ingredientes" names="${ingredientes}" size="3"/>
+            <table id="ingredientesTable" class="table table-striped">
+             <thead>
+       		 <tr>
+            	<th>Ingrediente</th>
+            	<th>Agregar</th>
+       	 	 </tr>
+       		 </thead>
+       		 <tbody>
+       		 <c:forEach items="${ingredientes}" var="ing">
+       		 <tr>
+       		 <td>${ing.nombre}</td>
+       		 <td><form:checkbox path="ingredientes" value="${ing}"/> Añadir</td>
+       		 </tr>
+       		 </c:forEach>
+
+       		 
+       		 </tbody>
+             </table>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
