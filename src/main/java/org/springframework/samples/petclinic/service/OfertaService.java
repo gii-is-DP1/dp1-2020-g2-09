@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.NivelSocio;
 import org.springframework.samples.petclinic.model.Oferta;
+import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.TamanoOferta;
 import org.springframework.samples.petclinic.repository.OfertaRepository;
 import org.springframework.stereotype.Service;
@@ -57,5 +58,16 @@ public class OfertaService {
 //		for(int i =0;i<=productosEnOfertaId.size();i++) {		
 //		ofertaRepository.asociarOfertaAProducto(ofertaId, productosEnOfertaId.get(i).getId());
 //		}
+//	}
+	
+	@Transactional
+	public void asociarOfertaAPizzas(int ofertaId,List<Pizza> pizzasEnOferta) throws DataAccessException {
+		for(int i =0;i<=pizzasEnOferta.size();i++) {		
+		ofertaRepository.asociarOfertaAPizza(ofertaId, pizzasEnOferta.get(i).getId());
+		}
+	}
+//	@Transactional(readOnly = true)
+//	public List<Integer> findPizzasEnOferta() throws DataAccessException {
+//		return ofertaRepository.findPizzasEnOferta();
 //	}
 }

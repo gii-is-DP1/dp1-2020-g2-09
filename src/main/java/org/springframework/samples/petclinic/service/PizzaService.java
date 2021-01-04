@@ -2,12 +2,10 @@ package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-
-import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.model.Cliente;
-
 import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.TamanoProducto;
 import org.springframework.samples.petclinic.model.tipoMasa;
@@ -19,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class PizzaService {
 
 	private PizzaRepository pizzaRepository;
-
 
 	@Autowired
 	public PizzaService(PizzaRepository PizzaRepository) {
@@ -86,4 +83,5 @@ public class PizzaService {
 	public List<Pizza> findPizzaNoPersonalizada(){
     	return pizzaRepository.findPizzaNoPersonalizada();
     }
+
 }

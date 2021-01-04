@@ -1,13 +1,7 @@
 package org.springframework.samples.petclinic.model;
 
 
-import java.util.Collection;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -39,7 +33,7 @@ public class Producto extends BaseEntity {
 	@NotNull
 	private Integer contador=1;
 
-	@ManyToMany (cascade = CascadeType.MERGE)
-	@JoinTable(name = "OfertaProducto", joinColumns =@JoinColumn(name= "ofertaId" ))
-	private Collection<Oferta> productoEnOferta;
+//	@ManyToMany (cascade = CascadeType.MERGE)
+//	@JoinTable(name = "OfertaProducto", joinColumns =@JoinColumn(name= "ofertaId" ))
+//	private Collection<Oferta> productoEnOferta;
 }
