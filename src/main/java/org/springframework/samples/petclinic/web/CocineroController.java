@@ -119,7 +119,7 @@ public class CocineroController {
 				//mandar mensaje
 				Boolean noDarDeBaja = true;
 				model.put("noDarDebaja", noDarDeBaja);
-				return "redirect:/oups";
+				return "redirect:/NoEsPosibleDarDeBaja";
 			}
 		}
 		this.cocineroService.saveCocinero(cocinero);
