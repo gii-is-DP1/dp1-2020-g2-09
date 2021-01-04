@@ -230,7 +230,7 @@ public class PedidoController {
 			Pedido pedido= pedidoService.findPedidoById(pedidoId);
 			model.put("pedido",pedido);
 
-			recogerProductos(cartaId,model);
+			recogerProductosCarta(cartaId,model);
 
 			return "cartas/verCarta";
 		}
@@ -295,8 +295,8 @@ public class PedidoController {
 			
 			model.put("cartaId", cartaId);
 			Pedido pedido= pedidoService.findPedidoById(pedidoId);
+			recogerProductosPedido(pedidoId,model);
 			model.put("pedido",pedido);
-			recogerProductos(pedidoId,model);
 			return "pedidos/resumenPedido";
 		}
 		
@@ -384,12 +384,13 @@ public class PedidoController {
 			public String verPedido(@PathVariable("pedidoId") Integer pedidoId, ModelMap model) {		
 				Pedido pedido= pedidoService.findPedidoById(pedidoId);
 				model.put("pedido",pedido);
-				recogerProductos(pedidoId,model);
+				recogerProductosPedido(pedidoId,model);
 				return "pedidos/resumenPedido";
 			}
 		
-	//Recoger productos de un pedido		
-	private void recogerProductos(Integer cartaId, ModelMap model) {
+			
+	//Recoger productos de carta	
+	private void recogerProductosCarta(Integer cartaId, ModelMap model) {
 		List<Integer> listaIdPizzas = PizzaService.findIdPizzaById(cartaId);
 		Pizzas listaPizzas = new Pizzas();
 		for(int i=0; i<listaIdPizzas.size(); i++) {
@@ -418,6 +419,37 @@ public class PedidoController {
 		model.put("otros", listaOtros);
 
 	}
+	
+	//Recoger productos de un pedido		
+		private void recogerProductosPedido(Integer pedidoId, ModelMap model) {
+			List<Integer> listaIdPizzas = PizzaService.findPizzaPedidoById(pedidoId);
+			Pizzas listaPizzas = new Pizzas();
+			for(int i=0; i<listaIdPizzas.size(); i++) {
+				Integer pizzaId = listaIdPizzas.get(i);
+				Pizza pizza = this.PizzaService.findPizzaById(pizzaId);
+				listaPizzas.getPizzasList().add(pizza);
+			}
+			model.put("pizzas", listaPizzas);
+			
+			List<Integer> listaIdBebidas = BebidaService.findBebidaPedidoById(pedidoId);
+			Bebidas listaBebidas = new Bebidas();
+			for(int i=0; i<listaIdBebidas.size(); i++) {
+				Integer bebidaId = listaIdBebidas.get(i);
+				Bebida bebida = this.BebidaService.findById(bebidaId);
+				listaBebidas.getBebidasList().add(bebida);
+			}
+			model.put("bebidas", listaBebidas);
+			
+			List<Integer> listaIdOtros = OtrosService.findOtrosPedidoById(pedidoId);
+			Otros listaOtros = new Otros();
+			for(int i=0; i<listaIdOtros.size(); i++) {
+				Integer otroId = listaIdOtros.get(i);
+				Otro otro = this.OtrosService.findOtrosById(otroId);
+				listaOtros.getOtrosLista().add(otro);
+			}
+			model.put("otros", listaOtros);
+
+		}
 	
 
 }

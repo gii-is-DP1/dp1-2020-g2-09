@@ -3,9 +3,7 @@ package org.springframework.samples.petclinic.web;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Cuenta;
@@ -26,7 +24,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -197,19 +194,19 @@ public class PizzaController {
 
 			// mandar actualizacion
 			@PostMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/{pizzaId}/edit")
-			public String processUpdatePizzaForm2(@Valid Pizza Pizza, BindingResult result,
-					@PathVariable("pizzaId") int pizzaId) {
+			public String processUpdatePizzaForm2(@Valid Pizza pizza, BindingResult result,
+					@PathVariable("pizzaId") int pizzaId,
+					@PathVariable("pedidoId") int pedidoId,@PathVariable("cartaId") int cartaId) {
 				if (result.hasErrors()) {
 					return "pizzas/UpdatePizzaFormPedido";
 				} else {
-					Pizza.setId(pizzaId);
-					Pizza.setCoste(Pizza.getCoste());
-					Pizza.setIngredientes(Pizza.getIngredientes());
-					Pizza.setNombre(Pizza.getNombre());
-					Pizza.setContador(Pizza.getContador());
-//					PizzaValidator pizzaValidator = new PizzaValidator();
-//					ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
-					this.pizzaService.savePizza(Pizza);
+					pizza.setId(pizzaId);
+					pizza.setCoste(pizza.getCoste());
+					pizza.setIngredientes(pizza.getIngredientes());
+					pizza.setNombre(pizza.getNombre());
+					pizza.setContador(pizza.getContador());
+					pizza.setPersonalizada(true);
+					this.pizzaService.savePizza(pizza);
 					return "redirect:/allPizzas";
 				}
 			}

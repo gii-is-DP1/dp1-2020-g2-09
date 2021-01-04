@@ -12,8 +12,9 @@
     </h2>
     <form:form modelAttribute="pizza" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
-            <%-- <petclinic:inputField label="Nombre de la pizza" name="nombre"/>
-                  --%>
+            
+              <input id="nombre" name="nombre" type="hidden" value="${pizza.nombre}">   
+          
              <div class="control-group">
            
             <petclinic:selectField name="tipoMasa" label="Tipo de Masa" names="${tipoMasa}" size="3"/>
@@ -25,8 +26,13 @@
 			</select>-->
 			
 			<petclinic:selectField name="tamano" label="Tamaño" names="${tamanyo}" size="3"/>
-                    
-            
+                  
+           <input id="contador" name="contador" type="hidden" value="${pizza.contador}">     
+             <input id="id" name="id" type="hidden" value="${pizza.id}"> 
+              <input id="coste" name="coste" type="hidden" value="${pizza.coste}"> 
+              <input id="Personalizada" name="Personalizada" type="hidden" value="true"> 
+              
+              <input id="ingredientes" name="ingredientes" type="hidden" value="${pizza.ingredientes}">
              <!--<petclinic:inputField label="contador" name="contador"/> -->
             <!--<petclinic:inputField label="Id" name="id"/> -->
             </div>
