@@ -104,13 +104,14 @@ class ReservaControllerTests {
 	@WithMockUser(value = "spring")
         @Test
 	void testProcessCreationFormSuccess() throws Exception {
+		
 		mockMvc.perform(post("/reservas/new", TEST_RESERVA_ID)
 							.with(csrf())
 							.param("numeroPersonas", "6")
-							.param("tipoReserva", "CENA")
-							.param("fechaReserva", "2015/02/12")
-							.param("hora","12:20:09")
-							.param("mesasEnReserva","1"))
+							.param("tipoReserva.name", "CENA")
+							.param("fechaReserva", "2022/02/12")
+							.param("hora", String.valueOf(LocalTime.of(10, 12))))
+							//.param("mesasEnReserva.capacidad","1"))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/allReservas"));
 	}
@@ -145,10 +146,11 @@ class ReservaControllerTests {
 		mockMvc.perform(post("/reservas/{reservaId}/edit", TEST_RESERVA_ID)
 							.with(csrf())
 							.param("numeroPersonas", "6")
-							.param("tipoReserva", "CENA")
+							.param("tipoReserva.name", "CENA")
 							.param("fechaReserva", "2015/02/12")
-							.param("hora","12:20:09")
-							.param("mesasEnReserva","1"))
+							.param("hora","12:20:09"))
+							//.param("hora",String.valueOf(LocalTime.of(10, 12))))
+							//.param("mesasEnReserva","1"))
 				.andExpect(status().is3xxRedirection())
 				//.andExpect(status().isOk())
 				.andExpect(view().name("redirect:/allReservas"));

@@ -58,4 +58,9 @@ public interface PizzaRepository extends CrudRepository<Pizza, Integer> {
 			nativeQuery = true)
 	List<Pizza> findPizzaNoPersonalizada() throws DataAccessException;
 
+//	@Modifying
+//    @Query(value = "INSERT INTO OFERTA_PIZZA(PIZZAS_ID, PIZZA_EN_OFERTA_ID) VALUES (?1, ?2)",
+//			nativeQuery = true)
+//	void añadirOferta(int pizzaId, int pizzaEnOfertaId);
+
 }

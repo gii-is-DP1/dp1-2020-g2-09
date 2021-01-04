@@ -58,6 +58,20 @@ public class ReservaValidator implements Validator {
 					"No puede introducir una reserva con valores nulos");
 		}
 		
+		//Ver el tipo de reserva: si es almuerzo, permitir horas entre 12:00 y 15:00 (por ejemplo)
+		//Si es una cena, elegir entre 20:00 y 23:00
+		
+		if(tipoReserva.getName().equals("ALMUERZO")) {
+			if(hora.getHour()<12 || hora.getHour()>15)
+				errors.rejectValue("hora", "Por favor, seleccione una hora entre las 12:00 y las 15:00",
+						"Por favor, seleccione una hora entre las 12:00 y las 15:00");
+		} else {
+			if(hora.getHour()<20 || hora.getHour()>23) {
+				errors.rejectValue("hora", "Por favor, seleccione una hora entre las 20:00 y las 23:00",
+						"Por favor, seleccione una hora entre las 20:00 y las 23:00");
+			}
+		}
+		
 	}
 }
 

@@ -7,27 +7,37 @@
     pageEncoding="UTF-8"%>
 
 <petclinic:layout pageName="cartas">
-    <h2>
-        <c:if test="${carta['new']}">Nueva </c:if> Carta
-    </h2>
-    <form:form modelAttribute="carta" class="form-horizontal" id="add-owner-form">
-        <div class="form-group has-feedback">
-         	<petclinic:inputField label="Nombre" name="nombre"/>
-            <petclinic:inputField label="Fecha de Creacion" name="fechaCreacion"/>
-            <petclinic:inputField label="Fecha Final" name="fechaFinal"/>
-            <!--<petclinic:inputField label="Id" name="id" />-->
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <c:choose>
-                    <c:when test="${carta['new']}">
-                        <button class="btn btn-default" type="submit">Añadir carta</button>
-                    </c:when>
-                    <c:otherwise>
-                        <button class="btn btn-default" type="submit">Actualizar carta</button>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-        </div>
-    </form:form>
+<jsp:attribute name="customScript">
+  		  <script>
+            $(function() {
+                $("#fechaCreacion").datepicker({dateFormat: 'yy/mm/dd'});
+                $("#fechaFinal").datepicker({dateFormat: 'yy/mm/dd'});
+            });
+  		</script>
+  	</jsp:attribute>
+  	<jsp:body>
+	    <h2>
+	        <c:if test="${carta['new']}">Nueva </c:if> Carta
+	    </h2>
+	    <form:form modelAttribute="carta" class="form-horizontal" id="add-owner-form">
+	        <div class="form-group has-feedback">
+	         	<petclinic:inputField label="Nombre" name="nombre"/>
+	            <petclinic:inputField label="Fecha de Creacion" name="fechaCreacion"/>
+	            <petclinic:inputField label="Fecha Final" name="fechaFinal"/>
+	            <!--<petclinic:inputField label="Id" name="id" />-->
+	        </div>
+	        <div class="form-group">
+	            <div class="col-sm-offset-2 col-sm-10">
+	                <c:choose>
+	                    <c:when test="${carta['new']}">
+	                        <button class="btn btn-default" type="submit">Añadir carta</button>
+	                    </c:when>
+	                    <c:otherwise>
+	                        <button class="btn btn-default" type="submit">Actualizar carta</button>
+	                    </c:otherwise>
+	                </c:choose>
+	            </div>
+	        </div>
+	    </form:form>
+    </jsp:body>
 </petclinic:layout>
