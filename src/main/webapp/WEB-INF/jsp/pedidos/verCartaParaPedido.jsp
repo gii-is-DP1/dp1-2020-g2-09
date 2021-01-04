@@ -12,6 +12,7 @@
 <petclinic:layout pageName="carta">
     <h2>Carta</h2>
     
+    <h3>Pizzas Personalizadas</h3>
     <!--<c:out value="${cartaId}"></c:out>-->
 	    <sec:authorize access="hasAnyAuthority('administrador')"  >
 	   			<spring:url value="/cartas/{cartaId}/pizzas" var="listaPizzas">
@@ -20,7 +21,77 @@
 		    <a href="${fn:escapeXml(listaPizzas)}" class="btn btn-default">Añadir pizza a la carta</a>
     	</sec:authorize>
 
-	  
+	<table id="pizzasPersonalizadasTable" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Tamaño producto</th>
+            <th>Coste</th>
+            <th>Tipo Masa</th>
+            <th>Ingredientes</th>
+         
+            <th></th>
+             <th></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${PizzasP.pizzasList}" var="pizza">
+            <tr>
+                <td>
+                    <c:out value="${pizza.nombre}"/>
+                </td>
+               <td>
+                	<c:out value="${pizza.tamano}"/>
+             	</td>
+             	<td>
+             		<c:out value="${pizza.coste}"/>
+             	</td>
+             	 <td>
+             		<c:out value="${pizza.tipoMasa}"/>
+             	</td>
+
+             	
+             	<td>
+             		<ul>
+             			<c:forEach items="${pizza.ingredientes}" var="ingrediente">
+             				<li>
+             					<c:out value="${ingrediente.nombre}"/>
+             				</li>
+             			</c:forEach>
+             		</ul>
+             	</td>
+             	
+            
+
+
+             	<td>
+             		<spring:url value="/cartas/{cartaId}/pizza/{pizzaId}/edit" var="pizzaUrl">
+             				<spring:param name="cartaId" value="${cartaId}"/>
+	                        <spring:param name="pizzaId" value="${pizza.id}"/>
+	                </spring:url>
+   					<a href="${fn:escapeXml(pizzaUrl)}" class="btn btn-default">Editar</a>
+             	</td>
+             	<td>
+             	
+             		
+             		<sec:authorize access="hasAnyAuthority('cliente')"  >
+                    <spring:url value="/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirPizza/{pizzaId}" var="pedidoPizzaUrl">
+                    		<spring:param name="pedidoId" value="${pedido.id}"/>
+                    		<spring:param name="cartaId" value="${cartaId}"/>
+	                        <spring:param name="pizzaId" value="${pizza.id}"/>
+	                </spring:url>
+   					<a href=" ${fn:escapeXml(pedidoPizzaUrl)}" class="btn btn-default">Añadir Pizza</a>
+   					</sec:authorize>
+               </td> 
+             	
+             	
+            </tr>
+        </c:forEach>
+        
+        </tbody>
+    </table>
+    <br/>  
 	<h3>Pizzas</h3>
     <table id="pizzasTableCarta" class="table table-striped">
         <thead>
@@ -57,6 +128,28 @@
              			</c:forEach>
              		</ul>
              	</td>
+             	<td>
+             	<sec:authorize access="hasAnyAuthority('cliente')"  >
+             		<spring:url value="/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/{pizzaId}/edit" var="editarPizza">
+             			<spring:param name="cartaId" value="${cartaId}"/>
+             			<spring:param name="pedidoId" value="${pedido.id}"/>
+						<spring:param name="pizzaId" value="${pizza.id}"/>
+				 	</spring:url>
+					<a href="${fn:escapeXml(editarPizza)}" class="btn btn-default">Editar</a>
+				</sec:authorize>
+             	</td>
+             	<td>
+             	
+             		
+             		<sec:authorize access="hasAnyAuthority('cliente')"  >
+                    <spring:url value="/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirPizza/{pizzaId}" var="pedidoPizzaUrl">
+                    		<spring:param name="pedidoId" value="${pedido.id}"/>
+                    		<spring:param name="cartaId" value="${cartaId}"/>
+	                        <spring:param name="pizzaId" value="${pizza.id}"/>
+	                </spring:url>
+   					<a href=" ${fn:escapeXml(pedidoPizzaUrl)}" class="btn btn-default">Añadir Pizza</a>
+   					</sec:authorize>
+               </td> 
              	<td>
              		<sec:authorize access="hasAnyAuthority('administrador')"  >
 			    		<spring:url value="/cartas/{cartaId}/pizza/{pizzaId}/deleteFromCarta" var="quitarPizza">
@@ -112,6 +205,16 @@
              		<c:out value="${bebida.id}"></c:out>
              	</td> -->  
              	<td>
+             		<sec:authorize access="hasAnyAuthority('cliente')"  >
+                    <spring:url value="/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirBebida/{bebidaId}" var="pedidoBebidaUrl">
+                    		<spring:param name="pedidoId" value="${pedido.id}"/>
+                    		<spring:param name="cartaId" value="${cartaId}"/>
+	                        <spring:param name="bebidaId" value="${bebida.id}"/>
+	                </spring:url>
+   					<a href=" ${fn:escapeXml(pedidoBebidaUrl)}" class="btn btn-default">Añadir Bebida</a>
+   					</sec:authorize>
+               </td> 	
+             	<td>
              		<sec:authorize access="hasAnyAuthority('administrador')"  >
 			    		<spring:url value="/cartas/{cartaId}/bebida/{bebidaId}/deleteFromCarta" var="quitarBebida">
 				        	<spring:param name="cartaId" value="${cartaId}"/> 
@@ -163,6 +266,16 @@
              			</c:forEach>
              		</ul>
              	</td>
+             	<td>
+             		<sec:authorize access="hasAnyAuthority('cliente')"  >
+                    <spring:url value="/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirOtros/{otrosId}" var="pedidoOtrosUrl">
+                    		<spring:param name="pedidoId" value="${pedido.id}"/>
+                    		<spring:param name="cartaId" value="${cartaId}"/>
+	                        <spring:param name="otrosId" value="${otro.id}"/>
+	                </spring:url>
+   					<a href=" ${fn:escapeXml(pedidoOtrosUrl)}" class="btn btn-default">Añadir</a>
+   					</sec:authorize>
+               </td> 
              	<td>
              		<sec:authorize access="hasAnyAuthority('administrador')"  >
 			    		<spring:url value="/cartas/{cartaId}/otros/{otrosId}/deleteFromCarta" var="quitarOtro">

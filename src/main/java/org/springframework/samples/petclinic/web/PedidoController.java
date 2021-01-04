@@ -229,11 +229,12 @@ public class PedidoController {
 			
 			Pedido pedido= pedidoService.findPedidoById(pedidoId);
 			model.put("pedido",pedido);
-
+			
 			recogerProductosCarta(cartaId,model);
 
-			return "cartas/verCarta";
+			return "pedidos/verCartaParaPedido";
 		}
+		
 		
 		//Aqui tenemos que añadir la pizza seleccionado a un nuevo pedido
 		@GetMapping("/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirPizza/{pizzaId}")
