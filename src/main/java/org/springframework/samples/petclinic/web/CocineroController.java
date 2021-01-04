@@ -113,12 +113,13 @@ public class CocineroController {
 			cocinero.setFechaInicioContrato(LocalDate.now());
 			cocinero.setFechaFinContrato(null);
 		}else {
-			if(cocinero.getFechaInicioContrato().plusDays(31).isBefore(LocalDate.now())){
+			if(cocinero.getFechaInicioContrato().plusDays(31)
+					.isBefore(LocalDate.now())){
 				cocinero.setFechaFinContrato(LocalDate.now());
 			}else {
 				//mandar mensaje
-				Boolean noDarDeBaja = true;
-				model.put("noDarDebaja", noDarDeBaja);
+//				Boolean noDarDeBaja = true;
+//				model.put("noDarDebaja", noDarDeBaja);
 				return "redirect:/NoEsPosibleDarDeBaja";
 			}
 		}

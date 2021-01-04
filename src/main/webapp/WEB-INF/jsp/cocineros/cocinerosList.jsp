@@ -44,21 +44,9 @@
              	<td>
              		<c:out value="${cocinero.fechaInicioContrato}"/>
              	</td>
-             		<c:choose>
-                <c:when test="${empty cocinero.fechaFinContrato}">
-                    <td>
-                        <c:out value=" "/>
-                      </td>
-                </c:when>
-              <c:otherwise>
                 <td>
-                  <c:out value="${cocinero.fechaInicioContrato}"/>
+                  <c:out value="${cocinero.fechaFinContrato}"/>
                 </td>
-    					</c:otherwise>
-					</c:choose>
-             	<!-- <td>
-             		<c:out value="${cuenta.id}"></c:out>
-             	</td> -->
              	<td>
              		<spring:url value="/cocineros/{cocineroId}/edit" var="cocineroUrl">
 	                        <spring:param name="cocineroId" value="${cocinero.id}"/>

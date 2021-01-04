@@ -40,7 +40,7 @@ public class ClienteService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Cuenta findCuentaByUser(User usuario) {
+	public Cliente findCuentaByUser(User usuario) {
 		return clienteRepository.findByUser(usuario);
 	}
 	

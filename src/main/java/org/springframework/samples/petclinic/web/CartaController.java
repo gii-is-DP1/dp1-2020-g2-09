@@ -217,22 +217,57 @@ public class CartaController {
 	@GetMapping(value = "/cartas/{cartaId}/anadirPizzaACarta/{pizzaId}")
     public String añadirPizzaACarta(@PathVariable("pizzaId") int pizzaId,
     		@PathVariable("cartaId") int cartaId) {
-    	this.PizzaService.añadirPizzaACarta(pizzaId, cartaId);
-    	return "redirect:/cartas/{cartaId}/VerCarta";
+		List<Integer> listaIds = this.PizzaService.findIdPizzaById(cartaId);
+		Boolean duplicada = false;
+		for(int i=0; i < listaIds.size() && !duplicada; i++) {
+			if(listaIds.get(i).equals(pizzaId)) {
+				duplicada = true;
+			}
+		}
+		if(!duplicada) {
+			this.PizzaService.añadirPizzaACarta(pizzaId, cartaId);
+			return "redirect:/cartas/{cartaId}/VerCarta";
+		}else {
+			return "redirect:/PizzaDuplicadaEnCarta";
+		}
+    	
     }
 	
 	@GetMapping(value = "/cartas/{cartaId}/anadirBebidaACarta/{bebidaId}")
     public String añadirBebidaACarta(@PathVariable("bebidaId") int bebidaId,
     		@PathVariable("cartaId") int cartaId) {
-    	this.BebidaService.añadirBebidaACarta(bebidaId, cartaId);
-    	return "redirect:/cartas/{cartaId}/VerCarta";
+		List<Integer> listaIds = this.BebidaService.findIdBebidaByCartaId(cartaId);
+		Boolean duplicada = false;
+		for(int i=0; i < listaIds.size() && !duplicada; i++) {
+			if(listaIds.get(i).equals(bebidaId)) {
+				duplicada = true;
+			}
+		}
+		if(!duplicada) {
+			this.BebidaService.añadirBebidaACarta(bebidaId, cartaId);
+	    	return "redirect:/cartas/{cartaId}/VerCarta";
+		}else {
+			return "redirect:/BebidaDuplicadaEnCarta";
+		}
     }
 	
 	@GetMapping(value = "/cartas/{cartaId}/anadirOtroACarta/{otroId}")
     public String añadirOtroACarta(@PathVariable("otroId") int otroId,
     		@PathVariable("cartaId") int cartaId) {
-    	this.OtrosService.añadirOtroACarta(otroId, cartaId);
-    	return "redirect:/cartas/{cartaId}/VerCarta"; 
+		List<Integer> listaIds = this.OtrosService.findIdOtroById(cartaId);
+		Boolean duplicada = false;
+		for(int i=0; i < listaIds.size() && !duplicada; i++) {
+			if(listaIds.get(i).equals(otroId)) {
+				duplicada = true;
+			}
+		}
+		if(!duplicada) {
+			this.OtrosService.añadirOtroACarta(otroId, cartaId);
+	    	return "redirect:/cartas/{cartaId}/VerCarta"; 
+		}else {
+			return "redirect:/OtroDuplicadaEnCarta";
+		}
+    	
     }
 	
 	
