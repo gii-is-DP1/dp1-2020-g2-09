@@ -34,6 +34,14 @@ INSERT INTO authorities(id,username,authority) VALUES (10, 'serfiggom1','cliente
 INSERT INTO users(username,password,enabled) VALUES ('cliente1','cliente1',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (13,'cliente1','cliente');
 
+INSERT INTO users(username,password,enabled) VALUES ('pepinho','pepinho',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (14,'pepinho','cliente');
+
+
+INSERT INTO NIVEL_SOCIO VALUES(3,'ORO');
+INSERT INTO NIVEL_SOCIO VALUES(1,'PLATA');
+INSERT INTO NIVEL_SOCIO VALUES(2,'BRONCE');
+
 
 INSERT INTO vets VALUES (1, 'James', 'Carter');
 INSERT INTO vets VALUES (2, 'Helen', 'Leary');
@@ -102,6 +110,9 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04',
 
 INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
 VALUES ('María','García Cáceres','2000-01-01','654123987','margarcar@alum.us.es', 'margarcac1');
+
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario, fecha_alta, nivel_socio) 
+VALUES ('Pepe','García Cáceres','2000-01-01','654123987','pepepalotes@gmail.com', 'pepinho', '2020-01-02', 3);
 
 INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
 VALUES ('Servando','Figueroa Gómez','2000-08-12','698745213','serfiggom@alum.us.es', 'serfiggom1');
@@ -214,9 +225,6 @@ INSERT INTO TAMANO_PRODUCTO VALUES(2,'GRANDE');
 INSERT INTO TAMANO_OFERTA VALUES(1,'NORMAL');
 INSERT INTO TAMANO_OFERTA VALUES(3,'GRANDE');
 
-INSERT INTO NIVEL_SOCIO VALUES(3,'ORO');
-INSERT INTO NIVEL_SOCIO VALUES(1,'PLATA');
-INSERT INTO NIVEL_SOCIO VALUES(2,'BRONCE');
 
 INSERT INTO OFERTAS(NAME,ESTADO_OFERTA,TAMANO_OFERTA,COSTE,FECHA_INICIAL,NIVEL_SOCIO,FECHA_FINAL) values
 ('PAGA 3 Y LLEVATE 1',false,1,58.6,'2020-01-05',3,'2020-01-31');
@@ -239,7 +247,8 @@ INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tip
 VALUES ('57','2','C/Ferrara, 5, 7b', '2020-11-30',3,1,2, '3');
 INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio,pedidocliente)
 VALUES ('57','2','C/Ferrara, 5, 7b', '2020-11-30',3,1,2, '3');
-
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio, pedidocliente)
+VALUES ('200','3.5','C/Ferrara, 5, 7b', '2020-11-15', 2, 1,1, '2');
 
 INSERT INTO OFERTA_PEDIDO(PEDIDO_ID, OFERTAS_EN_PEDIDO_ID) values (1, 1);
 INSERT INTO OFERTA_PEDIDO(PEDIDO_ID, OFERTAS_EN_PEDIDO_ID) values (1, 2); 
