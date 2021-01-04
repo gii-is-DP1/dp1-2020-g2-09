@@ -11,10 +11,6 @@
         <script>
             $(function () {
                 $("#fechaInicial").datepicker({dateFormat: 'yy/mm/dd'});
-            });
-        </script>
-        <script>
-            $(function () {
                 $("#fechaFinal").datepicker({dateFormat: 'yy/mm/dd'});
             });
         </script>
@@ -23,7 +19,7 @@
     <h2>
         <c:if test="${oferta['new']}">Nueva </c:if> Oferta
     </h2>
-    <form:form modelAttribute="oferta" class="form-horizontal" id="add-owner-form">
+    <form:form modelAttribute="oferta" class="form-horizontal" id="add-oferta-form">
         <div class="form-group has-feedback">
         	<petclinic:inputField label="Name" name="name"/>
             <petclinic:inputField label="Coste" name="coste"/>
@@ -32,6 +28,9 @@
 			<div class="control-group">
 			<petclinic:selectField name="tamanoOferta" label="Tamaño producto" names="${tamanoOferta}" size="2"/>
 			<petclinic:selectField name="nivelSocio" label="Nivel Socio" names="${nivelSocio}" size="3"/>
+           <!--  <c:forEach var="p" items="${productos}">
+          	<c:out value="${p.id}"/>
+         	 </c:forEach> -->
             </div>
         </div>
         <div class="form-group">
