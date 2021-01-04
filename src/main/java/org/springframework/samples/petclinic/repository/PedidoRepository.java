@@ -79,17 +79,17 @@ public interface PedidoRepository  extends CrudRepository<Pedido, Integer> {
 	
 	//ELIMINAR PRODUCTOS DE UN PEDIDO
 	@Modifying
-    @Query(value = "DELETE FROM PRODUCTO_PIZZA_PEDIDO WHERE PEDIDO_ID=?1 AND PIZZAS_EN_PEDIDO_ID=?2",
+    @Query(value = "DELETE FROM PRODUCTO_PIZZA_PEDIDO WHERE PEDIDO_ID=?1 AND PIZZAS_EN_PEDIDO_ID=?2 LIMIT 1",
 			nativeQuery = true)
 	void eliminarPizzaPedido(int pedidoId, int pizzaId);
 	
 	@Modifying
-    @Query(value = "DELETE FROM PRODUCTO_BEBIDA_PEDIDO WHERE PEDIDO_ID=?1 AND BEBIDAS_EN_PEDIDO_ID=?2",
+    @Query(value = "DELETE FROM PRODUCTO_BEBIDA_PEDIDO WHERE PEDIDO_ID=?1 AND BEBIDAS_EN_PEDIDO_ID=?2 LIMIT 1",
 			nativeQuery = true)
 	void eliminarBebidaPedido(int pedidoId, int bebidaId);
 	
 	@Modifying
-    @Query(value = "DELETE FROM PRODUCTO_OTROS_PEDIDO WHERE PEDIDO_ID=?1 AND OTROS_EN_PEDIDO_ID=?2",
+    @Query(value = "DELETE FROM PRODUCTO_OTROS_PEDIDO WHERE PEDIDO_ID=?1 AND OTROS_EN_PEDIDO_ID=?2 LIMIT 1",
 			nativeQuery = true)
 	void eliminarOtrosPedido(int pedidoId, int otrosId);
 
