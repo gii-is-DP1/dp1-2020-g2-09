@@ -13,7 +13,7 @@
     <form:form modelAttribute="pizza" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
             
-              <input id="nombre" name="nombre" type="hidden" value="${pizza.nombre}">   
+              <input id="nombre" name="nombre"  value="${pizza.nombre}" hidden="true">   
           
              <div class="control-group">
            
@@ -27,12 +27,29 @@
 			
 			<petclinic:selectField name="tamano" label="Tamaño" names="${tamanyo}" size="3"/>
                   
-           <input id="contador" name="contador" type="hidden" value="${pizza.contador}">     
-             <input id="id" name="id" type="hidden" value="${pizza.id}"> 
-              <input id="coste" name="coste" type="hidden" value="${pizza.coste}"> 
-              <input id="Personalizada" name="Personalizada" type="hidden" value="true"> 
+           <input id="contador" name="contador" value="${pizza.contador}" hidden="true">     
+             <input id="id" name="id" value="${pizza.id}" hidden="true"> 
+              <input id="coste" name="coste" value="${pizza.coste}" hidden="true"> 
+              <input id="Personalizada" name="Personalizada" value="true" hidden="true"> 
               
-              <input id="ingredientes" name="ingredientes" type="hidden" value="${pizza.ingredientes}">
+             <table id="ingredientesTable" class="table table-striped">
+             <thead>
+       		 <tr>
+            	<th>Ingrediente</th>
+            	<th>Agregar</th>
+       	 	 </tr>
+       		 </thead>
+       		 <tbody>
+       		 <c:forEach items="${ingredientes}" var="ing">
+       		 <tr>
+       		 <td>${ing.nombre}</td>
+       		 <td><form:checkbox path="ingredientes" value="${ing}"/> Añadir</td>
+       		 </tr>
+       		 </c:forEach>
+
+       		 
+       		 </tbody>
+             </table>
              <!--<petclinic:inputField label="contador" name="contador"/> -->
             <!--<petclinic:inputField label="Id" name="id"/> -->
             </div>

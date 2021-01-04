@@ -200,14 +200,11 @@ public class PizzaController {
 				if (result.hasErrors()) {
 					return "pizzas/UpdatePizzaFormPedido";
 				} else {
-					pizza.setId(pizzaId);
-					pizza.setCoste(pizza.getCoste());
-					pizza.setIngredientes(pizza.getIngredientes());
-					pizza.setNombre(pizza.getNombre());
-					pizza.setContador(pizza.getContador());
+					
+					pizza.setCliente(getClienteActivo());
 					pizza.setPersonalizada(true);
 					this.pizzaService.savePizza(pizza);
-					return "redirect:/allPizzas";
+					return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
 				}
 			}
 	private Cliente getClienteActivo() {
