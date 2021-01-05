@@ -7,11 +7,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +31,8 @@ import org.springframework.samples.petclinic.model.TipoPago;
 import org.springframework.samples.petclinic.model.tipoMasa;
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.CartaService;
-import org.springframework.samples.petclinic.service.IngredienteService;
+import org.springframework.samples.petclinic.service.ClienteService;
+import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.samples.petclinic.service.OtrosService;
 import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.samples.petclinic.service.PizzaService;
@@ -49,13 +48,18 @@ excludeAutoConfiguration= SecurityConfiguration.class)
 public class PedidoControllerTests {
 	
 	private static final int TEST_BEBIDA_ID = 1;
-	private static final int TEST_OTROS_ID = 1;
+	//private static final int TEST_OTROS_ID = 1;
 	private static final int TEST_PIZZA_ID = 1;
 	private static final int TEST_PEDIDO_ID = 1;
 	private static final int TEST_CLIENTE_ID = 1;
+	private static final int TEST_CARTA_ID = 1;
 	
 	@MockBean
 	private PedidoService PedidoService;
+	@MockBean
+	private UserService userService;
+	@MockBean
+	private ClienteService clienterService;
 	@MockBean
 	private CartaService CartaService;
     @MockBean
@@ -64,8 +68,6 @@ public class PedidoControllerTests {
     private OtrosService OtrosService;
     @MockBean
     private BebidaService BebidaService;
-    @MockBean
-    private IngredienteService ingredienteService;
     
     
 	@Autowired
@@ -216,46 +218,51 @@ public class PedidoControllerTests {
 	@WithMockUser(value = "spring")
         @Test
 	void testprocessCreationFormSuccess() throws Exception {
-		mockMvc.perform(post("/pedidos/new")
+		mockMvc.perform(post("/pedidos/new", TEST_PEDIDO_ID)
 							.with(csrf())
-							.param("", "")
-							.param("", ""))
+							.param("direccion", "C/ferrara, 4")
+							.param("tipoPago.name", "TARJETA")
+							.param("tipoEnvio.name", "DOMICILIO"))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/pedidos/user"));
 			
 	}
-/*
-	@WithMockUser(value = "spring")
+
+	//PEDIDO ESTA VALIDADO??
+	/*@WithMockUser(value = "spring")
     @Test
 	void testprocessCreationFormHasErrors() throws Exception {
-		mockMvc.perform(post("/cartas/new")
+		mockMvc.perform(post("/pedidos/new")
 					.with(csrf())
-					.param("nombre", "q")
-					.param("fecha", "j"))
+					.param("direccion", "")
+					.param("tipoPago.name", "TARJETA")
+					.param("tipoEnvio.name", "DOMICILIO"))
 		.andExpect(model().attributeHasErrors())			
 		.andExpect(view().name("cartas/createOrUpdateCartaForm"));
-	}
+	}*/
 
     @WithMockUser(value = "spring")
 	@Test
 	void testInitUpdateForm() throws Exception {
-		mockMvc.perform(get("/cartas/{cartaId}/edit", TEST_CARTA_ID))
+		mockMvc.perform(get("/pedidos/{pedidoId}/edit", TEST_PEDIDO_ID))
 				.andExpect(status().isOk())
-				.andExpect(view().name("cartas/createOrUpdateCartaForm"))
-				.andExpect(model().attributeExists("carta"));
+				.andExpect(view().name("pedidos/createOrUpdatePedidoForm"))
+				.andExpect(model().attributeExists("pedido"));
 	}
     
     @WithMockUser(value = "spring")
 	@Test
-	void testprocessUpdateCartaFormSuccess() throws Exception {
-		mockMvc.perform(post("/cartas/{cartaId}/edit", TEST_CARTA_ID)
+	void testprocessUpdatePeFormSuccess() throws Exception {
+		mockMvc.perform(post("/pedidos/{pedidoId}/edit", TEST_PEDIDO_ID)
 				.with(csrf())
-				.param("nombre", "cartaPrincipal")
-				.param("fecha", "2020/11/12"))
+				.param("direccion", "C/ferrara, 3")
+				.param("tipoPago.name", "EFECTIVO")
+				.param("tipoEnvio.name", "DOMICILIO"))
 		.andExpect(status().is3xxRedirection())
-		.andExpect(view().name("redirect:/allCartas"));
+		.andExpect(view().name("redirect:/allPedidos"));
 	}
     
+    /* NO SE SI PEDIDO ESTA VALIDADO
     @WithMockUser(value = "spring")
 	@Test
 	void testprocessUpdateOtrosFormHasErrors() throws Exception {
@@ -265,117 +272,92 @@ public class PedidoControllerTests {
 				.param("fecha", "d"))
 		.andExpect(model().attributeHasErrors())			
 		.andExpect(view().name("cartas/createOrUpdateCartaForm"));
-    }
+    }*/
     
     @WithMockUser(value = "spring")
    	@Test
-   	void testinitDeleteCartaSuccess() throws Exception {       
-    	mockMvc.perform(get("/cartas/{cartaId}/delete", TEST_CARTA_ID))
+   	void testinitDeletePedidoSuccess() throws Exception {       
+    	mockMvc.perform(get("/pedidos/{pedidoId}/delete", TEST_PEDIDO_ID))
     	.andExpect(status().is3xxRedirection())
-        .andExpect(view().name("redirect:/allCartas"));
+        .andExpect(view().name("redirect:/pedidos/user"));
     }
+ 
+//falta showCartaParaPedidosList no se si al final se usa ese metodo, creo q no
     
     @WithMockUser(value = "spring")
    	@Test
-    void testverCartaSuccess() throws Exception {
-    	mockMvc.perform(get("/cartas/{cartaId}/VerCarta", TEST_CARTA_ID)
-				.with(csrf())
-				.param("nombre", "cartaPrincipal")
-				.param("fecha", "2020/11/12"))
-    	.andExpect(status().isOk())
-		.andExpect(view().name("cartas/verCarta"))
-		.andExpect(model().attributeExists("pizzas"))
-		.andExpect(model().attributeExists("bebidas"))
-		.andExpect(model().attributeExists("otros"));
+   	void testverCartaPedido() throws Exception {
+    	mockMvc.perform(get("/pedidos/{pedidoId}/cartas/{cartaId}/verCarta", TEST_PEDIDO_ID, TEST_CARTA_ID))
+    	.andExpect(status().is3xxRedirection())
+        .andExpect(view().name("\"redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen"))
+		.andExpect(model().attributeExists("cartaId"))
+		.andExpect(model().attributeExists("pedido"));
     }
     
+    //anadir Pizza es igual q otros y q bebidas
     @WithMockUser(value = "spring")
    	@Test
-   	void testshowPizzaLista() throws Exception {
-    	mockMvc.perform(get("/cartas/{cartaId}/pizzas", TEST_CARTA_ID))
-    	.andExpect(status().isOk())
-		.andExpect(view().name("pizzas/pizzasList"))
-		.andExpect(model().attributeExists("Pizzas"));
-    }
-    
-    @WithMockUser(value = "spring")
-   	@Test
-   	void testshowBebidaLista() throws Exception {
-    	mockMvc.perform(get("/cartas/{cartaId}/bebidas", TEST_CARTA_ID))
+   	void testanadirPizza() throws Exception {
+    	mockMvc.perform(get("/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirPizza/{pizzaId}", TEST_PEDIDO_ID, TEST_CARTA_ID, TEST_PIZZA_ID))
     	.andExpect(status().isOk())
 		.andExpect(view().name("bebidas/bebidasList"))
-		.andExpect(model().attributeExists("bebidas"));
+		.andExpect(model().attributeExists("pedido"))
+		.andExpect(model().attributeExists("cartaId"));
     }
     
     @WithMockUser(value = "spring")
    	@Test
-   	void testshowOtrosLista() throws Exception {
-    	mockMvc.perform(get("/cartas/{cartaId}/otros", TEST_CARTA_ID))
+   	void testverResumenPedido() throws Exception {
+    	mockMvc.perform(get("/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen", TEST_PEDIDO_ID, TEST_CARTA_ID))
     	.andExpect(status().isOk())
-		.andExpect(view().name("Otros/OtrosList"))
-		.andExpect(model().attributeExists("otros"));
-    }
-    
-    
-    @WithMockUser(value = "spring")
-   	@Test
-   	void testañadirPizzaACartaSuccess() throws Exception {
-    	mockMvc.perform(get("/cartas/{cartaId}/anadirPizzaACarta/{pizzaId}", TEST_CARTA_ID, TEST_PIZZA_ID)
-				.with(csrf())
-				.param("carta.nombre", "cartaPrincipal")
-				.param("carta.fechaFinal", "2021/11/12"))
-
-		.andExpect(status().is3xxRedirection())
-		.andExpect(view().name("redirect:/cartas/{cartaId}/VerCarta"));
+		.andExpect(view().name("pedidos/resumenPedido"))
+		.andExpect(model().attributeExists("cartaId"))
+		.andExpect(model().attributeExists("pedido"));
     }
     
     @WithMockUser(value = "spring")
    	@Test
-   	void testañadirBebidaACartaSuccess() throws Exception {
-    	mockMvc.perform(get("/cartas/{cartaId}/anadirBebidaACarta/{bebidaId}", TEST_CARTA_ID, TEST_BEBIDA_ID)
-				.with(csrf())
-				.param("carta.nombre", "cartaPrincipal")
-				.param("carta.fechaFinal", "2021/11/12"))
-
-		.andExpect(status().is3xxRedirection())
-		.andExpect(view().name("redirect:/cartas/{cartaId}/VerCarta"));
+   	void testenCocinaSuccess() throws Exception {
+    	mockMvc.perform(get("/pedidos/{pedidoId}/finalizarPedido", TEST_PEDIDO_ID))
+    	.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/pedidos/user"));
     }
     
     @WithMockUser(value = "spring")
    	@Test
-   	void testañadirOtroACartaSuccess() throws Exception {
-    	mockMvc.perform(get("/cartas/{cartaId}/anadirOtroACarta/{otroId}", TEST_CARTA_ID, TEST_OTROS_ID)
-				.with(csrf())
-				.param("carta.nombre", "cartaPrincipal")
-				.param("carta.fechaFinal", "2021/11/12"))
-		.andExpect(status().is3xxRedirection())
-		.andExpect(view().name("redirect:/cartas/{cartaId}/VerCarta"));
+   	void testenCocinaPreparadoSuccess() throws Exception {
+    	mockMvc.perform(get("/cocinero/{pedidoId}/estadoPedido", TEST_PEDIDO_ID))
+    	.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/pedidos/cocinero"));
     }
     
-	
     @WithMockUser(value = "spring")
    	@Test
-   	void testinitPizzaCreationForm() throws Exception {
-    	mockMvc.perform(get("/cartas/{cartaId}/pizza/new", TEST_CARTA_ID))
-    			.andExpect(status().isOk())
-    			.andExpect(view().name("pizzas/createOrUpdatePizzaForm"))
-    			.andExpect(model().attributeExists("pizza"));
+   	void testPreparadoEnRepartoSuccess() throws Exception {
+    	mockMvc.perform(get("/repartidor/{pedidoId}/estadoPedido", TEST_PEDIDO_ID))
+    	.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/pedidos/repartidor"));
     }
     
     @WithMockUser(value = "spring")
-    @Test
-    void testprocessCreationPizzaFormSuccess() throws Exception {
-    	mockMvc.perform(post("/cartas/{cartaId}/pizza/new", TEST_CARTA_ID)
-						.with(csrf())
-						.param("nombre", "PEPE")
-						.param("coste", "20")
-						.param("contador", "3")
-						.param("tamano.name", "GRANDE")
-						.param("tipoMasa.name", "FINA")
-						.param("ingredientes", "queso"))
-			//.andExpect(status().isOk())
-			.andExpect(status().is3xxRedirection())
-			.andExpect(view().name("redirect:/cartas/{cartaId}/pizzas"));
-    }*/
+   	@Test
+   	void testverPedidoSuccess() throws Exception {
+    	mockMvc.perform(get("/pedidos/{pedidoId}/VerPedido", TEST_PEDIDO_ID))
+    	.andExpect(status().isOk())
+		.andExpect(view().name("pedidos/resumenPedido"))
+		.andExpect(model().attributeExists("pedido"));
+    }
+    
+  //borrar Pizza es igual q otros y q bebidas
+    @WithMockUser(value = "spring")
+   	@Test
+   	void testeliminarPizza() throws Exception {
+    	mockMvc.perform(get("/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/{pizzaId}/borrarP", TEST_PEDIDO_ID, TEST_CARTA_ID, TEST_PIZZA_ID))
+    	.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen"))
+		.andExpect(model().attributeExists("pedido"))
+		.andExpect(model().attributeExists("cartaId"));
+    }
+    
     
 }
