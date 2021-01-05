@@ -4,9 +4,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Bebida;
 import org.springframework.samples.petclinic.model.Bebidas;
@@ -23,7 +21,6 @@ import org.springframework.samples.petclinic.model.Pizzas;
 import org.springframework.samples.petclinic.model.TipoEnvio;
 import org.springframework.samples.petclinic.model.TipoPago;
 import org.springframework.samples.petclinic.model.User;
-import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.CartaService;
 import org.springframework.samples.petclinic.service.ClienteService;
@@ -47,7 +44,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PedidoController {
 	
 	private PedidoService pedidoService;
+	
 	private UserService userService;
+	
 	private ClienteService clienteService;
 	
 	private CartaService CartaService;
@@ -62,7 +61,7 @@ public class PedidoController {
 	
 	@Autowired
 	public PedidoController(PedidoService pedidoService, UserService userService,ClienteService clienteService,
-			AuthoritiesService authoritiesService,PizzaService PizzaService,
+			/*AuthoritiesService authoritiesService,*/PizzaService PizzaService,
 			OtrosService OtrosService, BebidaService BebidaService, CartaService CartaService) {
 		this.pedidoService = pedidoService;
 		this.userService =  userService;
@@ -204,7 +203,7 @@ public class PedidoController {
 	
 	//BORRAR PEDIDO
 	@GetMapping(value = "/pedidos/{pedidoId}/delete")
-	public String initDeleteCuenta(@PathVariable("pedidoId") int pedidoId, ModelMap model) {
+	public String initDeletePedido(@PathVariable("pedidoId") int pedidoId, ModelMap model) {
 		Pedido pedido = this.pedidoService.findPedidoById(pedidoId);
 		this.pedidoService.deletePedido(pedido);
 		return "redirect:/pedidos/user";
@@ -454,8 +453,9 @@ public class PedidoController {
 				listaOtros.getOtrosLista().add(otro);
 			}
 			model.put("otros", listaOtros);
-
 		}
+		
+		//Coger cliente de la sesión actual
 		private Cliente getClienteActivo() {
 			UserDetails userDetails = null;
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
