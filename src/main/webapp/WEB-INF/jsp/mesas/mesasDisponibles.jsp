@@ -34,8 +34,16 @@
         </tbody>
     </table>
     
-    <h2>Mesas disponibles</h2>
-    <p> Estas son las mesas disponibles. Si no hay mesas disponibles, por favor modifique los datos de su reserva y vuelva a intentarlo.</p>
+
+    <p> Estas son las mesas disponibles. Si no hay mesas disponibles, pulse el siguiente botón, 
+     modifique los datos de su reserva y vuelva a intentarlo.</p>
+     
+     <spring:url value="/reservas/{reservaId}/edit" var="editmesaUrl">
+	                        <spring:param name="reservaId" value="${reservaId}"/> 
+	                </spring:url>
+	                <a href="${fn:escapeXml(editmesaUrl)}" class="btn btn-default">Modificar reserva</a>
+	                
+	  <h2>Mesas disponibles</h2>
     <table id="mesasDisponibles" class="table table-striped">
         <thead>
         <tr>
@@ -46,7 +54,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${mesasPorCapacidad}" var="mesa">
+        <c:forEach items="${mesasDisponiblesSolucion}" var="mesa">
             <tr>
                <td>
              		<c:out value="${mesa.id}"></c:out>

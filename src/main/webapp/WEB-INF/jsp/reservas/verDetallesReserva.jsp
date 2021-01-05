@@ -10,9 +10,11 @@
     
      <petclinic:layout pageName="mesas">
     <h2>Datos de la reserva</h2>
-    <p> El cliente <strong><c:out value="${cliente.nombre} "> </c:out> <c:out value="${cliente.apellidos}"> </c:out></strong>
+   <sec:authorize access="hasAnyAuthority('administrador')"  > 
+   <p> El cliente <strong><c:out value="${cliente.nombre} "> </c:out> <c:out value="${cliente.apellidos}"> </c:out></strong>
      con nombre de usuario <strong><c:out value="${usuario.username}"> </c:out></strong> ha realizado la siguiente reserva:</p>
     <br>
+    </sec:authorize>
     <table id="datosReserva" class ="table table-striped">
      <thead>
         <tr>

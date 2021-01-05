@@ -33,7 +33,11 @@ public interface ReservaRepository extends CrudRepository<Reserva, Integer>{
     @Query(value ="SELECT * FROM RESERVAS WHERE RESERVACLIENTE=?1", nativeQuery = true)
 	List<Reserva> findReservasByCliente(int userId) throws DataAccessException;
    
-    
+    //Calcular las reservas de una mesa
+  	@Query(value = "SELECT DISTINCT RESERVA_ID FROM RESERVAS NATURAL JOIN RESERVA_MESA WHERE MESAS_EN_RESERVA_ID = ?1", nativeQuery = true)
+  	List<Integer> findReservasIdByMesaId(int mesaId) throws DataAccessException;
+  	
+  	
     
 
 }

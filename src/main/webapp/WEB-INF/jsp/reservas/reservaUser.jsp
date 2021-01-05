@@ -18,6 +18,7 @@
             <th>Fecha de la reserva</th>
             <th>Tipo de la reserva</th>
             <th>Hora de la reserva</th>
+            <th>Detalles de la reserva</th>
         </tr>
         </thead>
         <tbody>
@@ -38,6 +39,12 @@
                 <td>
                     <c:out value="${reserva.hora}"/>
                 </td>
+                <td>
+             		<spring:url value="/reservas/{reservaId}/verDetalles" var="reservaUrl">
+	                        <spring:param name="reservaId" value="${reserva.id}"/>
+	                </spring:url>
+   					<a href="${fn:escapeXml(reservaUrl)}" class="btn btn-default">Ver detalles</a>
+             	</td>
         </c:forEach>
         
         </tbody>
