@@ -1,9 +1,14 @@
 package org.springframework.samples.petclinic.web;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -115,25 +120,59 @@ public class ReservaController {
 		}
 	}
 	
+	//Filtrar mesas: 
+	//-> Si la capacidad de la mesa admite el número de personas OK
+	//-> Si entre mi reserva y otras reservas de la misma mesa en el día que yo he elegido hay al menos 1 hora de diferencia -> OK
+	//Luego el algoritmo es el siguiente:
+	// (1) Cojo el listado de mesas 
+	// (2)¿La mesa admite la capacidad?
+		//Si la admite: ¿Tiene reservas el mismo día que quiero reservar?
+			//Si hay el mismo día: ¿Hay al menos 1h de diferencia entre reserva y reserva? 
+				//Si la hay: añado la mesa 
+				//Si no la hay: no añado la mesa 
+			//Si no hay el mismo día: añado la mesa
+		//Si no la admite: No añado mesa
+
+	//COMPROBAR QUE SE HACE BIEN. CAMBIAR BASE DE DATOS
 	@GetMapping(value = "/reservas/{reservaId}/allMesasDisponibles")
 	public String mesasDisponibles(@PathVariable("reservaId") int reservaId, ModelMap model) {
 		Reserva reserva = this.reservaService.findById(reservaId);
 		model.put("miReserva", reserva);
 		Integer numPersonas = reserva.getNumeroPersonas();
+		
+		//Cojo el listado de mesas
 		List<Mesa> mesas = this.mesaService.findMesas();
-		List<Mesa> mesasPorCapacidad = new ArrayList<Mesa>();
-		for(Mesa m: mesas) {
-			//Si la capacidad de la mesa es mayor que el número de personas 
-			// 
-			if(m.getCapacidad()>=numPersonas /* y que para esta mesa ver si 
-			hay alguna reserva y en ese caso que estén diferenciadas 1h por ej*/
-					/*y que la reserva */) {
-				mesasPorCapacidad.add(m);
+		List<Mesa> mesasDisponibles = new ArrayList<Mesa>();
+		for(Mesa m: mesas) { 
+			if(m.getCapacidad()>=numPersonas) {
+				List<Integer> reservasId = this.reservaService.findReservasIdByMesaId(m.getId());
+				if(reservasId.size()==0) {
+					mesasDisponibles.add(m);
+				} else {
+					//calcular las reservas mediante los ids
+					List<Reserva> reservas = this.reservaService.calcularReservasAPartirIds(reservasId);
+					//y para cada reserva ver cuantos días 
+					//hay entre mi fecha de la reserva y esa reserva => si es 0 ver las horas de diferencia entre 
+					//la hora de la reserva y mi hora => si hay 1h o más, añado la mesa a la lista de mesas disponibles
+					for(Reserva r: reservas) {
+						if(!(DAYS.between(reserva.getFechaReserva(), r.getFechaReserva())==0)) {
+							mesasDisponibles.add(m);
+						} else {
+							LocalTime miHora = reserva.getHora();
+							LocalTime horaReservaComparacion = r.getHora();
+							if(ChronoUnit.MINUTES.between(miHora, horaReservaComparacion)>60) {
+								mesasDisponibles.add(m);
+								
+							}
+						}
+					}
+				}
 			}
 			
 		}
-		
-		model.put("mesasPorCapacidad", mesasPorCapacidad);
+		List<Mesa> mesasDisponiblesSolucion = mesasDisponibles.stream().map(m->m.getId()).distinct()
+				.map(m->this.mesaService.findById(m)).collect(Collectors.toList());
+		model.put("mesasDisponiblesSolucion", mesasDisponiblesSolucion);
 		return "mesas/mesasDisponibles";
 	}
 	//Por un lado, voy a necesitar algunos datos del cliente -> tomo el cliente a partir del atributo reservacliente 
@@ -164,7 +203,7 @@ public class ReservaController {
 	public String anadirMesaAReserva(@PathVariable("reservaId") int reservaId, @PathVariable("mesaId") int mesaId, ModelMap model) {
 		model.put("reserva", reservaId);
 		this.reservaService.anadirMesaAReserva(reservaId, mesaId);
-		return "redirect:/allReservas";
+		return "redirect:/reservas/user";
 	}
 	
 	//RESERVAS DE UN CLIENTE QUE HA INICIADO SESIÓN
@@ -201,6 +240,7 @@ public class ReservaController {
 	public String processUpdateReservaForm(@Valid Reserva reserva, BindingResult result,
 			@PathVariable("reservaId") int reservaId,ModelMap model) {
 		if (result.hasErrors()) {
+			reserva.setId(reservaId);
 			model.put("reserva",reserva);
 			return "reservas/createOrUpdateReservaForm";
 		}
@@ -209,7 +249,7 @@ public class ReservaController {
 //			ValidationUtils.invokeValidator(reservaValidator, reserva, result);
 			reserva.setId(reservaId);
 			this.reservaService.saveReserva(reserva);
-			return "redirect:/allReservas";
+			return "redirect:/reservas/{reservaId}/allMesasDisponibles";
 		}
 	}
 	

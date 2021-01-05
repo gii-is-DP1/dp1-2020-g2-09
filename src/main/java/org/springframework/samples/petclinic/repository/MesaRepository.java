@@ -28,5 +28,4 @@ public interface MesaRepository  extends CrudRepository<Mesa, Integer>{
 	@Query(value = "SELECT MESAS_EN_RESERVA_ID FROM RESERVAS NATURAL JOIN RESERVA_MESA WHERE RESERVAS.ID = ?1 AND RESERVAS.ID = RESERVA_ID", 
     		nativeQuery = true)
     Integer findIdMesaByReserva(int reservaId) throws DataAccessException;
-	 
 }

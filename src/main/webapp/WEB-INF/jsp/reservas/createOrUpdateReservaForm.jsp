@@ -38,14 +38,7 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <c:choose>
-                    <c:when test="${reserva['new']}">
-                        <button class="btn btn-default" type="submit">Reservar</button>
-                    </c:when>
-                    <c:otherwise>
-                        <button class="btn btn-default" type="submit">Actualizar reserva</button>
-                    </c:otherwise>
-                </c:choose>
+                        <button class="btn btn-default" type="submit">Buscar mesa</button>
             </div>
         </div>
     </form:form>

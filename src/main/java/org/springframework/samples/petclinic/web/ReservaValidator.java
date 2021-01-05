@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.web;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 import org.springframework.samples.petclinic.model.Reserva;
 import org.springframework.samples.petclinic.model.tipoReserva;
@@ -12,7 +13,7 @@ import org.springframework.validation.Validator;
 @Component
 public class ReservaValidator implements Validator {
 
-	private static final String REQUIRED = "Requerido";
+	//private static final String REQUIRED = "Requerido";
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return Reserva.class.isAssignableFrom(clazz);
@@ -23,55 +24,62 @@ public class ReservaValidator implements Validator {
 		Reserva reserva1 = (Reserva) obj;
 		Integer numeroPersonas = reserva1.getNumeroPersonas();
 		LocalDate fechaReserva= reserva1.getFechaReserva();
+		LocalDate fechaActual = LocalDate.now();
 		LocalTime hora= reserva1.getHora();
 		tipoReserva tipoReserva = reserva1.getTipoReserva();
 
 		
 		if (numeroPersonas==null) {
-			errors.rejectValue("numeroPersonas", REQUIRED+" debe ser un número real y mayor que cero", REQUIRED+" debe ser un número real y mayor que cero");
-		}else {
-			String numString = String.valueOf(numeroPersonas);
-			if(numString.length()<1) {
-				errors.rejectValue("numeroPersonas", REQUIRED+" debe ser un número real y mayor que cero", REQUIRED+" debe ser un número real y mayor que cero");
-			}else {
-				 if (numeroPersonas==0 || numeroPersonas<=0) {
-						errors.rejectValue("numeroPersonas", REQUIRED+" debe ser un número real", REQUIRED+" y mayor que cero");
-					}else if (numeroPersonas>6) {
-						errors.rejectValue("numeroPersonas", "El numero de personas debe ser inferior a 6 debido a la pandemia del COVID","El numero de personas debe ser inferior a 6 debido a la pandemia del COVID");
-					}	
+			errors.rejectValue("numeroPersonas", "Campo obligatorio", "Por favor, introduzca un número entre 1 y 6");
+		}else if(numeroPersonas<=0 || numeroPersonas >6){
+						errors.rejectValue("numeroPersonas", "El número de personas debe ser un dígito entre 1 y 6",
+								"El número de personas debe ser un dígito entre 1 y 6");
+						
 			}
-		}
+		
 		
 		if (fechaReserva==null) {
-			errors.rejectValue("fechaReserva",
-					"No puede introducir una reserva con valores nulos", 
-					"No puede introducir una reserva con valores nulos");
-		} 
-		if (hora== null) {
-			errors.rejectValue("hora",
-					"No puede introducir una reserva con valores nulos", 
-					"No puede introducir una reserva con valores nulos");
-		} 
-		if (tipoReserva==null) {
-			errors.rejectValue("tipoReserva",
-					"No puede introducir una reserva con valores nulos", 
-					"No puede introducir una reserva con valores nulos");
+			errors.rejectValue("fechaReserva", "Campo obligatorio", "Por favor, introduzca una fecha");
+		} else if(fechaReserva.isBefore(fechaActual)) {
+			errors.rejectValue("fechaReserva", "La fecha de la reserva no puede ser anterior al día de hoy", 
+					"La fecha de la reserva no puede ser anterior al día de hoy");
+			
+		} else if(DAYS.between(fechaActual, fechaReserva) < 1) {
+			errors.rejectValue("fechaReserva", "Debe reservar con al menos un día de antelación", "Debe reservar con al menos un día de antelación");
 		}
 		
-		//Ver el tipo de reserva: si es almuerzo, permitir horas entre 12:00 y 15:00 (por ejemplo)
-		//Si es una cena, elegir entre 20:00 y 23:00
 		
-		if(tipoReserva.getName().equals("ALMUERZO")) {
-			if(hora.getHour()<12 || hora.getHour()>15)
+		if (tipoReserva==null) {
+			errors.rejectValue("tipoReserva",
+					"Campo obligatorio", 
+					"Por favor, seleccione si su reserva se corresponde con un almuerzo o cena");
+			
+		} else if(!(tipoReserva.getName().equals("ALMUERZO") || tipoReserva.getName().equals("CENA"))) {
+			errors.rejectValue("tipoReserva", "Solo se puede reservar para realizar un almuerzo o cena",
+					"Solo se puede reservar para realizar un almuerzo o cena");
+		}
+			
+		if (hora == null) {
+			errors.rejectValue("hora",
+					"Campo obligatorio", 
+					"Por favor, introduzca una hora para reservar");
+			
+			//Ver el tipo de reserva: si es almuerzo, permitir horas entre 12:00 y 15:00 (por ejemplo)
+			//Si es una cena, elegir entre 20:00 y 23:00
+		} else if(tipoReserva.getName()=="ALMUERZO") {
+			if((hora.getHour()<12 || hora.getHour()>15)) {
 				errors.rejectValue("hora", "Por favor, seleccione una hora entre las 12:00 y las 15:00",
 						"Por favor, seleccione una hora entre las 12:00 y las 15:00");
-		} else {
-			if(hora.getHour()<20 || hora.getHour()>23) {
+			} else if(hora.getHour()<20 || hora.getHour()>23) {
 				errors.rejectValue("hora", "Por favor, seleccione una hora entre las 20:00 y las 23:00",
 						"Por favor, seleccione una hora entre las 20:00 y las 23:00");
 			}
+			
+		}
+		
+		
 		}
 		
 	}
-}
+
 
