@@ -22,6 +22,7 @@ import org.springframework.samples.petclinic.configuration.SecurityConfiguration
 import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.service.ClienteService;
+import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -40,6 +41,8 @@ public class ClienteControllerTests {
     private ClienteService clienteService;
     @MockBean
     private UserService userService;
+    @MockBean
+    private PedidoService pedidoService;
     
 	@Autowired
 	private MockMvc mockMvc;
@@ -96,7 +99,7 @@ public class ClienteControllerTests {
 				.param("user.username", "escoba2000")
 				.param("user.password", "escoba2000"))
 		.andExpect(status().is3xxRedirection())
-		.andExpect(view().name("redirect:/welcome"));
+		.andExpect(view().name("redirect:/"));
 	}
 	
 	@WithMockUser(value = "spring")
