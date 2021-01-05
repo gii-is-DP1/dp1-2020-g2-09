@@ -26,5 +26,10 @@ public interface MesaRepository  extends CrudRepository<Mesa, Integer>{
 			nativeQuery = true)
 	List<Integer> CountMesa(Integer id) throws DataAccessException;
 	
+	 //Tengo la reserva. A partir de la reserva puedo ver la mesa asociada, seleccionando la mesa en la tabla intermedia 
+    //con la condición de que el id de la tabla reserva coincida con el id de la reserva de la tabla intermedia.
+	@Query(value = "SELECT MESAS_EN_RESERVA_ID FROM RESERVAS NATURAL JOIN RESERVA_MESA WHERE RESERVAS.ID = ?1 AND RESERVAS.ID = RESERVA_ID", 
+    		nativeQuery = true)
+    Integer findIdMesaByReserva(int reservaId) throws DataAccessException;
 	 
 }

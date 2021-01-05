@@ -8,10 +8,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    <petclinic:layout pageName="mesas">
-    <h2>Reservar mesa</h2>
-    <p>A continuación se muestran los datos de su reserva y las mesas disponibles que puede reservar.</p>
-    
+     <petclinic:layout pageName="mesas">
+    <h2>Datos de la reserva</h2>
+    <p> El cliente <strong><c:out value="${cliente.nombre} "> </c:out> <c:out value="${cliente.apellidos}"> </c:out></strong>
+     con nombre de usuario <strong><c:out value="${usuario.username}"> </c:out></strong> ha realizado la siguiente reserva:</p>
+    <br>
     <table id="datosReserva" class ="table table-striped">
      <thead>
         <tr>
@@ -25,28 +26,25 @@
         </thead>
         <tbody>
        <tr> 
-        <td> <c:out value="${miReserva.id}"></c:out> </td>
-        <td> <c:out value="${miReserva.fechaReserva}"></c:out> </td>
-        <td> <c:out value="${miReserva.tipoReserva}"></c:out> </td>
-        <td> <c:out value="${miReserva.hora}"></c:out> </td>
-        <td> <c:out value="${miReserva.numeroPersonas}"></c:out> </td>
+        <td> <c:out value="${reserva.id}"></c:out> </td>
+        <td> <c:out value="${reserva.fechaReserva}"></c:out> </td>
+        <td> <c:out value="${reserva.tipoReserva}"></c:out> </td>
+        <td> <c:out value="${reserva.hora}"></c:out> </td>
+        <td> <c:out value="${reserva.numeroPersonas}"></c:out> </td>
         </tr>
         </tbody>
     </table>
     
-    <h2>Mesas disponibles</h2>
-    <p> Estas son las mesas disponibles. Si no hay mesas disponibles, por favor modifique los datos de su reserva y vuelva a intentarlo.</p>
+    <h2>Mesa reservada</h2>
     <table id="mesasDisponibles" class="table table-striped">
         <thead>
         <tr>
         	<th>Nº Mesa</th>
         	<th>Capacidad</th>
-        	<th> Reservar mesa </th>
 
-        </tr>
+      </tr>
         </thead>
         <tbody>
-        <c:forEach items="${mesasPorCapacidad}" var="mesa">
             <tr>
                <td>
              		<c:out value="${mesa.id}"></c:out>
@@ -54,18 +52,8 @@
              	<td>
              		<c:out value="${mesa.capacidad}"></c:out>
              	</td>
-             	
-             	<td>					
-             	
-             		<spring:url value="/reservas/{reservaId}/allMesasDisponibles/{mesaId}" var="reservamesaUrl3">
-	                        <spring:param name="reservaId" value="${reservaId}"/> 
-	                        <spring:param name="mesaId" value="${mesa.id}"/> 
-	                </spring:url>
-   					<a href="${fn:escapeXml(reservamesaUrl3)}" class="btn btn-default">Reservar mesa</a>
-             	</td>
              
 </tr>
-</c:forEach>
 </tbody>
 </table>
 

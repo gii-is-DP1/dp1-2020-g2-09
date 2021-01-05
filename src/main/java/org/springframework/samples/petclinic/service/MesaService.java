@@ -43,6 +43,11 @@ public class MesaService {
 	public void deleteMesa(Mesa mesa) throws DataAccessException {
 		mesaRepository.delete(mesa);		
 	}
+	
+	@Transactional
+	public Integer findIdMesaByReserva(int reservaId) throws DataAccessException {
+		return mesaRepository.findIdMesaByReserva(reservaId);
+	}
 
 	public Integer CountMesa(Integer id) throws DataAccessException{
 		List<Integer> l = this.mesaRepository.CountMesa(id);
