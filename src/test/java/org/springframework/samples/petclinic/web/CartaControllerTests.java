@@ -93,8 +93,7 @@ public class CartaControllerTests {
 	void testprocessCreationFormSuccess() throws Exception {
 		mockMvc.perform(post("/cartas/new")
 							.with(csrf())
-							.param("nombre", "cartaPrincipal")
-							.param("fecha", "2020/11/12"))
+							.param("nombre", "cartaPrincipal"))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/allCartas"));
 		
@@ -126,8 +125,7 @@ public class CartaControllerTests {
 	void testprocessUpdateCartaFormSuccess() throws Exception {
 		mockMvc.perform(post("/cartas/{cartaId}/edit", TEST_CARTA_ID)
 				.with(csrf())
-				.param("nombre", "cartaPrincipal")
-				.param("fecha", "2020/11/12"))
+				.param("nombre", "cartaPrincipal"))
 		.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/allCartas"));
 	}

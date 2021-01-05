@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -107,7 +108,12 @@ public class CartaController {
 			model.put("carta", carta);//si se ha roto-> preguntar a maria
 			return "cartas/createOrUpdateCartaForm";
 		}
-		else {
+		else { 
+			List<Carta> cartas = this.CartaService.findCartas();
+			LocalDate fechaCreacion = cartas.get(cartas.size()-1).getFechaCreacion().plusYears(1);
+			LocalDate fechaFinal = cartas.get(cartas.size()-1).getFechaFinal().plusYears(1);
+			carta.setFechaCreacion(fechaCreacion);
+			carta.setFechaFinal(fechaFinal);
 			this.CartaService.saveCarta(carta);
 			return "redirect:/allCartas";
 		}

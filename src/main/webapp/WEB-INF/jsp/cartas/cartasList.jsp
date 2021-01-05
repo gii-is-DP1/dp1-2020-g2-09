@@ -17,7 +17,8 @@
         <thead>
         <tr>
         	<th>Nombre</th>
-            <th>Fecha</th>
+            <th>Fecha de Creacion</th>
+            <th>Fecha de Caducidad</th>
         </tr>
         </thead>
         <tbody>
@@ -28,6 +29,9 @@
             	</td>
                 <td>
                     <c:out value="${cartas.fechaCreacion}"/>
+                </td>
+                <td>
+                    <c:out value="${cartas.fechaFinal}"/>
                 </td>
                 <td>
                 	<spring:url value="/cartas/{cartaId}/VerCarta" var="cartaUrl3">
