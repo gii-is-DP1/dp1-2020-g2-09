@@ -32,7 +32,7 @@ public class Carta extends BaseEntity{
 	@Column(name = "fecha_creacion")
 	@NotNull
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
-	private LocalDate fechaCreacion = LocalDate.now();
+	private LocalDate fechaCreacion;
 	
 	@Column(name = "fecha_final")
 	@NotNull
