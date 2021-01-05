@@ -56,5 +56,10 @@ public class ReservaService {
 	 public void anadirMesaAReserva(int reservaId, int mesaId) throws DataAccessException {
 		 reservaRepository.anadirMesaAReserva(reservaId, mesaId);		
 	}
+    
+    @Transactional
+    public List<Reserva> findReservasByCliente(int userId) throws DataAccessException {
+    	return reservaRepository.findReservasByCliente(userId);
+    }
 
 }

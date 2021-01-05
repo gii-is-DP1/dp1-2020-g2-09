@@ -29,5 +29,11 @@ public interface ReservaRepository extends CrudRepository<Reserva, Integer>{
     @Query(value = "INSERT INTO RESERVA_MESA(RESERVA_ID, MESAS_EN_RESERVA_ID) VALUES (?1, ?2)",
 			nativeQuery = true)
 	void anadirMesaAReserva(int reservaId, int mesaId);
+    
+    @Query(value ="SELECT * FROM RESERVAS WHERE RESERVACLIENTE=?1", nativeQuery = true)
+	List<Reserva> findReservasByCliente(int userId) throws DataAccessException;
+   
+    
+    
 
 }

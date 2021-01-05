@@ -53,6 +53,11 @@
       	</sec:authorize>
      </div>
      
+     <div>
+     	<sec:authorize access="hasAnyAuthority('cliente')"  >
+      		<a href="/reservas/user">Hola quiero ver mis reservas.</a>
+      	</sec:authorize>
+     </div>
       <div>
      	<sec:authorize access="hasAnyAuthority('cocinero')"  >
       		<a href="/pedidos/cocinero">Hola quiero ver mis pedidos a cocinar.</a>
