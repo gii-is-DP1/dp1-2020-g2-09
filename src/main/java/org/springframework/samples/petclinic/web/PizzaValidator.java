@@ -1,21 +1,11 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Collection;
-import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Cliente;
-import org.springframework.samples.petclinic.model.Cuenta;
 import org.springframework.samples.petclinic.model.Ingrediente;
 import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.TamanoProducto;
-import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.model.tipoMasa;
-import org.springframework.samples.petclinic.service.ClienteService;
-import org.springframework.samples.petclinic.service.PizzaService;
-import org.springframework.samples.petclinic.service.UserService;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;

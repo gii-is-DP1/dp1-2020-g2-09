@@ -1,7 +1,5 @@
 package org.springframework.samples.petclinic.web;
 
-import java.time.LocalDate;
-
 import org.springframework.samples.petclinic.model.Cuenta;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.stereotype.Component;

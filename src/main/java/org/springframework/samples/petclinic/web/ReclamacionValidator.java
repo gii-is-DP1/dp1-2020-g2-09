@@ -1,7 +1,5 @@
 package org.springframework.samples.petclinic.web;
 
-import java.time.LocalDate;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Reclamacion;
 import org.springframework.samples.petclinic.service.ReclamacionService;
