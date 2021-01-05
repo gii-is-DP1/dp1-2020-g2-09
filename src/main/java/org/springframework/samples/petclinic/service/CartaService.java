@@ -47,7 +47,7 @@ public class CartaService {
 	public void deleteCarta(Carta carta) throws DataAccessException {
 		cartaRepository.delete(carta);		
 	}
-	
+	/*
 	@Transactional
 	 public void añadirPizzaAPedido(int pizzaId, int pedidoId) throws DataAccessException {
 		 cartaRepository.añadirPizzaAPedido(pizzaId, pedidoId);
@@ -60,7 +60,7 @@ public class CartaService {
 	@Transactional
 	 public void añadirOtrosAPedido(int otrosId, int pedidoId) throws DataAccessException {
 		 cartaRepository.añadirOtrosAPedido(otrosId, pedidoId);	
-	}
+	}*/
 
 
 }
