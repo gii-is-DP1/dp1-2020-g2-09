@@ -13,7 +13,7 @@ import org.springframework.validation.Validator;
 @Component
 public class AdministradorValidator implements Validator{
 
-	private static final String REQUIRED = "Requerido";
+//	private static final String REQUIRED = "Requerido";
 	
 	@Override	
 	public boolean supports(Class<?> clazz) {

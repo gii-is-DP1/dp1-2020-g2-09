@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.web;
 
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -9,10 +10,11 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Clientes;
-import org.springframework.samples.petclinic.model.Cuenta;
+import org.springframework.samples.petclinic.model.NivelSocio;
+import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.User;
-import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.ClienteService;
+import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,11 +22,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -34,11 +34,14 @@ public class ClienteController {
 	
 	private final ClienteService clienteService;
 	private final UserService userService;
+	private final PedidoService pedidoService;
 
 	@Autowired
-	public ClienteController(ClienteService clienteService, UserService userService) {
+	public ClienteController(ClienteService clienteService, UserService userService,
+			PedidoService pedidoService) {
 		this.clienteService = clienteService;
 		this.userService =  userService;
+		this.pedidoService = pedidoService;
 	}
 
 	@InitBinder
@@ -79,8 +82,12 @@ public class ClienteController {
 //			CuentaValidator cuentaValidator = new CuentaValidator();
 //			ValidationUtils.invokeValidator(cuentaValidator, cliente, result);
 			cliente.setFechaAlta(LocalDate.now());
+			NivelSocio nivelSocio = new NivelSocio();
+			nivelSocio.setName("No tiene nivel de socio");
+			cliente.setNivelSocio(nivelSocio);
+			
 			this.clienteService.saveCliente(cliente);
-			return "redirect:/welcome";
+			return "redirect:/";
 		}
 	}
 	
@@ -93,14 +100,31 @@ public class ClienteController {
 	            .getAuthentication();
 	    UserDetails userDetail = (UserDetails) auth.getPrincipal();
 	    User usuario = this.userService.findUser(userDetail.getUsername()).get();
-	    mav.addObject(this.clienteService.findCuentaByUser(usuario));
+	    Cliente cliente = this.clienteService.findCuentaByUser(usuario);
+	  //Nivel socio a determinar
+	    NivelSocio nivelSocio = new NivelSocio();
+	    List<Pedido> pedidosCliente = this.pedidoService
+				.findPedidosByCliente(cliente.getId());
+		Double acum = 0.;
+		for(int i=0; i<pedidosCliente.size(); i++) {
+			acum += pedidosCliente.get(i).getPrecio();
+		}
+		if(acum<100) {//mirar si eso las fechas
+			nivelSocio.setName("No tiene nivel de socio");
+			cliente.setNivelSocio(nivelSocio);
+		}else if(acum<200) {
+			nivelSocio.setName("BRONCE");
+			cliente.setNivelSocio(nivelSocio);
+		}else if(acum<300) {
+			nivelSocio.setName("PLATA");
+			cliente.setNivelSocio(nivelSocio);
+		}else {
+			nivelSocio.setName("ORO");
+			cliente.setNivelSocio(nivelSocio);
+		}
+	    mav.addObject(cliente);
 		return mav;
 	}
-	
-//	@ModelAttribute("cuenta")
-//	public Cliente findCliente(@PathVariable("cuentaId") int cuentaId) {
-//		return this.clienteService.findCuentaById(cuentaId);
-//	}
 
 	//iniciar actualizacion
 	@GetMapping(value = "/clientes/{cuentaId}/edit")

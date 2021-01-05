@@ -14,8 +14,7 @@ import org.springframework.validation.Validator;
 @Component
 public class PizzaValidator implements Validator{
 
-	//private static final String REQUIRED = "requerido";
-
+	
 	@Override
 	public void validate(Object obj, Errors errors) {
 		Pizza pizza = (Pizza) obj;
@@ -23,6 +22,7 @@ public class PizzaValidator implements Validator{
 		tipoMasa tipoMasa = pizza.getTipoMasa();
 		TamanoProducto tamaño = pizza.getTamano();
 		Integer coste = pizza.getCoste();
+        
 		Collection<Ingrediente> ing = pizza.getIngredientes();
 		
 		if (!StringUtils.hasLength(nombre) || nombre.length()>50 || nombre.length()<3) {
@@ -47,27 +47,25 @@ public class PizzaValidator implements Validator{
 			errors.rejectValue("coste",
 					"El precio no puede ser negativo o menor que cero",
 					"El precio no puede ser negativo o menor que cero" );
-		}else {
-			String costestring= String.valueOf(coste);
-			//if(!costestring.matches("[0-9]*")) {
-			/*if(costestring.matches("\\d*"))  {
-				errors.rejectValue("coste","El precio debe ser numérico","El precio debe ser numérico" );
-
-			}else*/ if (coste<=0) {
+		}
+		
+		if (coste<=0) {
 				errors.rejectValue("coste",
 						"El precio no puede ser negativo o menor que cero",
 						"El precio no puede ser negativo o menor que cero" );
 		}
-		}
+		
 		if(ing.equals(null) || ing.isEmpty()) {
 			errors.rejectValue("ingredientes",
 					"Debe escoger ingredientes",
 					"Debe escoger ingredientes" );
 		}
-	}
+		
+	} 
 
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return Pizza.class.isAssignableFrom(clazz);
 	}
+
 }

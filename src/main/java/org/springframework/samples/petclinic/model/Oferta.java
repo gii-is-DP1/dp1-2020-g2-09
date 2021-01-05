@@ -11,7 +11,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 import org.springframework.format.annotation.DateTimeFormat;
+
 import com.sun.istack.NotNull;
 
 import lombok.Getter;
@@ -54,17 +56,17 @@ public class Oferta extends NamedEntity{
 	@NotNull
 	private Boolean estadoOferta=true;
 	
-//	@ManyToMany (cascade = CascadeType.MERGE)
-//	@JoinTable(name = "OfertaPizza", joinColumns =@JoinColumn(name= "pizzaId" ))
-//	private Collection<Pizza> pizzasEnOferta;
-//	
-//	@ManyToMany (cascade = CascadeType.MERGE)
-//	@JoinTable(name = "OfertaBebida", joinColumns =@JoinColumn(name= "bebidaId" ))
-//	private Collection<Bebida> bebidasEnOferta;
-//	
-//	@ManyToMany (cascade = CascadeType.MERGE)
-//	@JoinTable(name = "OfertaOtro", joinColumns =@JoinColumn(name= "otroId" ))
-//	private Collection<Otro> otroEnOferta;
+	@ManyToMany (cascade = CascadeType.MERGE)
+	@JoinTable(name = "OfertaPizza", joinColumns =@JoinColumn(name= "ofertaId" ))
+	private Collection<Pizza> pizzasEnOferta;
+	
+	@ManyToMany (cascade = CascadeType.MERGE)
+	@JoinTable(name = "OfertaBebida", joinColumns =@JoinColumn(name= "ofertaId" ))
+	private Collection<Bebida> bebidasEnOferta;
+	
+	@ManyToMany (cascade = CascadeType.MERGE)
+	@JoinTable(name = "OfertaOtro", joinColumns =@JoinColumn(name= "ofertaId" ))
+	private Collection<Otro> otrosEnOferta;
 	
 //	public TamanoProducto getTamanoProducto() {
 //		return this.tamanoProducto;

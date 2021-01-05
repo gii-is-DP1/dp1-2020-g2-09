@@ -22,8 +22,8 @@
 	    <form:form modelAttribute="carta" class="form-horizontal" id="add-owner-form">
 	        <div class="form-group has-feedback">
 	         	<petclinic:inputField label="Nombre" name="nombre"/>
-	            <petclinic:inputField label="Fecha de Creacion" name="fechaCreacion"/>
-	            <petclinic:inputField label="Fecha Final" name="fechaFinal"/>
+	            <!-- <petclinic:inputField label="Fecha de Creacion" name="fechaCreacion"/>
+	            <petclinic:inputField label="Fecha Final" name="fechaFinal"/> -->
 	            <!--<petclinic:inputField label="Id" name="id" />-->
 	        </div>
 	        <div class="form-group">

@@ -21,7 +21,6 @@ import org.springframework.samples.petclinic.model.Pizzas;
 import org.springframework.samples.petclinic.model.TipoEnvio;
 import org.springframework.samples.petclinic.model.TipoPago;
 import org.springframework.samples.petclinic.model.User;
-import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.CartaService;
 import org.springframework.samples.petclinic.service.ClienteService;
@@ -45,7 +44,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PedidoController {
 	
 	private PedidoService pedidoService;
+	
 	private UserService userService;
+	
 	private ClienteService clienteService;
 	
 	private CartaService CartaService;
@@ -60,7 +61,7 @@ public class PedidoController {
 	
 	@Autowired
 	public PedidoController(PedidoService pedidoService, UserService userService,ClienteService clienteService,
-			AuthoritiesService authoritiesService,PizzaService PizzaService,
+			/*AuthoritiesService authoritiesService,*/PizzaService PizzaService,
 			OtrosService OtrosService, BebidaService BebidaService, CartaService CartaService) {
 		this.pedidoService = pedidoService;
 		this.userService =  userService;
@@ -202,7 +203,7 @@ public class PedidoController {
 	
 	//BORRAR PEDIDO
 	@GetMapping(value = "/pedidos/{pedidoId}/delete")
-	public String initDeleteCuenta(@PathVariable("pedidoId") int pedidoId, ModelMap model) {
+	public String initDeletePedido(@PathVariable("pedidoId") int pedidoId, ModelMap model) {
 		Pedido pedido = this.pedidoService.findPedidoById(pedidoId);
 		this.pedidoService.deletePedido(pedido);
 		return "redirect:/pedidos/user";
@@ -229,11 +230,12 @@ public class PedidoController {
 			
 			Pedido pedido= pedidoService.findPedidoById(pedidoId);
 			model.put("pedido",pedido);
+			
+			recogerProductosCarta(cartaId,model);
 
-			recogerProductos(pedidoId,model);
-
-			return "cartas/verCarta";
+			return "pedidos/verCartaParaPedido";
 		}
+		
 		
 		//Aqui tenemos que añadir la pizza seleccionado a un nuevo pedido
 		@GetMapping("/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirPizza/{pizzaId}")
@@ -295,8 +297,8 @@ public class PedidoController {
 			
 			model.put("cartaId", cartaId);
 			Pedido pedido= pedidoService.findPedidoById(pedidoId);
+			recogerProductosPedido(pedidoId,model);
 			model.put("pedido",pedido);
-			recogerProductos(pedidoId,model);
 			return "pedidos/resumenPedido";
 		}
 		
@@ -384,13 +386,14 @@ public class PedidoController {
 			public String verPedido(@PathVariable("pedidoId") Integer pedidoId, ModelMap model) {		
 				Pedido pedido= pedidoService.findPedidoById(pedidoId);
 				model.put("pedido",pedido);
-				recogerProductos(pedidoId,model);
+				recogerProductosPedido(pedidoId,model);
 				return "pedidos/resumenPedido";
 			}
 		
-	//Recoger productos de un pedido		
-	private void recogerProductos(Integer pedidoId, ModelMap model) {
-		List<Integer> listaIdPizzas = PizzaService.findPizzaPedidoById(pedidoId);
+			
+	//Recoger productos de carta	
+	private void recogerProductosCarta(Integer cartaId, ModelMap model) {
+		List<Integer> listaIdPizzas = PizzaService.findIdPizzaById(cartaId);
 		Pizzas listaPizzas = new Pizzas();
 		for(int i=0; i<listaIdPizzas.size(); i++) {
 			Integer pizzaId = listaIdPizzas.get(i);
@@ -398,17 +401,17 @@ public class PedidoController {
 			listaPizzas.getPizzasList().add(pizza);
 		}
 		model.put("pizzas", listaPizzas);
-	
-		List<Integer> listaIdBebidas = BebidaService.findBebidaPedidoById(pedidoId);
+		
+		List<Integer> listaIdBebidas = BebidaService.findIdBebidaByCartaId(cartaId);
 		Bebidas listaBebidas = new Bebidas();
 		for(int i=0; i<listaIdBebidas.size(); i++) {
 			Integer bebidaId = listaIdBebidas.get(i);
-			Bebida bebida = this.BebidaService.findById(bebidaId);						
+			Bebida bebida = this.BebidaService.findById(bebidaId);
 			listaBebidas.getBebidasList().add(bebida);
 		}
 		model.put("bebidas", listaBebidas);
-			
-		List<Integer> listaIdOtros = OtrosService.findOtrosPedidoById(pedidoId);
+		
+		List<Integer> listaIdOtros = OtrosService.findIdOtroById(cartaId);
 		Otros listaOtros = new Otros();
 		for(int i=0; i<listaIdOtros.size(); i++) {
 			Integer otroId = listaIdOtros.get(i);
@@ -416,7 +419,54 @@ public class PedidoController {
 			listaOtros.getOtrosLista().add(otro);
 		}
 		model.put("otros", listaOtros);
+		Pizzas pizzasP = new Pizzas();
+		pizzasP.getPizzasList().addAll(this.PizzaService.findPizzaByCliente(getClienteActivo()));
+		model.put("PizzasP", pizzasP);  //si pongo Pizzas me pone la tabla vacia, si pongo pizza me da un error de tamaño
+
 	}
+	
+	//Recoger productos de un pedido		
+		private void recogerProductosPedido(Integer pedidoId, ModelMap model) {
+			List<Integer> listaIdPizzas = PizzaService.findPizzaPedidoById(pedidoId);
+			Pizzas listaPizzas = new Pizzas();
+			for(int i=0; i<listaIdPizzas.size(); i++) {
+				Integer pizzaId = listaIdPizzas.get(i);
+				Pizza pizza = this.PizzaService.findPizzaById(pizzaId);
+				listaPizzas.getPizzasList().add(pizza);
+			}
+			model.put("pizzas", listaPizzas);
+			
+			List<Integer> listaIdBebidas = BebidaService.findBebidaPedidoById(pedidoId);
+			Bebidas listaBebidas = new Bebidas();
+			for(int i=0; i<listaIdBebidas.size(); i++) {
+				Integer bebidaId = listaIdBebidas.get(i);
+				Bebida bebida = this.BebidaService.findById(bebidaId);
+				listaBebidas.getBebidasList().add(bebida);
+			}
+			model.put("bebidas", listaBebidas);
+			
+			List<Integer> listaIdOtros = OtrosService.findOtrosPedidoById(pedidoId);
+			Otros listaOtros = new Otros();
+			for(int i=0; i<listaIdOtros.size(); i++) {
+				Integer otroId = listaIdOtros.get(i);
+				Otro otro = this.OtrosService.findOtrosById(otroId);
+				listaOtros.getOtrosLista().add(otro);
+			}
+			model.put("otros", listaOtros);
+		}
+		
+		//Coger cliente de la sesión actual
+		private Cliente getClienteActivo() {
+			UserDetails userDetails = null;
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	        if (principal instanceof UserDetails) {
+	          userDetails = (UserDetails) principal;
+	        }
+	        String userName = userDetails.getUsername();
+	        User usuario = this.userService.findUser(userName).get();
+	        Cuenta cliente= this.clienteService.findCuentaByUser(usuario);
+	        return  (Cliente) cliente;
+		}
 	
 
 }

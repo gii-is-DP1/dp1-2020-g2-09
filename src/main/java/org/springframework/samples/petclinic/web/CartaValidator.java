@@ -4,13 +4,12 @@ import java.time.LocalDate;
 
 import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
 public class CartaValidator implements Validator {
-	private static final String REQUIRED = "required";
+//	private static final String REQUIRED = "required";
 
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -33,11 +32,11 @@ public class CartaValidator implements Validator {
 		}
 
 		// FECHA validation
-		if (carta.getFechaCreacion() == null || carta.getFechaCreacion().isAfter(LocalDate.now())) {
-			errors.rejectValue("fecha", 
-					"La fecha debe ser antes de la fecha actual",
-					"La fecha debe ser antes de la fecha actual");
-		}		
+//		if (carta.getFechaCreacion() == null || carta.getFechaCreacion().isAfter(LocalDate.now())) {
+//			errors.rejectValue("fecha", 
+//					"La fecha debe ser antes de la fecha actual",
+//					"La fecha debe ser antes de la fecha actual");
+//		}		
 		
 	}
 

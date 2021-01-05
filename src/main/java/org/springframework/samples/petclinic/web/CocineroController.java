@@ -2,7 +2,9 @@ package org.springframework.samples.petclinic.web;
 
 import java.time.LocalDate;
 import java.util.Map;
+
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Cocina;
 import org.springframework.samples.petclinic.model.Cocinas;
@@ -113,13 +115,14 @@ public class CocineroController {
 			cocinero.setFechaInicioContrato(LocalDate.now());
 			cocinero.setFechaFinContrato(null);
 		}else {
-			if(cocinero.getFechaInicioContrato().plusDays(31).isBefore(LocalDate.now())){
+			if(cocinero.getFechaInicioContrato().plusDays(31)
+					.isBefore(LocalDate.now())){
 				cocinero.setFechaFinContrato(LocalDate.now());
 			}else {
 				//mandar mensaje
-				Boolean noDarDeBaja = true;
-				model.put("noDarDebaja", noDarDeBaja);
-				return "redirect:/oups";
+//				Boolean noDarDeBaja = true;
+//				model.put("noDarDebaja", noDarDeBaja);
+				return "redirect:/NoEsPosibleDarDeBaja";
 			}
 		}
 		this.cocineroService.saveCocinero(cocinero);
