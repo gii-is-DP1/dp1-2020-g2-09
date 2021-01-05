@@ -2,9 +2,7 @@ package org.springframework.samples.petclinic.repository;
 
 import java.time.LocalDate;
 import java.util.List;
-
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.samples.petclinic.model.Carta;
@@ -23,7 +21,8 @@ public interface CartaRepository  extends CrudRepository<Carta, Integer>{
 	Carta findCartaByFechaCreacionYFechaFinal(LocalDate hoy) throws DataAccessException;
 	//LocalDate hoy = LocalDate.now();
 	
-	@Modifying
+	//esto no va aquí 
+	/*@Modifying
     @Query(value = "INSERT INTO  PRODUCTO_PIZZA_PEDIDO (PEDIDO_ID, PIZZAS_EN_PEDIDO_ID) VALUES (?1, ?2)",
 			nativeQuery = true)
 	void añadirPizzaAPedido(int pizzaId, int pedidoId);
@@ -36,5 +35,5 @@ public interface CartaRepository  extends CrudRepository<Carta, Integer>{
 	@Modifying
     @Query(value = "INSERT INTO  PRODUCTO_OTROS_PEDIDO (PEDIDO_ID, OTROS_EN_PEDIDO_ID) VALUES (?1, ?2)",
 			nativeQuery = true)
-	void añadirOtrosAPedido(int otrosId, int pedidoId);
+	void añadirOtrosAPedido(int otrosId, int pedidoId);*/
 }
