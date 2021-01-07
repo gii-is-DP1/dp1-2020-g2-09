@@ -239,7 +239,7 @@ public class PedidoController {
 		
 		//Aqui tenemos que añadir la pizza seleccionado a un nuevo pedido
 		@GetMapping("/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirPizza/{pizzaId}")
-		public String anadirPizza(Map<String, Object> model, @PathVariable("pedidoId") int pedidoId,
+		public String anadirPizza(ModelMap model, @PathVariable("pedidoId") int pedidoId,
 				@PathVariable("pizzaId") int pizzaId, @PathVariable("cartaId") Integer cartaId) {
 			model.put("cartaId", cartaId);
 			Pedido pedido = pedidoService.findPedidoById(pedidoId);
@@ -256,7 +256,7 @@ public class PedidoController {
 		
 		//Aqui tenemos que añadir la bebida seleccionado a un nuevo pedido
 		@GetMapping("/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirBebida/{bebidaId}")
-		public String anadirBebida(Map<String, Object> model, @PathVariable("pedidoId") int pedidoId,
+		public String anadirBebida(ModelMap model, @PathVariable("pedidoId") int pedidoId,
 				@PathVariable("bebidaId") int bebidaId, @PathVariable("cartaId") Integer cartaId) {
 			model.put("cartaId", cartaId);
 			Pedido pedido = pedidoService.findPedidoById(pedidoId);
@@ -274,7 +274,7 @@ public class PedidoController {
 		
 		//Aqui tenemos que añadir los otros seleccionado a un nuevo pedido
 		@GetMapping("/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirOtros/{otrosId}")
-		public String anadirOtros(Map<String, Object> model, @PathVariable("pedidoId") int pedidoId,
+		public String anadirOtros(ModelMap model, @PathVariable("pedidoId") int pedidoId,
 				@PathVariable("otrosId") int otrosId, @PathVariable("cartaId") Integer cartaId) {
 			model.put("cartaId", cartaId);
 			Pedido pedido = pedidoService.findPedidoById(pedidoId);
