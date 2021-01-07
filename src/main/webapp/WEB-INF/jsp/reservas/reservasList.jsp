@@ -12,7 +12,8 @@
     <table id="reservasTable" class="table table-striped">
         <thead>
         <tr>
-            <th>Numero de Personas</th>
+        	<th>ID de la reserva </th>
+            <th>Número de Personas</th>
             <th>Fecha de la reserva</th>
             <th>Tipo de la reserva</th>
             <th>Hora de la reserva</th>
@@ -26,6 +27,9 @@
         <tbody>
         <c:forEach items="${reservas}" var="reserva">
             <tr>
+            <td>
+                    <c:out value="${reserva.id}"/>
+                </td>
                 <td>
                     <c:out value="${reserva.numeroPersonas}"/>
                 </td>

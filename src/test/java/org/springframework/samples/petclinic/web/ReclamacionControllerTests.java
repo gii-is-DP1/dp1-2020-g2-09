@@ -122,8 +122,8 @@ class ReclamacionControllerTests {
 				//.param("fechaReclamacion", "2020/11/27")
 				.param("observacion", "No se que ocurre")
 				.param("respuesta", "Lo sentimos mucho, ..."))
-				.andExpect(status().is3xxRedirection()) 
-				.andExpect(view().name("redirect:/allReclamaciones"));
+				//.andExpect(status().is3xxRedirection()) 
+				.andExpect(view().name("reclamaciones/confirmarReclamacion"));
 		//.andExpect(view().name("reclamaciones/reclamacionesList")); 
 	//.andExpect(view().name("reclamaciones/createOrUpdateReclamacionForm"));
 } 

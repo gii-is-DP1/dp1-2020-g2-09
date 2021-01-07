@@ -22,6 +22,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -84,6 +85,7 @@ public class ReclamacionController {
 	}
 //	
 	//para ver las reclamaciones del cliente que ha iniciado sesión
+	//CORREGIR, MUESTRA MAL EL ID DE PEDIDO (MUESTRA EL ID DE LA RECLAMACIÓN).
 		@GetMapping("/reclamaciones/user")
 		public String showMisReclamaciones(Map<String, Object> model) {
 			Reclamaciones reclamaciones = new Reclamaciones();
@@ -142,6 +144,8 @@ public class ReclamacionController {
 			else {
 //				ReclamacionValidator ofValidator = new ReclamacionValidator();
 //				ValidationUtils.invokeValidator(ofValidator, reclamacion, result);
+				model.put("reclamacion", reclamacion);
+				model.put("pedidoId", pedidoId);
 				this.reclamacionService.saveReclamacion(reclamacion);
 				
 				//ESTAS DOS LÍNEAS SON LAS QUE HACEN QUE EL testProcessCreationFormSuccess de fallo
@@ -149,11 +153,17 @@ public class ReclamacionController {
 				//FIJARME EN CARTA E INTENTAR HACERLO DE FORMA SIMILAR
 				//COMO SI ESTUVIERA AÑADIENDO UNA PIZZA A LA CARTA, 
 				//PERO EN VEZ DE ESO ESTOY AÑADIENDO UNA RECLAMACION AL PEDIDO
-				Integer reclamacionId=reclamacion.getId();
-				this.reclamacionService.anadirReclamacionAPedido(pedidoId, reclamacionId);
+//				Integer reclamacionId=reclamacion.getId();
+				
 				//======================
-				return "redirect:/allReclamaciones";
+				return "reclamaciones/confirmarReclamacion";
 			} 
+		}
+		
+		@GetMapping(value = "/pedidos/{pedidoId}/reclamaciones/{reclamacionId}/confirmarReclamacion")
+		public String verDetallesReclamacion(@PathVariable("pedidoId") int pedidoId, @PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
+			this.reclamacionService.anadirReclamacionAPedido(pedidoId, reclamacionId);
+			return "exito";
 		}
 		
 		
@@ -185,13 +195,13 @@ public class ReclamacionController {
 			}
 		}
 		
-		/* //borrar reclamacion
+		//borrar reclamacion
 		@GetMapping(value = "/reclamaciones/{reclamacionId}/delete")
 		public String initDeleteReclamacion(@PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
 			Reclamacion reclamacion = this.reclamacionService.findReclamacionById(reclamacionId);
 			this.reclamacionService.deleteReclamacion(reclamacion);
 			return "redirect:/allReclamaciones";
-		} */
+		} 
 		
 //		@ModelAttribute("reclamacion")
 //		public Reclamacion findReclamacion(@PathVariable("reclamacionId") int reclamacionId) {

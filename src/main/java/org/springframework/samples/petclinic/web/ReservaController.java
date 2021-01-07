@@ -160,7 +160,7 @@ public class ReservaController {
 						} else {
 							LocalTime miHora = reserva.getHora();
 							LocalTime horaReservaComparacion = r.getHora();
-							if(ChronoUnit.MINUTES.between(miHora, horaReservaComparacion)>60) {
+							if(Math.abs(ChronoUnit.MINUTES.between(miHora, horaReservaComparacion))>60) {
 								mesasDisponibles.add(m);
 								
 							}

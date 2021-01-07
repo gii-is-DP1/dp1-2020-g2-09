@@ -2,6 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
@@ -34,12 +35,16 @@
     	<c:when test="${reclamacion['new']}">
             <%-- <petclinic:inputField label="fecha de incidencia" name="fechaReclamacion"/> --%>
             <petclinic:inputField label="observación" name="observacion"/>
-             <form:input type="hidden" path="respuesta" label="respuesta" name="respuesta"/>
+           <%-- <sec:authorize access="hasAnyAuthority('administrador')"  >   --%>
+           <form:input type="hidden" path="respuesta" label="respuesta" name="respuesta"/>
+           <%-- </sec:authorize> --%>
              </c:when>
               <c:otherwise>
               <!-- Revisar -->
             <%-- <form:input type="hidden" path="fechaReclamacion" name="fechaReclamacion"/> --%>
+            <%-- <sec:authorize access="hasAnyAuthority('cliente')"  > --%>
             <form:input type="hidden" path="observacion" label="observacion" name="observacion"/>
+             <%-- </sec:authorize> --%>
               <petclinic:inputField label="respuesta" name="respuesta"/>
                </c:otherwise>
              </c:choose>
