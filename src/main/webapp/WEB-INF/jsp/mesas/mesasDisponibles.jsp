@@ -7,6 +7,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
     
     <petclinic:layout pageName="mesas">
     <h2>Reservar mesa</h2>
@@ -33,16 +34,23 @@
         </tr>
         </tbody>
     </table>
-    
-
-    <p> Estas son las mesas disponibles. Si no hay mesas disponibles, pulse el siguiente botón, 
-     modifique los datos de su reserva y vuelva a intentarlo.</p>
      
-     <spring:url value="/reservas/{reservaId}/edit" var="editmesaUrl">
+    <c:if test="${fn:length(mesasDisponiblesSolucion) != 0}"> 
+    <spring:url value="/reservas/{reservaId}/edit" var="editmesaUrl">
 	                        <spring:param name="reservaId" value="${reservaId}"/> 
 	                </spring:url>
 	                <a href="${fn:escapeXml(editmesaUrl)}" class="btn btn-default">Modificar reserva</a>
-	                
+	 </c:if>
+	  <c:choose>
+	  <c:when test="${fn:length(mesasDisponiblesSolucion) == 0}">
+       <p> <strong> Lo sentimos, no hay mesas disponibles. Modifique los datos de su reserva y vuelva a intentarlo.
+         En otro caso, pulse el botón cancelar reserva.</strong></p>
+        <spring:url value="/reservas/{reservaId}/edit" var="editmesaUrl">
+	                        <spring:param name="reservaId" value="${reservaId}"/> 
+	                </spring:url>
+	                <a href="${fn:escapeXml(editmesaUrl)}" class="btn btn-default">Modificar reserva</a>
+       </c:when> 
+        <c:otherwise>             
 	  <h2>Mesas disponibles</h2>
     <table id="mesasDisponibles" class="table table-striped">
         <thead>
@@ -74,6 +82,16 @@
              
 </tr>
 </c:forEach>
+</c:otherwise>
+</c:choose>
+
+<td>
+<spring:url value="/reservas/{reservaId}/delete" var="borrarmesaUrl">
+	                        <spring:param name="reservaId" value="${reservaId}"/> 
+	                </spring:url>
+	                <a href="${fn:escapeXml(borrarmesaUrl)}" class="btn btn-default">Cancelar reserva</a>
+</td>
+
 </tbody>
 </table>
 
