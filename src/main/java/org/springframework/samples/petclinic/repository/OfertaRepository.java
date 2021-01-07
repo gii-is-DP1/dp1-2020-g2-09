@@ -50,4 +50,10 @@ public interface OfertaRepository  extends CrudRepository<Oferta, Integer> {
 	
 	@Query(value ="SELECT * FROM PIZZAS WHERE ID LIKE( SELECT PIZZAS_EN_OFERTA_ID FROM OFERTA_PIZZA WHERE OFERTA_ID = ?1) ",	nativeQuery = true)
 	List<Pizza> findPizzasEnOfertaByOfertaId(int ofertaId) throws DataAccessException;
+	
+	@Query(value ="SELECT * FROM BEBIDAS WHERE ID LIKE( SELECT BEBIDAS_EN_OFERTA_ID FROM OFERTA_BEBIDA WHERE OFERTA_ID = ?1) ",	nativeQuery = true)
+	List<Bebida> findBebidasEnOfertaByOfertaId(int ofertaId) throws DataAccessException;
+	
+	@Query(value ="SELECT * FROM OTROS WHERE ID LIKE( SELECT OTROS_EN_OFERTA_ID FROM OFERTA_OTRO WHERE OFERTA_ID = ?1) ",	nativeQuery = true)
+	List<Otro> findOtrosEnOfertaByOfertaId(int ofertaId) throws DataAccessException;
 }

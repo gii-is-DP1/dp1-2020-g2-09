@@ -13,14 +13,74 @@
     <h2>Carta</h2>
     
     <!--<c:out value="${cartaId}"></c:out>-->
-	    <sec:authorize access="hasAnyAuthority('administrador')"  >
+
+	<h3>Ofertas</h3>
+	    <table id="ofertasTableCarta" class="table table-striped">
+	        <thead>
+	        <tr>
+	            <th>Nombre</th>
+	            <th>Tamaño producto</th>
+	            <th>Coste</th>
+	            <th>Fin Oferta</th>
+	            <th>Nivel socio</th>
+	            <th>Descripción</th>
+	            
+	        </tr>
+	        </thead>
+	        <tbody>
+	        <c:forEach items="${ofertas}" var="oferta">
+	            <tr>
+	            <!-- <input  value="${pizza.id}">  -->
+	               <td>
+	                    <c:out value="${oferta.name}"/>
+	               </td>
+	                <td>
+	             		<c:out value="${oferta.tamanoOferta}"/>
+	             	</td>
+	               <td>
+	                	<c:out value="${oferta.coste}"/>
+	             	</td>
+	             	<td>
+	             		<c:out value="${oferta.fechaFinal}"/>
+	             	</td>
+	             	
+	             	<td>
+	             		<c:out value="${oferta.nivelSocio}"/>
+	             	</td>
+	             	 <td>
+	             		<ul>
+	             			<c:forEach items="${oferta.pizzasEnOferta}" var="pizza">
+	             				<li>
+	             					<c:out value="${pizza.nombre}"/>
+	             				</li>
+	             			</c:forEach>
+	             		</ul>
+	             		<ul>
+	             			<c:forEach items="${oferta.bebidasEnOferta}" var="bebida">
+	             				<li>
+	             					<c:out value="${bebida.nombre}"/>
+	             				</li>
+	             			</c:forEach>
+	             		</ul>
+	             		<ul>
+	             			<c:forEach items="${oferta.otrosEnOferta}" var="otro">
+	             				<li>
+	             					<c:out value="${otro.nombre}"/>
+	             				</li>
+	             			</c:forEach>
+	             		</ul>
+	             	</td>
+	             	
+	            </tr>
+	        </c:forEach>
+	        </tbody>
+	    </table>
+	   <sec:authorize access="hasAnyAuthority('administrador')"  >
 	   			<spring:url value="/cartas/{cartaId}/pizzas" var="listaPizzas">
 		         <spring:param name="cartaId" value="${cartaId}"/> 
 		    </spring:url>
 		    <a href="${fn:escapeXml(listaPizzas)}" class="btn btn-default">Añadir pizza a la carta</a>
     	</sec:authorize>
-
-	  
 	<h3>Pizzas</h3>
     <table id="pizzasTableCarta" class="table table-striped">
         <thead>
@@ -84,7 +144,7 @@
             <th>Nombre</th>
             <th>Carbonatada</th>
             <th>Tamaño</th>
-            <th>Precio</th>
+            <th>Coste</th>
         </tr>
         </thead>
         <tbody>

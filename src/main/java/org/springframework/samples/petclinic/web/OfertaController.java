@@ -66,6 +66,7 @@ public class OfertaController {
 	public Collection<TamanoOferta> populateTamanoOferta() {
 		return this.ofertaService.findTamanoOferta();
 	}
+
 	
 	@ModelAttribute("nivelSocio")
 	public Collection<NivelSocio> populateNivelSocio() {
@@ -102,6 +103,12 @@ public class OfertaController {
 	public String processCreationForm(@Valid Oferta oferta,BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("oferta", oferta);//importanteeee
+			List<Pizza> pizzas=pizzaService.findPizzas();
+			List<Bebida> bebidas=bebidaService.findBebidas();
+			List<Otro> otros=otrosService.findOtros();
+			model.put("pizzas", pizzas);
+			model.put("bebidas", bebidas);
+			model.put("otros", otros);
 			return "ofertas/createOrUpdateOfertaForm";
 		}
 		else {
@@ -116,6 +123,12 @@ public class OfertaController {
 	@GetMapping(value = "/ofertas/{ofertaId}/edit")
 	public String initUpdateForm(@PathVariable("ofertaId") int ofertaId, ModelMap model) {
 		Oferta oferta = this.ofertaService.findOfertaById(ofertaId);
+		List<Pizza> pizzas=pizzaService.findPizzas();
+		List<Bebida> bebidas=bebidaService.findBebidas();
+		List<Otro> otros=otrosService.findOtros();
+		model.put("pizzas", pizzas);
+		model.put("bebidas", bebidas);
+		model.put("otros", otros);
 		model.put("oferta", oferta);
 		return "ofertas/createOrUpdateOfertaForm";
 	}
@@ -124,6 +137,12 @@ public class OfertaController {
 	@PostMapping(value = "/ofertas/{ofertaId}/edit")
 	public String processUpdatePedidoForm(@Valid Oferta oferta, BindingResult result,@PathVariable("ofertaId") int ofertaId, ModelMap model) {
 		if (result.hasErrors()) {
+			List<Pizza> pizzas=pizzaService.findPizzas();
+			List<Bebida> bebidas=bebidaService.findBebidas();
+			List<Otro> otros=otrosService.findOtros();
+			model.put("pizzas", pizzas);
+			model.put("bebidas", bebidas);
+			model.put("otros", otros);
 			model.put("oferta", oferta);
 			return "ofertas/createOrUpdateOfertaForm";
 		}

@@ -12,6 +12,7 @@ import org.springframework.samples.petclinic.model.Bebida;
 import org.springframework.samples.petclinic.model.Bebidas;
 import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.model.Ingrediente;
+import org.springframework.samples.petclinic.model.Oferta;
 import org.springframework.samples.petclinic.model.Otro;
 import org.springframework.samples.petclinic.model.Otros;
 import org.springframework.samples.petclinic.model.Pizza;
@@ -21,6 +22,7 @@ import org.springframework.samples.petclinic.model.tipoMasa;
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.CartaService;
 import org.springframework.samples.petclinic.service.IngredienteService;
+import org.springframework.samples.petclinic.service.OfertaService;
 import org.springframework.samples.petclinic.service.OtrosService;
 import org.springframework.samples.petclinic.service.PizzaService;
 import org.springframework.stereotype.Controller;
@@ -46,6 +48,8 @@ public class CartaController {
 	private BebidaService BebidaService;
 
 	private IngredienteService IngredienteService;
+	
+	private OfertaService OfertaService;
 
 	@InitBinder("pizza")
 	public void initPizzaBinder(WebDataBinder dataBinder) {
@@ -70,12 +74,13 @@ public class CartaController {
 	@Autowired
 	public CartaController(CartaService CartaService, PizzaService PizzaService,
 			OtrosService OtrosService, BebidaService BebidaService,
-			IngredienteService IngredienteService) {
+			IngredienteService IngredienteService,OfertaService OfertaService) {
 		this.CartaService = CartaService;
 		this.PizzaService = PizzaService;
 		this.OtrosService = OtrosService;
 		this.BebidaService = BebidaService;
 		this.IngredienteService = IngredienteService;
+		this.OfertaService = OfertaService;
 	}
 
 
@@ -182,7 +187,18 @@ public class CartaController {
 			listaOtros.getOtrosLista().add(otro);
 		}
 		model.put("otros", listaOtros);
-
+		
+		
+		List<Oferta>  ofertas=OfertaService.findOfertas();
+		model.put("ofertas",ofertas);
+		
+//		List<Pizza> pizzasEnOferta = OfertaService.findPizzasEnOferta();
+//		List<Bebida> bebidasEnOferta = OfertaService.findBebidasEnOferta();
+//		List<Otro> otrosEnOferta = OfertaService.findOtrosEnOferta();		
+//		
+//		model.put("pizzasEnOferta",pizzasEnOferta);
+//		model.put("bebidasEnOferta",bebidasEnOferta);
+//		model.put("otrosEnOferta",otrosEnOferta);
 		
 		return "cartas/verCarta";
 	}

@@ -28,6 +28,7 @@
 			<div class="control-group">
 			<petclinic:selectField name="tamanoOferta" label="Tamaño producto" names="${tamanoOferta}" size="2"/>
 			<petclinic:selectField name="nivelSocio" label="Nivel Socio" names="${nivelSocio}" size="3"/>
+			
 			 <table id="pizzasTable" class="table table-striped">
              <thead>
        		 <tr>
@@ -39,10 +40,11 @@
        		 <c:forEach items="${pizzas}" var="pizza">
        		 <tr>
        		 <td>${pizza.nombre}</td>
-       		 <td><form:checkbox path="pizzasEnOferta" value="${pizza}"/> Añadir</td>
+       		 <td><form:checkbox path="pizzasEnOferta" value="${pizza}"/> Añadir <br>
+       		  <form:input label="Cantidad" name="Cantidad" type="number" path="Cantidad"/></td>
        		 </tr>
        		 </c:forEach>
-
+			
        		 
        		 </tbody>
              </table>
@@ -58,7 +60,8 @@
        		 <c:forEach items="${bebidas}" var="bebida">
        		 <tr>
        		 <td>${bebida.nombre}</td>
-       		 <td><form:checkbox path="bebidasEnOferta" value="${bebida}"/> Añadir</td>
+       		 <td><form:checkbox path="bebidasEnOferta" value="${bebida}"/> Añadir
+       		 <petclinic:inputField name="Cantidad" label="Cantidad"/></td>	 
        		 </tr>
        		 </c:forEach>
 
@@ -77,7 +80,8 @@
        		 <c:forEach items="${otros}" var="otro">
        		 <tr>
        		 <td>${otro.nombre}</td>
-       		 <td><form:checkbox path="otrosEnOferta" value="${otro}"/> Añadir</td>
+       		 <td><form:checkbox path="otrosEnOferta" value="${otro}"/> Añadir
+       		 <petclinic:inputField name="Cantidad" label="Cantidad"/></td>
        		 </tr>
        		 </c:forEach>
 
