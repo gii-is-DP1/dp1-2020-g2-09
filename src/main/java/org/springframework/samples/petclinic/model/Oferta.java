@@ -1,7 +1,9 @@
 package org.springframework.samples.petclinic.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -67,6 +69,9 @@ public class Oferta extends NamedEntity{
 	@ManyToMany (cascade = CascadeType.MERGE)
 	@JoinTable(name = "OfertaOtro", joinColumns =@JoinColumn(name= "ofertaId" ))
 	private Collection<Otro> otrosEnOferta;
+	
+	@Column(name = "Cantidad")
+	private Integer[] Cantidad=new Integer[0];
 	
 //	public TamanoProducto getTamanoProducto() {
 //		return this.tamanoProducto;

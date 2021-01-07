@@ -66,6 +66,7 @@ public class OfertaController {
 	public Collection<TamanoOferta> populateTamanoOferta() {
 		return this.ofertaService.findTamanoOferta();
 	}
+
 	
 	@ModelAttribute("nivelSocio")
 	public Collection<NivelSocio> populateNivelSocio() {
