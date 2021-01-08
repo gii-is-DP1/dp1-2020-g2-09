@@ -108,6 +108,14 @@ public class PedidoController {
 		return "pedidos/pedidosList";
 	}
 	
+	//ver pizza tracker
+	@GetMapping(value = { "/pedidos/{pedidoId}/estadoPedido" })
+	public String irPizzaTracker(@PathVariable("pedidoId") int pedidoId, Map<String, Object> model) {
+		Pedido pedido = this.pedidoService.findPedidoById(pedidoId);
+		model.put("pedido", pedido);
+		return "pedidos/pizzaTracker";
+	}
+	
 	//para ver los pedidos del cliente que ha iniciado sesión
 	@GetMapping("/pedidos/user")
 	public String showMisPedidos(Map<String, Object> model) {
