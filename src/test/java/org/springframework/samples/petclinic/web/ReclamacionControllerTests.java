@@ -43,6 +43,8 @@ class ReclamacionControllerTests {
 
 	private static final int TEST_PEDIDO_ID = 1;
 	
+	private static final int TEST_CLIENTE_ID = 1;
+	
 	@Autowired
 	private ReclamacionController reclamacionController;
 	
@@ -74,8 +76,6 @@ class ReclamacionControllerTests {
 		cliente.setId(1);
 		cliente.setNombre("Jesús");
 		cliente.setTelefono(123456789);
-		
-		
 		p.setCliente(cliente);
 		p.setDireccion("Bda San Diego");
 		EstadoPedido ep = new EstadoPedido();
@@ -102,6 +102,7 @@ class ReclamacionControllerTests {
 		given(this.reclamacionService.findReclamaciones()).willReturn(Lists.newArrayList(r));
 		given(this.pedidoService.findPedidoById(TEST_PEDIDO_ID)).willReturn(new Pedido());
 		given(this.reclamacionService.findReclamacionById(TEST_RECLAMACION_ID)).willReturn(new Reclamacion());
+		given(this.clienteService.findCuentaById(TEST_CLIENTE_ID)).willReturn(new Cliente());
 	}
 
 	
@@ -182,6 +183,42 @@ class ReclamacionControllerTests {
     	mockMvc.perform(get("/allReclamaciones")).andExpect(status().isOk())
 		.andExpect(view().name("reclamaciones/reclamacionesList"))
 		.andExpect(model().attributeExists("reclamaciones"));
+    }
+    
+    @WithMockUser(value = "spring")
+    @Test
+    void testInitDeleteReclamacion() throws Exception {
+
+    	
+    	mockMvc.perform(get("/reclamaciones/{reclamacionId}/delete", TEST_RECLAMACION_ID))
+    			.andExpect(status().is3xxRedirection()).andExpect(view()
+    					.name("redirect:/reclamaciones/user"))
+    			.andExpect(model().attributeDoesNotExist("reclamacion"));
+    }
+    
+    //Da fallo
+    @WithMockUser(value = "spring")
+   	@Test
+   	void testAnadirReclamacionAPedido() throws Exception {
+    	mockMvc.perform(get("/pedidos/{pedidoId}/reclamaciones/{reclamacionId}/confirmarReclamacion}", TEST_PEDIDO_ID, TEST_RECLAMACION_ID)
+				.with(csrf())
+				.param("direccion", "C/ferrara, 4")
+				.param("tipoPago.name", "TARJETA")
+				.param("tipoEnvio.name", "DOMICILIO"))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/reclamaciones/user"));
+    }
+    
+    //Da fallo. Si comento a partir de la línea 180 en el controlador no da problemas (pero claro la página se rompe).
+    @WithMockUser(value = "spring")
+    @Test
+    void testShowDetallesReclamacion() throws Exception {
+    	mockMvc.perform(get("/reclamaciones/{reclamacionId}/verDetalles", TEST_RECLAMACION_ID)).andExpect(status().isOk())
+    	.andExpect(model().attributeExists("reclamacion"))
+    	.andExpect(model().attributeExists("pedido"))
+    	.andExpect(model().attributeExists("usuario"))
+    	.andExpect(model().attributeExists("cliente"))
+    	.andExpect(view().name("reclamaciones/verDetallesReclamacion"));
     }
     
 	
