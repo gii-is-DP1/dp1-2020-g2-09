@@ -1,14 +1,18 @@
 package org.springframework.samples.petclinic.web;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Bebida;
 import org.springframework.samples.petclinic.model.Bebidas;
 import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.model.Ingrediente;
+import org.springframework.samples.petclinic.model.Oferta;
 import org.springframework.samples.petclinic.model.Otro;
 import org.springframework.samples.petclinic.model.Otros;
 import org.springframework.samples.petclinic.model.Pizza;
@@ -18,14 +22,12 @@ import org.springframework.samples.petclinic.model.tipoMasa;
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.CartaService;
 import org.springframework.samples.petclinic.service.IngredienteService;
+import org.springframework.samples.petclinic.service.OfertaService;
 import org.springframework.samples.petclinic.service.OtrosService;
-import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.samples.petclinic.service.PizzaService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -46,6 +48,8 @@ public class CartaController {
 	private BebidaService BebidaService;
 
 	private IngredienteService IngredienteService;
+	
+	private OfertaService OfertaService;
 
 	@InitBinder("pizza")
 	public void initPizzaBinder(WebDataBinder dataBinder) {
@@ -70,12 +74,13 @@ public class CartaController {
 	@Autowired
 	public CartaController(CartaService CartaService, PizzaService PizzaService,
 			OtrosService OtrosService, BebidaService BebidaService,
-			IngredienteService IngredienteService) {
+			IngredienteService IngredienteService,OfertaService OfertaService) {
 		this.CartaService = CartaService;
 		this.PizzaService = PizzaService;
 		this.OtrosService = OtrosService;
 		this.BebidaService = BebidaService;
 		this.IngredienteService = IngredienteService;
+		this.OfertaService = OfertaService;
 	}
 
 
@@ -108,7 +113,12 @@ public class CartaController {
 			model.put("carta", carta);//si se ha roto-> preguntar a maria
 			return "cartas/createOrUpdateCartaForm";
 		}
-		else {
+		else { 
+			List<Carta> cartas = this.CartaService.findCartas();
+			LocalDate fechaCreacion = cartas.get(cartas.size()-1).getFechaCreacion().plusYears(1);
+			LocalDate fechaFinal = cartas.get(cartas.size()-1).getFechaFinal().plusYears(1);
+			carta.setFechaCreacion(fechaCreacion);
+			carta.setFechaFinal(fechaFinal);
 			this.CartaService.saveCarta(carta);
 			return "redirect:/allCartas";
 		}
@@ -177,7 +187,18 @@ public class CartaController {
 			listaOtros.getOtrosLista().add(otro);
 		}
 		model.put("otros", listaOtros);
-
+		
+		
+		List<Oferta>  ofertas=OfertaService.findOfertas();
+		model.put("ofertas",ofertas);
+		
+//		List<Pizza> pizzasEnOferta = OfertaService.findPizzasEnOferta();
+//		List<Bebida> bebidasEnOferta = OfertaService.findBebidasEnOferta();
+//		List<Otro> otrosEnOferta = OfertaService.findOtrosEnOferta();		
+//		
+//		model.put("pizzasEnOferta",pizzasEnOferta);
+//		model.put("bebidasEnOferta",bebidasEnOferta);
+//		model.put("otrosEnOferta",otrosEnOferta);
 		
 		return "cartas/verCarta";
 	}
@@ -217,22 +238,57 @@ public class CartaController {
 	@GetMapping(value = "/cartas/{cartaId}/anadirPizzaACarta/{pizzaId}")
     public String añadirPizzaACarta(@PathVariable("pizzaId") int pizzaId,
     		@PathVariable("cartaId") int cartaId) {
-    	this.PizzaService.añadirPizzaACarta(pizzaId, cartaId);
-    	return "redirect:/cartas/{cartaId}/VerCarta";
+		List<Integer> listaIds = this.PizzaService.findIdPizzaById(cartaId);
+		Boolean duplicada = false;
+		for(int i=0; i < listaIds.size() && !duplicada; i++) {
+			if(listaIds.get(i).equals(pizzaId)) {
+				duplicada = true;
+			}
+		}
+		if(!duplicada) {
+			this.PizzaService.añadirPizzaACarta(pizzaId, cartaId);
+			return "redirect:/cartas/{cartaId}/VerCarta";
+		}else {
+			return "redirect:/PizzaDuplicadaEnCarta";
+		}
+    	
     }
 	
 	@GetMapping(value = "/cartas/{cartaId}/anadirBebidaACarta/{bebidaId}")
     public String añadirBebidaACarta(@PathVariable("bebidaId") int bebidaId,
     		@PathVariable("cartaId") int cartaId) {
-    	this.BebidaService.añadirBebidaACarta(bebidaId, cartaId);
-    	return "redirect:/cartas/{cartaId}/VerCarta";
+		List<Integer> listaIds = this.BebidaService.findIdBebidaByCartaId(cartaId);
+		Boolean duplicada = false;
+		for(int i=0; i < listaIds.size() && !duplicada; i++) {
+			if(listaIds.get(i).equals(bebidaId)) {
+				duplicada = true;
+			}
+		}
+		if(!duplicada) {
+			this.BebidaService.añadirBebidaACarta(bebidaId, cartaId);
+	    	return "redirect:/cartas/{cartaId}/VerCarta";
+		}else {
+			return "redirect:/BebidaDuplicadaEnCarta";
+		}
     }
 	
 	@GetMapping(value = "/cartas/{cartaId}/anadirOtroACarta/{otroId}")
     public String añadirOtroACarta(@PathVariable("otroId") int otroId,
     		@PathVariable("cartaId") int cartaId) {
-    	this.OtrosService.añadirOtroACarta(otroId, cartaId);
-    	return "redirect:/cartas/{cartaId}/VerCarta"; 
+		List<Integer> listaIds = this.OtrosService.findIdOtroById(cartaId);
+		Boolean duplicada = false;
+		for(int i=0; i < listaIds.size() && !duplicada; i++) {
+			if(listaIds.get(i).equals(otroId)) {
+				duplicada = true;
+			}
+		}
+		if(!duplicada) {
+			this.OtrosService.añadirOtroACarta(otroId, cartaId);
+	    	return "redirect:/cartas/{cartaId}/VerCarta"; 
+		}else {
+			return "redirect:/OtroDuplicadaEnCarta";
+		}
+    	
     }
 	
 	

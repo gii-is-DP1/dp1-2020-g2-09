@@ -40,7 +40,7 @@
 					<span>Veterinarians</span>
 				</petclinic:menuItem> -->
 				
-				 <petclinic:menuItem active="${name eq 'reserva'}" url="/allReservas"
+				 <petclinic:menuItem active="${name eq 'reserva'}" url="/reservas/new"
 					title="Reserva">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span>Reservar una mesa</span>

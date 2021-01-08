@@ -1,6 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
-import java.util.Map; 
+import java.util.Map;
 
 import javax.validation.Valid;
 

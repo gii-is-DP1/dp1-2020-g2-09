@@ -8,13 +8,13 @@ import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Ingrediente;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.Validator;
 import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 @Component
 public class ClienteValidator implements Validator{
 
-	private static final String REQUIRED = "Requerido";
+//	private static final String REQUIRED = "Requerido";
 	
 	@Override
 	public boolean supports(Class<?> clazz) {

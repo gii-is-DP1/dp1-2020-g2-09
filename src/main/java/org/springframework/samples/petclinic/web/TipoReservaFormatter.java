@@ -6,7 +6,6 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
-import org.springframework.samples.petclinic.model.Reserva;
 import org.springframework.samples.petclinic.model.tipoReserva;
 import org.springframework.samples.petclinic.service.ReservaService;
 import org.springframework.stereotype.Component;

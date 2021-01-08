@@ -9,8 +9,6 @@ import javax.validation.constraints.Size;
 
 import com.sun.istack.NotNull;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,4 +33,7 @@ public class Producto extends BaseEntity {
 	@NotNull
 	private Integer contador=1;
 
+//	@ManyToMany (cascade = CascadeType.MERGE)
+//	@JoinTable(name = "OfertaProducto", joinColumns =@JoinColumn(name= "ofertaId" ))
+//	private Collection<Oferta> productoEnOferta;
 }

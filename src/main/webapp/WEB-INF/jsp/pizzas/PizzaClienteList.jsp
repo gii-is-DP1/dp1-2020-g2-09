@@ -29,7 +29,7 @@
             <th>Coste</th>
             <th>Tipo Masa</th>
             <th>Ingredientes</th>
-            <th></th>
+            <th>Cliente</th>
             <th></th>
 
         </tr>
@@ -59,6 +59,10 @@
              				</li>
              			</c:forEach>
              		</ul>
+             	</td>
+             	
+             	<td>
+             		<c:out value="${pizza.cliente.nombre}"></c:out>
              	</td>
 
 

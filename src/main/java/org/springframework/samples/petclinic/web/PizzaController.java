@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -25,7 +26,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -110,6 +110,8 @@ public class PizzaController {
 	public String initCreationFormCliente(Map<String, Object> model) {
 		Pizza pizza = new Pizza();
 		model.put("pizza", pizza);
+		Cliente cliente = getClienteActivo();
+		model.put("cliente", cliente);
 		return "pizzas/createOrUpdatePizzaFormCliente";
 	}
 
@@ -120,17 +122,30 @@ public class PizzaController {
 			model.put("pizza", pizza);//importanteeee
 			return "pizzas/createOrUpdatePizzaFormCliente";
 		} else {
-			Cliente c = getClienteActivo();
-			pizza.setCliente(c);
+			Cliente cliente = getClienteActivo();
+			pizza.setCliente(cliente);
 			pizza.setPersonalizada(true);
 			Integer numIng = pizza.getIngredientes().size();
 			pizza.setCoste(6 + numIng);
+			
+			//comprobamos que el nombre de la pizza personalizada no está duplicado (RN-4)
+			Boolean duplicado = false;
+			List<Pizza> pizzasCliente = pizzaService.findPizzaByCliente(cliente);
+			for(int i=0; i<pizzasCliente.size() && !duplicado; i++) {
+				if(pizza.getNombre().equals(pizzasCliente.get(i).getNombre())) {
+					 duplicado = true;
+				}
+			}
+			if(duplicado) {
+				return "redirect:/NombreDePizzaPersonalizadaDuplicado";
+			}
+		}
 //			PizzaValidator pizzaValidator = new PizzaValidator();
 //			ValidationUtils.invokeValidator(pizzaValidator, pizza, result);
 			this.pizzaService.savePizza(pizza);
 			return "redirect:/pizzas/cliente";
 		}
-	}
+	
 	
 	
 	
@@ -181,20 +196,17 @@ public class PizzaController {
 
 			// mandar actualizacion
 			@PostMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/{pizzaId}/edit")
-			public String processUpdatePizzaForm2(@Valid Pizza Pizza, BindingResult result,
-					@PathVariable("pizzaId") int pizzaId) {
+			public String processUpdatePizzaForm2(@Valid Pizza pizza, BindingResult result,
+					@PathVariable("pizzaId") int pizzaId,
+					@PathVariable("pedidoId") int pedidoId,@PathVariable("cartaId") int cartaId) {
 				if (result.hasErrors()) {
 					return "pizzas/UpdatePizzaFormPedido";
 				} else {
-					Pizza.setId(pizzaId);
-					Pizza.setCoste(Pizza.getCoste());
-					Pizza.setIngredientes(Pizza.getIngredientes());
-					Pizza.setNombre(Pizza.getNombre());
-					Pizza.setContador(Pizza.getContador());
-//					PizzaValidator pizzaValidator = new PizzaValidator();
-//					ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
-					this.pizzaService.savePizza(Pizza);
-					return "redirect:/allPizzas";
+					
+					pizza.setCliente(getClienteActivo());
+					pizza.setPersonalizada(true);
+					this.pizzaService.savePizza(pizza);
+					return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
 				}
 			}
 	private Cliente getClienteActivo() {

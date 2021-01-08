@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.service;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -50,6 +51,32 @@ public class ReservaService {
     @Transactional(readOnly = true)
     public Collection<tipoReserva> findTipoReserva() throws DataAccessException {
         return reservaRepository.findTipoReserva();
+    }
+    
+    @Transactional
+	 public void anadirMesaAReserva(int reservaId, int mesaId) throws DataAccessException {
+		 reservaRepository.anadirMesaAReserva(reservaId, mesaId);		
+	}
+    
+    @Transactional
+    public List<Reserva> findReservasByCliente(int userId) throws DataAccessException {
+    	return reservaRepository.findReservasByCliente(userId);
+    }
+    
+    @Transactional
+    public List<Integer> findReservasIdByMesaId(int mesaId) throws DataAccessException{
+    	return reservaRepository.findReservasIdByMesaId(mesaId);
+    }
+    
+    public List<Reserva> calcularReservasAPartirIds(List<Integer> listaId) throws DataAccessException {
+    	List<Reserva> reservas = new ArrayList<Reserva>();
+    	for(Integer i: listaId) {
+    		Reserva r = findById(i);
+    		reservas.add(r);
+    	}
+    	return reservas;
+    	
+    	
     }
 
 }

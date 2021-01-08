@@ -34,74 +34,20 @@ INSERT INTO authorities(id,username,authority) VALUES (10, 'serfiggom1','cliente
 INSERT INTO users(username,password,enabled) VALUES ('cliente1','cliente1',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (13,'cliente1','cliente');
 
-
-INSERT INTO vets VALUES (1, 'James', 'Carter');
-INSERT INTO vets VALUES (2, 'Helen', 'Leary');
-INSERT INTO vets VALUES (3, 'Linda', 'Douglas');
-INSERT INTO vets VALUES (4, 'Rafael', 'Ortega');
-INSERT INTO vets VALUES (5, 'Henry', 'Stevens');
-INSERT INTO vets VALUES (6, 'Sharon', 'Jenkins');
-
-INSERT INTO specialties VALUES (1, 'radiology');
-INSERT INTO specialties VALUES (2, 'surgery');
-INSERT INTO specialties VALUES (3, 'dentistry');
-
-INSERT INTO vet_specialties VALUES (2, 1);
-INSERT INTO vet_specialties VALUES (3, 2);
-INSERT INTO vet_specialties VALUES (3, 3);
-INSERT INTO vet_specialties VALUES (4, 2);
-INSERT INTO vet_specialties VALUES (5, 1);
-
-INSERT INTO types VALUES (1, 'cat');
-INSERT INTO types VALUES (2, 'dog');
-INSERT INTO types VALUES (3, 'lizard');
-INSERT INTO types VALUES (4, 'snake');
-INSERT INTO types VALUES (5, 'bird');
-INSERT INTO types VALUES (6, 'hamster');
-
-INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'owner1');
-INSERT INTO owners VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749', 'owner1');
-INSERT INTO owners VALUES (3, 'Eduardo', 'Rodriquez', '2693 Commerce St.', 'McFarland', '6085558763', 'owner1');
-INSERT INTO owners VALUES (4, 'Harold', 'Davis', '563 Friendly St.', 'Windsor', '6085553198', 'owner1');
-INSERT INTO owners VALUES (5, 'Peter', 'McTavish', '2387 S. Fair Way', 'Madison', '6085552765', 'owner1');
-INSERT INTO owners VALUES (6, 'Jean', 'Coleman', '105 N. Lake St.', 'Monona', '6085552654', 'owner1');
-INSERT INTO owners VALUES (7, 'Jeff', 'Black', '1450 Oak Blvd.', 'Monona', '6085555387', 'owner1');
-INSERT INTO owners VALUES (8, 'Maria', 'Escobito', '345 Maple St.', 'Madison', '6085557683', 'owner1');
-INSERT INTO owners VALUES (9, 'David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435', 'owner1');
-INSERT INTO owners VALUES (10, 'Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487', 'owner1');
-INSERT INTO owners VALUES (14, 'Jesus', 'Roldan', 'San Diego 14', 'Sevilla', '633438316', 'jesrolcad');
-INSERT INTO owners VALUES (11, 'Lucia', 'Torres', 'Ferrara 4, 41089','Montequinto', '654987321', 'luctorgom');
-INSERT INTO owners VALUES (13, 'Maria', 'Garcia', 'Laguillo 27, 41003','Sevilla', '601242743', 'margarcac1');
-INSERT INTO owners VALUES (12, 'Raul', 'Parrado', 'Sirio 5, 41015','PinoMontano', '622682440', 'raupargor');
+INSERT INTO users(username,password,enabled) VALUES ('pepinho','pepinho',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (14,'pepinho','cliente');
 
 
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (1, 'Leo', '2010-09-07', 1, 1);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (2, 'Basil', '2012-08-06', 6, 2);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (3, 'Rosy', '2011-04-17', 2, 3);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (4, 'Jewel', '2010-03-07', 2, 3);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (5, 'Iggy', '2010-11-30', 3, 4);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (6, 'George', '2010-01-20', 4, 5);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (7, 'Samantha', '2012-09-04', 1, 6);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (8, 'Max', '2012-09-04', 1, 6);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (9, 'Lucky', '2011-08-06', 5, 7);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (10, 'Mulligan', '2007-02-24', 2, 8);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (11, 'Freddy', '2010-03-09', 5, 9);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (12, 'Lucky', '2010-06-24', 2, 10);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (13, 'Sly', '2012-06-08', 1, 10);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (17, 'Luka', '2020-09-15', 2, 14);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (14, 'Flamenka', '2020-01-16', 6, 11);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (16, 'Periqui', '2019-09-11', 5, 13);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (15, 'Illo', '2000-05-29', 1, 12);
-
-
-INSERT INTO visits(id,pet_id,visit_date,description) VALUES (1, 7, '2013-01-01', 'rabies shot');
-INSERT INTO visits(id,pet_id,visit_date,description) VALUES (2, 8, '2013-01-02', 'rabies shot');
-INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03', 'neutered');
-INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
+INSERT INTO NIVEL_SOCIO VALUES(3,'ORO');
+INSERT INTO NIVEL_SOCIO VALUES(1,'PLATA');
+INSERT INTO NIVEL_SOCIO VALUES(2,'BRONCE');
 
 
 INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
 VALUES ('María','García Cáceres','2000-01-01','654123987','margarcar@alum.us.es', 'margarcac1');
+
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario, fecha_alta, nivel_socio) 
+VALUES ('Pepe','García Cáceres','2000-01-01','654123987','pepepalotes@gmail.com', 'pepinho', '2020-01-02', 3);
 
 INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
 VALUES ('Servando','Figueroa Gómez','2000-08-12','698745213','serfiggom@alum.us.es', 'serfiggom1');
@@ -171,16 +117,17 @@ VALUES ('Lucia','Torres','2000-01-01','654789654','luciatg30@gmail.com', 'luctor
 INSERT INTO TIPO_RESERVA VALUES(1,'ALMUERZO');
 INSERT INTO TIPO_RESERVA VALUES(2,'CENA');
 
-INSERT INTO RESERVAS VALUES(1,'2020-05-29','10:34:09',5,1);
-INSERT INTO RESERVAS VALUES(2,'2020-07-12','20:34:09',2,1); 
-INSERT INTO RESERVAS VALUES(3,'2020-05-29','10:34:09',5,2);
-INSERT INTO RESERVAS VALUES(4,'2020-07-12','20:34:09',2,1);
-INSERT INTO RESERVAS VALUES(5,'2020-05-29','10:34:09',5,2);
-INSERT INTO RESERVAS VALUES(6,'2020-07-12','20:34:09',2,1);
-INSERT INTO RESERVAS VALUES(7,'2020-05-29','10:34:09',5,1);
-INSERT INTO RESERVAS VALUES(8,'2020-07-12','20:34:09',2,1);
-INSERT INTO RESERVAS VALUES(9,'2020-05-29','10:34:09',5,1);
-INSERT INTO RESERVAS VALUES(10,'2020-07-12','20:34:09',2,1);
+INSERT INTO RESERVAS VALUES(1,'2020-05-29','10:34:09',5,1,1);
+INSERT INTO RESERVAS VALUES(2,'2020-07-12','20:34:09',2,1,1); 
+INSERT INTO RESERVAS VALUES(3,'2020-05-29','10:34:09',5,1,2);
+INSERT INTO RESERVAS VALUES(4,'2020-07-12','20:34:09',2,1,1);
+INSERT INTO RESERVAS VALUES(5,'2020-05-29','10:34:09',5,2,2);
+INSERT INTO RESERVAS VALUES(6,'2020-07-12','20:34:09',2,2,1);
+INSERT INTO RESERVAS VALUES(7,'2020-05-29','10:34:09',5,2,1);
+INSERT INTO RESERVAS VALUES(8,'2020-07-12','20:34:09',2,2,1);
+INSERT INTO RESERVAS VALUES(9,'2020-05-29','10:34:09',5,2,1);
+INSERT INTO RESERVAS VALUES(10,'2020-07-12','20:34:09',2,2,1);
+
 
 INSERT INTO RECLAMACIONES(observacion, respuesta)
 VALUES('Había un hueso de aceituna en mi pizza. ¿Qué tipo de broma es esta?', 'Lo sentimos mucho');
@@ -214,20 +161,17 @@ INSERT INTO TAMANO_PRODUCTO VALUES(2,'GRANDE');
 INSERT INTO TAMANO_OFERTA VALUES(1,'NORMAL');
 INSERT INTO TAMANO_OFERTA VALUES(3,'GRANDE');
 
-INSERT INTO NIVEL_SOCIO VALUES(3,'ORO');
-INSERT INTO NIVEL_SOCIO VALUES(1,'PLATA');
-INSERT INTO NIVEL_SOCIO VALUES(2,'BRONCE');
 
 INSERT INTO OFERTAS(NAME,ESTADO_OFERTA,TAMANO_OFERTA,COSTE,FECHA_INICIAL,NIVEL_SOCIO,FECHA_FINAL) values
-('PAGA 3 Y LLEVATE 1',false,1,58.6,'2020-01-05',3,'2020-01-31');
+('4 QUESOS POR 5.90€',false,1,5.90,'2020-01-05',3,'2020-01-31');
 INSERT INTO OFERTAS(NAME,ESTADO_OFERTA,TAMANO_OFERTA,COSTE,FECHA_INICIAL,NIVEL_SOCIO,FECHA_FINAL) values
-('Oferta a 60.6€',true,1,60.6,'2020-02-05',2,'2020-02-28');
+('LAS 4 FAVORITAS CON 4 BEBIDAS + COMPLEMENTO 60.60€',true,1,60.6,'2020-02-05',2,'2020-02-28');
 INSERT INTO OFERTAS(NAME,ESTADO_OFERTA,TAMANO_OFERTA,COSTE,FECHA_INICIAL,NIVEL_SOCIO,FECHA_FINAL) values
-('Chicken wings a 15.8',true,1,15.8,'2020-03-05',1,'2020-03-31');
+('Chicken wings a 15.8€',true,1,15.8,'2020-03-05',1,'2020-03-31');
 INSERT INTO OFERTAS(NAME,ESTADO_OFERTA,TAMANO_OFERTA,COSTE,FECHA_INICIAL,NIVEL_SOCIO,FECHA_FINAL) values
-('38.9 y mochila batman de regalo',true,1,38.9,'2020-04-05',3,'2022-04-30');
+('BBQ Y TONNATA 9.90€',true,1,9.9,'2020-04-05',3,'2022-04-30');
 INSERT INTO OFERTAS(NAME,ESTADO_OFERTA,TAMANO_OFERTA,COSTE,FECHA_INICIAL,NIVEL_SOCIO,FECHA_FINAL) values
-('38.9 y mochila spiderman de regalo',false,1,38.9,'2020-04-05',3,'2025-04-30');
+('2 HAWAIANAS 5€ CADA UNA',false,1,10,'2020-04-05',3,'2025-04-30');
 
 INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio, pedidocliente)
 VALUES ('30','3.5','C/Ferrara, 5, 7b', '2020-11-15', 2, 1,1, '1');
@@ -239,7 +183,8 @@ INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tip
 VALUES ('57','2','C/Ferrara, 5, 7b', '2020-11-30',3,1,2, '3');
 INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio,pedidocliente)
 VALUES ('57','2','C/Ferrara, 5, 7b', '2020-11-30',3,1,2, '3');
-
+INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio, pedidocliente)
+VALUES ('200','3.5','C/Ferrara, 5, 7b', '2020-11-15', 2, 1,1, '2');
 
 INSERT INTO OFERTA_PEDIDO(PEDIDO_ID, OFERTAS_EN_PEDIDO_ID) values (1, 1);
 INSERT INTO OFERTA_PEDIDO(PEDIDO_ID, OFERTAS_EN_PEDIDO_ID) values (1, 2); 
@@ -329,7 +274,7 @@ INSERT INTO OTROS(contador, coste,nombre) values ( 1, 2, 'Aceitunas');
 INSERT INTO OTROS(contador, coste,nombre) values ( 1, 22, 'Boquerones en vinagre');
 INSERT INTO OTROS(contador, coste,nombre) values ( 1, 10, 'Tortillita de camarones');
 INSERT INTO OTROS(contador, coste,nombre) values ( 1, 15, 'Adobos de pescado');
-INSERT INTO OTROS(contador, coste,nombre) values ( 2, 19, 'Ortiguillas');
+INSERT INTO OTROS(contador, coste,nombre) values ( 2, 19, 'Chicken Wings');
 INSERT INTO OTROS(contador, coste,nombre) values ( 1, 15, 'Bacalao deshebrado');
 INSERT INTO OTROS(contador, coste,nombre) values ( 1, 22, 'Huevos tontos');
 INSERT INTO OTROS(contador, coste,nombre) values ( 1, 11, 'Pastel de pescado');
@@ -362,8 +307,8 @@ INSERT INTO BEBIDAS(contador, coste,nombre,es_carbonatada, tamano_producto) valu
 INSERT INTO BEBIDAS(contador, coste,nombre,es_carbonatada, tamano_producto) values ( 2, 2, 'Schweppes', true ,1);
 
 /*NO ME TOQUEIS LAS FECHAS DE CARTAS*/
-INSERT INTO CARTAS(nombre, fecha_Creacion, fecha_Final) values ('CartaPrincipal', '2020-12-15', '2020-12-31');
-INSERT INTO CARTAS(nombre, fecha_Creacion, fecha_Final) values ('CartaPrueba','2021-01-01', '2021-11-20');
+INSERT INTO CARTAS(nombre, fecha_Creacion, fecha_Final) values ('CartaPrincipal', '2021-01-01', '2021-12-31');
+INSERT INTO CARTAS(nombre, fecha_Creacion, fecha_Final) values ('CartaPrueba','2022-01-01', '2022-12-31');
 
 INSERT INTO COMPOSICION_CARTA_PIZZA(PIZZAS_EN_CARTA_ID, CARTA_ID) VALUES (1,1);
 INSERT INTO COMPOSICION_CARTA_PIZZA(PIZZAS_EN_CARTA_ID, CARTA_ID) VALUES (2,1);
@@ -392,3 +337,21 @@ INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (2,2);
 INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (2,1);
 INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (2,3);
 
+INSERT INTO OFERTA_PIZZA (OFERTA_ID,PIZZAS_EN_OFERTA_ID) VALUES (1,7);
+INSERT INTO OFERTA_PIZZA (OFERTA_ID,PIZZAS_EN_OFERTA_ID) VALUES (2,1);
+INSERT INTO OFERTA_PIZZA (OFERTA_ID,PIZZAS_EN_OFERTA_ID) VALUES (2,2);
+INSERT INTO OFERTA_PIZZA (OFERTA_ID,PIZZAS_EN_OFERTA_ID) VALUES (2,3);
+INSERT INTO OFERTA_PIZZA (OFERTA_ID,PIZZAS_EN_OFERTA_ID) VALUES (2,4);
+INSERT INTO OFERTA_PIZZA (OFERTA_ID,PIZZAS_EN_OFERTA_ID) VALUES (4,6);
+INSERT INTO OFERTA_PIZZA (OFERTA_ID,PIZZAS_EN_OFERTA_ID) VALUES (4,9);
+INSERT INTO OFERTA_PIZZA (OFERTA_ID,PIZZAS_EN_OFERTA_ID) VALUES (5,3);
+INSERT INTO OFERTA_PIZZA (OFERTA_ID,PIZZAS_EN_OFERTA_ID) VALUES (5,3);
+
+INSERT INTO OFERTA_BEBIDA (OFERTA_ID,BEBIDAS_EN_OFERTA_ID) VALUES (2,3);
+INSERT INTO OFERTA_BEBIDA (OFERTA_ID,BEBIDAS_EN_OFERTA_ID) VALUES (2,3);
+INSERT INTO OFERTA_BEBIDA (OFERTA_ID,BEBIDAS_EN_OFERTA_ID) VALUES (2,2);
+INSERT INTO OFERTA_BEBIDA (OFERTA_ID,BEBIDAS_EN_OFERTA_ID) VALUES (2,2);
+
+INSERT INTO OFERTA_OTRO (OFERTA_ID,OTROS_EN_OFERTA_ID) VALUES (2,3);
+INSERT INTO OFERTA_OTRO (OFERTA_ID,OTROS_EN_OFERTA_ID) VALUES (3,11);
+ 

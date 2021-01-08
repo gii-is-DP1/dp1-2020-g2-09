@@ -12,17 +12,76 @@
 <petclinic:layout pageName="carta">
     <h2>Carta</h2>
     
-    <h3>Pizzas</h3>
     <!--<c:out value="${cartaId}"></c:out>-->
-	    <sec:authorize access="hasAnyAuthority('administrador')"  >
+
+	<h3>Ofertas</h3>
+	    <table id="ofertasTableCarta" class="table table-striped">
+	        <thead>
+	        <tr>
+	            <th>Nombre</th>
+	            <th>Tamaño producto</th>
+	            <th>Coste</th>
+	            <th>Fin Oferta</th>
+	            <th>Nivel socio</th>
+	            <th>Descripción</th>
+	            
+	        </tr>
+	        </thead>
+	        <tbody>
+	        <c:forEach items="${ofertas}" var="oferta">
+	            <tr>
+	            <!-- <input  value="${pizza.id}">  -->
+	               <td>
+	                    <c:out value="${oferta.name}"/>
+	               </td>
+	                <td>
+	             		<c:out value="${oferta.tamanoOferta}"/>
+	             	</td>
+	               <td>
+	                	<c:out value="${oferta.coste}"/>
+	             	</td>
+	             	<td>
+	             		<c:out value="${oferta.fechaFinal}"/>
+	             	</td>
+	             	
+	             	<td>
+	             		<c:out value="${oferta.nivelSocio}"/>
+	             	</td>
+	             	 <td>
+	             		<ul>
+	             			<c:forEach items="${oferta.pizzasEnOferta}" var="pizza">
+	             				<li>
+	             					<c:out value="${pizza.nombre}"/>
+	             				</li>
+	             			</c:forEach>
+	             		</ul>
+	             		<ul>
+	             			<c:forEach items="${oferta.bebidasEnOferta}" var="bebida">
+	             				<li>
+	             					<c:out value="${bebida.nombre}"/>
+	             				</li>
+	             			</c:forEach>
+	             		</ul>
+	             		<ul>
+	             			<c:forEach items="${oferta.otrosEnOferta}" var="otro">
+	             				<li>
+	             					<c:out value="${otro.nombre}"/>
+	             				</li>
+	             			</c:forEach>
+	             		</ul>
+	             	</td>
+	             	
+	            </tr>
+	        </c:forEach>
+	        </tbody>
+	    </table>
+	   <sec:authorize access="hasAnyAuthority('administrador')"  >
 	   			<spring:url value="/cartas/{cartaId}/pizzas" var="listaPizzas">
 		         <spring:param name="cartaId" value="${cartaId}"/> 
 		    </spring:url>
 		    <a href="${fn:escapeXml(listaPizzas)}" class="btn btn-default">Añadir pizza a la carta</a>
     	</sec:authorize>
-
-		  
-	
+	<h3>Pizzas</h3>
     <table id="pizzasTableCarta" class="table table-striped">
         <thead>
         <tr>
@@ -59,16 +118,6 @@
              		</ul>
              	</td>
              	<td>
-             		<sec:authorize access="hasAnyAuthority('cliente')"  >
-                    <spring:url value="/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirPizza/{pizzaId}" var="pedidoPizzaUrl">
-                    		<spring:param name="pedidoId" value="${pedido.id}"/>
-                    		<spring:param name="cartaId" value="${cartaId}"/>
-	                        <spring:param name="pizzaId" value="${pizza.id}"/>
-	                </spring:url>
-   					<a href=" ${fn:escapeXml(pedidoPizzaUrl)}" class="btn btn-default">Añadir Pizza</a>
-   					</sec:authorize>
-               </td> 
-             	<td>
              		<sec:authorize access="hasAnyAuthority('administrador')"  >
 			    		<spring:url value="/cartas/{cartaId}/pizza/{pizzaId}/deleteFromCarta" var="quitarPizza">
 				        	<spring:param name="cartaId" value="${cartaId}"/> 
@@ -95,7 +144,7 @@
             <th>Nombre</th>
             <th>Carbonatada</th>
             <th>Tamaño</th>
-            <th>Precio</th>
+            <th>Coste</th>
         </tr>
         </thead>
         <tbody>
@@ -122,16 +171,6 @@
              	<!-- <td>
              		<c:out value="${bebida.id}"></c:out>
              	</td> -->  
-             	<td>
-             		<sec:authorize access="hasAnyAuthority('cliente')"  >
-                    <spring:url value="/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirBebida/{bebidaId}" var="pedidoBebidaUrl">
-                    		<spring:param name="pedidoId" value="${pedido.id}"/>
-                    		<spring:param name="cartaId" value="${cartaId}"/>
-	                        <spring:param name="bebidaId" value="${bebida.id}"/>
-	                </spring:url>
-   					<a href=" ${fn:escapeXml(pedidoBebidaUrl)}" class="btn btn-default">Añadir Bebida</a>
-   					</sec:authorize>
-               </td> 	
              	<td>
              		<sec:authorize access="hasAnyAuthority('administrador')"  >
 			    		<spring:url value="/cartas/{cartaId}/bebida/{bebidaId}/deleteFromCarta" var="quitarBebida">
@@ -184,16 +223,6 @@
              			</c:forEach>
              		</ul>
              	</td>
-             	<td>
-             		<sec:authorize access="hasAnyAuthority('cliente')"  >
-                    <spring:url value="/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirOtros/{otrosId}" var="pedidoOtrosUrl">
-                    		<spring:param name="pedidoId" value="${pedido.id}"/>
-                    		<spring:param name="cartaId" value="${cartaId}"/>
-	                        <spring:param name="otrosId" value="${otro.id}"/>
-	                </spring:url>
-   					<a href=" ${fn:escapeXml(pedidoOtrosUrl)}" class="btn btn-default">Añadir</a>
-   					</sec:authorize>
-               </td> 
              	<td>
              		<sec:authorize access="hasAnyAuthority('administrador')"  >
 			    		<spring:url value="/cartas/{cartaId}/otros/{otrosId}/deleteFromCarta" var="quitarOtro">

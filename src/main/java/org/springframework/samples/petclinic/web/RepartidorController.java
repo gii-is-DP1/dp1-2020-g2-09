@@ -6,14 +6,12 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Cocina;
 import org.springframework.samples.petclinic.model.Repartidor;
 import org.springframework.samples.petclinic.model.Repartidores;
 import org.springframework.samples.petclinic.service.RepartidorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -122,7 +120,7 @@ public class RepartidorController {
 					//mandar mensaje
 					Boolean noDarDeBaja = true;
 					model.put("noDarDebaja", noDarDeBaja);
-					return "redirect:/oups";
+					return "redirect:/NoEsPosibleDarDeBaja";
 				}
 			}
 					

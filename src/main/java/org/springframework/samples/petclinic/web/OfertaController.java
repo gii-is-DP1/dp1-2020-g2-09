@@ -2,20 +2,26 @@ package org.springframework.samples.petclinic.web;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Bebida;
 import org.springframework.samples.petclinic.model.NivelSocio;
 import org.springframework.samples.petclinic.model.Oferta;
 import org.springframework.samples.petclinic.model.Ofertas;
+import org.springframework.samples.petclinic.model.Otro;
+import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.TamanoOferta;
+import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.OfertaService;
+import org.springframework.samples.petclinic.service.OtrosService;
+import org.springframework.samples.petclinic.service.PizzaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -30,10 +36,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class OfertaController {
 	
 	private final OfertaService ofertaService;
-
+	private final BebidaService bebidaService;
+	private final PizzaService pizzaService;
+	private final OtrosService otrosService;
+//	@Autowired
+//	public OfertaController(OfertaService ofertaService) {
+//		this.ofertaService = ofertaService;
+//
+//	}
 	@Autowired
-	public OfertaController(OfertaService ofertaService) {
+	public OfertaController(OfertaService ofertaService,OtrosService otrosService,PizzaService pizzaService,BebidaService bebidaService) {
 		this.ofertaService = ofertaService;
+		this.bebidaService = bebidaService;
+		this.pizzaService = pizzaService;
+		this.otrosService = otrosService;
 	}
 
 	@InitBinder("oferta")
@@ -50,6 +66,7 @@ public class OfertaController {
 	public Collection<TamanoOferta> populateTamanoOferta() {
 		return this.ofertaService.findTamanoOferta();
 	}
+
 	
 	@ModelAttribute("nivelSocio")
 	public Collection<NivelSocio> populateNivelSocio() {
@@ -69,15 +86,29 @@ public class OfertaController {
 	@GetMapping(value = "/ofertas/new")
 	public String initCreationForm(Map<String, Object> model) {
 		Oferta oferta = new Oferta();
+		List<Pizza> pizzas=pizzaService.findPizzas();
+		List<Bebida> bebidas=bebidaService.findBebidas();
+		List<Otro> otros=otrosService.findOtros();
+	//	List<Pizza> pizzasEnOferta=new ArrayList<Pizza>();
+		model.put("pizzas", pizzas);
+		model.put("bebidas", bebidas);
+		model.put("otros", otros);
 		model.put("oferta", oferta);
+	//model.put("pizzasEnOferta", pizzasEnOferta);
 		return "ofertas/createOrUpdateOfertaForm";
 	}
 
 	//mandar nueva oferta
 	@PostMapping(value = "/ofertas/new")
-	public String processCreationForm(@Valid Oferta oferta,  BindingResult result, ModelMap model) {
+	public String processCreationForm(@Valid Oferta oferta,BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("oferta", oferta);//importanteeee
+			List<Pizza> pizzas=pizzaService.findPizzas();
+			List<Bebida> bebidas=bebidaService.findBebidas();
+			List<Otro> otros=otrosService.findOtros();
+			model.put("pizzas", pizzas);
+			model.put("bebidas", bebidas);
+			model.put("otros", otros);
 			return "ofertas/createOrUpdateOfertaForm";
 		}
 		else {
@@ -92,6 +123,12 @@ public class OfertaController {
 	@GetMapping(value = "/ofertas/{ofertaId}/edit")
 	public String initUpdateForm(@PathVariable("ofertaId") int ofertaId, ModelMap model) {
 		Oferta oferta = this.ofertaService.findOfertaById(ofertaId);
+		List<Pizza> pizzas=pizzaService.findPizzas();
+		List<Bebida> bebidas=bebidaService.findBebidas();
+		List<Otro> otros=otrosService.findOtros();
+		model.put("pizzas", pizzas);
+		model.put("bebidas", bebidas);
+		model.put("otros", otros);
 		model.put("oferta", oferta);
 		return "ofertas/createOrUpdateOfertaForm";
 	}
@@ -100,6 +137,12 @@ public class OfertaController {
 	@PostMapping(value = "/ofertas/{ofertaId}/edit")
 	public String processUpdatePedidoForm(@Valid Oferta oferta, BindingResult result,@PathVariable("ofertaId") int ofertaId, ModelMap model) {
 		if (result.hasErrors()) {
+			List<Pizza> pizzas=pizzaService.findPizzas();
+			List<Bebida> bebidas=bebidaService.findBebidas();
+			List<Otro> otros=otrosService.findOtros();
+			model.put("pizzas", pizzas);
+			model.put("bebidas", bebidas);
+			model.put("otros", otros);
 			model.put("oferta", oferta);
 			return "ofertas/createOrUpdateOfertaForm";
 		}

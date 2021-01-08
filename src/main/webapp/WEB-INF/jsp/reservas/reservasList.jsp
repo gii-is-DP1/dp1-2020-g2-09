@@ -12,10 +12,12 @@
     <table id="reservasTable" class="table table-striped">
         <thead>
         <tr>
-            <th>Numero de Personas</th>
+        	<th>ID de la reserva </th>
+            <th>Número de Personas</th>
             <th>Fecha de la reserva</th>
             <th>Tipo de la reserva</th>
             <th>Hora de la reserva</th>
+            <th> Detalles de la reserva</th>
             <th>Editar</th>
             <th>Eliminar</th>
             
@@ -25,6 +27,9 @@
         <tbody>
         <c:forEach items="${reservas}" var="reserva">
             <tr>
+            <td>
+                    <c:out value="${reserva.id}"/>
+                </td>
                 <td>
                     <c:out value="${reserva.numeroPersonas}"/>
                 </td>
@@ -37,6 +42,12 @@
                 <td>
                     <c:out value="${reserva.hora}"/>
                 </td>
+                 <td>
+             		<spring:url value="/reservas/{reservaId}/verDetalles" var="reservaUrl">
+	                        <spring:param name="reservaId" value="${reserva.id}"/>
+	                </spring:url>
+   					<a href="${fn:escapeXml(reservaUrl)}" class="btn btn-default">Ver detalles</a>
+             	</td>
                 <td>
              		<spring:url value="/reservas/{reservaId}/edit" var="reservaUrl">
 	                        <spring:param name="reservaId" value="${reserva.id}"/>
@@ -53,6 +64,13 @@
         </c:forEach>
         </tbody>
     </table>
+    
+    <%--  <td>					
+             		<spring:url value="/reservas/{reservaId}/allMesasDisponibles" var="reservamesaUrl">
+	                        <spring:param name="reservaId" value="${reserva.id}"/> 
+	                </spring:url>
+   					<a href="${fn:escapeXml(reservamesaUrl)}" class="btn btn-default">Seleccionar mesa</a>
+             	</td> --%>
 
     <table class="table-buttons">
     </table>

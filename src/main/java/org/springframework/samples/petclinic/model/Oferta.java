@@ -1,13 +1,21 @@
 package org.springframework.samples.petclinic.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 import org.springframework.format.annotation.DateTimeFormat;
+
 import com.sun.istack.NotNull;
 
 import lombok.Getter;
@@ -49,6 +57,21 @@ public class Oferta extends NamedEntity{
 	@Column(name = "estadoOferta")
 	@NotNull
 	private Boolean estadoOferta=true;
+	
+	@ManyToMany (cascade = CascadeType.MERGE)
+	@JoinTable(name = "OfertaPizza", joinColumns =@JoinColumn(name= "ofertaId" ))
+	private Collection<Pizza> pizzasEnOferta;
+	
+	@ManyToMany (cascade = CascadeType.MERGE)
+	@JoinTable(name = "OfertaBebida", joinColumns =@JoinColumn(name= "ofertaId" ))
+	private Collection<Bebida> bebidasEnOferta;
+	
+	@ManyToMany (cascade = CascadeType.MERGE)
+	@JoinTable(name = "OfertaOtro", joinColumns =@JoinColumn(name= "ofertaId" ))
+	private Collection<Otro> otrosEnOferta;
+	
+	@Column(name = "Cantidad")
+	private Integer[] Cantidad=new Integer[0];
 	
 //	public TamanoProducto getTamanoProducto() {
 //		return this.tamanoProducto;

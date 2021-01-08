@@ -36,6 +36,10 @@
             <th>Email</th>
             <td><c:out value="${cliente.email}"/></td>
         </tr>
+        <tr>
+            <th>Nivel de Socio</th>
+            <td><c:out value="${cliente.nivelSocio}"/></td>
+        </tr>
     </table>
 
     <spring:url value="/cuentas/{cuentaId}/edit" var="cuentaUrl">
