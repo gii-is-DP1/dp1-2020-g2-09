@@ -12,9 +12,10 @@
     <table id="reclamacionTable" class="table table-striped">
         <thead>
         <tr>
-            <th>ID de pedido</th>
+            <th>ID de reclamación</th>
             <th>Observación<th>
             <th>Respuesta </th>
+            <th> Detalles </th>
             
             
         </tr>
@@ -47,6 +48,13 @@
 	                </spring:url>
    					<a href="${fn:escapeXml(reclamacionUrl)}" class="btn btn-default">Responder</a>
              	</td>
+             	<td>
+             	<spring:url value="/reclamaciones/{reclamacionId}/verDetalles" var="reclamacionUrl">
+	                        <spring:param name="reclamacionId" value="${reclamacion.id}"/>
+	                </spring:url>
+   					<a href="${fn:escapeXml(reclamacionUrl)}" class="btn btn-default">Ver detalles</a>
+             	</td>
+             	
              	</c:if>
              	<%-- <td>
              		<spring:url value="/reclamaciones/{reclamacionId}/delete" var="reclamacionUrl2">
