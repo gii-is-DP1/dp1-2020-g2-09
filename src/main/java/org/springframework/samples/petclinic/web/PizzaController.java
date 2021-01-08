@@ -202,11 +202,10 @@ public class PizzaController {
 				if (result.hasErrors()) {
 					return "pizzas/UpdatePizzaFormPedido";
 				} else {
-					
 					pizza.setCliente(getClienteActivo());
 					pizza.setPersonalizada(true);
 					this.pizzaService.savePizza(pizza);
-					return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
+					return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/verCarta";
 				}
 			}
 	private Cliente getClienteActivo() {

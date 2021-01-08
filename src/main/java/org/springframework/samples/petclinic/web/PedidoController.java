@@ -217,7 +217,8 @@ public class PedidoController {
 		return "redirect:/pedidos/user";
 	}
 	
-	//Mostrar cartas de las que coger productos
+	//CREO QUE ESTO YA NO SE USA
+	//Mostrar cartas de las que coger productos 
 	@GetMapping(value = { "/pedidos/{pedidoId}/allCartas" })//hacer que lleve a ver carta del tiron
 	public String showCartaParaPedidosList(@PathVariable("pedidoId") int pedidoId,
 			ModelMap model2,  Map<String, Object> model) {
