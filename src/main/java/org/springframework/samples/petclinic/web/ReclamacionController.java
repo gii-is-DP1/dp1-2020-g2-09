@@ -7,11 +7,14 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Cuenta;
+import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Reclamacion;
 import org.springframework.samples.petclinic.model.Reclamaciones;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.service.ClienteService;
+import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.samples.petclinic.service.ReclamacionService;
 import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,7 +25,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -33,6 +35,7 @@ public class ReclamacionController {
 	private ReclamacionService reclamacionService;
 	private UserService userService;
 	private ClienteService clienteService;
+	private PedidoService pedidoService;
 	
 	//PROBLEMA: EL CONSTRUCTOR HACE QUE ME FALLEN TODAS LAS PRUEBAS DEL RECLAMACIONCONTROLLERTESTS
 	//Me dice Failed to load application context
@@ -42,10 +45,11 @@ public class ReclamacionController {
 	//un NullPointer a la hora de crear la sesión del usuario  y mostrar sus reclamaciones.
 	@Autowired
 	public ReclamacionController(ReclamacionService reclamacionService, 
-			UserService userService, ClienteService clienteService) {
+			UserService userService, ClienteService clienteService, PedidoService pedidoService) {
 		this.reclamacionService = reclamacionService;
 			this.userService = userService;
 			this.clienteService = clienteService;
+			this.pedidoService = pedidoService;
 	}
 	
 	@InitBinder("reclamacion")
@@ -163,7 +167,27 @@ public class ReclamacionController {
 		@GetMapping(value = "/pedidos/{pedidoId}/reclamaciones/{reclamacionId}/confirmarReclamacion")
 		public String verDetallesReclamacion(@PathVariable("pedidoId") int pedidoId, @PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
 			this.reclamacionService.anadirReclamacionAPedido(pedidoId, reclamacionId);
-			return "exito";
+			return "redirect:/reclamaciones/user";
+		}
+		
+		
+		@GetMapping(value ="/reclamaciones/{reclamacionId}/verDetalles")
+		public String detallesReserva(@PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
+			
+			Reclamacion reclamacion = this.reclamacionService.findReclamacionById(reclamacionId);
+			model.put("reclamacion", reclamacion);
+			
+			//Tomo el pedido
+			Integer pedidoId = this.pedidoService.findIdPedidoByReclamacionId(reclamacionId);
+			Pedido pedido = this.pedidoService.findPedidoById(pedidoId);
+			model.put("pedido", pedido);
+			
+			Cliente cliente = pedido.getCliente();
+			User usuario = cliente.getUser();
+			model.put("usuario", usuario);
+			model.put("cliente", cliente);
+			
+			return "reclamaciones/verDetallesReclamacion";
 		}
 		
 		
@@ -200,7 +224,7 @@ public class ReclamacionController {
 		public String initDeleteReclamacion(@PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
 			Reclamacion reclamacion = this.reclamacionService.findReclamacionById(reclamacionId);
 			this.reclamacionService.deleteReclamacion(reclamacion);
-			return "redirect:/allReclamaciones";
+			return "redirect:/reclamaciones/user";
 		} 
 		
 //		@ModelAttribute("reclamacion")

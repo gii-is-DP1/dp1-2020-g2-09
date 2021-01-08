@@ -14,9 +14,9 @@
     <table id="reclamacionesTable" class="table table-striped">
         <thead>
         <tr>
-            <th>ID de pedido</th>
             <th>Observación</th>
             <th>Respuesta</th>
+            <th> Detalles </th>
         </tr>
         </thead>
         <tbody>
@@ -31,6 +31,13 @@
              	<td>
              	<c:if test="${reclamacion.respuesta != 'Lo sentimos mucho, ...'}">
              		<c:out value="${reclamacion.respuesta}"></c:out> </c:if>
+             	</td>
+             	
+             	<td>
+             		<spring:url value="/reclamaciones/{reclamacionId}/verDetalles" var="reclamacionUrl">
+	                        <spring:param name="reclamacionId" value="${reclamacion.id}"/>
+	                </spring:url>
+   					<a href="${fn:escapeXml(reclamacionUrl)}" class="btn btn-default">Ver detalles</a>
              	</td>
         </c:forEach>
         
