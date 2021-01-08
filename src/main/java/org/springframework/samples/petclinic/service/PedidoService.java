@@ -148,4 +148,9 @@ public class PedidoService {
 	public Double cogerPrecioOtros(int otrosId) {
 		return pedidoRepository.cogerPrecioOtros(otrosId);
 	}
+	
+	@Transactional 
+	public Integer findIdPedidoByReclamacionId(int reclamacionId) {
+		return pedidoRepository.findIdPedidoByReclamacionId(reclamacionId);
+	}
 }

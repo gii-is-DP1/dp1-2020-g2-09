@@ -45,9 +45,6 @@
              		<c:out value="${pedido.fechaPedido}"/>
              	</td>
              	<td>
-             		<c:out value="${pedido.estadoPedido}"></c:out>
-             	</td> 
-             	<td>
              		<c:out value="${pedido.tipoEnvio}"></c:out>
              	</td>
              	<td>
@@ -71,11 +68,17 @@
 	                </spring:url>
    					<a href=" ${fn:escapeXml(pedidoreclamacionUrl)}" class="btn btn-default">Nueva reclamacion</a>
              	</td>
-             	<td>
+             	<%-- <td>
              		<spring:url value="/pedidos/{pedidoId}/delete" var="pedidoUrl2">
 	                        <spring:param name="pedidoId" value="${pedido.id}"/>
 	                </spring:url>
              		<a href="${fn:escapeXml(pedidoUrl2)}" class="btn btn-default">Eliminar</a>
+             	</td> --%>
+             	<td>
+             		<spring:url value="/pedidos/{pedidoId}/estadoPedido" var="pizzaTracker">
+	                        <spring:param name="pedidoId" value="${pedido.id}"/>
+	                </spring:url>
+             		<a href="${fn:escapeXml(pizzaTracker)}" class="btn btn-default">Ver estado pedido</a>
              	</td>
              	
             </tr>

@@ -106,4 +106,7 @@ public interface PedidoRepository  extends CrudRepository<Pedido, Integer> {
     @Query(value = "SELECT COSTE FROM OTROS WHERE ID = ?1",
 			nativeQuery = true)
 	Double cogerPrecioOtros(int otrosId);
+    
+    @Query(value = "SELECT PEDIDO_ID FROM PEDIDO_RECLAMACION WHERE RECLAMACION_ID = ?1", nativeQuery=true)
+    Integer findIdPedidoByReclamacionId(int reclamacionId);
 }
