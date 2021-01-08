@@ -165,14 +165,14 @@ public class ReclamacionController {
 		}
 		
 		@GetMapping(value = "/pedidos/{pedidoId}/reclamaciones/{reclamacionId}/confirmarReclamacion")
-		public String verDetallesReclamacion(@PathVariable("pedidoId") int pedidoId, @PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
+		public String anadirReclamacionAPedido(@PathVariable("pedidoId") int pedidoId, @PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
 			this.reclamacionService.anadirReclamacionAPedido(pedidoId, reclamacionId);
 			return "redirect:/reclamaciones/user";
 		}
 		
 		
 		@GetMapping(value ="/reclamaciones/{reclamacionId}/verDetalles")
-		public String detallesReserva(@PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
+		public String showDetallesReclamacion(@PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
 			
 			Reclamacion reclamacion = this.reclamacionService.findReclamacionById(reclamacionId);
 			model.put("reclamacion", reclamacion);
@@ -183,9 +183,9 @@ public class ReclamacionController {
 			model.put("pedido", pedido);
 			
 			Cliente cliente = pedido.getCliente();
+			model.put("cliente", cliente);
 			User usuario = cliente.getUser();
 			model.put("usuario", usuario);
-			model.put("cliente", cliente);
 			
 			return "reclamaciones/verDetallesReclamacion";
 		}
