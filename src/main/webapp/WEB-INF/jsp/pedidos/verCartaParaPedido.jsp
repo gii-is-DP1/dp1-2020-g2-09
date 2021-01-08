@@ -8,6 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  
+   <%-- ESTA ES LA VISTA EN LA QUE UN CLIENTE ELIGE LOS PRODUCTOS DE LA CARTA Y LOS AÑADE, EL ADMINISTRADOR PUEDE AÑADIR PRODUCTOS--%>
     
 <petclinic:layout pageName="carta">
     <h2>Carta</h2>

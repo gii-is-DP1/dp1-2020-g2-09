@@ -140,6 +140,13 @@ public class OfertaController {
 			List<Pizza> pizzas=pizzaService.findPizzas();
 			List<Bebida> bebidas=bebidaService.findBebidas();
 			List<Otro> otros=otrosService.findOtros();
+			List<Pizza> pizzasEnOferta=ofertaService.findPizzasEnOfertaByOfertaId(ofertaId);
+			List<Bebida> bebidasEnOferta=ofertaService.findBebidasEnOfertaByOfertaId(ofertaId);
+			List<Otro> otrosEnOferta=ofertaService.findOtrosEnOfertaByOfertaId(ofertaId);
+			oferta.setPizzasEnOferta(pizzasEnOferta);
+			oferta.setBebidasEnOferta(bebidasEnOferta);
+			oferta.setOtrosEnOferta(otrosEnOferta);
+			//model.put(key, value);
 			model.put("pizzas", pizzas);
 			model.put("bebidas", bebidas);
 			model.put("otros", otros);
@@ -149,6 +156,12 @@ public class OfertaController {
 		else { 
 //			OfertaValidator ofValidator = new OfertaValidator();
 //			ValidationUtils.invokeValidator(ofValidator, oferta, result);
+//			List<Pizza> pizzasEnOferta=ofertaService.findPizzasEnOfertaByOfertaId(ofertaId);
+//			List<Bebida> bebidasEnOferta=ofertaService.findBebidasEnOfertaByOfertaId(ofertaId);
+//			List<Otro> otrosEnOferta=ofertaService.findOtrosEnOfertaByOfertaId(ofertaId);
+//			oferta.setPizzasEnOferta(pizzasEnOferta);
+//			oferta.setBebidasEnOferta(bebidasEnOferta);
+//			oferta.setOtrosEnOferta(otrosEnOferta);
 			oferta.setId(ofertaId);
 			this.ofertaService.saveOferta(oferta);
 			return "redirect:/allOfertas";
@@ -177,4 +190,54 @@ public class OfertaController {
 		return "redirect:/allOfertas";
 	}
 
+	//Aqui tenemos que añadir la pizza seleccionado a un nuevo pedido
+			@GetMapping("/ofertas/{ofertaId}/anadirPizza/{pizzaId}")
+			public String anadirPizza(ModelMap model, @PathVariable("ofertaId") int ofertaId,@PathVariable("pizzaId") int pizzaId) {
+				Pizza p=pizzaService.findPizzaById(pizzaId);
+				Oferta oferta = ofertaService.findOfertaById(ofertaId);
+				//hacer funcion que incremente el precio del pedido
+//				Double precioDeMiPedidoAntesDeAnadirPizza = pedido.getPrecio();
+//				Double cantidadASumar = (double) this.pedidoService.cogerPrecioPizza(pizzaId);
+//				Double precioDeMiPedidoNuevo = precioDeMiPedidoAntesDeAnadirPizza + cantidadASumar;
+				//oferta.setPizzasEnOferta(pizzasEnOferta);
+				model.put("oferta", oferta);
+				model.put("pizzaEnOferta",p);
+				//model.put("pizzasEnOferta", pizzasEnOferta);
+				this.ofertaService.asociarOfertaAPizza(ofertaId, pizzaId);
+//				List<Pizza> pizzasEnOferta=ofertaService.findPizzasEnOfertaByOfertaId(ofertaId);
+//				model.put("pizzasEnOferta",pizzasEnOferta);
+				return "redirect:/ofertas/{ofertaId}/edit";
+			}
+			//Aqui tenemos que añadir la pizza seleccionado a un nuevo pedido
+			@GetMapping("/ofertas/{ofertaId}/anadirBebida/{bebidaId}")
+			public String anadirBebida(ModelMap model, @PathVariable("ofertaId") int ofertaId,@PathVariable("bebidaId") int bebidaId) {
+				Bebida b=bebidaService.findById(bebidaId);
+				Oferta oferta = ofertaService.findOfertaById(ofertaId);
+				//hacer funcion que incremente el precio del pedido
+//				Double precioDeMiPedidoAntesDeAnadirPizza = pedido.getPrecio();
+//				Double cantidadASumar = (double) this.pedidoService.cogerPrecioPizza(pizzaId);
+//				Double precioDeMiPedidoNuevo = precioDeMiPedidoAntesDeAnadirPizza + cantidadASumar;
+				//oferta.setPizzasEnOferta(pizzasEnOferta);
+				model.put("oferta", oferta);
+				model.put("bebidaEnOferta",b);
+				//model.put("pizzasEnOferta", pizzasEnOferta);
+				this.ofertaService.asociarOfertaABebida(ofertaId, bebidaId);
+				return "redirect:/ofertas/{ofertaId}/edit";
+			}
+			//Aqui tenemos que añadir la pizza seleccionado a un nuevo pedido
+			@GetMapping("/ofertas/{ofertaId}/anadirOtro/{otroId}")
+			public String anadirOtro(ModelMap model, @PathVariable("ofertaId") int ofertaId,@PathVariable("otroId") int otroId) {
+				Otro o=otrosService.findOtrosById(otroId);
+				Oferta oferta = ofertaService.findOfertaById(ofertaId);
+				//hacer funcion que incremente el precio del pedido
+//				Double precioDeMiPedidoAntesDeAnadirPizza = pedido.getPrecio();
+//				Double cantidadASumar = (double) this.pedidoService.cogerPrecioPizza(pizzaId);
+//				Double precioDeMiPedidoNuevo = precioDeMiPedidoAntesDeAnadirPizza + cantidadASumar;
+				//oferta.setPizzasEnOferta(pizzasEnOferta);
+				model.put("oferta", oferta);
+				model.put("otroEnOferta",o);
+				//model.put("pizzasEnOferta", pizzasEnOferta);
+				this.ofertaService.asociarOfertaAOtro(ofertaId, otroId);
+				return "redirect:/ofertas/{ofertaId}/edit";
+			}
 }

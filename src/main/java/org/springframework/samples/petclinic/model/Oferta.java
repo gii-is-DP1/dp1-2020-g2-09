@@ -1,7 +1,6 @@
 package org.springframework.samples.petclinic.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -60,7 +59,7 @@ public class Oferta extends NamedEntity{
 	
 	@ManyToMany (cascade = CascadeType.MERGE)
 	@JoinTable(name = "OfertaPizza", joinColumns =@JoinColumn(name= "ofertaId" ))
-	private Collection<Pizza> pizzasEnOferta;
+	private List<Pizza> pizzasEnOferta;
 	
 	@ManyToMany (cascade = CascadeType.MERGE)
 	@JoinTable(name = "OfertaBebida", joinColumns =@JoinColumn(name= "ofertaId" ))
@@ -70,8 +69,7 @@ public class Oferta extends NamedEntity{
 	@JoinTable(name = "OfertaOtro", joinColumns =@JoinColumn(name= "ofertaId" ))
 	private Collection<Otro> otrosEnOferta;
 	
-	@Column(name = "Cantidad")
-	private Integer[] Cantidad=new Integer[0];
+
 	
 //	public TamanoProducto getTamanoProducto() {
 //		return this.tamanoProducto;

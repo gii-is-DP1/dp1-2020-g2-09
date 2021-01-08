@@ -9,6 +9,7 @@
     pageEncoding="ISO-8859-1"%>
 <petclinic:layout pageName="pedidos">
     <h2>Pedidos</h2>
+     <%-- ESTA ES LA LISTA DE TODOS LOS PEDIDOS PARA EL ADMINISTRADOR--%>
  	<a href="/pedidos/new" class="btn btn-default">Nuevo Pedido</a>
     <table id="pedidosTable" class="table table-striped">
         <thead>
