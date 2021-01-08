@@ -11,7 +11,7 @@
     
 <petclinic:layout pageName="resumenPedido">
     <h2>Resumen Pedido</h2>
-    
+     <%-- ESTA ES LA VISTA DE RESUMEN DEL PEDIDO--%>
     <sec:authorize access="hasAnyAuthority('cliente')"  >
 	   			<spring:url value="/pedidos/{pedidoId}/cartas/{cartaId}/verCarta" var="verCarta">
 		        	<spring:param name="pedidoId" value="${pedido.id}"/>

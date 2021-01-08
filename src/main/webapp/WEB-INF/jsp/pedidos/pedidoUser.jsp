@@ -10,6 +10,7 @@
     
 <petclinic:layout pageName="pedidos">
     <h2>Mis Pedidos</h2>
+    <%-- ESTA ES LA LISTA DE TODOS MIS PEDIDOS DE UN CLIENTE--%>
  	<a href="/pedidos/new" class="btn btn-default">Nuevo Pedido</a>
     <table id="pedidosTable" class="table table-striped">
         <thead>
