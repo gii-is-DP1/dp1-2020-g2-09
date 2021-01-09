@@ -22,12 +22,20 @@ public class OfertaValidator implements Validator {
 	@Override
 	public void validate(Object obj, Errors errors) {
 		Oferta oferta = (Oferta) obj;
+		String name=oferta.getName();
 		TamanoOferta tamaño = oferta.getTamanoOferta();
 		Double coste= oferta.getCoste();
 		LocalDate fechaFinal = oferta.getFechaFinal();
 		LocalDate fechaInicial = oferta.getFechaInicial();
 		NivelSocio nivelSocio = oferta.getNivelSocio();
-		 
+		
+		if(name==null) {
+			errors.rejectValue("name", REQUIRED, "Por favor, introduzca un nombre");
+		} 
+		else if(name.length() <= 2|| name.length()>=30 ) {
+			errors.rejectValue("name", "El nombre debe tener entre 2 y 30 caracteres",
+					"El nombre debe tener entre 2 y 30 caracteres");
+		}
 		if(coste==null) {
 			errors.rejectValue("coste", REQUIRED, "Por favor, introduzca un precio");
 		} 

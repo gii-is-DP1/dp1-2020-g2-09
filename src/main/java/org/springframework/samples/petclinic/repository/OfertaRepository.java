@@ -48,7 +48,7 @@ public interface OfertaRepository  extends CrudRepository<Oferta, Integer> {
 	  @Query(value = "INSERT INTO OFERTA_OTRO(OFERTA_ID, OTROS_EN_OFERTA_ID) VALUES (?1, ?2)",	nativeQuery = true)
 		void asociarOfertaAOtro(int ofertaId, int otroEnOfertaId);
 	
-	@Query(value ="SELECT ID FROM PIZZAS WHERE PIZZAS.ID IN( SELECT PIZZAS_EN_OFERTA_ID FROM OFERTA_PIZZA WHERE OFERTA_ID = ?1) ",	nativeQuery = true)
+	@Query(value ="SELECT * FROM PIZZAS WHERE PIZZAS.ID IN( SELECT PIZZAS_EN_OFERTA_ID FROM OFERTA_PIZZA WHERE OFERTA_ID = ?1) ",	nativeQuery = true)
 	List<Pizza> findPizzasEnOfertaByOfertaId(int ofertaId) throws DataAccessException;
 	
 	@Query(value ="SELECT * FROM BEBIDAS WHERE BEBIDAS.ID IN( SELECT BEBIDAS_EN_OFERTA_ID FROM OFERTA_BEBIDA WHERE OFERTA_ID = ?1) ",	nativeQuery = true)
