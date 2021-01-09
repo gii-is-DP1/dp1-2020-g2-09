@@ -18,6 +18,8 @@ public interface PizzaRepository extends CrudRepository<Pizza, Integer> {
 	
 	List<Pizza> findAll() throws DataAccessException;
 	
+	@Query(value = "SELECT * FROM PIZZAS WHERE PIZZAS.ID = ?1",
+			nativeQuery = true)
 	Pizza findPizzaById(int pizzaId) throws DataAccessException;
 
 	@Query(value = "SELECT PIZZAS_EN_CARTA_ID FROM COMPOSICION_CARTA_PIZZA WHERE CARTA_ID = ?1",

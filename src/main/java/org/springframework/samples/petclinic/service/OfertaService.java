@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import org.springframework.samples.petclinic.model.Otro;
 import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.TamanoOferta;
 import org.springframework.samples.petclinic.repository.OfertaRepository;
+import org.springframework.samples.petclinic.repository.PizzaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class OfertaService {
 	
 	private OfertaRepository  ofertaRepository;
+	private PizzaRepository  pizzaRepository;
 
 	@Autowired
 	public  OfertaService(OfertaRepository ofertaRepository) {
@@ -62,16 +65,26 @@ public class OfertaService {
 //		}
 //	}
 	
+	
+	@Transactional
+	public void asociarOfertaAPizza(int ofertaId,int pizzaId) throws DataAccessException {
+		ofertaRepository.asociarOfertaAPizza(ofertaId, pizzaId);
+	}
+		@Transactional
+	public void asociarOfertaABebida(int ofertaId,int bebidaId) throws DataAccessException {
+		ofertaRepository.asociarOfertaABebida(ofertaId, bebidaId);
+	}
+	@Transactional
+	public void asociarOfertaAOtro(int ofertaId,int otroId) throws DataAccessException {
+		ofertaRepository.asociarOfertaAOtro(ofertaId, otroId);
+	}
+	
+	
+	
 	@Transactional
 	public void asociarOfertaAPizzas(int ofertaId,List<Pizza> pizzasEnOferta) throws DataAccessException {
 		for(int i =0;i<=pizzasEnOferta.size();i++) {		
 		ofertaRepository.asociarOfertaAPizza(ofertaId, pizzasEnOferta.get(i).getId());
-		}
-	}
-	@Transactional
-	public void asociarOfertaAOtros(int ofertaId,List<Otro> otrosEnOferta) throws DataAccessException {
-		for(int i =0;i<=otrosEnOferta.size();i++) {		
-		ofertaRepository.asociarOfertaAOtro(ofertaId, otrosEnOferta.get(i).getId());
 		}
 	}
 	@Transactional
@@ -80,7 +93,15 @@ public class OfertaService {
 		ofertaRepository.asociarOfertaABebida(ofertaId, bebidasEnOferta.get(i).getId());
 		}
 	}
+	@Transactional
+	public void asociarOfertaAOtros(int ofertaId,List<Otro> otrosEnOferta) throws DataAccessException {
+		for(int i =0;i<=otrosEnOferta.size();i++) {		
+		ofertaRepository.asociarOfertaAOtro(ofertaId, otrosEnOferta.get(i).getId());
+		}
+	}
 	
+	
+
 	
 	@Transactional(readOnly = true)
 	public List<Pizza> findPizzasEnOferta() throws DataAccessException {
@@ -96,6 +117,16 @@ public class OfertaService {
 		return ofertaRepository.findOtrosEnOferta();
 	}
 	
+	
+//	@Transactional(readOnly = true)
+//	public List<Pizza> findPizzasEnOfertaByOfertaId(int oferta_id) throws DataAccessException {
+//		List<Integer>pizzasId=ofertaRepository.findPizzasEnOfertaByOfertaId(oferta_id);
+//		List<Pizza> sol= new ArrayList<Pizza>();
+//		for(int p : pizzasId){
+//			sol.add(pizzaRepository.findPizzaById(p));
+//		}
+//		return	sol;	
+//	}
 	
 	@Transactional(readOnly = true)
 	public List<Pizza> findPizzasEnOfertaByOfertaId(int oferta_id) throws DataAccessException {

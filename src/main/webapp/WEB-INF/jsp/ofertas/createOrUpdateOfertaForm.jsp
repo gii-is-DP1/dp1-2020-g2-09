@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -19,6 +20,8 @@
     <h2>
         <c:if test="${oferta['new']}">Nueva </c:if> Oferta
     </h2>
+    			<td>Has añadido el producto ${pizzaEnOferta}</td>
+    
     <form:form modelAttribute="oferta" class="form-horizontal" id="add-oferta-form">
         <div class="form-group has-feedback">
         	<petclinic:inputField label="Name" name="name"/>
@@ -28,20 +31,27 @@
 			<div class="control-group">
 			<petclinic:selectField name="tamanoOferta" label="Tamaño producto" names="${tamanoOferta}" size="2"/>
 			<petclinic:selectField name="nivelSocio" label="Nivel Socio" names="${nivelSocio}" size="3"/>
-			
 			 <table id="pizzasTable" class="table table-striped">
              <thead>
        		 <tr>
             	<th>Pizza</th>
-            	<th>Agregar</th>
+            	<th> </th>
        	 	 </tr>
        		 </thead>
        		 <tbody>
        		 <c:forEach items="${pizzas}" var="pizza">
        		 <tr>
        		 <td>${pizza.nombre}</td>
-       		 <td><form:checkbox path="pizzasEnOferta" value="${pizza}"/> Añadir <br>
-       		  <form:input label="Cantidad" name="Cantidad" type="number" path="Cantidad"/></td>
+       		<%-- <td><form:checkbox path="pizzasEnOferta" value="${pizza}"/> Añadir <br>
+       		   <form:input label="Cantidad" name="Cantidad" type="number" path="Cantidad"/></td>--%>
+       		   <td><spring:url value="/ofertas/{ofertaId}/anadirPizza/{pizzaId}" var="ofertaPizzaUrl">
+                    		<spring:param name="ofertaId" value="${oferta.id}"/>
+                    		<spring:param name="pizzaId" value="${pizza.id}"/>
+	              </spring:url>
+	             <%-- <c:out value="${pizza.id}"/>
+	              <c:out value="${oferta.id}"/>--%>
+   				<a href=" ${fn:escapeXml(ofertaPizzaUrl)}" class="btn btn-default">Ofertar Pizza</a>
+   			</td>
        		 </tr>
        		 </c:forEach>
 			
@@ -53,15 +63,21 @@
              <thead>
        		 <tr>
             	<th>Bebida</th>
-            	<th>Agregar</th>
+            	<th> </th>
        	 	 </tr>
        		 </thead>
        		 <tbody>
        		 <c:forEach items="${bebidas}" var="bebida">
        		 <tr>
        		 <td>${bebida.nombre}</td>
-       		 <td><form:checkbox path="bebidasEnOferta" value="${bebida}"/> Añadir
-       		 <petclinic:inputField name="Cantidad" label="Cantidad"/></td>	 
+       		<%-- <td><form:checkbox path="bebidasEnOferta" value="${bebida}"/> Añadir
+       		  <form:input label="Cantidad" name="Cantidad" type="number" path="Cantidad"/></td>	--%> 
+       		  <td><spring:url value="/ofertas/{ofertaId}/anadirBebida/{bebidaId}" var="ofertaBebidaUrl">
+                    		<spring:param name="ofertaId" value="${oferta.id}"/>
+                    		<spring:param name="ofertaId" value="${bebida.id}"/>
+	             </spring:url>
+   				<a href=" ${fn:escapeXml(ofertaBebidaUrl)}" class="btn btn-default">Ofertar Bebida</a>
+   			</td>
        		 </tr>
        		 </c:forEach>
 
@@ -73,15 +89,21 @@
              <thead>
        		 <tr>
             	<th>Producto</th>
-            	<th>Agregar</th>
+            	<th> </th>
        	 	 </tr>
        		 </thead>
        		 <tbody>
        		 <c:forEach items="${otros}" var="otro">
        		 <tr>
        		 <td>${otro.nombre}</td>
-       		 <td><form:checkbox path="otrosEnOferta" value="${otro}"/> Añadir
-       		 <petclinic:inputField name="Cantidad" label="Cantidad"/></td>
+       		<%--  <td><form:checkbox path="otrosEnOferta" value="${otro}"/> Añadir
+       		<form:input label="Cantidad" name="Cantidad" type="number" path="Cantidad"/></td>--%>
+       		<td><spring:url value="/ofertas/{ofertaId}/anadirOtro/{otroId}" var="ofertaPizzaUrl">
+            		 <spring:param name="ofertaId" value="${oferta.id}"/>
+            		 <spring:param name="otroId" value="${otro.id}"/>
+	       		 </spring:url>
+   				<a href=" ${fn:escapeXml(ofertaPizzaUrl)}" class="btn btn-default">Ofertar Producto</a>
+   			</td>
        		 </tr>
        		 </c:forEach>
 

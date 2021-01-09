@@ -8,13 +8,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  
-    
+     <%-- ESTA ES LA CARTA PARA EL ADMINISTRADOR--%>
 <petclinic:layout pageName="carta">
     <h2>Carta</h2>
     
     <!--<c:out value="${cartaId}"></c:out>-->
 
 	<h3>Ofertas</h3>
+	<a href="/pedidos/new" class="btn btn-default">Nuevo Pedido</a>
+	
 	    <table id="ofertasTableCarta" class="table table-striped">
 	        <thead>
 	        <tr>
@@ -237,6 +239,7 @@
         
         </tbody>
     </table>
+    <a href="/pedidos/new" class="btn btn-default">Nuevo Pedido</a>
     
     
 </petclinic:layout>

@@ -20,6 +20,15 @@ import lombok.Setter;
 @Entity
 @Table(name = "Pizzas")
 public class Pizza extends Producto {
+    
+	
+//	public Pizza(Integer id,Integer contador,Integer coste,String nombre,TamanoProducto tamano, tipoMasa tipoMasa, Cliente cliente, Boolean personalizada) {
+//		super();
+//		this.tamano = tamano;
+//		this.tipoMasa = tipoMasa;
+//		this.cliente = cliente;
+//		Personalizada = personalizada;
+//	}
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "tamano_producto" )
