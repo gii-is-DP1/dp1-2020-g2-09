@@ -94,6 +94,7 @@ public class OfertaController {
 		model.put("bebidas", bebidas);
 		model.put("otros", otros);
 		model.put("oferta", oferta);
+		
 	//model.put("pizzasEnOferta", pizzasEnOferta);
 		return "ofertas/createOrUpdateOfertaForm";
 	}
@@ -115,10 +116,30 @@ public class OfertaController {
 //			OfertaValidator ofValidator = new OfertaValidator();
 //			ValidationUtils.invokeValidator(ofValidator, oferta, result);
 			this.ofertaService.saveOferta(oferta);
-			return "redirect:/allOfertas";
+			return "redirect:/ofertas/"+oferta.getId()+"/anadirProductos";
 		}
+		
 	}
-
+	//añadir productos a ala oferta
+		@GetMapping(value = "/ofertas/{ofertaId}/anadirProductos")
+		public String anadirProductos(@PathVariable("ofertaId") int ofertaId, ModelMap model) {
+			Oferta oferta = this.ofertaService.findOfertaById(ofertaId);
+			List<Pizza> pizzas=pizzaService.findPizzas();
+			List<Bebida> bebidas=bebidaService.findBebidas();
+			List<Otro> otros=otrosService.findOtros();
+			model.put("pizzas", pizzas);
+			model.put("bebidas", bebidas);
+			model.put("otros", otros);
+			model.put("oferta", oferta);
+			return "ofertas/anadirProductos";
+		}
+		
+		@PostMapping(value = "/ofertas/{ofertaId}/anadirProductos")
+		public String anadirProductos(@Valid Oferta oferta, BindingResult result,@PathVariable("ofertaId") int ofertaId, ModelMap model) {
+			
+				return "redirect:/allOfertas";
+		
+		}
 	//iniciar actualizacion oferta
 	@GetMapping(value = "/ofertas/{ofertaId}/edit")
 	public String initUpdateForm(@PathVariable("ofertaId") int ofertaId, ModelMap model) {
@@ -204,9 +225,7 @@ public class OfertaController {
 				model.put("pizzaEnOferta",p);
 				//model.put("pizzasEnOferta", pizzasEnOferta);
 				this.ofertaService.asociarOfertaAPizza(ofertaId, pizzaId);
-//				List<Pizza> pizzasEnOferta=ofertaService.findPizzasEnOfertaByOfertaId(ofertaId);
-//				model.put("pizzasEnOferta",pizzasEnOferta);
-				return "redirect:/ofertas/{ofertaId}/edit";
+				return "redirect:/ofertas/{ofertaId}/anadirProductos";
 			}
 			//Aqui tenemos que añadir la pizza seleccionado a un nuevo pedido
 			@GetMapping("/ofertas/{ofertaId}/anadirBebida/{bebidaId}")
@@ -222,7 +241,7 @@ public class OfertaController {
 				model.put("bebidaEnOferta",b);
 				//model.put("pizzasEnOferta", pizzasEnOferta);
 				this.ofertaService.asociarOfertaABebida(ofertaId, bebidaId);
-				return "redirect:/ofertas/{ofertaId}/edit";
+				return "redirect:/ofertas/{ofertaId}/anadirProductos";
 			}
 			//Aqui tenemos que añadir la pizza seleccionado a un nuevo pedido
 			@GetMapping("/ofertas/{ofertaId}/anadirOtro/{otroId}")
@@ -238,6 +257,7 @@ public class OfertaController {
 				model.put("otroEnOferta",o);
 				//model.put("pizzasEnOferta", pizzasEnOferta);
 				this.ofertaService.asociarOfertaAOtro(ofertaId, otroId);
-				return "redirect:/ofertas/{ofertaId}/edit";
+				return "redirect:/ofertas/{ofertaId}/anadirProductos";
 			}
+			
 }
