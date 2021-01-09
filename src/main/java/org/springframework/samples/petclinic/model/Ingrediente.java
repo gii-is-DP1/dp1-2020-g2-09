@@ -22,7 +22,7 @@ public class Ingrediente extends BaseEntity {
 	
 	@Column(name = "nombre")
 	@NotNull
-	@Size(min = 2, max = 20)
+	@Size(min = 2, max = 50)
 	private String nombre;
 	
 	@Column(name = "tipo")
