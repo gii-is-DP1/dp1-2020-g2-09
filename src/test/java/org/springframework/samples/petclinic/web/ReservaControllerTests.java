@@ -38,8 +38,10 @@ import org.springframework.samples.petclinic.configuration.SecurityConfiguration
 import org.springframework.samples.petclinic.model.Mesa;
 import org.springframework.samples.petclinic.model.Reserva;
 import org.springframework.samples.petclinic.model.tipoReserva;
+import org.springframework.samples.petclinic.service.ClienteService;
 import org.springframework.samples.petclinic.service.MesaService;
 import org.springframework.samples.petclinic.service.ReservaService;
+import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -69,6 +71,13 @@ class ReservaControllerTests {
         
     @MockBean
 	private MesaService mesaService;
+    
+    @MockBean 
+    private ClienteService clienteService;
+    
+    @MockBean
+    private UserService userService;
+    
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -96,7 +105,8 @@ class ReservaControllerTests {
 				.andExpect(model().attributeExists("reserva"))
 				.andExpect(view().name("reservas/createOrUpdateReservaForm"));
 	}
-
+	
+	//Da fallo
 	@WithMockUser(value = "spring")
         @Test
 	void testProcessCreationFormSuccess() throws Exception {
@@ -136,6 +146,7 @@ class ReservaControllerTests {
 				.andExpect(view().name("reservas/createOrUpdateReservaForm"));
 	}
     
+    //Da fallo
     @WithMockUser(value = "spring")
 	@Test
 	void testProcessUpdateFormSuccess() throws Exception {
@@ -166,5 +177,63 @@ class ReservaControllerTests {
 				.andExpect(status().isOk())
 				.andExpect(view().name("reservas/createOrUpdateReservaForm"));
 	}
+    
+    @WithMockUser(value = "spring")
+    @Test
+    void testShowReservaList() throws Exception {
+    	mockMvc.perform(get("/allReservas")).andExpect(status().isOk())
+		.andExpect(view().name("reservas/reservasList"))
+		.andExpect(model().attributeExists("reservas"));
+    }
+    
+    //Hay una parte que no se prueba (mirar con Coverage). ¿Se tendrá que probar en el service?
+    @WithMockUser(value = "spring")
+    @Test
+    void testMesasDisponibles() throws Exception {
+    	mockMvc.perform(get("/reservas/{reservaId}/allMesasDisponibles", TEST_RESERVA_ID)).andExpect(status().isOk())
+		.andExpect(view().name("mesas/mesasDisponibles"))
+		.andExpect(model().attributeExists("miReserva"))
+		.andExpect(model().attributeExists("mesasDisponiblesSolucion"));
+    }
+    
+    //No funciona
+    @WithMockUser(value = "spring")
+    @Test
+    void testDetallesReserva() throws Exception {
+    	mockMvc.perform(get("/reservas/{reservaId}/verDetalles", TEST_RESERVA_ID)).andExpect(status().isOk())
+		.andExpect(view().name("reservas/verDetallesReserva"))
+		.andExpect(model().attributeExists("reserva"))
+		.andExpect(model().attributeExists("usuario"))
+		.andExpect(model().attributeExists("cliente"))
+		.andExpect(model().attributeExists("mesa"));
+    }
+    
+    
+    @WithMockUser(value = "spring")
+    @Test
+    void testAnadirMesaAReserva() throws Exception {
+    	mockMvc.perform(get("/reservas/{reservaId}/allMesasDisponibles/{mesaId}", TEST_RESERVA_ID, TEST_MESA_ID))
+    	.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/reservas/user"));
+    }
+    
+    //Da fallo
+    @WithMockUser(value = "spring")
+    @Test
+    void testShowMisReservas() throws Exception {
+    	mockMvc.perform(get("/reservas/user", TEST_RESERVA_ID))
+    	.andExpect(status().isOk()).andExpect(status().is2xxSuccessful())
+    	.andExpect(view().name("reservas/reservaUser"));
+    }
+    
+    @WithMockUser(value = "spring")
+    @Test
+    void testInitDeleteReserva() throws Exception {
+    	mockMvc.perform(get("/reservas/{reservaId}/delete", TEST_RESERVA_ID))
+    			.andExpect(view()
+    					.name("welcome"))
+    			.andExpect(model().attributeDoesNotExist("reserva"));
+    }
+    
 
 }

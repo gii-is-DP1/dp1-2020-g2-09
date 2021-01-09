@@ -307,9 +307,9 @@ public class PedidoControllerTests {
    	void testanadirPizza() throws Exception {
     	mockMvc.perform(get("/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirPizza/{pizzaId}", TEST_PEDIDO_ID, TEST_CARTA_ID, TEST_PIZZA_ID))
     	.andExpect(status().is3xxRedirection())
-		.andExpect(view().name("redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen"))
-		.andExpect(model().attributeExists("pedido"))
-    	.andExpect(model().attributeExists("cartaId"));
+		.andExpect(view().name("redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen"));
+		//.andExpect(model().attributeExists("pedido"))
+    	//.andExpect(model().attributeExists("cartaId"));
 		
     }
     

@@ -258,8 +258,10 @@ public class ReservaController {
 	public String initDeleteReserva(@PathVariable("reservaId") int reservaId, ModelMap model) {
 		Reserva reserva = this.reservaService.findById(reservaId);
 		this.reservaService.deleteReserva(reserva);
-		return "redirect:/allReservas";
+		return "welcome";
 	}
+	
+	//Este método creo que no se usa
 	//buscar mesas de la reserva
 		@GetMapping(value = "/reservas/mesas/{reservaId}")
 		public String initReserva(@PathVariable("reservaId") int reservaId, ModelMap model) {

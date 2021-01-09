@@ -181,10 +181,9 @@ public class ReclamacionController {
 			Integer pedidoId = this.pedidoService.findIdPedidoByReclamacionId(reclamacionId);
 			Pedido pedido = this.pedidoService.findPedidoById(pedidoId);
 			model.put("pedido", pedido);
-			
 			Cliente cliente = pedido.getCliente();
-			model.put("cliente", cliente);
 			User usuario = cliente.getUser();
+			model.put("cliente", cliente);
 			model.put("usuario", usuario);
 			
 			return "reclamaciones/verDetallesReclamacion";

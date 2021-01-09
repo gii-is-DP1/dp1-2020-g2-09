@@ -68,8 +68,8 @@ class ReclamacionControllerTests {
 	void setup() {
 		Reclamacion r = new Reclamacion();
 		Pedido p = new Pedido();
-		
 		Cliente cliente = new Cliente();
+		
 		cliente.setApellidos("Roldán Cadena");
 		cliente.setEmail("jrc@gmail.com");
 		cliente.setFechaNacimiento(LocalDate.of(2000, 6,7));
@@ -196,15 +196,11 @@ class ReclamacionControllerTests {
     			.andExpect(model().attributeDoesNotExist("reclamacion"));
     }
     
-    //Da fallo
+    //Da fallo 404 expected lol
     @WithMockUser(value = "spring")
    	@Test
    	void testAnadirReclamacionAPedido() throws Exception {
-    	mockMvc.perform(get("/pedidos/{pedidoId}/reclamaciones/{reclamacionId}/confirmarReclamacion}", TEST_PEDIDO_ID, TEST_RECLAMACION_ID)
-				.with(csrf())
-				.param("direccion", "C/ferrara, 4")
-				.param("tipoPago.name", "TARJETA")
-				.param("tipoEnvio.name", "DOMICILIO"))
+    	mockMvc.perform(get("/pedidos/{pedidoId}/reclamaciones/{reclamacionId}/confirmarReclamacion}", TEST_PEDIDO_ID, TEST_RECLAMACION_ID))
 		.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/reclamaciones/user"));
     }
@@ -213,14 +209,25 @@ class ReclamacionControllerTests {
     @WithMockUser(value = "spring")
     @Test
     void testShowDetallesReclamacion() throws Exception {
-    	mockMvc.perform(get("/reclamaciones/{reclamacionId}/verDetalles", TEST_RECLAMACION_ID)).andExpect(status().isOk())
+    	mockMvc.perform(get("/reclamaciones/{reclamacionId}/verDetalles", TEST_RECLAMACION_ID))
+    	.andExpect(status().isOk())
+    	.andExpect(view().name("reclamaciones/verDetallesReclamacion"))
     	.andExpect(model().attributeExists("reclamacion"))
     	.andExpect(model().attributeExists("pedido"))
     	.andExpect(model().attributeExists("usuario"))
-    	.andExpect(model().attributeExists("cliente"))
-    	.andExpect(view().name("reclamaciones/verDetallesReclamacion"));
+    	.andExpect(model().attributeExists("cliente"));
+    	//.andReturn().getRequest();
     }
     
-	
+    //Da fallo
+    @WithMockUser(value = "spring")
+    @Test
+    void testShowMisReclamaciones() throws Exception {
+    	mockMvc.perform(get("/reclamaciones/user", TEST_RECLAMACION_ID))
+    	.andExpect(status().isOk()).andExpect(status().is2xxSuccessful())
+    	.andExpect(view().name("reclamaciones/reclamacionUser"));
+    }
+    
+	 
 
 }
