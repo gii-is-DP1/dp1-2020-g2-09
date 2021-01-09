@@ -31,8 +31,8 @@ public class IngredienteValidator  implements Validator{
 			errors.rejectValue("tipo", REQUIRED+" no puede ser nulo", REQUIRED+" no puede ser nulo");
 		}
 
-		if (!StringUtils.hasLength(nombre) || nombre.length()>50 || nombre.length()<3) {
-			errors.rejectValue("nombre", REQUIRED+" debe tener entre 3 y 50 carácteres", REQUIRED+" debe tener entre 3 y 50 carácteres");
+		if (!StringUtils.hasLength(nombre) || nombre.length()>50 || nombre.length()<2) {
+			errors.rejectValue("nombre", REQUIRED+" debe tener entre 2 y 50 carácteres", REQUIRED+" debe tener entre 2 y 50 carácteres");
 		}
 		
 		if (fechaCaducidad.isEqual(LocalDate.now())) {

@@ -13,6 +13,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -29,6 +31,8 @@ public class Reserva extends BaseEntity {
 
 	@Column(name = "numeroPersonas")
 	@NotNull
+	@Min(0)
+	@Max(6)
 	private Integer numeroPersonas;
 
 	@Column(name = "fecha_reserva") 

@@ -12,6 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -29,6 +30,7 @@ public class Pedido extends BaseEntity{
 	
 	@Column(name = "precio")
 	@NotNull
+	@Min(0)
 	private Double precio;
 	
 	@Column(name = "gastos_envio")
