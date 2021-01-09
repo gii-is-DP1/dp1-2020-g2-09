@@ -64,6 +64,7 @@ public class ReservaValidator implements Validator {
 					"Campo obligatorio", 
 					"Por favor, introduzca una hora para reservar");
 			
+			//Es esto realmente una regla de negocio?
 			//Ver el tipo de reserva: si es almuerzo, permitir horas entre 12:00 y 15:00 (por ejemplo)
 			//Si es una cena, elegir entre 20:00 y 23:00
 		} else if(tipoReserva.getName()=="ALMUERZO") {
