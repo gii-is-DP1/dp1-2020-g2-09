@@ -47,7 +47,7 @@ public class MesaService {
 	public Integer findIdMesaByReserva(int reservaId) throws DataAccessException {
 		return mesaRepository.findIdMesaByReserva(reservaId);
 	}
-
+	
 	public Integer CountMesa(Integer id) throws DataAccessException{
 		List<Integer> l = this.mesaRepository.CountMesa(id);
 		Integer sum=0;
