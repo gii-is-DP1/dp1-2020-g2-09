@@ -127,7 +127,7 @@
              	</td>
              	<td>
              		<spring:url value="/pedidos/{pedidoId}/anadirReclamacion/new" var="pedidoreclamacionUrl">
-	                        <spring:param name="pedidoId" value="${pedidoActual.id}"/>
+	                        <spring:param name="pedidoId" value="${pedido.id}"/>
 	                </spring:url>
    					<a href=" ${fn:escapeXml(pedidoreclamacionUrl)}" class="btn btn-default">Nueva reclamacion</a>
              	</td>
