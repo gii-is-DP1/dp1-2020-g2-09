@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.petclinic.model.Bebida;
+import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.model.TamanoProducto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,9 @@ public class BebidaServiceTestsSinMockito {
 
 	@Autowired
 	protected BebidaService bebidaService;
+	
+	@Autowired 
+	protected CartaService cartaService;
 	
 	@Test
 	void shouldFindBebidaById() {
@@ -89,14 +93,38 @@ public class BebidaServiceTestsSinMockito {
 	@Test
 	@Transactional
 	void shouldDeleteBebida() {
-		Bebida bebida = this.bebidaService.findById(3);
+		Bebida bebida = new Bebida();
+		bebida.setId(100);
 		
 		this.bebidaService.deleteBebida(bebida);
 		
-		bebida = this.bebidaService.findById(3);
+		bebida = this.bebidaService.findById(100);
 		
 		assertNull(bebida);
 	
+	}
+	
+	@Test
+	@Transactional
+	void shouldAnadirBebidaACarta() {
+		Bebida bebida = this.bebidaService.findById(1);
+		Carta carta = this.cartaService.findCartaById(1);
+		
+		this.bebidaService.añadirBebidaACarta(bebida.getId(), carta.getId());
+		
+		assertThat(carta.getBebidasEnCarta().contains(bebida));
+		
+	}
+	
+	@Test
+	@Transactional 
+	void shouldDeleteBebidaFromComposicionCarta() {
+		Bebida bebida = this.bebidaService.findById(1);
+		Carta carta = this.cartaService.findCartaById(1);
+		
+		this.bebidaService.deleteBebidaFromComposicionCarta(bebida.getId());
+		
+		assertThat(!carta.getBebidasEnCarta().contains(bebida));
 	}
 	
 }

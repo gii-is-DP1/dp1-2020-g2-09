@@ -131,5 +131,16 @@ public class MesaServiceTests {
 		
 	}
 	
+	@Test
+	@Transactional
+	public void shouldCountMesa() {
+		List<Integer> l = new ArrayList<Integer>();
+		l.add(1);
+		l.add(2);
+		when(mesaRepository.CountMesa(anyInt())).thenReturn(l);
+		mesaService.CountMesa(1);
+		verify(mesaRepository).CountMesa(1);
+		
+	}
 	
 }

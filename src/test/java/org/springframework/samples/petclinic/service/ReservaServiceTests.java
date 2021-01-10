@@ -171,7 +171,7 @@ public class ReservaServiceTests {
 		verify(reservaRepository, never()).findReservasIdByMesaId(100);
 	}
 	
-	//No Funciona
+//	//No tiene sentido hacerlo con dobles creo
 //	@Test
 //	@Transactional
 //	public void shouldCalcularReservasAPartirIds() {
@@ -191,7 +191,7 @@ public class ReservaServiceTests {
 //		listaReservas.add(reserva);
 //		
 //		when(reservaServiceMock.calcularReservasAPartirIds(listaId)).thenReturn(listaReservas);
-//		reservaServiceMock.calcularReservasAPartirIds(listaId);
+//		reservaService.calcularReservasAPartirIds(listaId);
 //		verify(reservaServiceMock).calcularReservasAPartirIds(listaId);
 //	}
 	
