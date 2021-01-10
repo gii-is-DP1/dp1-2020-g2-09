@@ -1,7 +1,5 @@
 package org.springframework.samples.petclinic.web;
 
-import java.time.LocalDate;
-
 import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

@@ -1,8 +1,9 @@
 package org.springframework.samples.petclinic.web;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
-import static java.time.temporal.ChronoUnit.DAYS;
 
 import org.springframework.samples.petclinic.model.Reserva;
 import org.springframework.samples.petclinic.model.tipoReserva;

@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Bebida;
 import org.springframework.samples.petclinic.model.Bebidas;
@@ -120,6 +122,7 @@ public class PedidoController {
 	@GetMapping("/pedidos/user")
 	public String showMisPedidos(Map<String, Object> model) {
 		Pedidos pedidos = new Pedidos();
+		Pedido pedidoActual=new Pedido();
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserDetails userDetails = null;
 		if (principal instanceof UserDetails) {
@@ -130,6 +133,9 @@ public class PedidoController {
 	    Cuenta cliente= this.clienteService.findCuentaByUser(usuario);
 	    pedidos.getPedidosList().addAll(this.pedidoService.findPedidosByCliente(cliente.getId()));
 		model.put("pedidos", pedidos);
+		LocalDate hoy = LocalDate.now();
+		pedidoActual = this.pedidoService.findPedidoByFecha(hoy, cliente.getId());
+		model.put("pedidoActual", pedidoActual);
 		return "pedidos/pedidoUser";
 	}
 	
@@ -205,7 +211,7 @@ public class PedidoController {
 		else {
 			pedido.setId(pedidoId);
 			this.pedidoService.savePedido(pedido);
-			return "redirect:/allPedidos";
+			return "redirect:/pedidos/user";
 		}
 	}
 	
@@ -217,7 +223,6 @@ public class PedidoController {
 		return "redirect:/pedidos/user";
 	}
 	
-	//CREO QUE ESTO YA NO SE USA
 	//Mostrar cartas de las que coger productos 
 	@GetMapping(value = { "/pedidos/{pedidoId}/allCartas" })//hacer que lleve a ver carta del tiron
 	public String showCartaParaPedidosList(@PathVariable("pedidoId") int pedidoId,
@@ -314,7 +319,13 @@ public class PedidoController {
 		//Poner En cocina al finalizar un pedido
 		@GetMapping(value = "/pedidos/{pedidoId}/finalizarPedido")
 		public String enCocina(@PathVariable("pedidoId") int pedidoId, ModelMap model) {
+			//Pedido pedido= pedidoService.findPedidoById(pedidoId);
 			pedidoService.putEnCocina(pedidoId);
+			/*if(pedido.getTipoEnvio().getId()==1) {
+				pedido.setGastosEnvio(0.0);
+			}else {
+				pedido.setGastosEnvio(3.5);
+			}*/
 			return "redirect:/pedidos/user";
 		}
 				

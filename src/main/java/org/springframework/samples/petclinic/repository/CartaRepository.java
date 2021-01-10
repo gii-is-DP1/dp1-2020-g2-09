@@ -19,21 +19,5 @@ public interface CartaRepository  extends CrudRepository<Carta, Integer>{
 	@Query(value = "SELECT * FROM CARTAS WHERE ?1 BETWEEN FECHA_CREACION AND FECHA_FINAL",
 			nativeQuery = true)
 	Carta findCartaByFechaCreacionYFechaFinal(LocalDate hoy) throws DataAccessException;
-	//LocalDate hoy = LocalDate.now();
 	
-	//esto no va aquí 
-	/*@Modifying
-    @Query(value = "INSERT INTO  PRODUCTO_PIZZA_PEDIDO (PEDIDO_ID, PIZZAS_EN_PEDIDO_ID) VALUES (?1, ?2)",
-			nativeQuery = true)
-	void añadirPizzaAPedido(int pizzaId, int pedidoId);
-	
-	@Modifying
-    @Query(value = "INSERT INTO  PRODUCTO_BEBIDA_PEDIDO (PEDIDO_ID, BEBIDAS_EN_PEDIDO_ID) VALUES (?1, ?2)",
-			nativeQuery = true)
-	void añadirBebidaAPedido(int bebidaId, int pedidoId);
-	
-	@Modifying
-    @Query(value = "INSERT INTO  PRODUCTO_OTROS_PEDIDO (PEDIDO_ID, OTROS_EN_PEDIDO_ID) VALUES (?1, ?2)",
-			nativeQuery = true)
-	void añadirOtrosAPedido(int otrosId, int pedidoId);*/
 }

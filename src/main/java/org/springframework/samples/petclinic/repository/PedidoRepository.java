@@ -1,7 +1,7 @@
 package org.springframework.samples.petclinic.repository;
 
+import java.time.LocalDate;
 import java.util.List;
-
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -21,6 +21,11 @@ public interface PedidoRepository  extends CrudRepository<Pedido, Integer> {
 	
 	@Query(value ="SELECT * FROM Pedido WHERE PedidoCliente=?1", nativeQuery = true)
 	List<Pedido> findPedidosByCliente(int userId) throws DataAccessException;
+	
+	@Query(value = "SELECT * FROM PEDIDO WHERE (CAST(FECHA_PEDIDO AS date) = CAST(?1 AS date)) AND PedidoCliente=?2 ORDER BY ID DESC LIMIT 1",
+			nativeQuery = true)
+	Pedido findPedidoByFecha(LocalDate hoy, int userId) throws DataAccessException;
+	
 	
 	//la siguiente creo que está mal
 	List<Pedido> findByOfertasEnPedido(int pedidoId) throws DataAccessException;
