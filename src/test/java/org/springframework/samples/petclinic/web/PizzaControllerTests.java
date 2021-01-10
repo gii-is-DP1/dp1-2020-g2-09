@@ -56,7 +56,7 @@ import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 includeFilters = @ComponentScan.Filter(value = PizzaFormatter.class, type = FilterType.ASSIGNABLE_TYPE),
 excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
 excludeAutoConfiguration= SecurityConfiguration.class)
-class PizzaControllerTests {
+class PizzaControllerTests { 
 	
 	private static final int TEST_PIZZA_ID = 1;
 
