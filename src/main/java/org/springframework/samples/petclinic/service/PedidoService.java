@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.service;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
@@ -38,6 +39,10 @@ public class PedidoService {
 		return pedidoRepository.findPedidosByCliente(userId);
 	}
 	
+	@Transactional(readOnly = true)	
+	public Pedido findPedidoByFecha(LocalDate hoy, int userId) throws DataAccessException {
+		return pedidoRepository.findPedidoByFecha(hoy, userId);
+	}
 	
 	@Transactional
 	public void savePedido(Pedido pedido) throws DataAccessException {
