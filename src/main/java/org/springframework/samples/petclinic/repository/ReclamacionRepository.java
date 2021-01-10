@@ -17,7 +17,7 @@ List<Reclamacion> findAll() throws DataAccessException;
 	Reclamacion findReclamacionById(int reclamacionId) throws DataAccessException;
 	
 	@Modifying
-    @Query(value = "INSERT INTO PEDIDO_RECLAMACION(PEDIDO_ID, RECLAMACION_ID) VALUES (?1, ?2)",
+    @Query(value = "INSERT INTO PEDIDO_RECLAMACION(PEDIDO_ID, RECLAMACION_ID) VALUES (?2, ?1)",
 			nativeQuery = true)
 	void anadirReclamacionAPedido(int reclamacionId, int pedidoId);
 	
