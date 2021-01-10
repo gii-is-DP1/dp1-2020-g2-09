@@ -22,7 +22,10 @@ import org.springframework.samples.petclinic.configuration.SecurityConfiguration
 import org.springframework.samples.petclinic.model.NivelSocio;
 import org.springframework.samples.petclinic.model.Oferta;
 import org.springframework.samples.petclinic.model.TamanoOferta;
+import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.OfertaService;
+import org.springframework.samples.petclinic.service.OtrosService;
+import org.springframework.samples.petclinic.service.PizzaService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -43,6 +46,13 @@ public class OfertaControllerTests {
 
 	@MockBean
 	private OfertaService ofertaService;
+	@MockBean
+	private  BebidaService bebidaService;
+	@MockBean
+	private PizzaService pizzaService;
+	@MockBean
+	private OtrosService otrosService;
+	
 
         
 // @MockBean

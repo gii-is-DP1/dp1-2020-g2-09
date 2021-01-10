@@ -23,6 +23,7 @@ import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.CartaService;
 import org.springframework.samples.petclinic.service.IngredienteService;
+import org.springframework.samples.petclinic.service.OfertaService;
 import org.springframework.samples.petclinic.service.OtrosService;
 import org.springframework.samples.petclinic.service.PizzaService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
@@ -40,7 +41,7 @@ public class CartaControllerTests {
 	private static final int TEST_OTROS_ID = 1;
 	private static final int TEST_CARTA_ID = 1;
 	private static final int TEST_PIZZA_ID = 1;
-	
+	private static final int TEST_OFERTA_ID = 1;
 	
 	@MockBean
 	private CartaService CartaService;
@@ -52,6 +53,8 @@ public class CartaControllerTests {
     private BebidaService BebidaService;
     @MockBean
     private IngredienteService ingredienteService;
+    @MockBean
+    private OfertaService ofertaService;
     
     
 	@Autowired
