@@ -36,13 +36,8 @@ public class ReclamacionController {
 	private UserService userService;
 	private ClienteService clienteService;
 	private PedidoService pedidoService;
+
 	
-	//PROBLEMA: EL CONSTRUCTOR HACE QUE ME FALLEN TODAS LAS PRUEBAS DEL RECLAMACIONCONTROLLERTESTS
-	//Me dice Failed to load application context
-	//Si quito el userService y el clienteService como parámetros del constructor 
-	//y quito todo lo de dentro del método menos lo de reclamacionService
-	//vuelve a funcionar, pero claro si lo quito después me mete 
-	//un NullPointer a la hora de crear la sesión del usuario  y mostrar sus reclamaciones.
 	@Autowired
 	public ReclamacionController(ReclamacionService reclamacionService, 
 			UserService userService, ClienteService clienteService, PedidoService pedidoService) {
@@ -146,20 +141,9 @@ public class ReclamacionController {
 				return "reclamaciones/createOrUpdateReclamacionForm";
 			}
 			else {
-//				ReclamacionValidator ofValidator = new ReclamacionValidator();
-//				ValidationUtils.invokeValidator(ofValidator, reclamacion, result);
-				model.put("reclamacion", reclamacion);
 				model.put("pedidoId", pedidoId);
 				this.reclamacionService.saveReclamacion(reclamacion);
-				
-				//ESTAS DOS LÍNEAS SON LAS QUE HACEN QUE EL testProcessCreationFormSuccess de fallo
-				//=====================
-				//FIJARME EN CARTA E INTENTAR HACERLO DE FORMA SIMILAR
-				//COMO SI ESTUVIERA AÑADIENDO UNA PIZZA A LA CARTA, 
-				//PERO EN VEZ DE ESO ESTOY AÑADIENDO UNA RECLAMACION AL PEDIDO
-//				Integer reclamacionId=reclamacion.getId();
-				
-				//======================
+	
 				return "reclamaciones/confirmarReclamacion";
 			} 
 		}
@@ -189,7 +173,6 @@ public class ReclamacionController {
 			return "reclamaciones/verDetallesReclamacion";
 		}
 		
-		
 		//iniciar actualizacion -> Administrador responde reclamación
 		@GetMapping(value = "/reclamaciones/{reclamacionId}/edit")
 		public String initUpdateForm(@PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
@@ -204,14 +187,11 @@ public class ReclamacionController {
 		public String processUpdateReclamacionForm(@Valid Reclamacion reclamacion, BindingResult result,
 				@PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
 			if (result.hasErrors()) {
-				//reclamacion.setId(reclamacionId);
 				model.put("reclamacion", reclamacion);
 				return "reclamaciones/createOrUpdateReclamacionForm";
 				
 			}
 			else {
-//				ReclamacionValidator ofValidator = new ReclamacionValidator();
-//				ValidationUtils.invokeValidator(ofValidator, reclamacion, result);
 				reclamacion.setId(reclamacionId);
 				this.reclamacionService.saveReclamacion(reclamacion);
 				return "redirect:/allReclamaciones";
@@ -226,8 +206,4 @@ public class ReclamacionController {
 			return "redirect:/reclamaciones/user";
 		} 
 		
-//		@ModelAttribute("reclamacion")
-//		public Reclamacion findReclamacion(@PathVariable("reclamacionId") int reclamacionId) {
-//			return this.findReclamacion(reclamacionId);
-//		}
 }

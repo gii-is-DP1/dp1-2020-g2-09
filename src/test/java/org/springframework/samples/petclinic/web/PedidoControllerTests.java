@@ -7,11 +7,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,12 +23,14 @@ import org.springframework.samples.petclinic.configuration.SecurityConfiguration
 import org.springframework.samples.petclinic.model.Alergenos;
 import org.springframework.samples.petclinic.model.Bebida;
 import org.springframework.samples.petclinic.model.Cliente;
+import org.springframework.samples.petclinic.model.EstadoPedido;
 import org.springframework.samples.petclinic.model.Ingrediente;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.TamanoProducto;
 import org.springframework.samples.petclinic.model.TipoEnvio;
 import org.springframework.samples.petclinic.model.TipoPago;
+import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.model.tipoMasa;
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.CartaService;
@@ -56,13 +57,14 @@ public class PedidoControllerTests {
 	private static final int TEST_PEDIDO_ID = 2;
 	private static final int TEST_CLIENTE_ID = 1;
 	private static final int TEST_CARTA_ID = 1;
+	private static final String TEST_user= "spring";
 	
 	@MockBean
 	private PedidoService PedidoService;
 	@MockBean
 	private UserService userService;
 	@MockBean
-	private ClienteService clienterService;
+	private ClienteService clienteService;
 	@MockBean
 	private CartaService CartaService;
     @MockBean
@@ -78,30 +80,53 @@ public class PedidoControllerTests {
 
 	@BeforeEach
 	void setup() {
+		User u1 = new User();
+		Optional<User> op= Optional.of(u1);
+		given(this.userService.findUser(TEST_user)).willReturn(op);
+		
+	
 		Pedido pedido=new Pedido();
 		pedido.setDireccion("C/Ferrara, 4");
 		
+		
+		EstadoPedido estd = new EstadoPedido();
+		estd.setName("EN COCINA");
+		
+		Pedido pedido2=new Pedido();
+		pedido2.setId(TEST_PEDIDO_ID);
+		pedido2.setEstadoPedido(estd);
+		pedido2.setDireccion("C/Ferrara, 4");
+		
+		
 		Cliente cliente = new Cliente();
+		cliente.setUser(u1);
 		cliente.setApellidos("Roldán Cadena");
 		cliente.setEmail("jrc@gmail.com");
 		cliente.setFechaNacimiento(LocalDate.of(2000, 6,7));
 		cliente.setId(TEST_CLIENTE_ID);
 		cliente.setNombre("Jesús");
 		cliente.setTelefono(123456789);
+		
 		pedido.setCliente(cliente);
+		pedido2.setCliente(cliente);
+		
 		
 		TipoEnvio te = new TipoEnvio();
 		te.setName("A DOMICILIO");
 		pedido.setTipoEnvio(te);
 		pedido.setGastosEnvio(3.50);
+		pedido2.setGastosEnvio(3.50);
 		
 		TipoPago tp = new TipoPago();
 		tp.setName("TARJETA");
 		pedido.setTipoPago(tp);
+		pedido2.setTipoPago(tp);
 		
 
 		LocalDate hoy = LocalDate.now();
 		pedido.setFechaPedido(hoy);
+		pedido2.setFechaPedido(hoy);
+		
 		
 		//pizza
 		Pizza pizza1 = new Pizza();
@@ -162,13 +187,14 @@ public class PedidoControllerTests {
 		pedido.setPizzasEnPedido(pizzasEnPedido);
 		pedido.setBebidasEnPedido(bebidasEnPedido);
 	
-		
+		given(this.clienteService.findCuentaByUser(u1)).willReturn(cliente);
 		given(this.PedidoService.findPedidos()).willReturn(Lists.newArrayList(pedido));
 		given(this.PedidoService.findPedidoById(TEST_PEDIDO_ID)).willReturn(pedido);
 		given(this.PedidoService.findPedidosByCliente(TEST_CLIENTE_ID)).willReturn(Lists.newArrayList(pedido));
 		given(this.PedidoService.findPedidoForCocinero()).willReturn(Lists.newArrayList(pedido));
 		given(this.PedidoService.findPedidoForRepartidor()).willReturn(Lists.newArrayList(pedido));
 	}
+	
 
 	@WithMockUser(value = "spring")
    	@Test
@@ -179,15 +205,14 @@ public class PedidoControllerTests {
 		.andExpect(model().attributeExists("pedidos"));
     }
 
-	//Da error porque la prueba no consigue el usuario en sesión
+	
 	@WithMockUser(value = "spring")
    	@Test
    	void testshowMisPedidos() throws Exception {
     	mockMvc.perform(get("/pedidos/user"))
-    	.andReturn().getRequest();
-    	//Da error porque la prueba no consigue el usuario en sesión
-		/*.andExpect(view().name("pedidos/pedidosUser"))
-		.andExpect(model().attributeExists("pedidos"));*/
+    	.andExpect(status().isOk())
+    	.andExpect(view().name("pedidos/pedidoUser"))
+		.andExpect(model().attributeExists("pedidos"));
     }
 	
 	@WithMockUser(value = "spring")
@@ -219,7 +244,6 @@ public class PedidoControllerTests {
 				.andExpect(model().attributeExists("pedido"));
 	}
 
-	//Da error porque la prueba no consigue el usuario en sesión
 	@WithMockUser(value = "spring")
         @Test
 	void testprocessCreationFormSuccess() throws Exception {
@@ -265,7 +289,7 @@ public class PedidoControllerTests {
 				.param("tipoPago.name", "EFECTIVO")
 				.param("tipoEnvio.name", "DOMICILIO"))
 		.andExpect(status().is3xxRedirection())
-		.andExpect(view().name("redirect:/allPedidos"));
+		.andExpect(view().name("redirect:/pedidos/user"));
 	}
     
     /* NO SE SI PEDIDO ESTA VALIDADO
@@ -288,7 +312,19 @@ public class PedidoControllerTests {
         .andExpect(view().name("redirect:/pedidos/user"));
     }
  
-//falta showCartaParaPedidosList no se si al final se usa ese metodo, creo q no
+    @WithMockUser(value = "spring")
+   	@Test
+   	void showCartaParaPedidosList() throws Exception {
+    	mockMvc.perform(get("/pedidos/{pedidoId}/allCartas", TEST_PEDIDO_ID, TEST_CARTA_ID))
+    	.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/pedidos/"+TEST_PEDIDO_ID+"/cartas/"+TEST_CARTA_ID+"/verCarta"));
+    	//System.out.println("redirect:/pedidos/"+TEST_PEDIDO_ID+"/cartas/"+TEST_CARTA_ID+"/verCarta");
+    	
+		/*.andExpect(model().attributeExists("pizzas"))
+		.andExpect(model().attributeExists("bebidas"))
+		.andExpect(model().attributeExists("otros"))
+		.andExpect(model().attributeExists("PizzasP"))*/
+    }
     
     @WithMockUser(value = "spring")
    	@Test
@@ -341,18 +377,18 @@ public class PedidoControllerTests {
    	@Test
    	void testenCocinaPreparadoSuccess() throws Exception {
     	mockMvc.perform(get("/cocinero/{pedidoId}/estadoPedido", TEST_PEDIDO_ID))
-    	.andReturn().getRequest();
-    	/*.andExpect(status().is3xxRedirection())
-		.andExpect(view().name("redirect:/pedidos/cocinero"));*/
+    	/*.andReturn().getRequest();*/
+    	.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/pedidos/cocinero"));
     }
     
     @WithMockUser(value = "spring")
    	@Test
    	void testPreparadoEnRepartoSuccess() throws Exception {
     	mockMvc.perform(get("/repartidor/{pedidoId}/estadoPedido", TEST_PEDIDO_ID))
-    	.andReturn().getRequest();
-    	/*.andExpect(status().is3xxRedirection())
-		.andExpect(view().name("redirect:/pedidos/repartidor"));*/
+    	/*.andReturn().getRequest();*/
+    	.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/pedidos/repartidor"));
     }
     
     @WithMockUser(value = "spring")
@@ -369,10 +405,11 @@ public class PedidoControllerTests {
    	@Test
    	void testeliminarPizza() throws Exception {
     	mockMvc.perform(get("/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/{pizzaId}/borrarP", TEST_PEDIDO_ID, TEST_CARTA_ID, TEST_PIZZA_ID))
+    	.andExpect(status().is3xxRedirection())
     	.andExpect(model().attributeExists("cartaId"))
 		.andExpect(model().attributeExists("pedido"))
-    	.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen"));
+		
     }
     
     
