@@ -37,6 +37,11 @@ public class IngredienteController {
 		dataBinder.setDisallowedFields("id");
 	}
 	
+	@InitBinder("Ingrediente")
+	public void initPedidoBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new IngredienteValidator());
+	}
+	
 	@GetMapping(value = { "/allIngredientes" })
 	public String showIngredienteList(Map<String, Object> model) {
 		List<Ingrediente> Ingredientes = new ArrayList<Ingrediente>();
@@ -63,8 +68,6 @@ public class IngredienteController {
 		}
 		else {
 			this.IngredienteService.saveIngrediente(Ingrediente);
-			IngredienteValidator ingrValidator = new IngredienteValidator();
-			ValidationUtils.invokeValidator(ingrValidator, Ingrediente, result);
 			return "redirect:/allIngredientes";
 		}
 	}

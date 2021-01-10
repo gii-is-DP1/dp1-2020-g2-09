@@ -6,8 +6,13 @@
 
 <petclinic:layout pageName="Ingredientes">
 	<jsp:attribute name="customScript">
-        <petclinic:datepicker name="${fechaCaducidad}"/>
-    </jsp:attribute>
+  		  <script>
+            $(function() {
+                $("#fechaCaducidad").datepicker({dateFormat: 'yy/mm/dd'});
+            });
+  		</script>
+  	</jsp:attribute>
+
     <jsp:body>
     <h2>
         <c:if test="${Ingrediente['new']}">Nuevo </c:if> Ingrediente
