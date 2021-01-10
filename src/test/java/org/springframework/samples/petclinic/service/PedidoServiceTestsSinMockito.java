@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertNull;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class PedidoServiceTestsSinMockito {
 
 	@Autowired
 	protected PedidoService pedidoService;
+	
+	@Autowired
+	protected ClienteService clienteService;
 	
 	
 /*	@Test
@@ -63,12 +67,7 @@ public class PedidoServiceTestsSinMockito {
 		TipoPago pago = new TipoPago();
 		TipoEnvio envio = new TipoEnvio();
 		EstadoPedido estado = new EstadoPedido();
-		Cliente cliente=new Cliente();
-		cliente.setNombre("Paco");
-		cliente.setApellidos("Florentino");
-		cliente.setTelefono(683020234);
-		cliente.setEmail("paquito@gmail.com");
-		cliente.setFechaNacimiento(LocalDate.of(2000, 12, 9));
+		Cliente cliente = this.clienteService.findCuentaById(1);
 		pedido.setDireccion("C/Ferrara 4, 9A");
 		pedido.setPrecio(50.65);
 		pedido.setGastosEnvio(3.5);
@@ -78,8 +77,8 @@ public class PedidoServiceTestsSinMockito {
 		pedido.setTipoEnvio(envio);
 		pedido.setTipoPago(pago);              
 		this.pedidoService.savePedido(pedido);
-		Pedido pedidoEncontrado = this.pedidoService.findPedidoById(pedido.getId());
-		assertThat(pedido).isEqualTo(pedidoEncontrado);
+		List<Pedido> pedidoEncontrados = this.pedidoService.findPedidos();
+		assertThat(pedido).isIn(pedidoEncontrados);
 	}
 	
 	@Test
