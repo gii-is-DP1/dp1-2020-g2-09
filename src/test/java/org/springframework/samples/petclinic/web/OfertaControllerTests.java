@@ -21,6 +21,7 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.NivelSocio;
 import org.springframework.samples.petclinic.model.Oferta;
+import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.TamanoOferta;
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.OfertaService;
@@ -37,7 +38,9 @@ excludeAutoConfiguration= SecurityConfiguration.class)
 public class OfertaControllerTests {
 
 	private static final int TEST_OFERTA_ID = 1;
-	private static final int TEST_OFERTA_ID2 = 1;
+	private static final int TEST_PIZZA_ID = 1;
+	private static final int TEST_BEBIDA_ID = 1;
+	private static final int TEST_OTRO_ID = 1;
 	//private static final int TEST_PET_ID = 1;
 
 	@Autowired
@@ -65,9 +68,10 @@ public class OfertaControllerTests {
 	void setup() {
 		Oferta o = new Oferta();
 		o.setCoste(20.0);
-		o.setFechaInicial(LocalDate.of(2020, 11, 10));
-		o.setFechaFinal(LocalDate.of(2020, 11, 22));
+		o.setFechaInicial(LocalDate.of(2021, 11, 10));
+		o.setFechaFinal(LocalDate.of(2021, 11, 22));
 		o.setEstadoOferta(true);
+		o.setId(1);
 		
 		NivelSocio ns = new NivelSocio();
 		ns.setId(2);
@@ -79,7 +83,10 @@ public class OfertaControllerTests {
 		to.setName("GRANDE");
 		o.setTamanoOferta(to);
 		given(this.ofertaService.findOfertas()).willReturn(Lists.newArrayList(o));
-		given(this.ofertaService.findOfertaById(TEST_OFERTA_ID)).willReturn(o);
+		given(this.ofertaService.findOfertaById(TEST_OFERTA_ID)).willReturn(new Oferta());
+		given(this.pizzaService.findPizzaById(TEST_PIZZA_ID)).willReturn(new Pizza());
+		given(this.ofertaService.findOfertaById(TEST_OFERTA_ID)).willReturn(new Oferta());
+
 	}
 
 	@WithMockUser(value = "spring")
@@ -104,7 +111,7 @@ public class OfertaControllerTests {
 		
 		.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/ofertas/"+null+"/anadirProductos"));
-		//le pasamos un null porque en el controller se le pasa el ide de la oferta que estamos haciendo 
+		//le pasamos un null porque en el controller se le pasa el id de la oferta que estamos haciendo 
 		//y como con el .param no podemos pasarle el id, se pasa un null
 
 	}
@@ -116,14 +123,13 @@ public class OfertaControllerTests {
 		mockMvc.perform(post("/ofertas/{ofertaId}/edit", TEST_OFERTA_ID)
 							.with(csrf())
 							.param("coste", "20.0")
+							.param("name", "")
 							.param("fechaInicial", "x")
 							.param("fechaFinal", "z")
 							.param("nivelSocio.name", "ORO") 
 							.param("tamanoOferta.name", "GRANDE")
 							.param("estadoOferta.name", "true"))
 				.andExpect(model().attributeHasErrors("oferta"))
-				.andExpect(model().attributeHasFieldErrors("oferta", "fechaInicial", "fechaFinal"))
-				.andExpect(status().isOk())
 				.andExpect(view().name("ofertas/createOrUpdateOfertaForm"));
 	}
 
@@ -206,19 +212,65 @@ public class OfertaControllerTests {
 		.andExpect(view().name("redirect:/allOfertas"));
     }
     
-//    @WithMockUser(value = "spring")
-//    @Test
-//    void testChangeOfertaStateFalse() throws Exception {
-//    	mockMvc.perform(get("/ofertas/{ofertaId}/changeState", TEST_OFERTA_ID)
-//				.with(csrf())
-//				.param("estadoOferta.name", "false"))
-//		.andExpect(status().is3xxRedirection())
-//		.andExpect(view().name("redirect:/allOfertas"));
-//    }
+    @WithMockUser(value = "spring")
+    @Test
+    void testChangeOfertaStateFalse() throws Exception {
+    	mockMvc.perform(get("/ofertas/{ofertaId}/changeState", TEST_OFERTA_ID)
+				.with(csrf())
+				.param("estadoOferta.name", "false"))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/allOfertas"));
+    }
     
-    
-    
+    @WithMockUser(value = "spring")
+    @Test
+    void testAñadirPizza() throws Exception {
+    	mockMvc.perform(get("/ofertas/{ofertaId}/anadirPizza/{pizzaId}", TEST_OFERTA_ID, TEST_PIZZA_ID))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/ofertas/{ofertaId}/anadirProductos"));
 
+    } 
+    
+    @WithMockUser(value = "spring")
+    @Test
+    void testAñadirBebida() throws Exception {
+    	mockMvc.perform(get("/ofertas/{ofertaId}/anadirBebida/{bebidaId}", TEST_OFERTA_ID, TEST_BEBIDA_ID))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/ofertas/{ofertaId}/anadirProductos"));
+
+    } 
+    @WithMockUser(value = "spring")
+    @Test
+    void testAñadirOtro() throws Exception {
+    	mockMvc.perform(get("/ofertas/{ofertaId}/anadirOtro/{otroId}", TEST_OFERTA_ID, TEST_OTRO_ID))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/ofertas/{ofertaId}/anadirProductos"));
+
+    } 
+    @WithMockUser(value = "spring")
+    @Test
+    void testAñadirProducto() throws Exception {
+    	mockMvc.perform(get("/ofertas/{ofertaId}/anadirProductos", TEST_OFERTA_ID))
+    	.andExpect(view().name("ofertas/anadirProductos"))
+		.andExpect(model().attributeExists("oferta"))
+		.andExpect(model().attributeExists("otros"))
+		.andExpect(model().attributeExists("bebidas"))
+		.andExpect(model().attributeExists("pizzas"));
+    } 
 	
-
+    @WithMockUser(value = "spring")
+    @Test
+    void testAñadirProductoPost() throws Exception {
+    	mockMvc.perform(post("/ofertas/{ofertaId}/anadirProductos", TEST_OFERTA_ID)
+    			.with(csrf())
+				.param("coste", "abcd")
+				.param("fechaInicial", "2021/10/02")
+				.param("fechaFinal", "2021/12/02")
+				.param("nivelSocio.name", "ORO")
+				.param("tamanoOferta.name", "GRANDE")
+				.param("estadoOferta.name", "true"))
+    	
+		.andExpect(status().is3xxRedirection())
+    	.andExpect(view().name("redirect:/allOfertas"));
+    } 
 }

@@ -66,16 +66,16 @@ public class ReservaController {
 		dataBinder.setValidator(new ReservaValidator());
 	}
 	
-	public Cuenta getClienteActivo() {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	private Cliente getClienteActivo() {
 		UserDetails userDetails = null;
-		if (principal instanceof UserDetails) {
-		  userDetails = (UserDetails) principal;
-		}
-		String userName = userDetails.getUsername();
-	    User usuario = this.userService.findUser(userName).get();
-	    Cuenta cliente= this.clienteService.findCuentaByUser(usuario);
-	    return cliente;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+          userDetails = (UserDetails) principal;
+        }
+        String userName = userDetails.getUsername();
+        User usuario = this.userService.findUser(userName).get();
+        Cuenta cliente= this.clienteService.findCuentaByUser(usuario);
+        return  (Cliente) cliente;
 	}
 	
 	@GetMapping(value = { "/allReservas" })
@@ -210,7 +210,7 @@ public class ReservaController {
 	@GetMapping("/reservas/user")
 	public String showMisReservas(Map<String, Object> model) {
 		Reservas reservas = new Reservas();
-		Cuenta cliente = getClienteActivo();
+		Cliente cliente = getClienteActivo();
 		Integer clienteId = cliente.getId();
 	    reservas.getReservasList().addAll(this.reservaService.findReservasByCliente(clienteId));
 		model.put("reservas", reservas);

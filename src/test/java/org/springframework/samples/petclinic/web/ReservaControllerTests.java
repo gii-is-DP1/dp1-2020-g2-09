@@ -1,19 +1,4 @@
 package org.springframework.samples.petclinic.web;
-/*
- * Copyright 2012-2019 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -25,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Optional;
 
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,8 +21,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
+import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Mesa;
 import org.springframework.samples.petclinic.model.Reserva;
+import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.model.tipoReserva;
 import org.springframework.samples.petclinic.service.ClienteService;
 import org.springframework.samples.petclinic.service.MesaService;
@@ -46,11 +34,6 @@ import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-/**
- * Test class for the {@link ReservaController}
- *
- * @author Colin But
- */
 @WebMvcTest(value = ReservaController.class,
 		includeFilters = @ComponentScan.Filter(value = ReservaFormatter.class, type = FilterType.ASSIGNABLE_TYPE),
 		excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
@@ -59,9 +42,9 @@ import org.springframework.test.web.servlet.MockMvc;
 class ReservaControllerTests {
 
 	private static final int TEST_MESA_ID = 9;
-
-	private static final int TEST_RESERVA_ID = 99;
-
+	private static final String TEST_user= "spring";
+	private static final int TEST_RESERVA_ID = 3;
+	private static final int TEST_CLIENTE_ID = 1;
 	@Autowired
 	private ReservaController reservaController;
 
@@ -92,9 +75,26 @@ class ReservaControllerTests {
 		r.setHora(LocalTime.of(20, 34));
 		r.setNumeroPersonas(6);
 		r.setTipoReserva(tr);
+		Cliente cliente = new Cliente();
+		cliente.setApellidos("Roldán Cadena");
+		cliente.setEmail("jrc@gmail.com");
+		cliente.setFechaNacimiento(LocalDate.of(2000, 6,7));
+		cliente.setId(TEST_CLIENTE_ID);
+		cliente.setNombre("Jesús");
+		cliente.setTelefono(123456789);
+		
+		User u1 = new User();
+		Optional<User> op= Optional.of(u1);
+		given(this.userService.findUser(TEST_user)).willReturn(op);
+		
+		cliente.setUser(u1);
 		given(this.reservaService.findReservas()).willReturn(Lists.newArrayList(r));
 		given(this.mesaService.findById(TEST_MESA_ID)).willReturn(new Mesa());
-		given(this.reservaService.findById(TEST_RESERVA_ID)).willReturn(new Reserva());
+		given(this.reservaService.findById(TEST_RESERVA_ID)).willReturn(r);
+		given(this.clienteService.findCuentaById(TEST_CLIENTE_ID)).willReturn(new Cliente());
+		given(this.reservaService.findReservasByCliente(TEST_CLIENTE_ID)).willReturn(Lists.newArrayList(r));
+		
+		
 	}
 
 	@WithMockUser(value = "spring")
@@ -110,16 +110,15 @@ class ReservaControllerTests {
 	@WithMockUser(value = "spring")
         @Test
 	void testProcessCreationFormSuccess() throws Exception {
-		
-		mockMvc.perform(post("/reservas/new", TEST_RESERVA_ID)
+		mockMvc.perform(post("/reservas/new")
 							.with(csrf())
-							.param("numeroPersonas", "6")
+							.param("numeroPersonas", "4")
 							.param("tipoReserva.name", "CENA")
 							.param("fechaReserva", "2022/02/12")
-							.param("hora", String.valueOf(LocalTime.of(10, 12))))
-							//.param("mesasEnReserva.capacidad","1"))
+							.param("hora", String.valueOf(LocalTime.of(22, 22))))	//el error dice que no se puede convertir de string a localtime
 				.andExpect(status().is3xxRedirection())
-				.andExpect(view().name("redirect:/allReservas"));
+				.andExpect(view().name("redirect:/reservas/"+TEST_RESERVA_ID+"/allMesasDisponibles"))
+				.andExpect(status().isOk());
 	}
 
 	@WithMockUser(value = "spring")
@@ -130,7 +129,7 @@ class ReservaControllerTests {
 							.param("numeroPersonas", "tt")
 							.param("tipoReserva", "CENA")
 							.param("fechaReserva", "2015/02/12")
-							.param("hora","12:20:09")
+							.param("hora",String.valueOf(LocalTime.of(22, 22)))
 							.param("mesasEnReserva","1"))
 				.andExpect(model().attributeHasErrors("reserva"))
 				.andExpect(status().isOk())
@@ -155,11 +154,11 @@ class ReservaControllerTests {
 							.param("numeroPersonas", "6")
 							.param("tipoReserva.name", "CENA")
 							.param("fechaReserva", "2015/02/12")
-							.param("hora","12:20:09"))
+							.param("hora",String.valueOf(LocalTime.of(22, 22))))
 							//.param("hora",String.valueOf(LocalTime.of(10, 12))))
 							//.param("mesasEnReserva","1"))
 				.andExpect(status().is3xxRedirection())
-				//.andExpect(status().isOk())
+				.andExpect(status().isOk())
 				.andExpect(view().name("redirect:/allReservas"));
 	}
     
