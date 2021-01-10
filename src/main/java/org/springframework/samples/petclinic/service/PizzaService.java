@@ -58,6 +58,7 @@ public class PizzaService {
 		//bebidaRepository.deleteComposicion(bebida.getId());
 		pizzaRepository.deleteComposicionIngredientes(pizza.getId());
 		pizzaRepository.deleteComposicion(pizza.getId());
+		pizzaRepository.deleteOfertaPizza(pizza.getId());
 		pizzaRepository.delete(pizza);		
 	}
 	@Transactional(readOnly = true)

@@ -41,7 +41,10 @@ public interface BebidaRepository extends CrudRepository<Bebida, Integer> {
 			nativeQuery = true)
 	void deleteComposicion(Integer id);
 	
-	
+	@Modifying
+	@Query(value = "DELETE FROM OFERTA_BEBIDA WHERE BEBIDAS_EN_OFERTA_ID = ?1",
+			nativeQuery = true)
+	void deleteOfertaBebida(Integer bebidaId);
 
 }
 

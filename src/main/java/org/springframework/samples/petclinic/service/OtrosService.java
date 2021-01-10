@@ -60,6 +60,7 @@ public class OtrosService {
 	public void deleteOtros(Otro Otros) throws DataAccessException {
 		OtrosRepository.deleteComposicionIngredientes(Otros.getId());
 		OtrosRepository.deleteComposicion(Otros.getId());
+		OtrosRepository.deleteOfertaOtro(Otros.getId());
 		OtrosRepository.delete(Otros);		
 	}	
 	
