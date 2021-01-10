@@ -10,6 +10,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 
 import org.assertj.core.util.Lists;
@@ -41,9 +43,9 @@ import org.springframework.test.web.servlet.MockMvc;
 
 class ReservaControllerTests {
 
-	private static final int TEST_MESA_ID = 9;
+	private static final int TEST_MESA_ID = 1;
 	private static final String TEST_user= "spring";
-	private static final int TEST_RESERVA_ID = 3;
+	private static final int TEST_RESERVA_ID = 1;
 	private static final int TEST_CLIENTE_ID = 1;
 	@Autowired
 	private ReservaController reservaController;
@@ -69,12 +71,15 @@ class ReservaControllerTests {
 		Reserva r = new Reserva();
 		tipoReserva tr = new tipoReserva();
 		tr.setName("MERIENDA");
-		tr.setId(3);
-		r.setId(3);
+		tr.setId(1);
+		
+		r.setId(TEST_RESERVA_ID);
 		r.setFechaReserva(LocalDate.of(2020, 11, 24));
 		r.setHora(LocalTime.of(20, 34));
 		r.setNumeroPersonas(6);
 		r.setTipoReserva(tr);
+		
+		
 		Cliente cliente = new Cliente();
 		cliente.setApellidos("Roldán Cadena");
 		cliente.setEmail("jrc@gmail.com");
@@ -83,11 +88,22 @@ class ReservaControllerTests {
 		cliente.setNombre("Jesús");
 		cliente.setTelefono(123456789);
 		
+		r.setCliente(cliente);
+		
 		User u1 = new User();
 		Optional<User> op= Optional.of(u1);
 		given(this.userService.findUser(TEST_user)).willReturn(op);
 		
 		cliente.setUser(u1);
+		
+		Mesa m = new Mesa();
+		m.setCapacidad(3);
+		m.setId(TEST_MESA_ID);
+		Collection<Mesa> m1= new ArrayList<>();
+		m1.add(m);
+		r.setMesasEnReserva(m1);
+		
+		given(this.mesaService.findIdMesaByReserva(TEST_RESERVA_ID)).willReturn(TEST_MESA_ID);
 		given(this.reservaService.findReservas()).willReturn(Lists.newArrayList(r));
 		given(this.mesaService.findById(TEST_MESA_ID)).willReturn(new Mesa());
 		given(this.reservaService.findById(TEST_RESERVA_ID)).willReturn(r);
