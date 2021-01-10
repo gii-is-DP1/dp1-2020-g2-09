@@ -11,6 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.petclinic.model.Mesa;
+import org.springframework.samples.petclinic.model.Pedido;
+import org.springframework.samples.petclinic.model.Reclamacion;
 import org.springframework.samples.petclinic.model.Reserva;
 import org.springframework.samples.petclinic.model.tipoReserva;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class ReservaServiceTestsSinMockito {
 	@Autowired
 	protected ReservaService reservaService;
+	
+	@Autowired
+	protected MesaService mesaService;
 	
 	@Test
 	@Transactional
@@ -132,5 +138,21 @@ public class ReservaServiceTestsSinMockito {
 		}
 		
 	}
+	
+	@Test
+	@Transactional
+	void shouldAnadirMesaAReserva() {
+		Reserva r = this.reservaService.findById(1);
+		Mesa m  = this.mesaService.findById(1);            
+                
+		this.reservaService.anadirMesaAReserva(r.getId(), m.getId());
+//		List<Integer> pedidosId = this.reclamacionService.findPedidosConReclamaciones();
+//		Integer indicePedido = pedidosId.indexOf(10);
+//		Integer 
+		
+		assertThat(r.getMesasEnReserva().contains(m));
+	}
+	
+
 	
 }
