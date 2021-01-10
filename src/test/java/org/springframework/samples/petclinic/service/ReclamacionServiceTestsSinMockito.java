@@ -4,26 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.samples.petclinic.model.Alergenos;
-import org.springframework.samples.petclinic.model.Bebida;
-import org.springframework.samples.petclinic.model.Cliente;
-import org.springframework.samples.petclinic.model.Ingrediente;
 import org.springframework.samples.petclinic.model.Pedido;
-import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.Reclamacion;
-import org.springframework.samples.petclinic.model.TamanoProducto;
-import org.springframework.samples.petclinic.model.TipoEnvio;
-import org.springframework.samples.petclinic.model.TipoPago;
-import org.springframework.samples.petclinic.model.tipoMasa;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
