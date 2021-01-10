@@ -43,7 +43,7 @@ public interface OtrosRepository extends CrudRepository<Otro, Integer>{
 	void deleteComposicion(Integer id);
 	
 	@Modifying
-	@Query(value = "DELETE FROM OTRO_BEBIDA WHERE OTROS_EN_OFERTA_ID = ?1",
+	@Query(value = "DELETE FROM OFERTA_OTRO WHERE OTROS_EN_OFERTA_ID = ?1",
 			nativeQuery = true)
 	void deleteOfertaOtro(Integer otroId);
 	
