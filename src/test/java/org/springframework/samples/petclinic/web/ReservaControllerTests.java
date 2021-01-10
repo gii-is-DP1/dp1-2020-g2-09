@@ -24,6 +24,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.Cliente;
+import org.springframework.samples.petclinic.model.Cuenta;
 import org.springframework.samples.petclinic.model.Mesa;
 import org.springframework.samples.petclinic.model.Reserva;
 import org.springframework.samples.petclinic.model.User;
@@ -70,12 +71,12 @@ class ReservaControllerTests {
 	void setup() {
 		Reserva r = new Reserva();
 		tipoReserva tr = new tipoReserva();
-		tr.setName("MERIENDA");
+		tr.setName("ALMUERZO");
 		tr.setId(1);
 		
 		r.setId(TEST_RESERVA_ID);
-		r.setFechaReserva(LocalDate.of(2020, 11, 24));
-		r.setHora(LocalTime.of(20, 34));
+		r.setFechaReserva(LocalDate.of(2021, 11, 24));
+		r.setHora(LocalTime.of(12, 12));
 		r.setNumeroPersonas(6);
 		r.setTipoReserva(tr);
 		
@@ -105,12 +106,16 @@ class ReservaControllerTests {
 		
 		given(this.mesaService.findIdMesaByReserva(TEST_RESERVA_ID)).willReturn(TEST_MESA_ID);
 		given(this.reservaService.findReservas()).willReturn(Lists.newArrayList(r));
-		given(this.mesaService.findById(TEST_MESA_ID)).willReturn(new Mesa());
+		given(this.mesaService.findById(TEST_MESA_ID)).willReturn(m);
+		given(this.mesaService.findByReserva(TEST_RESERVA_ID)).willReturn(Lists.newArrayList(m));
+
 		given(this.reservaService.findById(TEST_RESERVA_ID)).willReturn(r);
-		given(this.clienteService.findCuentaById(TEST_CLIENTE_ID)).willReturn(new Cliente());
+		given(this.clienteService.findCuentaById(TEST_CLIENTE_ID)).willReturn(cliente);
 		given(this.reservaService.findReservasByCliente(TEST_CLIENTE_ID)).willReturn(Lists.newArrayList(r));
 		
-		
+		given(this.userService.findUser(u1.getUsername())).willReturn(op);
+		given(this.clienteService.findCuentaByUser(u1)).willReturn(cliente);
+				
 	}
 
 	@WithMockUser(value = "spring")
@@ -129,10 +134,11 @@ class ReservaControllerTests {
 		mockMvc.perform(post("/reservas/new")
 							.with(csrf())
 							.param("numeroPersonas", "4")
-							.param("tipoReserva.name", "CENA")
+							.param("tipoReserva.name", "ALMUERZO")
 							.param("fechaReserva", "2022/02/12")
-							.param("hora", String.valueOf(LocalTime.of(22, 22))))	//el error dice que no se puede convertir de string a localtime
-				.andExpect(status().is3xxRedirection())
+							//.param("hora", String.valueOf(LocalTime.of(22, 22))))	//el error dice que no se puede convertir de string a localtime
+							.param("hora","12:12"))
+							.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/reservas/"+TEST_RESERVA_ID+"/allMesasDisponibles"))
 				.andExpect(status().isOk());
 	}
@@ -168,14 +174,16 @@ class ReservaControllerTests {
 		mockMvc.perform(post("/reservas/{reservaId}/edit", TEST_RESERVA_ID)
 							.with(csrf())
 							.param("numeroPersonas", "6")
-							.param("tipoReserva.name", "CENA")
-							.param("fechaReserva", "2015/02/12")
-							.param("hora",String.valueOf(LocalTime.of(22, 22))))
+							.param("tipoReserva.name", "ALMUERZO")
+							.param("fechaReserva", "2022/02/12")
+							.param("hora",String.valueOf(LocalTime.of(14, 14))))
+							//.param("hora","14:14"))
+
 							//.param("hora",String.valueOf(LocalTime.of(10, 12))))
 							//.param("mesasEnReserva","1"))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(status().isOk())
-				.andExpect(view().name("redirect:/allReservas"));
+				.andExpect(view().name("redirect:/reservas/{reservaId}/allMesasDisponibles"));
 	}
     
     @WithMockUser(value = "spring")
@@ -245,10 +253,26 @@ class ReservaControllerTests {
     @Test
     void testInitDeleteReserva() throws Exception {
     	mockMvc.perform(get("/reservas/{reservaId}/delete", TEST_RESERVA_ID))
-    			.andExpect(view()
-    					.name("welcome"))
+    			.andExpect(view().name("welcome"))
     			.andExpect(model().attributeDoesNotExist("reserva"));
     }
     
+    @WithMockUser(value = "spring")
+    @Test
+    void testinitReserva() throws Exception {
+    	mockMvc.perform(get("/reservas/mesas/{reservaId}", TEST_RESERVA_ID))
+    			.andExpect(view().name("redirect:/allReservas"));
+    			
+    }
+    
+    @WithMockUser(value = "spring")
+    @Test
+    void testdeleteReserva() throws Exception {
+    	mockMvc.perform(get("/reserva/{reservaId}/delete", TEST_RESERVA_ID))
+    			.andExpect(status().is3xxRedirection())
+    			.andExpect(view().name("redirect:/allReservas"))
+    			.andExpect(model().attributeDoesNotExist("reserva"));
 
+    			
+    }
 }
