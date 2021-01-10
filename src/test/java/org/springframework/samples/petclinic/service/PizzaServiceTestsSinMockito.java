@@ -91,11 +91,11 @@ public class PizzaServiceTestsSinMockito {
 	@Test
 	@Transactional
 	void shouldDeletePizza() {
-		Pizza pizza = this.pizzaService.findPizzaById(1);
+		Pizza pizza = this.pizzaService.findPizzaById(7);
 		
 		this.pizzaService.deletePizza(pizza);
 		
-		pizza = this.pizzaService.findPizzaById(1);
+		pizza = this.pizzaService.findPizzaById(7);
 		
 		assertNull(pizza);
 	}
