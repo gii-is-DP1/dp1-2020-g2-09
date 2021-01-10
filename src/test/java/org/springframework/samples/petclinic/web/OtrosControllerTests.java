@@ -64,7 +64,6 @@ class OtrosControllerTests {
 		patatas.setId(3);
 		patatas.setCoste(12);
 		patatas.setNombre("Patatas fritas");
-		patatas.setContador(1);
 		given(this.otrosService.findOtros()).willReturn(Lists.newArrayList(patatas));
 		given(this.otrosService.findOtrosById(TEST_OTROS_ID)).willReturn(new Otro());
 		//given(this.otrosService.findIdOtrosByCartaId(TEST_CARTA_ID)).willReturn(new ArrayList<Integer>());
@@ -89,7 +88,6 @@ class OtrosControllerTests {
 	void testProcessCreationFormSuccess() throws Exception {
 		mockMvc.perform(post("/Otros/new")
 							.with(csrf())
-							.param("contador", "2")
 							.param("coste", "13")
 							.param("nombre", "Nachos")
 							.param("ingredientes", "arroz"))
@@ -103,7 +101,6 @@ class OtrosControllerTests {
 	void testprocessCreationFormHasErrors() throws Exception {
 		mockMvc.perform(post("/Otros/new")
 							.with(csrf())
-							.param("contador", "ddd")
 							.param("coste", "aaa")
 							.param("nombre", "111").param("ingredientes", "22222"))
 				//.andExpect(model().attributeHasNoErrors("oferta"))
@@ -127,7 +124,6 @@ class OtrosControllerTests {
 	void testprocessUpdateOtrosFormSuccess() throws Exception {
 		mockMvc.perform(post("/Otros/{OtrosId}/edit", TEST_OTROS_ID)
 				.with(csrf())
-				.param("contador", "2")
 				.param("coste", "13")
 				.param("nombre", "Nachos")
 				.param("ingredientes", "queso"))
@@ -142,7 +138,6 @@ class OtrosControllerTests {
 	void testprocessUpdateOtrosFormHasErrors() throws Exception {
 		mockMvc.perform(post("/Otros/{OtrosId}/edit", TEST_OTROS_ID)
 				.with(csrf())
-				.param("contador", "dddd")
 				.param("coste", "aaa")
 				.param("nombre", "1111").param("ingredientes", "222"))
 		.andExpect(model().attributeHasErrors())

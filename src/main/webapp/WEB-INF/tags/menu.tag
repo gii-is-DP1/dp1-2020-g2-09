@@ -45,15 +45,24 @@
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span>Reservar una mesa</span>
 				</petclinic:menuItem>
-
-				<petclinic:menuItem active="${name eq 'cartas'}" url="/allCartas"
-					title="Carta">
-					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-					<span>Ver carta</span>
-				</petclinic:menuItem> 
+				<sec:authorize access="hasAnyAuthority('administrador')"  >
+					<petclinic:menuItem active="${name eq 'cartas'}" url="/allCartas"
+						title="Carta">
+						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+						<span>Ver cartas</span>
+					</petclinic:menuItem> 
+				</sec:authorize>
 				
-				<petclinic:menuItem active="${name eq 'cartas'}" url="/reclamaciones/new"
-					title="Carta">
+				<sec:authorize access="hasAnyAuthority('cliente')"  >
+					<petclinic:menuItem active="${name eq 'carta'}" url="/cartas/cartaActiva"
+						title="CartaActiva">
+						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+						<span>Ver carta</span>
+					</petclinic:menuItem> 
+				</sec:authorize>
+				
+				<petclinic:menuItem active="${name eq 'reclamaciones'}" url="/reclamaciones/new"
+					title="Reclamaciones">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span>Escribir reclamación</span>
 				</petclinic:menuItem> 

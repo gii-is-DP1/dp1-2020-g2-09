@@ -51,7 +51,6 @@
 			
          <!--   <petclinic:selectField name="ingredientes" label="Ingredientes (Para seleccionar más de uno debe mantener ctrl)" names="${ingredientes}" size="15"/> -->
            
-            <!-- <petclinic:inputField label="contador" name="contador"/> -->
             <!--<petclinic:inputField label="Id" name="id"/> -->
             </div>
         </div>

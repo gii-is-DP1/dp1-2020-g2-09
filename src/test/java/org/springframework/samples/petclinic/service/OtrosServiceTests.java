@@ -42,7 +42,6 @@ public class OtrosServiceTests {
 	void shouldFindOtroById() {
 		
 		Otro otro = new Otro();
-		otro.setContador(1);
 		otro.setCoste(12);
 		otro.setId(16);
 		Collection<Ingrediente> ingredientes = new ArrayList<Ingrediente>();

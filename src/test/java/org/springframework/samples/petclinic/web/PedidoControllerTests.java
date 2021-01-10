@@ -108,7 +108,6 @@ public class PedidoControllerTests {
 		pizza1.setId(TEST_PIZZA_ID);
 		pizza1.setCoste(12);
 		pizza1.setNombre("Barbacoa");
-		pizza1.setContador(1);
 		
 		Alergenos alergeno1 = new Alergenos();
 		alergeno1.setName("contiene lactosa");
@@ -147,7 +146,6 @@ public class PedidoControllerTests {
 		Bebida b = new Bebida();
 		b.setId(TEST_BEBIDA_ID);
 		b.setCoste(10);
-		b.setContador(1);
 		b.setEsCarbonatada(true);
 		b.setNombre("Hidromiel");
 		b.setTamano(tamp);
