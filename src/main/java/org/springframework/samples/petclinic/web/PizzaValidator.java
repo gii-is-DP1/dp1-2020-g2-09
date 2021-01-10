@@ -25,10 +25,10 @@ public class PizzaValidator implements Validator{
         
 		Collection<Ingrediente> ing = pizza.getIngredientes();
 		
-		if (!StringUtils.hasLength(nombre) || nombre.length()>50 || nombre.length()<3) {
+		if (!StringUtils.hasLength(nombre) || nombre.length()>50 || nombre.length()<2) {
 			errors.rejectValue("nombre", 
-					"El nombre debe tener entre 3 y 50 carácteres", 
-					"El nombre debe debe tener entre 3 y 50 carácteres");
+					"El nombre debe tener entre 2 y 50 carácteres", 
+					"El nombre debe debe tener entre 2 y 50 carácteres");
 		}
 
 		if (tipoMasa==null) {

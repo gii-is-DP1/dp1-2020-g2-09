@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,6 +30,7 @@ import org.springframework.samples.petclinic.model.Oferta;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.TamanoProducto;
+import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.model.tipoMasa;
 import org.springframework.samples.petclinic.service.CartaService;
 import org.springframework.samples.petclinic.service.ClienteService;
@@ -37,9 +39,17 @@ import org.springframework.samples.petclinic.service.OfertaService;
 import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.samples.petclinic.service.PizzaService;
 import org.springframework.samples.petclinic.service.UserService;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+
+import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 
 
 @WebMvcTest(value = PizzaController.class,
@@ -57,10 +67,14 @@ class PizzaControllerTests {
 	private static final int TEST_CARTA_ID = 1;
 	private static final int TEST_OFERTA_ID = 1;
 	private static final int TEST_CLIENTE_ID = 1;
+	private static final String TEST_user= "spring";
+
 	
 
-//	@Autowired
-//	private PizzaController pizzaController;
+@Autowired
+private PizzaController pizzaController;
+
+
 
 
 	@MockBean
@@ -83,7 +97,27 @@ class PizzaControllerTests {
 
 	@BeforeEach
 	void setup() {
+		
 		Pizza pizza1 = new Pizza();
+		Cliente cliente = new Cliente();
+		cliente.setApellidos("Roldán Cadena");
+		cliente.setEmail("jrc@gmail.com");
+		cliente.setFechaNacimiento(LocalDate.of(2000, 6,7));
+		cliente.setId(TEST_CLIENTE_ID);
+		cliente.setNombre("Jesús");
+		cliente.setTelefono(123456789);
+		
+		//SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+	   // securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("cliente", "cliente1", new ArrayList<GrantedAuthority>()) );
+		//Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		//securityContext.setAuthentication(new UsernamePasswordAuthenticationToken( , "cliente", new ArrayList<GrantedAuthority>()) );
+
+		//SecurityContextHolder.setContext(securityContext);
+		//Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//System.out.println("esto es las pruebas" + principal);
+        
+        
 		pizza1.setId(3);
 		pizza1.setCoste(12);
 		pizza1.setNombre("Barbacoa");
@@ -126,6 +160,10 @@ class PizzaControllerTests {
 		given(this.ofertaService.findOfertaById(TEST_OFERTA_ID)).willReturn(new Oferta());
 		given(this.clienteService.findCuentaById(TEST_CLIENTE_ID)).willReturn(new Cliente());
 		given(this.ingredienteService.findIngredienteById(TEST_OFERTA_ID)).willReturn(new Ingrediente());
+		
+		User u1 = new User();
+		Optional<User> op= Optional.of(u1);
+		given(this.userService.findUser(TEST_user)).willReturn(op);
 	}
 
 	
@@ -190,8 +228,7 @@ class PizzaControllerTests {
     @Test
 	void testInitCreationFormCliente() throws Exception {
 		mockMvc.perform(get("/pizzas/cliente/new"))
-				.andExpect(status().isOk())
-				.andExpect(view().name("pizzas/createOrUpdatePizzaForm"))
+				.andExpect(view().name("pizzas/createOrUpdatePizzaFormCliente"))
 				.andExpect(model().attributeExists("pizza"));
 		
 	}
@@ -203,16 +240,15 @@ class PizzaControllerTests {
 	void testProcessCreationFormHasErrorsCliente() throws Exception {
 		mockMvc.perform(post("/pizzas/cliente/new")
 							.with(csrf())
-							.param("contador", "ññññ")
 							.param("coste", "13")
-							.param("nombre", "Pizza2")
+							.param("nombre", "e")
 							.param("tamano.name", "mini")
 							.param("tipoMasa.name", "extrafina")
 							.param("ingredientes", "tomate"))
 				//.andExpect(model().attributeExists("pizza"))
 				.andExpect(model().attributeHasErrors("pizza"))
 				.andExpect(status().isOk())
-				.andExpect(view().name("pizzas/createOrUpdatePizzaForm"));
+				.andExpect(view().name("pizzas/createOrUpdatePizzaFormCliente"));
 		
 	}
 	@WithMockUser(value = "spring")
@@ -226,10 +262,9 @@ class PizzaControllerTests {
 						.param("tamano.name", "mini")
 						.param("tipoMasa.name", "fina")
 						.param("ingredientes", "tomate"))
-		.andReturn().getRequest();//con esto funciona y ni idea xd
-			//.andExpect(model().attributeHasNoErrors("pizza"))
-//			.andExpect(status().is3xxRedirection())
-//			.andExpect(view().name("redirect:/allPizzas"));
+		
+			.andExpect(status().is3xxRedirection())
+			.andExpect(view().name("redirect:/pizzas/cliente"));
 	}
 	
 	@WithMockUser(value = "spring")
@@ -302,16 +337,16 @@ class PizzaControllerTests {
 	void testProcessUpdatePizzaForm2Success() throws Exception {
 		mockMvc.perform(post("/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/{pizzaId}/edit",TEST_PEDIDO_ID,TEST_CARTA_ID,TEST_PIZZA_ID)
 							.with(csrf())
-							.param("contador", "1")
+							.param("nombre", "Pizza222")
 							.param("coste", "13")
-							.param("nombre", "Pizza2")
 							.param("tamano.name", "mini")
 							.param("tipoMasa.name", "extrafina")
-							.param("ingredientes", "tomate"))
-				.andExpect(status().is3xxRedirection())
-				.andExpect(view().name("redirect:/allPizzas"));
-		
-	}
+							.param("ingredientes", "tomate")) 
+				.andExpect(status().isOk())
+				.andExpect(status().isFound())
+				.andExpect(view().name("redirect:/pedidos/"+TEST_PEDIDO_ID+"/cartas/"+TEST_CARTA_ID+"/verCarta"));
+				
+}
 
 	@WithMockUser(value = "spring")
     @Test
@@ -330,5 +365,24 @@ class PizzaControllerTests {
 		
 	}
 	
+
+	
+	@WithMockUser(value = "spring")
+    @Test
+	void testshowPizzaListClienteSuccess() throws Exception {
+		mockMvc.perform(get("/pizzas/cliente")
+							.with(csrf())
+							.param("contador", "ñ")
+							.param("coste", "13")
+							.param("nombre", "Pizza2")
+							.param("tamano.name", "mini")
+							.param("tipoMasa.name", "extrafina")
+							.param("ingredientes", "tomate"))
+		.andExpect(status().isOk())
+		.andExpect(model().attributeExists("Pizzas"))
+		.andExpect(model().attributeExists("PizzasP"))
+		.andExpect(view().name("pizzas/PizzaClienteList"));
+		
+	}
 
 }

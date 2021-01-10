@@ -117,22 +117,23 @@ public class PizzaController {
 
 	// mandar nuevo Pizza
 	@PostMapping(value = "/pizzas/cliente/new")
-	public String processCreationFormCliente(@Valid Pizza pizza, BindingResult result,ModelMap model) {
+	public String processCreationFormCliente(@Valid Pizza pizza1, BindingResult result,ModelMap model) {
 		if (result.hasErrors()) {
-			model.put("pizza", pizza);//importanteeee
+			model.put("pizza", pizza1);//importanteeee
 			return "pizzas/createOrUpdatePizzaFormCliente";
 		} else {
 			Cliente cliente = getClienteActivo();
-			pizza.setCliente(cliente);
-			pizza.setPersonalizada(true);
-			Integer numIng = pizza.getIngredientes().size();
-			pizza.setCoste(6 + numIng);
+			System.out.println(cliente.toString());
+			pizza1.setCliente(cliente);
+			pizza1.setPersonalizada(true);
+			Integer numIng = pizza1.getIngredientes().size();
+			pizza1.setCoste(6 + numIng);
 			
 			//comprobamos que el nombre de la pizza personalizada no está duplicado (RN-4)
 			Boolean duplicado = false;
 			List<Pizza> pizzasCliente = pizzaService.findPizzaByCliente(cliente);
 			for(int i=0; i<pizzasCliente.size() && !duplicado; i++) {
-				if(pizza.getNombre().equals(pizzasCliente.get(i).getNombre())) {
+				if(pizza1.getNombre().equals(pizzasCliente.get(i).getNombre())) {
 					 duplicado = true;
 				}
 			}
@@ -142,7 +143,7 @@ public class PizzaController {
 		}
 //			PizzaValidator pizzaValidator = new PizzaValidator();
 //			ValidationUtils.invokeValidator(pizzaValidator, pizza, result);
-			this.pizzaService.savePizza(pizza);
+			this.pizzaService.savePizza(pizza1);
 			return "redirect:/pizzas/cliente";
 		}
 	
