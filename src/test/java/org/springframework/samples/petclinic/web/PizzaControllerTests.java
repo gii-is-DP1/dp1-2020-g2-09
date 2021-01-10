@@ -106,17 +106,6 @@ private PizzaController pizzaController;
 		cliente.setId(TEST_CLIENTE_ID);
 		cliente.setNombre("Jesús");
 		cliente.setTelefono(123456789);
-		
-		//SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-	   // securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("cliente", "cliente1", new ArrayList<GrantedAuthority>()) );
-		//Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		//securityContext.setAuthentication(new UsernamePasswordAuthenticationToken( , "cliente", new ArrayList<GrantedAuthority>()) );
-
-		//SecurityContextHolder.setContext(securityContext);
-		//Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		//System.out.println("esto es las pruebas" + principal);
-        
         
 		pizza1.setId(3);
 		pizza1.setCoste(12);
@@ -342,9 +331,8 @@ private PizzaController pizzaController;
 							.param("tamano.name", "mini")
 							.param("tipoMasa.name", "extrafina")
 							.param("ingredientes", "tomate")) 
-				.andExpect(status().isOk())
-				.andExpect(status().isFound())
-				.andExpect(view().name("redirect:/pedidos/"+TEST_PEDIDO_ID+"/cartas/"+TEST_CARTA_ID+"/verCarta"));
+				.andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/pedidos/{pedidoId}/cartas/{cartaId}/verCarta"));
 				
 }
 
