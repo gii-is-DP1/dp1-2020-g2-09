@@ -9,6 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 
 import org.assertj.core.util.Lists;
@@ -37,8 +39,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(value = ReclamacionController.class,
-excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,
-classes = WebSecurityConfigurer.class),
+excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,classes = WebSecurityConfigurer.class),
 excludeAutoConfiguration= SecurityConfiguration.class)
 class ReclamacionControllerTests {
 
@@ -81,13 +82,15 @@ class ReclamacionControllerTests {
 		cliente.setId(TEST_CLIENTE_ID);
 		cliente.setNombre("Jesús");
 		cliente.setTelefono(123456789);
+		cliente.setUser(u1);
+		
 		p.setId(TEST_PEDIDO_ID);
 		p.setCliente(cliente);
 		p.setDireccion("Bda San Diego");
 		EstadoPedido ep = new EstadoPedido();
 		ep.setName("EN COCINA");
 		p.setEstadoPedido(ep);
-		p.setFechaPedido(LocalDate.of(2020, 12, 1));
+		p.setFechaPedido(LocalDate.of(2021, 12, 1));
 		//p.setId(1);
 		p.setPrecio(40.5);
 	
@@ -104,6 +107,10 @@ class ReclamacionControllerTests {
 		r.setObservacion("aaaaaaaaaaaaaaa"); 
 		r.setRespuesta("aaaaaaaaaaaaaaaaaaaa");
 		
+		Collection<Reclamacion> r1 =new ArrayList<>();
+		r1.add(r);
+		p.setReclamacion(r1);
+		
 		this.reclamacionService.anadirReclamacionAPedido(TEST_RECLAMACION_ID, TEST_PEDIDO_ID);
 		Cliente cliente2= p.getCliente();
 		User usuario = cliente.getUser();
@@ -111,8 +118,10 @@ class ReclamacionControllerTests {
 		reclamaciones.getReclamacionesList().add(reclamacionService.findReclamacionById(TEST_RECLAMACION_ID));
 		given(this.clienteService.findCuentaByUser(u1)).willReturn(cliente);
 		given(this.reclamacionService.findReclamaciones()).willReturn(Lists.newArrayList(r));
-		given(this.pedidoService.findPedidoById(TEST_PEDIDO_ID)).willReturn(new Pedido());
+		given(this.pedidoService.findPedidoById(TEST_PEDIDO_ID)).willReturn(p);
 		given(this.reclamacionService.findReclamacionById(TEST_RECLAMACION_ID)).willReturn(r);
+		given(this.pedidoService.findIdPedidoByReclamacionId(TEST_RECLAMACION_ID)).willReturn(TEST_PEDIDO_ID);
+
 	}
 
 	
