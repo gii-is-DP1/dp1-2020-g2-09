@@ -37,7 +37,7 @@ excludeAutoConfiguration= SecurityConfiguration.class)
 public class OfertaControllerTests {
 
 	private static final int TEST_OFERTA_ID = 1;
-
+	private static final int TEST_OFERTA_ID2 = 1;
 	//private static final int TEST_PET_ID = 1;
 
 	@Autowired
@@ -68,7 +68,6 @@ public class OfertaControllerTests {
 		o.setFechaInicial(LocalDate.of(2020, 11, 10));
 		o.setFechaFinal(LocalDate.of(2020, 11, 22));
 		o.setEstadoOferta(true);
-		o.setId(2); 
 		
 		NivelSocio ns = new NivelSocio();
 		ns.setId(2);
@@ -80,7 +79,7 @@ public class OfertaControllerTests {
 		to.setName("GRANDE");
 		o.setTamanoOferta(to);
 		given(this.ofertaService.findOfertas()).willReturn(Lists.newArrayList(o));
-		given(this.ofertaService.findOfertaById(TEST_OFERTA_ID)).willReturn(new Oferta());
+		given(this.ofertaService.findOfertaById(TEST_OFERTA_ID)).willReturn(o);
 	}
 
 	@WithMockUser(value = "spring")
@@ -90,20 +89,23 @@ public class OfertaControllerTests {
 				.andExpect(view().name("ofertas/createOrUpdateOfertaForm")).andExpect(model().attributeExists("oferta"));
 	}
 
-	//REVISAR REDIRECCIÓN
 	@WithMockUser(value = "spring")
     @Test
 	void testProcessCreationFormSuccess() throws Exception {
 		mockMvc.perform(post("/ofertas/new")
 							.with(csrf())
 							.param("coste", "20.0")
-							.param("fechaInicial", "2021/12/19")
-							.param("fechaFinal", "2021/12/22")
+							.param("name", "oferta2")
+							.param("fechaInicial", "2021/11/01")
+							.param("fechaFinal", "2021/12/02")
 							.param("nivelSocio.name", "ORO") 
 							.param("tamanoOferta.name", "GRANDE")
 							.param("estadoOferta.name", "true"))
-							.andExpect(status().is3xxRedirection())
-							.andExpect(view().name("redirect:/allOfertas"));
+		
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/ofertas/"+null+"/anadirProductos"));
+		//le pasamos un null porque en el controller se le pasa el ide de la oferta que estamos haciendo 
+		//y como con el .param no podemos pasarle el id, se pasa un null
 
 	}
 
@@ -136,17 +138,17 @@ public class OfertaControllerTests {
     
     @WithMockUser(value = "spring")
 	@Test
-	void testProcessUpdateFormSuccess() throws Exception {
+	void testProcessUpdatePedidoFormSuccess() throws Exception {
 		mockMvc.perform(post("/ofertas/{ofertaId}/edit", TEST_OFERTA_ID)
 						.with(csrf())
 						.param("coste", "20.0")
-						.param("fechaInicial", "2021/12/19")
-						.param("fechaFinal", "2021/12/22")
+						.param("name", "oferta1")
+						.param("fechaInicial", "2021/11/01")
+						.param("fechaFinal", "2021/12/02")
 						.param("nivelSocio.name", "ORO") 
 						.param("tamanoOferta.name", "GRANDE")
 						.param("estadoOferta.name", "true"))
 				.andExpect(status().is3xxRedirection())
-				//.andExpect(model().attributeHasNoErrors("oferta"))
 				.andExpect(view().name("redirect:/allOfertas"));
 	}
     

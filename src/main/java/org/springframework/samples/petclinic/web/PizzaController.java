@@ -123,7 +123,6 @@ public class PizzaController {
 			return "pizzas/createOrUpdatePizzaFormCliente";
 		} else {
 			Cliente cliente = getClienteActivo();
-			System.out.println(cliente.toString());
 			pizza1.setCliente(cliente);
 			pizza1.setPersonalizada(true);
 			Integer numIng = pizza1.getIngredientes().size();
