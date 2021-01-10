@@ -50,6 +50,7 @@ public class CartaController {
 	private IngredienteService IngredienteService;
 	
 	private OfertaService OfertaService;
+	
 
 	@InitBinder("pizza")
 	public void initPizzaBinder(WebDataBinder dataBinder) {
@@ -71,6 +72,11 @@ public class CartaController {
 		dataBinder.setValidator(new CartaValidator());
 	}
 	
+	@InitBinder
+	public void setAllowedFields(WebDataBinder dataBinder) {
+		dataBinder.setDisallowedFields("id");
+	}
+	
 	@Autowired
 	public CartaController(CartaService CartaService, PizzaService PizzaService,
 			OtrosService OtrosService, BebidaService BebidaService,
@@ -83,12 +89,6 @@ public class CartaController {
 		this.OfertaService = OfertaService;
 	}
 
-
-	@InitBinder
-	public void setAllowedFields(WebDataBinder dataBinder) {
-		dataBinder.setDisallowedFields("id");
-	}
-	
 	@GetMapping(value = { "/allCartas" })
 	public String showCartaList(Map<String, Object> model) {
 		List<Carta> cartas= CartaService.findCartas();
@@ -96,7 +96,15 @@ public class CartaController {
 		return "cartas/cartasList";
 	}
 	
-
+	@GetMapping(value = { "/cartas/cartaActiva" })
+	public String showCartaActiva(Map<String, Object> model) {
+		LocalDate hoy = LocalDate.now();
+		Carta carta = CartaService.findCartaByFechaCreacionYFechaFinal(hoy);
+		Integer cartaId = carta.getId();
+		return "redirect:/cartas/"+cartaId+"/VerCarta";
+	}
+	
+	
 	//añadir una Carta nueva
 	@GetMapping(value = "/cartas/new")
 	public String initCreationForm(Map<String, Object> model) {

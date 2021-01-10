@@ -63,7 +63,6 @@ public class PizzaServiceTestsSinMockito {
 		tamanoProducto.setName("Grande");
 		Pizza pizza = new Pizza();
 		pizza.setNombre("Probando");
-		pizza.setContador(1);
 		pizza.setCoste(14);
 		pizza.setTamano(tamanoProducto);
 		tipoMasa tipo = new tipoMasa();

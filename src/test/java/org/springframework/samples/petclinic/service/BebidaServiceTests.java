@@ -44,7 +44,6 @@ public class BebidaServiceTests {
 	void shouldFindBebidaById() {
 		
 		Bebida bebida = new Bebida();
-		bebida.setContador(0);
 		bebida.setCoste(8);
 		bebida.setEsCarbonatada(true);
 		bebida.setId(99);

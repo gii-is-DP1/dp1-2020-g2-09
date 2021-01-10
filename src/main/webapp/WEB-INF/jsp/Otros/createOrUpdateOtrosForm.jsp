@@ -14,7 +14,6 @@
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre del plato" name="nombre"/>
 			<petclinic:input name="coste" label="Precio"/>
-            <petclinic:inputField label="contador" name="contador"/>
             <table id="ingredientesTable" class="table table-striped">
              <thead>
        		 <tr>

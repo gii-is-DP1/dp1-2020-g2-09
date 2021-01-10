@@ -27,7 +27,6 @@
 			  <option value="GRANDE" selected>Grande</option>
 			</select>
 			<petclinic:input name="coste" label="Precio"/>
-             <!--<petclinic:inputField label="contador" name="contador"/> -->
             <!--<petclinic:inputField label="Id" name="id"/> -->
         </div>
         <div class="form-group">

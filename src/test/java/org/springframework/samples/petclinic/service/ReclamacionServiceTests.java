@@ -127,7 +127,6 @@ public class ReclamacionServiceTests {
 		Pizza pizza1 = new Pizza();
 		pizza1.setCoste(12);
 		pizza1.setNombre("Barbacoa");
-		pizza1.setContador(1);
 		
 		Alergenos alergeno1 = new Alergenos();
 		alergeno1.setName("contiene lactosa");
@@ -165,7 +164,6 @@ public class ReclamacionServiceTests {
 		
 		Bebida b = new Bebida();
 		b.setCoste(10);
-		b.setContador(1);
 		b.setEsCarbonatada(true);
 		b.setNombre("Hidromiel");
 		b.setTamano(tamp);
@@ -235,7 +233,6 @@ public class ReclamacionServiceTests {
 		Pizza pizza1 = new Pizza();
 		pizza1.setCoste(12);
 		pizza1.setNombre("Barbacoa");
-		pizza1.setContador(1);
 		
 		Alergenos alergeno1 = new Alergenos();
 		alergeno1.setName("contiene lactosa");
@@ -273,7 +270,6 @@ public class ReclamacionServiceTests {
 		
 		Bebida b = new Bebida();
 		b.setCoste(10);
-		b.setContador(1);
 		b.setEsCarbonatada(true);
 		b.setNombre("Hidromiel");
 		b.setTamano(tamp);

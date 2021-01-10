@@ -110,7 +110,6 @@ private PizzaController pizzaController;
 		pizza1.setId(3);
 		pizza1.setCoste(12);
 		pizza1.setNombre("Barbacoa");
-		pizza1.setContador(1);
 		
 		Ingrediente ingrediente1 = new Ingrediente();
 		Alergenos alergeno1 = new Alergenos();
@@ -181,7 +180,6 @@ private PizzaController pizzaController;
 	void testProcessCreationFormSuccessAdmin() throws Exception {
 		mockMvc.perform(post("/pizzas/admin/new")
 							.with(csrf())
-							.param("contador", "2")
 							.param("coste", "13")
 							.param("nombre", "Pizza2")
 							.param("tamano.name", "mini")
@@ -198,11 +196,9 @@ private PizzaController pizzaController;
 	void testProcessCreationFormHasErrorsAdmin() throws Exception {
 		mockMvc.perform(post("/pizzas/admin/new")
 							.with(csrf())
-							.param("contador", "ññññ")
 							.param("coste", "13")
 							.param("nombre", "Pizza2")
 							.param("tamano.name", "mini")
-
 							.param("tipoMasa.name", "extrafina")
 							.param("ingredientes", "tomate"))
 
@@ -245,7 +241,6 @@ private PizzaController pizzaController;
 	void testProcessCreationFormClienteSucess() throws Exception {	
 		mockMvc.perform(post("/pizzas/cliente/new")
 						.with(csrf())
-						.param("contador", "1")
 						.param("coste", "1")
 						.param("nombre", "miPizza")
 						.param("tamano.name", "mini")
@@ -270,7 +265,6 @@ private PizzaController pizzaController;
 	void testprocessUpdatePizzaFormHasErrors() throws Exception {
 		mockMvc.perform(post("/pizzas/admin/{pizzaId}/edit",TEST_PIZZA_ID)
 							.with(csrf())
-							.param("contador", "ññññ")
 							.param("coste", "13")
 							.param("nombre", "Pizza2")
 							.param("tamano.name", "mini")
@@ -287,7 +281,6 @@ private PizzaController pizzaController;
 	void testprocessUpdatePizzaFormSucess() throws Exception {
 		mockMvc.perform(post("/pizzas/admin/{pizzaId}/edit",TEST_PIZZA_ID)
 							.with(csrf())
-							.param("contador", "1")
 							.param("coste", "13")
 							.param("nombre", "pizzacontomate")
 							.param("tamano.name", "mini")
@@ -341,7 +334,6 @@ private PizzaController pizzaController;
 	void testProcessUpdatePizzaForm2HasErrors() throws Exception {
 		mockMvc.perform(post("/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/{pizzaId}/edit",TEST_PEDIDO_ID,TEST_CARTA_ID,TEST_PIZZA_ID)
 							.with(csrf())
-							.param("contador", "ñ")
 							.param("coste", "13")
 							.param("nombre", "Pizza2")
 							.param("tamano.name", "mini")
@@ -360,7 +352,6 @@ private PizzaController pizzaController;
 	void testshowPizzaListClienteSuccess() throws Exception {
 		mockMvc.perform(get("/pizzas/cliente")
 							.with(csrf())
-							.param("contador", "ñ")
 							.param("coste", "13")
 							.param("nombre", "Pizza2")
 							.param("tamano.name", "mini")

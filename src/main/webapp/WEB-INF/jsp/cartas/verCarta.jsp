@@ -200,7 +200,6 @@
         <tr>
             <th>Nombre</th>
             <th>Coste</th>
-            <!--  <th>Contador</th> -->
             <th>Ingredientes</th>
         </tr>
         </thead>
@@ -212,10 +211,6 @@
                 </td>
                 <td>
                 	<c:out value="${otro.coste}"></c:out>
-             	<!--</td>
-             	   <td>
-             		<c:out value="${otro.contador}"/>
-             	</td>-->
              	<td>
              		<ul>
              			<c:forEach items="${otro.ingredientes}" var="ingrediente">

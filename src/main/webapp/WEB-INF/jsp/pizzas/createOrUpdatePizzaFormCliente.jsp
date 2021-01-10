@@ -46,7 +46,6 @@
        		 </tbody>
              </table>
             
-             <!--<petclinic:inputField label="contador" name="contador"/> -->
             <!--<petclinic:inputField label="Id" name="id"/> -->
             </div>
         </div>

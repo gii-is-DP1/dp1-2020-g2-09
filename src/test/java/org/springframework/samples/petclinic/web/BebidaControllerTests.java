@@ -63,7 +63,6 @@ public class BebidaControllerTests {
 		Bebida b = new Bebida();
 		b.setId(3);
 		b.setCoste(10);
-		b.setContador(1);
 		b.setEsCarbonatada(true);
 		b.setNombre("Hidromiel");
 		b.setTamano(t);
@@ -89,7 +88,6 @@ public class BebidaControllerTests {
 		
 		mockMvc.perform(post("/bebidas/new")
 				.with(csrf())
-				.param("contador","3")
 				.param("nombre","coca-cola")
 				.param("coste","10")
 				.param("tamano.name", "PEQUEÑO")
@@ -104,7 +102,6 @@ public class BebidaControllerTests {
 	void testProcessCreationFormHasErrors() throws Exception {
 		mockMvc.perform(post("/bebidas/new")
 							.with(csrf())
-							.param("contador","ttt")
 							.param("nombre","Hidromiel")
 							.param("coste","10")
 							.param("tamano", "ENORME")
@@ -129,7 +126,6 @@ public class BebidaControllerTests {
 	void testProcessUpdateFormSuccess() throws Exception {
 		mockMvc.perform(post("/bebidas/{bebidaId}/edit", TEST_BEBIDA_ID)
 				.with(csrf())
-				.param("contador","5")
 				.param("nombre","Hidromiel")
 				.param("coste","10")
 				.param("tamano.name","GRANDE")
@@ -143,7 +139,6 @@ public class BebidaControllerTests {
 	void testProcessUpdateFormHasErrors() throws Exception {
 		mockMvc.perform(post("/bebidas/{bebidaId}/edit", TEST_BEBIDA_ID)
 							.with(csrf())
-							.param("contador","ttt")
 							.param("nombre","Hidromiel")
 							.param("coste","10")
 							.param("tamano", "ENORME")
