@@ -28,7 +28,9 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class ReclamacionController {
 
@@ -80,6 +82,7 @@ public class ReclamacionController {
 		//List<Integer> pedidosConReclamaciones = this.reclamacionService.findPedidosConReclamaciones();
 		//model.put("pedidosReclamaciones", pedidosConReclamaciones);
 		model.put("reclamaciones", reclamaciones);
+		log.info("Mostrando listado de reclamaciones.");
 		return "reclamaciones/reclamacionesList";
 	}
 //	
@@ -105,6 +108,7 @@ public class ReclamacionController {
 		    }
 		    //reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findPedidosConReclamacionesDeUnCliente(cliente.getId()));
 			model.put("reclamaciones", reclamaciones);
+			log.info("Mostrando reclamaciones de un usuario que ha iniciado sesión.");
 			return "reclamaciones/reclamacionUser";
 		} 
 		
@@ -143,7 +147,7 @@ public class ReclamacionController {
 			else {
 				model.put("pedidoId", pedidoId);
 				this.reclamacionService.saveReclamacion(reclamacion);
-	
+				log.info("Añadiendo reclamación a pedido.");
 				return "reclamaciones/confirmarReclamacion";
 			} 
 		}
@@ -169,7 +173,7 @@ public class ReclamacionController {
 			User usuario = cliente.getUser();
 			model.put("cliente", cliente);
 			model.put("usuario", usuario);
-			
+			log.info("Mostrando detalles de la reclamación.");
 			return "reclamaciones/verDetallesReclamacion";
 		}
 		
@@ -188,12 +192,14 @@ public class ReclamacionController {
 				@PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
 			if (result.hasErrors()) {
 				model.put("reclamacion", reclamacion);
+				log.info("Error a la hora de actualizar una reclamación.");
 				return "reclamaciones/createOrUpdateReclamacionForm";
 				
 			}
 			else {
 				reclamacion.setId(reclamacionId);
 				this.reclamacionService.saveReclamacion(reclamacion);
+				log.info("Reclamación actualizada correctamente.");
 				return "redirect:/allReclamaciones";
 			}
 		}
@@ -203,6 +209,7 @@ public class ReclamacionController {
 		public String initDeleteReclamacion(@PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
 			Reclamacion reclamacion = this.reclamacionService.findReclamacionById(reclamacionId);
 			this.reclamacionService.deleteReclamacion(reclamacion);
+			log.info("Reclamación eliminada correctamente.");
 			return "redirect:/reclamaciones/user";
 		} 
 		
