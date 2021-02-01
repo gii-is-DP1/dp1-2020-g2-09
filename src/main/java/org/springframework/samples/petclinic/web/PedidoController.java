@@ -42,6 +42,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class PedidoController {
 	
@@ -107,6 +110,7 @@ public class PedidoController {
 		Pedidos pedidos = new Pedidos();
 		pedidos.getPedidosList().addAll(this.pedidoService.findPedidos());
 		model.put("pedidos", pedidos);
+		log.info("Mostrando listado de pedidos.");
 		return "pedidos/pedidosList";
 	}
 	
@@ -115,6 +119,7 @@ public class PedidoController {
 	public String irPizzaTracker(@PathVariable("pedidoId") int pedidoId, Map<String, Object> model) {
 		Pedido pedido = this.pedidoService.findPedidoById(pedidoId);
 		model.put("pedido", pedido);
+		log.info("Mostrando el estado del pedido.");
 		return "pedidos/pizzaTracker";
 	}
 	
@@ -136,6 +141,7 @@ public class PedidoController {
 		LocalDate hoy = LocalDate.now();
 		pedidoActual = this.pedidoService.findPedidoByFecha(hoy, cliente.getId());
 		model.put("pedidoActual", pedidoActual);
+		log.info("Mostrando los pedidos de un usuario que ha iniciado sesión.");
 		return "pedidos/pedidoUser";
 	}
 	
@@ -145,6 +151,7 @@ public class PedidoController {
 		Pedidos pedidos = new Pedidos();
 		pedidos.getPedidosList().addAll(this.pedidoService.findPedidoForCocinero());
 		model.put("pedidos", pedidos);
+		log.info("Mostrando pedidos al cocinero.");
 		return "pedidos/pedidosList";
 	}
 	
@@ -154,6 +161,7 @@ public class PedidoController {
 			Pedidos pedidos = new Pedidos();
 			pedidos.getPedidosList().addAll(this.pedidoService.findPedidoForRepartidor());
 			model.put("pedidos", pedidos);
+			log.info("Mostrando pedidos al repartidor.");
 			return "pedidos/pedidosList";
 		}
 	
@@ -172,6 +180,7 @@ public class PedidoController {
 	public String processCreationForm(@Valid Pedido pedido, BindingResult result,  ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("pedido", pedido);
+			log.warn("Error a la hora de crear un pedido.");
 			return "pedidos/createOrUpdatePedidoForm";
 		} else {
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -188,6 +197,7 @@ public class PedidoController {
 			pedido.setPrecio(0.0);
 			pedido.setFechaPedido(LocalDate.now());
 			this.pedidoService.savePedido(pedido);
+			log.info("Pedido creado correctamente.");
 			return "redirect:/pedidos/user";
 		} 
 	}
@@ -206,11 +216,13 @@ public class PedidoController {
 			@PathVariable("pedidoId") int pedidoId, ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("pedido", pedido);
+			log.warn("Error a la hora de actualizar un pedido.");
 			return "pedidos/createOrUpdatePedidoForm";
 		}
 		else {
 			pedido.setId(pedidoId);
 			this.pedidoService.savePedido(pedido);
+			log.info("Pedido actualizado correctamente.");
 			return "redirect:/pedidos/user";
 		}
 	}
@@ -220,6 +232,7 @@ public class PedidoController {
 	public String initDeletePedido(@PathVariable("pedidoId") int pedidoId, ModelMap model) {
 		Pedido pedido = this.pedidoService.findPedidoById(pedidoId);
 		this.pedidoService.deletePedido(pedido);
+		log.info("Pedido eliminado correctamente.");
 		return "redirect:/pedidos/user";
 	}
 	
@@ -233,6 +246,7 @@ public class PedidoController {
 		Integer cartaId = carta.getId();
 		//model2.put("cartas", carta);
 		//model2.put("pedido", pedido);
+		log.info("Mostrando cartas para añadir productos al pedido.");
 		return "redirect:/pedidos/"+pedidoId+"/cartas/"+cartaId+"/verCarta"; 
 	}
 	
@@ -246,7 +260,7 @@ public class PedidoController {
 			model.put("pedido",pedido);
 			
 			recogerProductosCarta(cartaId,model);
-
+			log.info("Mostrando carta para añadir productos al pedido.");
 			return "pedidos/verCartaParaPedido";
 		}
 		
@@ -265,6 +279,7 @@ public class PedidoController {
 			//ya está incrementado el coste del pedido
 			model.put("pedido", pedido);
 			this.pedidoService.añadirPizzaAPedido(pedidoId, pizzaId);
+			log.info("Añadiendo pizza a pedido.");
 			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
 		}
 		
@@ -283,6 +298,7 @@ public class PedidoController {
 			model.put("pedido", pedido);
 			this.pedidoService.añadirBebidaAPedido(pedidoId, bebidaId);
 			//this.pedidoService.savePedido(pedido);
+			log.info("Añadiendo pizza a pedido.");
 			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
 		}
 		
@@ -301,6 +317,7 @@ public class PedidoController {
 			model.put("pedido", pedido);
 			this.pedidoService.añadirOtrosAPedido(pedidoId, otrosId);
 			//this.pedidoService.savePedido(pedido);
+			log.info("Añadiendo otro a pedido.");
 			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
 		}
 		
@@ -313,6 +330,7 @@ public class PedidoController {
 			Pedido pedido= pedidoService.findPedidoById(pedidoId);
 			recogerProductosPedido(pedidoId,model);
 			model.put("pedido",pedido);
+			log.info("Mostrando resumen del pedido.");
 			return "pedidos/resumenPedido";
 		}
 		
@@ -326,6 +344,7 @@ public class PedidoController {
 			}else {
 				pedido.setGastosEnvio(3.5);
 			}*/
+			log.info("Pedido en cocina.");
 			return "redirect:/pedidos/user";
 		}
 				
@@ -337,6 +356,7 @@ public class PedidoController {
 			if(pedido.getTipoEnvio().getId()==1 && pedido.getEstadoPedido().getId()==2) {
 				pedidoService.putRecogido(pedidoId);
 			}else pedidoService.putPreparado(pedidoId);
+			log.info("Pedido en cocina preparado.");
 			return "redirect:/pedidos/cocinero";
 		}
 		
@@ -348,6 +368,7 @@ public class PedidoController {
 					pedidoService.putEnReparto(pedidoId);
 				}else
 					pedidoService.putEntregado(pedidoId);
+				log.info("Pedido en reparto.");
 			return "redirect:/pedidos/repartidor";
 		}
 		
@@ -366,6 +387,7 @@ public class PedidoController {
 			pedido.setPrecio(precioActual);
 			model.put("pedido",pedido);
 			this.pedidoService.savePedido(pedido);
+			log.info("Pedido eliminado correctamente.");
 			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
 		}
 		//BEBIDAS
@@ -382,6 +404,7 @@ public class PedidoController {
 			pedido.setPrecio(precioActual);
 			model.put("pedido",pedido);
 			this.pedidoService.savePedido(pedido);
+			log.info("Bebida eliminada de pedido.");
 			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
 		}
 		//OTROS
@@ -398,6 +421,7 @@ public class PedidoController {
 			pedido.setPrecio(precioActual);
 			model.put("pedido",pedido);
 			this.pedidoService.savePedido(pedido);
+			log.info("Otro eliminado del pedido.");
 			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
 		}
 		
@@ -407,6 +431,7 @@ public class PedidoController {
 				Pedido pedido= pedidoService.findPedidoById(pedidoId);
 				model.put("pedido",pedido);
 				recogerProductosPedido(pedidoId,model);
+				log.info("Viendo pedido.");
 				return "pedidos/resumenPedido";
 			}
 		
@@ -441,6 +466,7 @@ public class PedidoController {
 		model.put("otros", listaOtros);
 		Pizzas pizzasP = new Pizzas();
 		pizzasP.getPizzasList().addAll(this.PizzaService.findPizzaByCliente(getClienteActivo()));
+		log.info("Recogiendo productos de la carta.");
 		model.put("PizzasP", pizzasP);  //si pongo Pizzas me pone la tabla vacia, si pongo pizza me da un error de tamaño
 
 	}
@@ -473,6 +499,7 @@ public class PedidoController {
 				listaOtros.getOtrosLista().add(otro);
 			}
 			model.put("otros", listaOtros);
+			log.info("Recogiendo productos del pedido.");
 		}
 		
 		//Coger cliente de la sesión actual
