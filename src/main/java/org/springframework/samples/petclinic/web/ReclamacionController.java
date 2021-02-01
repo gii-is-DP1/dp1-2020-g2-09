@@ -142,6 +142,7 @@ public class ReclamacionController {
 		public String processCreationForm(@Valid Reclamacion reclamacion, BindingResult result, @PathVariable("pedidoId") int pedidoId, ModelMap model) {
 			if (result.hasErrors()) {
 				model.put("reclamacion", reclamacion);
+				log.warn("Error a la hora de crear una reclamación.");
 				return "reclamaciones/createOrUpdateReclamacionForm";
 			}
 			else {
@@ -192,7 +193,7 @@ public class ReclamacionController {
 				@PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
 			if (result.hasErrors()) {
 				model.put("reclamacion", reclamacion);
-				log.info("Error a la hora de actualizar una reclamación.");
+				log.warn("Error a la hora de actualizar una reclamación.");
 				return "reclamaciones/createOrUpdateReclamacionForm";
 				
 			}

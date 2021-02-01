@@ -92,7 +92,7 @@ public class ReservaController {
 		}
 		log.info("Mostrando listado de reservas...");
 		model.put("listaClientes", listaClientes);
-		model.put("reservas", reservas); //reservas por queeeeeeeeeeeeeeeeeeeeeeeeee
+		model.put("reservas", reservas); 
 		return "reservas/reservasList";
 	}
 
@@ -108,7 +108,7 @@ public class ReservaController {
 	public String processCreationForm(@Valid Reserva reserva, BindingResult result,ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("reserva",reserva);
-			log.info("Error a la hora de crear una reserva.");
+			log.warn("Error a la hora de crear una reserva.");
 			return "reservas/createOrUpdateReservaForm";
 		}
 		else {
@@ -231,7 +231,7 @@ public class ReservaController {
 		if (result.hasErrors()) {
 			reserva.setId(reservaId);
 			model.put("reserva",reserva);
-			log.info("Error a la hora de actualizar los datos de una reserva.");
+			log.warn("Error a la hora de actualizar los datos de una reserva.");
 			return "reservas/createOrUpdateReservaForm";
 		}
 		else {
