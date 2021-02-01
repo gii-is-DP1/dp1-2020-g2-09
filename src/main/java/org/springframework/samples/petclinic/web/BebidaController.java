@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class BebidaController {
 
@@ -42,6 +45,7 @@ public class BebidaController {
 		Bebidas bebidas = new Bebidas();
 		bebidas.getBebidasList().addAll(this.bebidaService.findBebidas());
 		model.put("bebidas", bebidas);
+		log.info("Mostrando bebidas");
 		return "bebidas/bebidasList";
 	}
 
@@ -50,6 +54,7 @@ public class BebidaController {
 	public String initCreationForm(Map<String, Object> model) {
 		Bebida bebida = new Bebida();
 		model.put("bebida", bebida);
+		log.info("Iniciando creacion de bebida");
 		return "bebidas/createOrUpdateBebidaForm";
 	}
 
@@ -58,11 +63,13 @@ public class BebidaController {
 	public String processCreationForm(@Valid Bebida bebida, BindingResult result,ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("bebida", bebida);//importanteeee
+			log.error("Error en la creacion de una bebida");
 			return "bebidas/createOrUpdateBebidaForm";
 		} else {
 //			BebidaValidator bebidaValidator = new BebidaValidator();
 //			ValidationUtils.invokeValidator(bebidaValidator, bebida, result);
 			this.bebidaService.saveBebida(bebida);
+			log.info("Bebida guardada");
 			return "redirect:/allBebidas";
 		}
 	}
@@ -72,6 +79,7 @@ public class BebidaController {
 	public String initUpdateForm(@PathVariable("bebidaId") int bebidaId, ModelMap model) {
 		Bebida bebida = this.bebidaService.findById(bebidaId);
 		model.put("bebida", bebida);
+		log.info("Iniciando actualizacion de bebida");
 		return "bebidas/createOrUpdateBebidaForm";
 	}
 
@@ -80,12 +88,14 @@ public class BebidaController {
 	public String processUpdateBebidaForm(@Valid Bebida bebida, BindingResult result,
 			@PathVariable("bebidaId") int bebidaId) {
 		if (result.hasErrors()) {
+			log.error("Error en la actualizacion de bebida");
 			return "bebidas/createOrUpdateBebidaForm";
 		} else {
 			bebida.setId(bebidaId);
 //			BebidaValidator bebidaValidator = new BebidaValidator();
 //			ValidationUtils.invokeValidator(bebidaValidator, bebida, result);
 			this.bebidaService.saveBebida(bebida);
+			log.info("Bebida actualizada");
 			return "redirect:/allBebidas";
 		}
 	}
@@ -95,6 +105,7 @@ public class BebidaController {
 	public String initDeleteBebida(@PathVariable("bebidaId") int bebidaId, ModelMap model) {
 		Bebida bebida = this.bebidaService.findById(bebidaId);
 		this.bebidaService.deleteBebida(bebida);
+		log.info("Bebida borrada");
 		return "redirect:/allBebidas";
 	}
 
