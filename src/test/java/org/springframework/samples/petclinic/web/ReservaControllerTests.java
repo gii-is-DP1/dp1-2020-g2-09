@@ -169,13 +169,13 @@ class ReservaControllerTests {
 							.with(csrf())
 							.param("numeroPersonas", "6")
 							.param("tipoReserva.name", "CENA")
-							.param("fechaReserva", "2015/02/12")
+							.param("fechaReserva", "2021/02/12")
 							.param("hora",String.valueOf(LocalTime.of(22, 22))))
 							//.param("hora",String.valueOf(LocalTime.of(10, 12))))
 							//.param("mesasEnReserva","1"))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(status().isOk())
-				.andExpect(view().name("redirect:/allReservas"));
+				.andExpect(view().name("redirect:/reservas/{reservaId}/allMesasDisponibles"));
 	}
     
     @WithMockUser(value = "spring")
