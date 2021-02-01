@@ -1,0 +1,18 @@
+En este Sprint 3 seguimos considerando que podemos alcanzar el objetivo de aspirar 
+al rango de nota <=9.
+
+En cuanto a la justificación de cómo hemos ido consiguiendo cada uno de los requisitos 
+del nivel señalado hemos continuado con la dinámica de repartirnos el trabajo, asignándonos
+issues en github y trabajando poco a poco en ellas. En este sprint debido a las vacaciones
+de por medio, no hemos trabajado por pareja, sino de forma individual. Hemos puesto en común
+cada cierto tiempo el trabajo, consultado siempre las decisiones a tomar y cuando alguien
+no era capaz de avanzar en su tarea se la ha cedido a otra persona o la hemos revisado entre
+varios.
+
+Creemos haber alcanzado más del 75% de historias implementadas. En general el proyecto está
+casi finalizado a falta de alguna que otra mejora, alguna historia de usuario suelta y alguna
+regla de negocio. En cuanto a pruebas tenemos que seguir revisándolas y tenemos algunas dudas
+en las de los controllers, escribimos un correo que no llegó a ser contestado, por tanto 
+persisten. Este es el punto que queremos mejorar de cara al ultimo sprint 4, además de una vez
+completado todo, organizar la web de forma que la navegación sea más dinámica y menos 
+mecánica de lo que está ahora mismo.

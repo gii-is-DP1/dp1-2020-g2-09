@@ -104,4 +104,14 @@ public class ClienteServiceTests {
 		verify(clienteRepository).findAll();
 	}
 	
+	@Test
+	@Transactional
+	public void shouldFindNumeroDePedidosRealizados() {
+		Cliente cliente = new Cliente();
+		cliente.setId(100);
+		when(clienteRepository.findNumeroDePedidosRealizados(anyInt())).thenReturn(10);
+		clienteService.findNumeroDePedidosRealizados(100);
+		verify(clienteRepository).findNumeroDePedidosRealizados(100);
+	}
+	
 }
