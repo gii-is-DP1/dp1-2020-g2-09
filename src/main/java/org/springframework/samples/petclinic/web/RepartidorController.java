@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class RepartidorController {
 
@@ -44,6 +47,7 @@ public class RepartidorController {
 		Repartidores repartidores = new Repartidores();
 		repartidores.getRepartidoresList().addAll(this.repartidorService.findRepartidores());
 		model.put("listarepartidores", repartidores);
+		log.info("Mostrando los repartidores");
 		return "repartidores/repartidoresList";
 	}
 
@@ -60,6 +64,7 @@ public class RepartidorController {
 	public String processCreationForm(@Valid Repartidor repartidor, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("repartidor", repartidor);
+			log.warn("Fallo en la creacion de repartidor");
 			return "repartidores/createOrUpdateRepartidorForm";
 		}
 		else {
@@ -67,6 +72,7 @@ public class RepartidorController {
 //			ValidationUtils.invokeValidator(repValidator, repartidor, result);
 			repartidor.setFechaInicioContrato(LocalDate.now());
 			this.repartidorService.saveRepartidor(repartidor);
+			log.info("Guardar repartidor");
 			return "redirect:/allRepartidores";
 		}
 	}
@@ -86,6 +92,7 @@ public class RepartidorController {
 		if (result.hasErrors()) { 
 			repartidor.setId(repartidorId);
 			model.put("repartidores", repartidor);
+			log.warn("Fallo al actualizar repartidor");
 			return "repartidores/createOrUpdateRepartidorForm";
 		}
 		else {
@@ -93,6 +100,7 @@ public class RepartidorController {
 //			ValidationUtils.invokeValidator(repValidator, repartidor, result);
 			repartidor.setId(repartidorId);
 			this.repartidorService.saveRepartidor(repartidor);
+			log.info("Repartidor actualizado");
 			return "redirect:/allRepartidores";
 		}
 	}
@@ -102,6 +110,7 @@ public class RepartidorController {
 	public String initDeleteCuenta(@PathVariable("repartidorId") int repartidorId, ModelMap model) {
 		Repartidor repartidor = this.repartidorService.findRepartidorById(repartidorId);
 		this.repartidorService.deleteRepartidor(repartidor);
+		log.info("Repartidor borrado");
 		return "redirect:/allRepartidores";
 	}
 	
@@ -120,6 +129,7 @@ public class RepartidorController {
 					//mandar mensaje
 					Boolean noDarDeBaja = true;
 					model.put("noDarDebaja", noDarDeBaja);
+					log.warn("No se puede dar de baja");
 					return "redirect:/NoEsPosibleDarDeBaja";
 				}
 			}
