@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class MesaController {
 
@@ -39,6 +42,7 @@ public class MesaController {
 		Mesas mesas = new Mesas();
 		mesas.getMesasList().addAll(this.mesaService.findMesas());
 		model.put("mesas", mesas);
+		log.info("Mostrando listado de mesas.");
 		return "mesas/mesasList";
 	}
 
@@ -54,13 +58,15 @@ public class MesaController {
 	@PostMapping(value = "/mesas/new")
 	public String processCreationForm(@Valid Mesa mesa, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
-			model.put("mesa", mesa);//importanteeee
+			model.put("mesa", mesa);
+			log.info("Error a la hora de crear una mesa.");
 			return "mesas/createOrUpdateMesaForm";
 		}
 		else {
 			MesaValidator mesaValidator = new MesaValidator();
 			ValidationUtils.invokeValidator(mesaValidator, mesa, result);
 			this.mesaService.saveMesa(mesa);
+			log.info("Mesa creada correctamente.");
 			return "redirect:/allMesas";
 		}
 	}
@@ -78,6 +84,7 @@ public class MesaController {
 	public String processUpdateMesaForm(@Valid Mesa mesa, BindingResult result,
 			@PathVariable("mesaId") int mesaId) {
 		if (result.hasErrors()) {
+			log.info("Error a la hora de actualizar una mesa.");
 			return "mesas/createOrUpdateMesaForm";
 		}
 		else {
@@ -85,6 +92,7 @@ public class MesaController {
 			ValidationUtils.invokeValidator(mesaValidator, mesa, result);
 			mesa.setId(mesaId);
 			this.mesaService.saveMesa(mesa);
+			log.info("Mesa actualizada correctamente.");
 			return "redirect:/allMesas";
 		}
 	}
@@ -94,6 +102,7 @@ public class MesaController {
 	public String initDeleteMesa(@PathVariable("mesaId") int mesaId, ModelMap model) {
 		Mesa mesa = this.mesaService.findById(mesaId);
 		this.mesaService.deleteMesa(mesa);
+		log.info("Mesa eliminada correctamente.");
 		return "redirect:/allMesas";
 	}
 
