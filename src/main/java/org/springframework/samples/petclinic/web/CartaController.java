@@ -35,6 +35,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class CartaController {
 
@@ -93,6 +96,7 @@ public class CartaController {
 	public String showCartaList(Map<String, Object> model) {
 		List<Carta> cartas= CartaService.findCartas();
 		model.put("cartas", cartas);
+		log.info("Mostrando todas las cartas");
 		return "cartas/cartasList";
 	}
 	
@@ -101,6 +105,7 @@ public class CartaController {
 		LocalDate hoy = LocalDate.now();
 		Carta carta = CartaService.findCartaByFechaCreacionYFechaFinal(hoy);
 		Integer cartaId = carta.getId();
+		log.info("Mostrando carta activa");
 		return "redirect:/cartas/"+cartaId+"/VerCarta";
 	}
 	
@@ -110,6 +115,7 @@ public class CartaController {
 	public String initCreationForm(Map<String, Object> model) {
 		Carta Carta = new Carta();
 		model.put("carta", Carta);
+		log.info("Iniciar creacion de una carta");
 		return "cartas/createOrUpdateCartaForm";
 	}
 
@@ -118,6 +124,7 @@ public class CartaController {
 	public String processCreationForm(@Valid Carta carta, BindingResult result,
 			ModelMap model) {
 		if (result.hasErrors()) {
+			log.error("Fallo al crear una carta");
 			model.put("carta", carta);//si se ha roto-> preguntar a maria
 			return "cartas/createOrUpdateCartaForm";
 		}
@@ -128,6 +135,7 @@ public class CartaController {
 			carta.setFechaCreacion(fechaCreacion);
 			carta.setFechaFinal(fechaFinal);
 			this.CartaService.saveCarta(carta);
+			log.info("Carta guardada");
 			return "redirect:/allCartas";
 		}
 	}
@@ -137,6 +145,7 @@ public class CartaController {
 	public String initUpdateForm(@PathVariable("cartaId") int cartaId, ModelMap model) {
 		Carta Carta = this.CartaService.findCartaById(cartaId);
 		model.put("carta", Carta);
+		log.info("Iniciar actualizacion de carta");
 		return "cartas/createOrUpdateCartaForm";
 	}
 	
@@ -146,11 +155,13 @@ public class CartaController {
 			@PathVariable("cartaId") int cartaId, ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("carta", carta);
+			log.error("Fallo en la actualizacion de una carta");
 			return "cartas/createOrUpdateCartaForm";
 		}
 		else {
 			carta.setId(cartaId);
 			this.CartaService.saveCarta(carta);
+			log.info("Carta actualizada");
 			return "redirect:/allCartas";
 		}
 	}
@@ -160,6 +171,7 @@ public class CartaController {
 	public String initDeleteCarta(@PathVariable("cartaId") int cartaId, ModelMap model) {
 		Carta carta = this.CartaService.findCartaById(cartaId);
 		this.CartaService.deleteCarta(carta);
+		log.info("Borrar una carta");
 		return "redirect:/allCartas";
 	}
 	
@@ -177,6 +189,7 @@ public class CartaController {
 			listaPizzas.getPizzasList().add(pizza);
 		}
 		model.put("pizzas", listaPizzas);
+		log.info("Obtenidas las pizzas para la carta");
 		
 		List<Integer> listaIdBebidas = BebidaService.findIdBebidaByCartaId(cartaId);
 		Bebidas listaBebidas = new Bebidas();
@@ -186,6 +199,7 @@ public class CartaController {
 			listaBebidas.getBebidasList().add(bebida);
 		}
 		model.put("bebidas", listaBebidas);
+		log.info("Obtenidas las bebidas para la carta");
 		
 		List<Integer> listaIdOtros = OtrosService.findIdOtroById(cartaId);
 		Otros listaOtros = new Otros();
@@ -195,6 +209,7 @@ public class CartaController {
 			listaOtros.getOtrosLista().add(otro);
 		}
 		model.put("otros", listaOtros);
+		log.info("Obtenidas los otros para la carta");
 		
 		
 		List<Oferta>  ofertas=OfertaService.findOfertas();
@@ -218,7 +233,7 @@ public class CartaController {
 		Pizzas pizzas = new Pizzas();
 		pizzas.getPizzasList().addAll(this.PizzaService.findPizzas());
 		model.put("Pizzas", pizzas);  //si pongo Pizzas me pone la tabla vacia, si pongo pizza me da un error de tamaño
-	
+		log.info("Obtenidas las pizzas");
 		return "pizzas/pizzasList";
 	}
 	
@@ -228,7 +243,7 @@ public class CartaController {
 		Bebidas bebidas = new Bebidas();
 		bebidas.getBebidasList().addAll(this.BebidaService.findBebidas());
 		model.put("bebidas", bebidas);
-		
+		log.info("Obtenidas las bebidas");
 		return "bebidas/bebidasList";
 	}
 	
@@ -238,7 +253,7 @@ public class CartaController {
 		Otros otros = new Otros();
 		otros.getOtrosLista().addAll(this.OtrosService.findOtros());
 		model.put("otros", otros);
-		
+		log.info("Obtenidos los otros");
 		return "Otros/OtrosList";
 	}
 	
@@ -255,8 +270,10 @@ public class CartaController {
 		}
 		if(!duplicada) {
 			this.PizzaService.añadirPizzaACarta(pizzaId, cartaId);
+			log.info("Pizza añadida a la carta");
 			return "redirect:/cartas/{cartaId}/VerCarta";
 		}else {
+			log.warn("No se pueden meter una pizza que ya esta en esa carta");
 			return "redirect:/PizzaDuplicadaEnCarta";
 		}
     	
@@ -274,8 +291,10 @@ public class CartaController {
 		}
 		if(!duplicada) {
 			this.BebidaService.añadirBebidaACarta(bebidaId, cartaId);
+			log.info("Bebida añadida a la carta");
 	    	return "redirect:/cartas/{cartaId}/VerCarta";
 		}else {
+			log.warn("No se puede meter una bebida que ya esta en esa carta");
 			return "redirect:/BebidaDuplicadaEnCarta";
 		}
     }
@@ -292,8 +311,10 @@ public class CartaController {
 		}
 		if(!duplicada) {
 			this.OtrosService.añadirOtroACarta(otroId, cartaId);
+			log.info("Otro añadido a la carta");
 	    	return "redirect:/cartas/{cartaId}/VerCarta"; 
 		}else {
+			log.warn("No se puede meter un otro que ya esta en esa carta");
 			return "redirect:/OtroDuplicadaEnCarta";
 		}
     	
@@ -306,17 +327,20 @@ public class CartaController {
 		model.put("cartaId", cartaId);
 		Pizza pizza = new Pizza();
 		model.put("pizza", pizza);
+		log.info("Iniciando creacion de pizza");
 		return "pizzas/createOrUpdatePizzaForm";
 	}
 	@PostMapping(value = "/cartas/{cartaId}/pizza/new")
 	public String processCreationForm(@Valid Pizza Pizza, BindingResult result,ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("pizza", Pizza);//importanteeee
+			log.error("Fallo al crear la pizza");
 			return "pizzas/createOrUpdatePizzaForm";
 		} else {
 //			PizzaValidator pizzaValidator = new PizzaValidator();
 //			ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
 			this.PizzaService.savePizza(Pizza);
+			log.info("Pizza guardada");
 			return "redirect:/cartas/{cartaId}/pizzas";
 		}
 	}
@@ -326,17 +350,20 @@ public class CartaController {
 		model.put("cartaId", cartaId);
 		Bebida bebida = new Bebida();
 		model.put("bebida", bebida);
+		log.info("Iniciar creacion de bebida");
 		return "bebidas/createOrUpdateBebidaForm";
 	}
 	@PostMapping(value = "/cartas/{cartaId}/bebida/new")
 	public String processBebidaCreationForm(@Valid Bebida bebida, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("bebida", bebida);//importanteeee
+			log.error("Fallo al crear una bebida");
 			return "bebidas/createOrUpdateBebidaForm";
 		} else {
 //			BebidaValidator bebidaValidator = new BebidaValidator();
 //			ValidationUtils.invokeValidator(bebidaValidator, bebida, result);
 			this.BebidaService.saveBebida(bebida);//el tamaño se pone a null
+			log.info("Bebida guardada");
 			return "redirect:/cartas/{cartaId}/bebidas";
 		}
 	}
@@ -347,6 +374,7 @@ public class CartaController {
 			Otro otro = new Otro();
 			model.put("otro", otro);
 			model.put("cartaId", cartaId);
+			log.info("Iniciar creacion de otro");
 			return "Otros/createOrUpdateOtrosForm";
 		}
 
@@ -355,12 +383,14 @@ public class CartaController {
 		public String processCreationOtrosForm(@Valid Otro otro, BindingResult result, ModelMap model) {
 			if (result.hasErrors()) {
 					model.put("otro", otro);//importanteeee
+					log.error("Fallo en la creacion de otro");
 				return "Otros/createOrUpdateOtrosForm";
 			}
 			else {
 //				OtrosValidator ostrosValidator = new OtrosValidator();
 //				ValidationUtils.invokeValidator(ostrosValidator, otros, result);
 				this.OtrosService.saveOtros(otro);
+				log.info("Otro guardado");
 				return "redirect:/cartas/{cartaId}/otros";
 			}
 		}
@@ -373,6 +403,7 @@ public class CartaController {
 			Pizza pizza = this.PizzaService.findPizzaById(pizzaId);
 			model.put("cartaId", cartaId);
 			model.put("pizza", pizza);
+			log.info("Iniciar actualizacion de una pizza");
 			return "pizzas/createOrUpdatePizzaForm";
 		}
 
@@ -381,12 +412,14 @@ public class CartaController {
 		public String processUpdatePizzaForm(@Valid Pizza Pizza, BindingResult result,
 				@PathVariable("pizzaId") int pizzaId) {
 			if (result.hasErrors()) {
+				log.error("Fallo en la actualizacion de una pizza");
 				return "pizzas/createOrUpdatePizzaForm";
 			} else {
 				Pizza.setId(pizzaId);
 //				PizzaValidator pizzaValidator = new PizzaValidator();
 //				ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
 				this.PizzaService.savePizza(Pizza);
+				log.info("Pizza guardada");
 				return "redirect:/cartas/{cartaId}/pizzas";
 			}
 		}
@@ -397,6 +430,7 @@ public class CartaController {
 			Bebida bebida = this.BebidaService.findById(bebidaId);
 			model.put("bebida", bebida);
 			model.put("cartaId", cartaId);
+			log.info("Iniciar actualizacion de una bebida");
 			return "bebidas/createOrUpdateBebidaForm";
 		}
 
@@ -405,12 +439,14 @@ public class CartaController {
 		public String processUpdateBebidaForm(@Valid Bebida bebida, BindingResult result,
 				@PathVariable("bebidaId") int bebidaId) {
 			if (result.hasErrors()) {
+				log.error("Fallo en la actualizacion de una bebida");
 				return "bebidas/createOrUpdateBebidaForm";
 			} else {
 				bebida.setId(bebidaId);
 //				BebidaValidator bebidaValidator = new BebidaValidator();
 //				ValidationUtils.invokeValidator(bebidaValidator, bebida, result);
 				this.BebidaService.saveBebida(bebida);
+				log.info("Bebida guardada");
 				return "redirect:/cartas/{cartaId}/bebidas";
 			}
 		}
@@ -422,6 +458,7 @@ public class CartaController {
 			Otro otro = this.OtrosService.findOtrosById(OtrosId);
 			model.put("otro", otro);
 			model.put("cartaId", cartaId);
+			log.info("Iniciar actualizacion de un otro");
 			return "Otros/createOrUpdateOtrosForm";
 		}
 		
@@ -430,6 +467,7 @@ public class CartaController {
 		public String processUpdateOtrosForm(@Valid Otro otro, BindingResult result,
 				@PathVariable("OtrosId") int OtrosId, ModelMap model) {
 			if (result.hasErrors()) {
+				log.error("Fallo en la actualizacion de un otro");
 				model.put("otro", otro);
 				return "Otros/createOrUpdateOtrosForm";
 			}
@@ -438,6 +476,7 @@ public class CartaController {
 //				ValidationUtils.invokeValidator(otrosValidator, otros, result);
 				otro.setId(OtrosId);
 				this.OtrosService.saveOtros(otro);
+				log.info("Otro guardado");
 				return "redirect:/cartas/{cartaId}/otros";
 			}
 		}
@@ -450,6 +489,7 @@ public class CartaController {
 			Pizza pizza = this.PizzaService.findPizzaById(pizzaId);
 			this.PizzaService.deletePizza(pizza);
 			model.put("cartaId", cartaId);
+			log.info("Pizza borrada");
 			return "redirect:/cartas/{cartaId}/pizzas";
 		}
 		//borrar Bebida
@@ -459,6 +499,7 @@ public class CartaController {
 			model.put("cartaId", cartaId);
 			Bebida bebida = this.BebidaService.findById(bebidaId);
 			this.BebidaService.deleteBebida(bebida);
+			log.info("Bebida borrada");
 			return "redirect:/cartas/{cartaId}/bebidas";
 		}
 		
@@ -469,6 +510,7 @@ public class CartaController {
 			model.put("cartaId", cartaId);
 			Otro Otros = this.OtrosService.findOtrosById(OtrosId);
 			this.OtrosService.deleteOtros(Otros);
+			log.info("Otro borrado");
 			return "redirect:/cartas/{cartaId}/otros";
 		}
 		
@@ -478,6 +520,7 @@ public class CartaController {
 			
 			model.put("cartaId", cartaId);
 			this.PizzaService.deletePizzaFromComposicionCarta(pizzaId);
+			log.info("Borrar la pizza de la carta");
 			return "redirect:/cartas/{cartaId}/VerCarta";
 		}
 		
@@ -487,6 +530,7 @@ public class CartaController {
 			
 			model.put("cartaId", cartaId);
 			this.OtrosService.deleteOtroFromComposicionCarta(otrosId);
+			log.info("Borrar la bebida de la carta");
 			return "redirect:/cartas/{cartaId}/VerCarta";
 		}
 		
@@ -496,6 +540,7 @@ public class CartaController {
 			
 			model.put("cartaId", cartaId);
 			this.BebidaService.deleteBebidaFromComposicionCarta(bebidaId);
+			log.info("Borrar el otro de la carta");
 			return "redirect:/cartas/{cartaId}/VerCarta";
 		}
 		
