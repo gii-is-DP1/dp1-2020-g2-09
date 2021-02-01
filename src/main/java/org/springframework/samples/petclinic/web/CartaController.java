@@ -124,8 +124,8 @@ public class CartaController {
 	public String processCreationForm(@Valid Carta carta, BindingResult result,
 			ModelMap model) {
 		if (result.hasErrors()) {
-			log.error("Fallo al crear una carta");
-			model.put("carta", carta);//si se ha roto-> preguntar a maria
+			log.warn("Fallo al crear una carta");
+			model.put("carta", carta);
 			return "cartas/createOrUpdateCartaForm";
 		}
 		else { 
@@ -155,7 +155,7 @@ public class CartaController {
 			@PathVariable("cartaId") int cartaId, ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("carta", carta);
-			log.error("Fallo en la actualizacion de una carta");
+			log.warn("Fallo en la actualizacion de una carta");
 			return "cartas/createOrUpdateCartaForm";
 		}
 		else {
@@ -180,7 +180,7 @@ public class CartaController {
 	public String verCarta(@PathVariable("cartaId") Integer cartaId, ModelMap model) {
 		
 		model.put("cartaId", cartaId);
-		//Recogemos las pizzas de la tabla y la guardamos en el modelo
+		
 		List<Integer> listaIdPizzas = PizzaService.findIdPizzaById(cartaId);
 		Pizzas listaPizzas = new Pizzas();
 		for(int i=0; i<listaIdPizzas.size(); i++) {
@@ -215,14 +215,6 @@ public class CartaController {
 		List<Oferta>  ofertas=OfertaService.findOfertas();
 		model.put("ofertas",ofertas);
 		
-//		List<Pizza> pizzasEnOferta = OfertaService.findPizzasEnOferta();
-//		List<Bebida> bebidasEnOferta = OfertaService.findBebidasEnOferta();
-//		List<Otro> otrosEnOferta = OfertaService.findOtrosEnOferta();		
-//		
-//		model.put("pizzasEnOferta",pizzasEnOferta);
-//		model.put("bebidasEnOferta",bebidasEnOferta);
-//		model.put("otrosEnOferta",otrosEnOferta);
-		
 		return "cartas/verCarta";
 	}
 	
@@ -232,7 +224,7 @@ public class CartaController {
 		model.put("cartaId", cartaId);
 		Pizzas pizzas = new Pizzas();
 		pizzas.getPizzasList().addAll(this.PizzaService.findPizzas());
-		model.put("Pizzas", pizzas);  //si pongo Pizzas me pone la tabla vacia, si pongo pizza me da un error de tamaño
+		model.put("Pizzas", pizzas);  
 		log.info("Obtenidas las pizzas");
 		return "pizzas/pizzasList";
 	}
@@ -333,12 +325,10 @@ public class CartaController {
 	@PostMapping(value = "/cartas/{cartaId}/pizza/new")
 	public String processCreationForm(@Valid Pizza Pizza, BindingResult result,ModelMap model) {
 		if (result.hasErrors()) {
-			model.put("pizza", Pizza);//importanteeee
-			log.error("Fallo al crear la pizza");
+			model.put("pizza", Pizza);
+			log.warn("Fallo al crear la pizza");
 			return "pizzas/createOrUpdatePizzaForm";
 		} else {
-//			PizzaValidator pizzaValidator = new PizzaValidator();
-//			ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
 			this.PizzaService.savePizza(Pizza);
 			log.info("Pizza guardada");
 			return "redirect:/cartas/{cartaId}/pizzas";

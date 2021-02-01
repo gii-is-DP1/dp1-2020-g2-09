@@ -64,7 +64,7 @@ public class AdministradorController {
 	public String processCreationForm(@Valid Administrador administrador, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("administrador", administrador);//importanteeee
-			log.error("Fallo en la creacion de un admin");
+			log.warn("Fallo en la creacion de un admin");
 			return "administradores/createOrUpdateAdministradorForm";
 		}
 		else {
@@ -92,7 +92,7 @@ public class AdministradorController {
 		if (result.hasErrors()) {
 			//model.put("cuenta", administrador);
 			model.put("administrador", administrador);
-			log.error("Fallos en la actualizacion de admin");
+			log.warn("Fallos en la actualizacion de admin");
 			return "administradores/createOrUpdateAdministradorForm";
 		}
 		else {

@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class IngredienteController {
 	
@@ -47,6 +50,7 @@ public class IngredienteController {
 		List<Ingrediente> Ingredientes = new ArrayList<Ingrediente>();
 		Ingredientes.addAll(this.IngredienteService.findIngredientes());
 		model.put("Ingredientes", Ingredientes);
+		log.info("Mostrando ingredientes");
 		return "Ingredientes/ingredientesList";
 	}
 
@@ -63,11 +67,13 @@ public class IngredienteController {
 	@PostMapping(value = "/Ingredientes/new")
 	public String processCreationForm(@Valid Ingrediente Ingrediente, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
-			model.put("Ingrediente", Ingrediente);//importanteeee
+			model.put("Ingrediente", Ingrediente);
+			log.warn("Fallo en la creacion de ingrediente");
 			return "Ingredientes/createOrUpdateIngredienteForm";
 		}
 		else {
 			this.IngredienteService.saveIngrediente(Ingrediente);
+			log.info("Guardar ingrediente");
 			return "redirect:/allIngredientes";
 		}
 	}
@@ -86,6 +92,7 @@ public class IngredienteController {
 	public String processUpdateIngredienteForm(@Valid Ingrediente Ingrediente, BindingResult result,
 			@PathVariable("IngredienteId") int IngredienteId) {
 		if (result.hasErrors()) {
+			log.warn("Fallo en la actualizacion de ingrediente");
 			return "Ingredientes/createOrUpdateIngredienteForm";
 		}
 		else {
@@ -93,6 +100,7 @@ public class IngredienteController {
 			IngredienteValidator ingrValidator = new IngredienteValidator();
 			ValidationUtils.invokeValidator(ingrValidator, Ingrediente, result);
 			this.IngredienteService.saveIngrediente(Ingrediente);
+			log.info("Ingrediente actualizado");
 			return "redirect:/allIngredientes";
 		}
 	}
@@ -102,6 +110,7 @@ public class IngredienteController {
 	public String initDeleteIngrediente(@PathVariable("IngredienteId") int IngredienteId, ModelMap model) {
 		Ingrediente Ingrediente = this.IngredienteService.findIngredienteById(IngredienteId);
 		this.IngredienteService.deleteIngrediente(Ingrediente);
+		log.info("Borrar ingrediente");
 		return "redirect:/allIngredientes";
 	}
 	@ModelAttribute("AlergenosList")

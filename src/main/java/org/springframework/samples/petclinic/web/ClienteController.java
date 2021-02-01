@@ -82,7 +82,7 @@ public class ClienteController {
 	public String processCreationForm(@Valid Cliente cliente, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("cliente", cliente);
-			log.error("Se ha rellenado mal el formulario de creacion");
+			log.warn("Se ha rellenado mal el formulario de creacion");
 			return "clientes/createOrUpdateCuentaForm";
 		}
 		else {
@@ -150,7 +150,7 @@ public class ClienteController {
 			@PathVariable("cuentaId") int cuentaId, ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("cliente", cliente);
-			log.error("Fallos en el formulario de actualizacion");
+			log.warn("Fallos en el formulario de actualizacion");
 			return "clientes/createOrUpdateCuentaForm";
 		}
 		else {

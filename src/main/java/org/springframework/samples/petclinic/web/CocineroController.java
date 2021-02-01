@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class CocineroController {
 
@@ -44,6 +47,7 @@ public class CocineroController {
 		Cocinas cocinas = new Cocinas();
 		cocinas.getCocinerosList().addAll(this.cocineroService.findCocineros());
 		model.put("cocinas", cocinas);
+		log.info("Mostrando cocineros");
 		return "cocineros/cocinerosList";
 	}
 
@@ -52,6 +56,7 @@ public class CocineroController {
 	public String initCreationForm(Map<String, Object> model) {
 		Cocina cocina = new Cocina();
 		model.put("cocina", cocina);
+		log.info("Iniciar creacion de un cocinero");
 		return "cocineros/createOrUpdateCocinaForm";
 	}
 
@@ -60,6 +65,7 @@ public class CocineroController {
 	public String processCreationForm(@Valid Cocina cocina, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("cocina", cocina);//importanteeee
+			log.error("Fallo en la creacion de un cocinero");
 			return "cocineros/createOrUpdateCocinaForm";
 		}
 		else {
@@ -67,6 +73,7 @@ public class CocineroController {
 //			ValidationUtils.invokeValidator(cocineroValidator, cocinero, result);
 			cocina.setFechaInicioContrato(LocalDate.now());
 			this.cocineroService.saveCocinero(cocina);
+			log.info("Cocinero guardado");
 			return "redirect:/allCocineros";
 		}
 	} 
@@ -76,6 +83,7 @@ public class CocineroController {
 	public String initUpdateForm(@PathVariable("cocineroId") int cocineroId, ModelMap model) {
 		Cocina cocina = this.cocineroService.findCocineroById(cocineroId);
 		model.put("cocina", cocina);
+		log.info("Inicia actualizacion de cocinero");
 		return "cocineros/createOrUpdateCocinaForm";
 	}
 	
@@ -87,6 +95,7 @@ public class CocineroController {
 
 			cocinero.setId(cocineroId);
 			model.put("cocina", cocinero);
+			log.error("Fallo en la actualizacion de cocinero");
 
 			return "cocineros/createOrUpdateCocinaForm";
 		}
@@ -95,6 +104,7 @@ public class CocineroController {
 //			ValidationUtils.invokeValidator(cocineroValidator, cocinero, result);
 			cocinero.setId(cocineroId);
 			this.cocineroService.saveCocinero(cocinero);
+			log.info("Cocinero actualizado");
 			return "redirect:/allCocineros";
 		}
 	}
@@ -104,6 +114,7 @@ public class CocineroController {
 	public String initDeleteCuenta(@PathVariable("cocineroId") int cocineroId, ModelMap model) {
 		Cocina cocinero = this.cocineroService.findCocineroById(cocineroId);
 		this.cocineroService.deleteCocinero(cocinero);
+		log.info("Cocinero borrado");
 		return "redirect:/allCocineros";
 	}
 	
@@ -122,6 +133,7 @@ public class CocineroController {
 				//mandar mensaje
 //				Boolean noDarDeBaja = true;
 //				model.put("noDarDebaja", noDarDeBaja);
+				log.warn("No se puede dar de baja");
 				return "redirect:/NoEsPosibleDarDeBaja";
 			}
 		}
