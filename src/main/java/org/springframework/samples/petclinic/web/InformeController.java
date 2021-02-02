@@ -49,9 +49,28 @@ public class InformeController {
 	public String informeIngredientesMasUsados(Map<String, Object> model) {
 		List<Ingrediente> l = this.IngredienteService.findIngredientes();
 		Map<String, Integer> mapa = new HashMap<String, Integer>();
+		int minValue = 0;
+		String keyValue = "";
 		for(Ingrediente i:l) {
 			Integer aux = this.IngredienteService.CountIngrediente(i.getId());
-			mapa.put(i.getNombre(), aux);
+			if(aux != 0) {
+				int tamMap = mapa.size(); 
+				if(tamMap != 10) {
+					mapa.put(i.getNombre(), aux);
+					if(aux>minValue) {
+						keyValue = i.getNombre();
+						minValue = aux;
+					}
+				}else {
+					if(aux>minValue) {
+						mapa.remove(keyValue);
+						mapa.put(i.getNombre(), aux);
+						keyValue = i.getNombre();
+						minValue = aux;
+					}
+				}
+				
+			}
 		}
 		Map<String, Integer> mapaOrdered =mapa.entrySet().stream()
 		.sorted((Map.Entry.<String, Integer>comparingByValue().reversed()))
