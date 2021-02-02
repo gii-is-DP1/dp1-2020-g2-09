@@ -70,7 +70,7 @@ public class CartaController {
 		dataBinder.setValidator(new OtrosValidator());
 	}
 	
-	@InitBinder("carta")//añadido nuevo
+	@InitBinder("carta")
 	public void initCartaBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new CartaValidator());
 	}
@@ -212,7 +212,7 @@ public class CartaController {
 		log.info("Obtenidas los otros para la carta");
 		
 		
-		List<Oferta>  ofertas=OfertaService.findOfertas();
+		List<Oferta>  ofertas = OfertaService.findOfertasByEstadoOferta(true);
 		model.put("ofertas",ofertas);
 		
 		return "cartas/verCarta";
@@ -477,6 +477,12 @@ public class CartaController {
 		public String initDeletePizza(@PathVariable("cartaId") Integer cartaId,
 				@PathVariable("pizzaId") int pizzaId, ModelMap model) {
 			Pizza pizza = this.PizzaService.findPizzaById(pizzaId);
+			
+			List<Integer> listaOfertasIds = this.OfertaService.numeroPizzasEnOferta(pizzaId);
+			for(int i=0; i<listaOfertasIds.size(); i++) {
+				this.OfertaService.ponerEstadoOfertaDePizzasAFalse(pizzaId);
+			}
+			
 			this.PizzaService.deletePizza(pizza);
 			model.put("cartaId", cartaId);
 			log.info("Pizza borrada");
@@ -488,6 +494,12 @@ public class CartaController {
 				@PathVariable("bebidaId") int bebidaId, ModelMap model) {
 			model.put("cartaId", cartaId);
 			Bebida bebida = this.BebidaService.findById(bebidaId);
+			
+			List<Integer> listaOfertasIds = this.OfertaService.numeroBebidasEnOferta(bebidaId);
+			for(int i=0; i<listaOfertasIds.size(); i++) {
+				this.OfertaService.ponerEstadoOfertaDeBebidasAFalse(bebidaId);
+			}
+			
 			this.BebidaService.deleteBebida(bebida);
 			log.info("Bebida borrada");
 			return "redirect:/cartas/{cartaId}/bebidas";
@@ -499,6 +511,12 @@ public class CartaController {
 				@PathVariable("OtrosId") int OtrosId, ModelMap model) {
 			model.put("cartaId", cartaId);
 			Otro Otros = this.OtrosService.findOtrosById(OtrosId);
+			
+			List<Integer> listaOfertasIds = this.OfertaService.numeroOtrosEnOferta(OtrosId);
+			for(int i=0; i<listaOfertasIds.size(); i++) {
+				this.OfertaService.ponerEstadoOfertaDeOtrosAFalse(OtrosId);
+			}
+			
 			this.OtrosService.deleteOtros(Otros);
 			log.info("Otro borrado");
 			return "redirect:/cartas/{cartaId}/otros";
