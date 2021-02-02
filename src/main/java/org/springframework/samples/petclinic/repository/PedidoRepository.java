@@ -83,6 +83,12 @@ public interface PedidoRepository  extends CrudRepository<Pedido, Integer> {
 			nativeQuery = true)
 	void añadirOtrosAPedido(int pedidoId, int otrosId);
 	
+	//INSERTAR OFERTA EN UN PEDIDO  
+	@Modifying
+    @Query(value = "INSERT INTO OFERTA_PEDIDO(PEDIDO_ID, OFERTAS_EN_PEDIDO_ID) VALUES (?1, ?2)",
+			nativeQuery = true)
+	void añadirOfertaAPedido(int pedidoId, int ofertaId);
+	
 	//ELIMINAR PRODUCTOS DE UN PEDIDO
 	@Modifying
     @Query(value = "DELETE FROM PRODUCTO_PIZZA_PEDIDO WHERE PEDIDO_ID=?1 AND PIZZAS_EN_PEDIDO_ID=?2 LIMIT 1",
@@ -98,6 +104,11 @@ public interface PedidoRepository  extends CrudRepository<Pedido, Integer> {
     @Query(value = "DELETE FROM PRODUCTO_OTROS_PEDIDO WHERE PEDIDO_ID=?1 AND OTROS_EN_PEDIDO_ID=?2 LIMIT 1",
 			nativeQuery = true)
 	void eliminarOtrosPedido(int pedidoId, int otrosId);
+	
+	@Modifying
+    @Query(value = "DELETE FROM OFERTA_PEDIDO WHERE PEDIDO_ID=?1 AND OFERTAS_EN_PEDIDO_ID=?2 LIMIT 1",
+			nativeQuery = true)
+	void eliminarOfertaPedido(int pedidoId, int otrosId);
 
 	//COGER PRECIOS DE PRODUCTOS
     @Query(value = "SELECT COSTE FROM PIZZAS WHERE ID = ?1",
@@ -112,6 +123,11 @@ public interface PedidoRepository  extends CrudRepository<Pedido, Integer> {
 			nativeQuery = true)
 	Double cogerPrecioOtros(int otrosId);
     
+    @Query(value = "SELECT COSTE FROM OFERTAS WHERE ID = ?1",
+			nativeQuery = true)
+	Double cogerPrecioOferta(int ofertaId);
+    
+    //Coger pedido asociado a una reclamacion
     @Query(value = "SELECT PEDIDO_ID FROM PEDIDO_RECLAMACION WHERE RECLAMACION_ID = ?1", nativeQuery=true)
     Integer findIdPedidoByReclamacionId(int reclamacionId);
 }

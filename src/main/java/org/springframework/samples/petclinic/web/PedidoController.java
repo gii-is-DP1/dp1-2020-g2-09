@@ -14,6 +14,8 @@ import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Cuenta;
 import org.springframework.samples.petclinic.model.EstadoPedido;
+import org.springframework.samples.petclinic.model.Oferta;
+import org.springframework.samples.petclinic.model.Ofertas;
 import org.springframework.samples.petclinic.model.Otro;
 import org.springframework.samples.petclinic.model.Otros;
 import org.springframework.samples.petclinic.model.Pedido;
@@ -26,6 +28,7 @@ import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.CartaService;
 import org.springframework.samples.petclinic.service.ClienteService;
+import org.springframework.samples.petclinic.service.OfertaService;
 import org.springframework.samples.petclinic.service.OtrosService;
 import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.samples.petclinic.service.PizzaService;
@@ -61,13 +64,15 @@ public class PedidoController {
 	private OtrosService OtrosService;
 	
 	private BebidaService BebidaService;
+	
+	private OfertaService ofertaService;
 
 	//private IngredienteService ingredienteService;
 	
 	@Autowired
 	public PedidoController(PedidoService pedidoService, UserService userService,ClienteService clienteService,
 			/*AuthoritiesService authoritiesService,*/PizzaService PizzaService,
-			OtrosService OtrosService, BebidaService BebidaService, CartaService CartaService) {
+			OtrosService OtrosService, BebidaService BebidaService, CartaService CartaService, OfertaService ofertaService) {
 		this.pedidoService = pedidoService;
 		this.userService =  userService;
 		this.clienteService= clienteService;
@@ -76,6 +81,7 @@ public class PedidoController {
 		this.BebidaService = BebidaService;
 		//this.IngredienteService = IngredienteService;
 		this.CartaService = CartaService;
+		this.ofertaService =ofertaService;
 	}
 	
 	
@@ -321,6 +327,25 @@ public class PedidoController {
 			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
 		}
 		
+		//Aqui tenemos que añadir la oferta seleccionada a un nuevo pedido
+		@GetMapping("/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirOferta/{ofertaId}")
+		public String anadirOferta(ModelMap model, @PathVariable("pedidoId") int pedidoId,
+				@PathVariable("ofertaId") int ofertaId, @PathVariable("cartaId") Integer cartaId) {
+			model.put("cartaId", cartaId);
+			Pedido pedido = pedidoService.findPedidoById(pedidoId);
+			//hacer funcion que incremente el precio del pedido
+			Double precioDeMiPedidoAntesDeAnadirPizza = pedido.getPrecio();
+			Double cantidadASumar = (double) this.pedidoService.cogerPrecioOferta(ofertaId);
+			Double precioDeMiPedidoNuevo = precioDeMiPedidoAntesDeAnadirPizza + cantidadASumar;
+			pedido.setPrecio(precioDeMiPedidoNuevo);
+			//ya está incrementado el coste del pedido
+			model.put("pedido", pedido);
+			this.pedidoService.añadirOfertaAPedido(pedidoId, ofertaId);
+			log.info("Añadiendo oferta a pedido.");
+			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
+		}
+		
+		
 		//Resumen de un pedido
 		@GetMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen") 
 		public String verResumenPedido(@PathVariable("pedidoId") Integer pedidoId,
@@ -425,6 +450,24 @@ public class PedidoController {
 			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
 		}
 		
+		//OFERTAS
+		@GetMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/ofertas/{ofertaId}/borrarOf")
+		public String eliminarOfertas(@PathVariable("pedidoId") int pedidoId, @PathVariable("ofertaId") int ofertaId,
+				@PathVariable("cartaId") Integer cartaId, ModelMap model) {
+			model.put("cartaId", cartaId);
+			Pedido pedido = this.pedidoService.findPedidoById(pedidoId);
+			Oferta oferta=this.ofertaService.findOfertaById(ofertaId);
+			this.pedidoService.eliminarOfertaPedido(pedidoId, ofertaId);
+			Double costeOtros=oferta.getCoste().doubleValue();
+			Double coste=pedido.getPrecio();
+			Double precioActual=coste-costeOtros;
+			pedido.setPrecio(precioActual);
+			model.put("pedido",pedido);
+			this.pedidoService.savePedido(pedido);
+			log.info("Oferta eliminada del pedido.");
+			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
+		}
+		
 		//Control elaboracion del pedido
 			@GetMapping(value = "/pedidos/{pedidoId}/VerPedido") 
 			public String verPedido(@PathVariable("pedidoId") Integer pedidoId, ModelMap model) {		
@@ -466,9 +509,12 @@ public class PedidoController {
 		model.put("otros", listaOtros);
 		Pizzas pizzasP = new Pizzas();
 		pizzasP.getPizzasList().addAll(this.PizzaService.findPizzaByCliente(getClienteActivo()));
-		log.info("Recogiendo productos de la carta.");
 		model.put("PizzasP", pizzasP);  //si pongo Pizzas me pone la tabla vacia, si pongo pizza me da un error de tamaño
-
+	
+		List<Oferta>  ofertas = ofertaService.findOfertasByEstadoOferta(true);
+		model.put("ofertaPedido",ofertas);
+		
+		log.info("Recogiendo productos de la carta.");
 	}
 	
 	//Recoger productos de un pedido		
@@ -499,6 +545,16 @@ public class PedidoController {
 				listaOtros.getOtrosLista().add(otro);
 			}
 			model.put("otros", listaOtros);
+			
+			List<Integer> listaIdOferta = ofertaService.findOfertasEnPedidoById(pedidoId);
+			Ofertas listaOferta = new Ofertas();
+			for(int i=0; i<listaIdOferta.size(); i++) {
+				Integer ofertaId = listaIdOferta.get(i);
+				Oferta oferta = this.ofertaService.findOfertaById(ofertaId);
+				listaOferta.getOfertasList().add(oferta);
+			}
+			model.put("ofertaPedido", listaOferta);
+			
 			log.info("Recogiendo productos del pedido.");
 		}
 		
