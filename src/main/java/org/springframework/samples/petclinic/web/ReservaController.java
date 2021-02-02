@@ -120,20 +120,7 @@ public class ReservaController {
 		}
 	}
 	
-	//Filtrar mesas: 
-	//-> Si la capacidad de la mesa admite el número de personas OK
-	//-> Si entre mi reserva y otras reservas de la misma mesa en el día que yo he elegido hay al menos 1 hora de diferencia -> OK
-	//Luego el algoritmo es el siguiente:
-	// (1) Cojo el listado de mesas 
-	// (2)¿La mesa admite la capacidad?
-		//Si la admite: ¿Tiene reservas el mismo día que quiero reservar?
-			//Si hay el mismo día: ¿Hay al menos 1h de diferencia entre reserva y reserva? 
-				//Si la hay: añado la mesa 
-				//Si no la hay: no añado la mesa 
-			//Si no hay el mismo día: añado la mesa
-		//Si no la admite: No añado mesa
 
-	//COMPROBAR QUE SE HACE BIEN. CAMBIAR BASE DE DATOS
 	@GetMapping(value = "/reservas/{reservaId}/allMesasDisponibles")
 	public String mesasDisponibles(@PathVariable("reservaId") int reservaId, ModelMap model) {
 		Reserva reserva = this.reservaService.findById(reservaId);
@@ -271,7 +258,7 @@ public class ReservaController {
 		}
 		
 
-	@DeleteMapping(value = "/reserva/{reservaId}/delete")
+	@GetMapping(value = "/reserva/{reservaId}/delete")
 	public String deleteReserva(@PathVariable("reservaId") int reservaId) {
 		Reserva reserva = this.reservaService.findById(reservaId);
 		this.reservaService.deleteReserva(reserva);
