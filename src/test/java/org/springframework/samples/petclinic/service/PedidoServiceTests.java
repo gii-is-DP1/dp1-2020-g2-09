@@ -57,19 +57,7 @@ public class PedidoServiceTests {
 		pedidoService.findPedidoForRepartidor();
 		verify(pedidoRepository).findPedidoForRepartidor();
 	}
-	
-	//A Mockito no le gustan las funciones que devuelven void
-//	@Test
-//	@Transactional
-//	public void findPreparado() {
-//		when(pedidoRepository.findPreparado(anyInt()));
-//	}
-//	
-//	@Test
-//	@Transactional
-//	public void findEnReparto() {
-//		
-//	}
+
 	
 	
 	@Test
@@ -214,5 +202,53 @@ public class PedidoServiceTests {
 		
 		verify(pedidoRepository, never()).cogerPrecioOtros(4);
 	}
+	
+	@Test
+	@Transactional
+	public void shouldfindIdPedidoByReclamacionId() {
+		when(pedidoRepository.findIdPedidoByReclamacionId(anyInt())).thenReturn(1);
+		pedidoService.findIdPedidoByReclamacionId(1);
+		verify(pedidoRepository).findIdPedidoByReclamacionId(1);
+	}
+	
+	@Test
+	@Transactional
+	public void  shouldNotFindIdPedidoByReclamacionId() {
+		verify(pedidoRepository, never()).findIdPedidoByReclamacionId(1);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldFindPedidoByFecha() {
+		Pedido pedido = new Pedido();
+		pedido.setDireccion("C/ Niña de la Alfalfa");
+		pedido.setFechaPedido(LocalDate.now());
+		pedido.setGastosEnvio(0.0);
+		pedido.setPrecio(0.0);
+		
+		Cliente cliente = new Cliente();
+		cliente.setNombre("Paco");
+		cliente.setApellidos("Florentino");
+		cliente.setTelefono(683020234);
+		cliente.setEmail("paquito@gmail.com");
+		cliente.setFechaNacimiento(LocalDate.of(2000, 12, 9));
+		User usuario = new User();
+		usuario.setUsername("PAquitoO");
+		usuario.setPassword("Tomate y papas");
+		usuario.setEnabled(true);
+        cliente.setUser(usuario);  
+        
+		pedido.setCliente(cliente);
+		when(pedidoRepository.findPedidoByFecha(org.mockito.ArgumentMatchers.any(), anyInt())).thenReturn(pedido);
+		pedidoService.findPedidoByFecha(LocalDate.now(), 1);
+		verify(pedidoRepository).findPedidoByFecha(LocalDate.now(), 1);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotFindPedidoByFecha() {
+		verify(pedidoRepository, never()).findPedidoByFecha(LocalDate.now(), 1);
+	}
+	
 	
 }
