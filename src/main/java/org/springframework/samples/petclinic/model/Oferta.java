@@ -24,7 +24,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "Ofertas")
-public class Oferta extends NamedEntity{
+public class Oferta extends NamedEntity{//Cambiar a BaseEntity
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "tamano_oferta")

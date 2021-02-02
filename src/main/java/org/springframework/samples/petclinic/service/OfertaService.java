@@ -1,6 +1,5 @@
 package org.springframework.samples.petclinic.service;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import org.springframework.samples.petclinic.model.Otro;
 import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.TamanoOferta;
 import org.springframework.samples.petclinic.repository.OfertaRepository;
-import org.springframework.samples.petclinic.repository.PizzaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class OfertaService {
 	
 	private OfertaRepository  ofertaRepository;
-	private PizzaRepository  pizzaRepository;
 
 	@Autowired
 	public  OfertaService(OfertaRepository ofertaRepository) {
@@ -33,6 +30,11 @@ public class OfertaService {
 	public List<Oferta> findOfertas() throws DataAccessException {
 		return ofertaRepository.findAll();
 	}	
+	
+	@Transactional(readOnly = true)
+	public List<Oferta> findOfertasByEstadoOferta(boolean estadoOferta) throws DataAccessException {
+		return ofertaRepository.findOfertasByEstadoOferta(estadoOferta);
+	}
 	
 	@Transactional(readOnly = true)
 	public Oferta findOfertaById(int ofertaId) throws DataAccessException {
@@ -53,17 +55,43 @@ public class OfertaService {
 	public void saveOferta(Oferta oferta) throws DataAccessException {
 		ofertaRepository.save(oferta);		
 	}
+	
+	//Para borrar las pizzas
+	@Transactional
+	public void ponerEstadoOfertaDePizzasAFalse(Integer pizzaId) throws DataAccessException {
+		ofertaRepository.ponerEstadoOfertaDePizzasAFalse(pizzaId);//HACER PRUEBAS
+	}
+	
+	@Transactional
+	public List<Integer> numeroPizzasEnOferta(Integer pizzaId) throws DataAccessException {
+		return ofertaRepository.numeroPizzasEnOferta(pizzaId);//HACER PRUEBAS
+	}
+	//Para borrar las bebidas
+	@Transactional
+	public void ponerEstadoOfertaDeBebidasAFalse(Integer bebidaId) throws DataAccessException {
+		ofertaRepository.ponerEstadoOfertaDeBebidasAFalse(bebidaId);//HACER PRUEBAS
+	}
+	
+	@Transactional
+	public List<Integer> numeroBebidasEnOferta(Integer bebidaId) throws DataAccessException {
+		return ofertaRepository.numeroBebidasEnOferta(bebidaId);//HACER PRUEBAS
+	}
+	
+	//Para borrar los otros
+	@Transactional
+	public void ponerEstadoOfertaDeOtrosAFalse(Integer otrosId) throws DataAccessException {
+		ofertaRepository.ponerEstadoOfertaDeOtrosAFalse(otrosId);//HACER PRUEBAS
+	}
+		
+	@Transactional
+	public List<Integer> numeroOtrosEnOferta(Integer otrosId) throws DataAccessException {
+		return ofertaRepository.numeroOtrosEnOferta(otrosId);//HACER PRUEBAS
+	}
+	
 	@Transactional
 	public void deleteOferta(Oferta oferta) throws DataAccessException {
 		ofertaRepository.delete(oferta);		
 	}
-	
-//	@Transactional
-//	public void asociarOfertaAProductos(int ofertaId,List<Producto> productosEnOfertaId) throws DataAccessException {
-//		for(int i =0;i<=productosEnOfertaId.size();i++) {		
-//		ofertaRepository.asociarOfertaAProducto(ofertaId, productosEnOfertaId.get(i).getId());
-//		}
-//	}
 	
 	
 	@Transactional
@@ -117,16 +145,6 @@ public class OfertaService {
 		return ofertaRepository.findOtrosEnOferta();
 	}
 	
-	
-//	@Transactional(readOnly = true)
-//	public List<Pizza> findPizzasEnOfertaByOfertaId(int oferta_id) throws DataAccessException {
-//		List<Integer>pizzasId=ofertaRepository.findPizzasEnOfertaByOfertaId(oferta_id);
-//		List<Pizza> sol= new ArrayList<Pizza>();
-//		for(int p : pizzasId){
-//			sol.add(pizzaRepository.findPizzaById(p));
-//		}
-//		return	sol;	
-//	}
 	
 	@Transactional(readOnly = true)
 	public List<Pizza> findPizzasEnOfertaByOfertaId(int oferta_id) throws DataAccessException {
