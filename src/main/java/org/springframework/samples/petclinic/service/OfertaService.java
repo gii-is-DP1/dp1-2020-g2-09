@@ -2,7 +2,6 @@ package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Bebida;
@@ -55,6 +54,13 @@ public class OfertaService {
 	public void saveOferta(Oferta oferta) throws DataAccessException {
 		ofertaRepository.save(oferta);		
 	}
+	
+	//Encontrar ofertas de un pedido
+	@Transactional
+	public List<Integer> findOfertasEnPedidoById(int pedidoId) throws DataAccessException {
+		return ofertaRepository.findOfertasEnPedidoById(pedidoId);
+	}
+		
 	
 	//Para borrar las pizzas
 	@Transactional

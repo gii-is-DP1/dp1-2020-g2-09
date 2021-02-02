@@ -122,6 +122,13 @@ public class PedidoService {
 		pedidoRepository.añadirOtrosAPedido(pedidoId, otrosId);
 	}
 	
+	//AÑADIR OFERTA A UN PEDIDO
+	@Transactional
+	public void añadirOfertaAPedido(int pedidoId, int ofertaId) throws DataAccessException {
+		pedidoRepository.añadirOfertaAPedido(pedidoId, ofertaId);
+	}
+
+	
 	//ELIMINAR PRODUCTOS DE UN PEDIDO 
 	@Transactional
 	public void eliminarPizzaPedido(int pedidoId, int pizzaId) throws DataAccessException {
@@ -136,6 +143,11 @@ public class PedidoService {
 	@Transactional
 	public void eliminarOtrosPedido(int pedidoId, int otrosId) throws DataAccessException {
 		pedidoRepository.eliminarOtrosPedido(pedidoId, otrosId);
+	}
+	
+	@Transactional
+	public void  eliminarOfertaPedido(int pedidoId, int otrosId) throws DataAccessException {
+		pedidoRepository.eliminarOfertaPedido(pedidoId, otrosId);
 	}
 	
 	//COGER PRECIOS DE UN PRODUCTO
@@ -153,6 +165,15 @@ public class PedidoService {
 	public Double cogerPrecioOtros(int otrosId) {
 		return pedidoRepository.cogerPrecioOtros(otrosId);
 	}
+	
+	@Transactional
+	public Double cogerPrecioOferta(int ofertaId) {
+		return pedidoRepository.cogerPrecioOferta(ofertaId);
+	}
+	
+	
+	
+	//ASOCIAR PEDIDO ASOCIADO A UNA RECLAMACION
 	
 	@Transactional 
 	public Integer findIdPedidoByReclamacionId(int reclamacionId) {
