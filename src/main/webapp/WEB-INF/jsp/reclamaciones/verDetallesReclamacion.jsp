@@ -78,4 +78,8 @@
 </tbody>
 </table>
 
+<spring:url value="/reclamaciones/user" var="reclamacionUrl">
+	                </spring:url>
+   					<a href="${fn:escapeXml(reclamacionUrl)}" class="btn btn-default">Volver</a>
+
 </petclinic:layout>

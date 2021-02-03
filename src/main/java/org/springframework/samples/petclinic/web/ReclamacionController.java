@@ -148,7 +148,7 @@ public class ReclamacionController {
 			else {
 				model.put("pedidoId", pedidoId);
 				this.reclamacionService.saveReclamacion(reclamacion);
-				log.info("Añadiendo reclamación a pedido.");
+				log.info("Creando reclamación.");
 				return "reclamaciones/confirmarReclamacion";
 			} 
 		}
@@ -156,6 +156,7 @@ public class ReclamacionController {
 		@GetMapping(value = "/pedidos/{pedidoId}/reclamaciones/{reclamacionId}/confirmarReclamacion")
 		public String anadirReclamacionAPedido(@PathVariable("pedidoId") int pedidoId, @PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
 			this.reclamacionService.anadirReclamacionAPedido(pedidoId, reclamacionId);
+			log.info("Añadiendo reclamación a pedido");
 			return "redirect:/reclamaciones/user";
 		}
 		

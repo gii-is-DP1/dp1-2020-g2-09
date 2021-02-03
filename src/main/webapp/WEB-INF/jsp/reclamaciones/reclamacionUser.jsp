@@ -23,15 +23,13 @@
         <c:forEach items="${reclamaciones.reclamacionesList}" var="reclamacion">
             <tr>
                 <td>
-                    <c:out value="${reclamacion.id}"/>
+                    <c:out value="${reclamacion.observacion}"/>
                 </td>
                 <td>
-              	<c:out value="${reclamacion.observacion}"></c:out>
+                <c:if test="${reclamacion.respuesta != 'Lo sentimos mucho, ...'}">
+              	<c:out value="${reclamacion.respuesta}"></c:out>
+              	</c:if>
            		</td>
-             	<td>
-             	<c:if test="${reclamacion.respuesta != 'Lo sentimos mucho, ...'}">
-             		<c:out value="${reclamacion.respuesta}"></c:out> </c:if>
-             	</td>
              	
              	<td>
              		<spring:url value="/reclamaciones/{reclamacionId}/verDetalles" var="reclamacionUrl">
