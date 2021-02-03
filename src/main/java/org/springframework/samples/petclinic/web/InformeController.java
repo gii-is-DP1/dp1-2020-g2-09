@@ -18,8 +18,10 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 
+import lombok.extern.slf4j.Slf4j;
 
 
+@Slf4j
 @Controller
 public class InformeController {
 
@@ -42,6 +44,7 @@ public class InformeController {
 	
 	@GetMapping(value = "/informe")
 	public String initList(Map<String, Object> model) {
+		log.info("Mostrando lista de informes");
 		return "informe/InformeList";
 	}
 	
@@ -76,6 +79,7 @@ public class InformeController {
 		.sorted((Map.Entry.<String, Integer>comparingByValue().reversed()))
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 		model.put("mapa", mapaOrdered);
+		log.info("Mostrando informe ingredientes mas usados");
 		return "informe/InformeIngredientesMasUsados";
 	}
 	@GetMapping(value = "/informe/MesasMasUsadas")
@@ -87,6 +91,7 @@ public class InformeController {
 			mapa.put(i.getId(), aux);
 		}
 		model.put("mapa", mapa);
+		log.info("Mostrando informe mesas mas usadas");
 		return "informe/InformeMesasMasUsadas";
 	}
 	@GetMapping(value = "/informe/CaducidadIngredientes")
@@ -101,6 +106,8 @@ public class InformeController {
 				.sorted((Map.Entry.<Ingrediente, LocalDate>comparingByValue()))
 		        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 		model.put("mapa", mapaOrdenado);
+		log.info("Mostrando informe caducidad ingredientes");
+
 		return "informe/CaducidadIngredientes";
 	}
 }

@@ -12,11 +12,15 @@
 <petclinic:layout pageName="carta">
     <h2>Carta</h2>
     
-    <!--<c:out value="${cartaId}"></c:out>-->
-
+    <!--<c:out value="${cartaId}"></c:out>-->  
 	<h3>Ofertas</h3>
-	<a href="/pedidos/new" class="btn btn-default">Nuevo Pedido</a>
-	
+	<br/>
+	 <sec:authorize access="hasAnyAuthority('administrador')"  >
+	   			<spring:url value="/ofertas/new" var="nuevaOferta">
+		    </spring:url>
+		    <a href="${fn:escapeXml(nuevaOferta)}" class="btn btn-default">Añadir ofertas</a>
+    </sec:authorize>
+    <br/>
 	    <table id="ofertasTableCarta" class="table table-striped">
 	        <thead>
 	        <tr>
@@ -77,13 +81,17 @@
 	        </c:forEach>
 	        </tbody>
 	    </table>
+	       <br/>
+    
+	<h3>Pizzas</h3>
+	   <br/>
 	   <sec:authorize access="hasAnyAuthority('administrador')"  >
 	   			<spring:url value="/cartas/{cartaId}/pizzas" var="listaPizzas">
 		         <spring:param name="cartaId" value="${cartaId}"/> 
 		    </spring:url>
 		    <a href="${fn:escapeXml(listaPizzas)}" class="btn btn-default">Añadir pizza a la carta</a>
     	</sec:authorize>
-	<h3>Pizzas</h3>
+    	<br>
     <table id="pizzasTableCarta" class="table table-striped">
         <thead>
         <tr>
@@ -134,12 +142,14 @@
     </table>
     
     <h3>Bebidas</h3>
+       <br/>
     <sec:authorize access="hasAnyAuthority('administrador')"  >
 	    <spring:url value="/cartas/{cartaId}/bebidas" var="listaBebidas">
 		         <spring:param name="cartaId" value="${cartaId}"/> 
 		    </spring:url>
 		    <a href="${fn:escapeXml(listaBebidas)}" class="btn btn-default">Añadir bebida a la carta</a>
 	</sec:authorize>
+	   <br/>
     <table id="bebidasTableCarta" class="table table-striped">
         <thead>
         <tr>
@@ -189,12 +199,14 @@
     </table>
     
     <h3>Otros</h3>
+       <br/>
     <sec:authorize access="hasAnyAuthority('administrador')"  >
 	    <spring:url value="/cartas/{cartaId}/otros" var="listaOtrosVer">
 		         <spring:param name="cartaId" value="${cartaId}"/> 
 		    </spring:url>
 		    <a href="${fn:escapeXml(listaOtrosVer)}" class="btn btn-default">Añadir otro a la carta</a>
 	</sec:authorize>
+	   <br/>
     <table id="otrosTableCarta" class="table table-striped">
         <thead>
         <tr>
@@ -234,7 +246,12 @@
         
         </tbody>
     </table>
-    <a href="/pedidos/new" class="btn btn-default">Nuevo Pedido</a>
+    
+    <sec:authorize access="hasAnyAuthority('cliente')"  >
+	   			<spring:url value="/pedidos/new" var="pedidoNuevo">
+			    </spring:url>
+		    <a href="${fn:escapeXml(pedidoNuevo)}" class="btn btn-default">Nuevo Pedido</a>
+    </sec:authorize>
     
     
 </petclinic:layout>

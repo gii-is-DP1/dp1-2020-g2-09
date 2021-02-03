@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 //@RequestMapping("/ofertas/{ofertaId}")
 
@@ -49,6 +51,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 		Otros otros = new Otros();
 		otros.getOtrosLista().addAll(this.OtrosService.findOtros());
 		model.put("otros", otros);
+		log.info("Mostrando los otros");
 		return "Otros/OtrosList";
 	}
 
@@ -65,13 +68,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 	@PostMapping(value = "/Otros/new")
 	public String processCreationForm(@Valid Otro otros, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
-				model.put("otro", otros);//importanteeee
+			model.put("otro", otros);
+			log.warn("Fallos en la creacion de otro");	
 			return "Otros/createOrUpdateOtrosForm";
 		}
 		else {
 //			OtrosValidator ostrosValidator = new OtrosValidator();
 //			ValidationUtils.invokeValidator(ostrosValidator, otros, result);
 			this.OtrosService.saveOtros(otros);
+			log.info("Otro guardado");
 			return "redirect:/allOtros";
 		}
 	}
@@ -90,6 +95,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 	public String processUpdateOtrosForm(@Valid Otro otros, BindingResult result,
 			@PathVariable("OtrosId") int OtrosId) {
 		if (result.hasErrors()) {
+			log.warn("Fallos en la actualizacion de otro");
 			return "Otros/createOrUpdateOtrosForm";
 		}
 		else {
@@ -97,6 +103,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 //			ValidationUtils.invokeValidator(otrosValidator, otros, result);
 			otros.setId(OtrosId);
 			this.OtrosService.saveOtros(otros);
+			log.info("Otro actualizado");
 			return "redirect:/allOtros";
 		}
 	}
@@ -106,6 +113,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 	public String initDeleteOtros(@PathVariable("OtrosId") int OtrosId, ModelMap model) {
 		Otro otro = this.OtrosService.findOtrosById(OtrosId);
 		this.OtrosService.deleteOtros(otro);
+		log.info("Otro borrado");
 		return "redirect:/allOtros";
 	}
 	

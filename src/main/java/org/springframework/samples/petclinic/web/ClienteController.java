@@ -29,6 +29,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import ch.qos.logback.classic.Logger;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class ClienteController {
 	
@@ -60,6 +64,7 @@ public class ClienteController {
 		Clientes clientes = new Clientes();
 		clientes.getClientesList().addAll(this.clienteService.findCuentas());
 		model.put("clientes", clientes);
+		log.info("Mostrando los clientes");
 		return "clientes/clientesList";
 	}
 
@@ -68,6 +73,7 @@ public class ClienteController {
 	public String initCreationForm(Map<String, Object> model) {
 		Cliente cuenta = new Cliente();
 		model.put("cliente", cuenta);
+		log.info("Iniciando creación del cliente");
 		return "clientes/createOrUpdateCuentaForm";
 	}
 
@@ -76,6 +82,7 @@ public class ClienteController {
 	public String processCreationForm(@Valid Cliente cliente, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("cliente", cliente);
+			log.warn("Se ha rellenado mal el formulario de creacion");
 			return "clientes/createOrUpdateCuentaForm";
 		}
 		else {
@@ -87,6 +94,7 @@ public class ClienteController {
 			cliente.setNivelSocio(nivelSocio);
 			
 			this.clienteService.saveCliente(cliente);
+			log.info("Creado del cliente finalizado");
 			return "redirect:/";
 		}
 	}
@@ -123,6 +131,7 @@ public class ClienteController {
 			cliente.setNivelSocio(nivelSocio);
 		}
 	    mav.addObject(cliente);
+	    log.info("Devolviendo detalles del cliente");
 		return mav;
 	}
 
@@ -131,6 +140,7 @@ public class ClienteController {
 	public String initUpdateForm(@PathVariable("cuentaId") int cuentaId, ModelMap model) {
 		Cliente cuenta = this.clienteService.findCuentaById(cuentaId);
 		model.put("cliente", cuenta);
+		log.info("Iniciando actualizacion");
 		return "clientes/createOrUpdateCuentaForm";
 	}
 	
@@ -140,11 +150,13 @@ public class ClienteController {
 			@PathVariable("cuentaId") int cuentaId, ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("cliente", cliente);
+			log.warn("Fallos en el formulario de actualizacion");
 			return "clientes/createOrUpdateCuentaForm";
 		}
 		else {
 			cliente.setId(cuentaId);
 			this.clienteService.saveCliente(cliente);
+			log.info("Cliente actualizado");
 			return "clientes/clienteDetails";
 		}
 	}
@@ -154,6 +166,7 @@ public class ClienteController {
 	public String initDeleteCuenta(@PathVariable("cuentaId") int cuentaId, ModelMap model) {
 		Cliente cliente = this.clienteService.findCuentaById(cuentaId);
 		this.clienteService.deleteCliente(cliente);
+		log.info("Cliente borrado");
 		return "redirect:/allCuentas";
 	}
 

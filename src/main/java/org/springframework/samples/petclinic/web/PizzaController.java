@@ -33,6 +33,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 public class PizzaController {
 
@@ -67,6 +69,7 @@ public class PizzaController {
 		Pizzas pizzas = new Pizzas();
 		pizzas.getPizzasList().addAll(this.pizzaService.findPizzaNoPersonalizada());
 		model.put("Pizzas", pizzas);  //si pongo Pizzas me pone la tabla vacia, si pongo pizza me da un error de tamaño
+		log.info("Mostrar todas las pizzas");
 		return "pizzas/pizzasList";
 	}
 	
@@ -79,6 +82,8 @@ public class PizzaController {
 		Pizzas pizzasP = new Pizzas();
 		pizzasP.getPizzasList().addAll(this.pizzaService.findPizzaByCliente(getClienteActivo()));
 		model.put("PizzasP", pizzasP);  //si pongo Pizzas me pone la tabla vacia, si pongo pizza me da un error de tamaño
+		log.info("Mostrar todas las pizzas del cliente");
+
 		return "pizzas/PizzaClienteList";
 	}
 
@@ -95,6 +100,7 @@ public class PizzaController {
 	public String processCreationFormAdmin(@Valid Pizza pizza, BindingResult result,ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("pizza", pizza);//importanteeee
+			log.warn("La pizza contenía errores");
 			return "pizzas/createOrUpdatePizzaForm";
 		} else {
 
@@ -102,6 +108,8 @@ public class PizzaController {
 			pizza.setPersonalizada(false);
 
 			this.pizzaService.savePizza(pizza);
+			log.info("Añadir nueva pìzza completado");
+
 			return "redirect:/allPizzas";
 		}
 	}
@@ -120,6 +128,8 @@ public class PizzaController {
 	public String processCreationFormCliente(@Valid Pizza pizza1, BindingResult result,ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("pizza", pizza1);//importanteeee
+			log.info("La pizza contenía errores");
+
 			return "pizzas/createOrUpdatePizzaFormCliente";
 		} else {
 			Cliente cliente = getClienteActivo();
@@ -137,12 +147,16 @@ public class PizzaController {
 				}
 			}
 			if(duplicado) {
+				log.warn("La pizza introducida por el cliente estaba duplicada");
+
 				return "redirect:/NombreDePizzaPersonalizadaDuplicado";
 			}
 		}
 //			PizzaValidator pizzaValidator = new PizzaValidator();
 //			ValidationUtils.invokeValidator(pizzaValidator, pizza, result);
 			this.pizzaService.savePizza(pizza1);
+			log.info("Pizza guardada con éxito");
+
 			return "redirect:/pizzas/cliente";
 		}
 	
@@ -155,6 +169,7 @@ public class PizzaController {
 	public String initUpdateForm(@PathVariable("pizzaId") int pizzaId, ModelMap model) {
 		Pizza pizza = this.pizzaService.findPizzaById(pizzaId);
 		model.put("pizza", pizza);
+		log.info("Iniciando actualizacion de pizza");
 		return "pizzas/createOrUpdatePizzaForm";
 	}
 
@@ -163,6 +178,7 @@ public class PizzaController {
 	public String processUpdatePizzaForm(@Valid Pizza Pizza, BindingResult result,
 			@PathVariable("pizzaId") int pizzaId) {
 		if (result.hasErrors()) {
+			log.warn("La pizza contenía errores");
 			return "pizzas/createOrUpdatePizzaForm";
 		} else {
 			Pizza.setId(pizzaId);
@@ -170,6 +186,8 @@ public class PizzaController {
 //			ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
 
 			this.pizzaService.savePizza(Pizza);
+			log.info("Pizza actualizada con éxito");
+
 			return "redirect:/allPizzas";
 		}
 	}
@@ -179,6 +197,8 @@ public class PizzaController {
 	public String initDeletePizza(@PathVariable("pizzaId") int pizzaId, ModelMap model) {
 		Pizza pizza = this.pizzaService.findPizzaById(pizzaId);
 		this.pizzaService.deletePizza(pizza);
+		log.info("Pizza eliminada con éxito");
+
 		return "redirect:/allPizzas"; 
 	}
 	
@@ -191,6 +211,7 @@ public class PizzaController {
 				model.put("pizza", pizza);
 				model.put("pedido", pedido);
 				model.put("cartaId", cartaId);
+				log.info("Inicializando actualizacion pizza de pedido");
 				return "/pizzas/UpdatePizzaFormPedido";
 			}
 
@@ -200,11 +221,13 @@ public class PizzaController {
 					@PathVariable("pizzaId") int pizzaId,
 					@PathVariable("pedidoId") int pedidoId,@PathVariable("cartaId") int cartaId) {
 				if (result.hasErrors()) {
+					log.warn("No se pudo actualizar la pizza del pedido");
 					return "pizzas/UpdatePizzaFormPedido";
 				} else {
 					pizza.setCliente(getClienteActivo());
 					pizza.setPersonalizada(true);
 					this.pizzaService.savePizza(pizza);
+					log.info("Pizza del pedido actualizada");
 					return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/verCarta";
 				}
 			}

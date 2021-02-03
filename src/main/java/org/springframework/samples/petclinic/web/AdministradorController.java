@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class AdministradorController {
 
@@ -43,6 +46,7 @@ public class AdministradorController {
 		Administradores administradores = new Administradores();
 		administradores.getAdministradoresList().addAll(this.administradorService.findAdministradores());
 		model.put("administradores", administradores);
+		log.info("Mostrando administradores");
 		return "administradores/administradoresList";
 	}
 
@@ -51,20 +55,23 @@ public class AdministradorController {
 	public String initCreationForm(Map<String, Object> model) {
 		Administrador administrador = new Administrador();
 		model.put("administrador", administrador);
+		log.info("Iniciando crear un admin");
 		return "administradores/createOrUpdateAdministradorForm";
 	}
 
-	//mandar nuevo cliente
+	//mandar nuevo admin
 	@PostMapping(value = "/administradores/new")
 	public String processCreationForm(@Valid Administrador administrador, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("administrador", administrador);//importanteeee
+			log.warn("Fallo en la creacion de un admin");
 			return "administradores/createOrUpdateAdministradorForm";
 		}
 		else {
 			AdministradorValidator adminValidator = new AdministradorValidator();
 			ValidationUtils.invokeValidator(adminValidator, administrador, result);
 			this.administradorService.saveAdministrador(administrador);
+			log.info("Administrador creado");
 			return "redirect:/allAdministradores";
 		}
 	}
@@ -74,6 +81,7 @@ public class AdministradorController {
 	public String initUpdateForm(@PathVariable("administradorId") int administradorId, ModelMap model) {
 		Administrador administrador = this.administradorService.findAdministradorById(administradorId);
 		model.put("administrador", administrador);
+		log.info("Iniciando actualizacion de administrador");
 		return "administradores/createOrUpdateAdministradorForm";
 	}
 	
@@ -84,6 +92,7 @@ public class AdministradorController {
 		if (result.hasErrors()) {
 			//model.put("cuenta", administrador);
 			model.put("administrador", administrador);
+			log.warn("Fallos en la actualizacion de admin");
 			return "administradores/createOrUpdateAdministradorForm";
 		}
 		else {
@@ -91,15 +100,17 @@ public class AdministradorController {
 			AdministradorValidator adminValidator = new AdministradorValidator();
 			ValidationUtils.invokeValidator(adminValidator, administrador, result);
 			this.administradorService.saveAdministrador(administrador);
+			log.info("Admin actualizado");
 			return "redirect:/allAdministradores";
 		}
 	}
 	
-	//borrar cliente
+	//borrar admin
 	@GetMapping(value = "/administradores/{administradorId}/delete")
 	public String initDeleteCuenta(@PathVariable("administradorId") int administradorId, ModelMap model) {
 		Administrador administrador = this.administradorService.findAdministradorById(administradorId);
 		this.administradorService.deleteAdministrador(administrador);
+		log.info("Admin borrado");
 		return "redirect:/allAdministradores";
 	}
 	

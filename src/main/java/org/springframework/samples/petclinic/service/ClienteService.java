@@ -45,9 +45,10 @@ public class ClienteService {
 	
 	@Transactional
 	public void saveCliente(Cliente cliente) throws DataAccessException {
-		clienteRepository.save(cliente);				
 		//creating user
 		userService.saveUser(cliente.getUser());
+		clienteRepository.save(cliente);				
+		
 		//creating authorities
 		authoritiesService.saveAuthorities(cliente.getUser().getUsername(), "cliente");
 	}	

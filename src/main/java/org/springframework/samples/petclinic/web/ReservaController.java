@@ -38,6 +38,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class ReservaController {
 	
@@ -87,8 +90,9 @@ public class ReservaController {
 			Cliente cliente = r.getCliente();
 			listaClientes.add(cliente);
 		}
+		log.info("Mostrando listado de reservas...");
 		model.put("listaClientes", listaClientes);
-		model.put("reservas", reservas); //reservas por queeeeeeeeeeeeeeeeeeeeeeeeee
+		model.put("reservas", reservas); 
 		return "reservas/reservasList";
 	}
 
@@ -99,13 +103,12 @@ public class ReservaController {
 		model.put("reserva", reserva);
 		return "reservas/createOrUpdateReservaForm";
 	}
-	//Creo una reserva -> Me lleva a un listado de mesas disponibles según número de personas 
-	// -> selecciono la mesa -> y entonces ahí asocio mesa y reserva y creo la reserva
-	//mandar nueva reserva
+	
 	@PostMapping(value = "/reservas/new")
 	public String processCreationForm(@Valid Reserva reserva, BindingResult result,ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("reserva",reserva);
+			log.warn("Error a la hora de crear una reserva.");
 			return "reservas/createOrUpdateReservaForm";
 		}
 		else {
@@ -116,6 +119,7 @@ public class ReservaController {
 			//Asigno el cliente que ha hecho la reservas
 			reserva.setCliente((Cliente) cliente);
 			this.reservaService.saveReserva(reserva);
+			log.info("Reserva creada correctamente.");
 			return "redirect:/reservas/" + String.valueOf(reserva.getId()) + "/allMesasDisponibles";
 		}
 	}
@@ -160,19 +164,15 @@ public class ReservaController {
 		List<Mesa> mesasDisponiblesSolucion = mesasDisponibles.stream().map(m->m.getId()).distinct()
 				.map(m->this.mesaService.findById(m)).collect(Collectors.toList());
 		model.put("mesasDisponiblesSolucion", mesasDisponiblesSolucion);
+		log.info("Mostrando listado de mesas disponibles para reservar.");
 		return "mesas/mesasDisponibles";
 	}
-	//Por un lado, voy a necesitar algunos datos del cliente -> tomo el cliente a partir del atributo reservacliente 
-	//Por otro lado, voy a necesitar algunos datos de la mesa -> coger la mesa a partir del id de la reserva (buscar en la tabla intermedia)
+	
 	@GetMapping(value ="/reservas/{reservaId}/verDetalles")
 	public String detallesReserva(@PathVariable("reservaId") int reservaId, ModelMap model) {
 		
 		Reserva reserva = this.reservaService.findById(reservaId);
 		model.put("reserva", reserva);
-		
-		//Tomo el cliente. DEP esto no funciona -> una consulta a la tabla:
-		//Selecciono el reservacliente (clave ajena de cliente) de la tabla reservas donde el id de la reserva sea reservaId 
-		//A continuacion selecciono el cliente a partir del reservacliente
 		Cliente cliente = reserva.getCliente();
 		User usuario = cliente.getUser();
 		model.put("usuario", usuario);
@@ -182,7 +182,7 @@ public class ReservaController {
 		Integer mesaId = this.mesaService.findIdMesaByReserva(reservaId);
 		Mesa mesa = this.mesaService.findById(mesaId);
 		model.put("mesa", mesa);
-		
+		log.info("Mostrando detalles de la reserva seleccionada.");
 		return "reservas/verDetallesReserva";
 	}
 	
@@ -190,6 +190,7 @@ public class ReservaController {
 	public String anadirMesaAReserva(@PathVariable("reservaId") int reservaId, @PathVariable("mesaId") int mesaId, ModelMap model) {
 		model.put("reserva", reservaId);
 		this.reservaService.anadirMesaAReserva(reservaId, mesaId);
+		log.info("Mesa reservada.");
 		return "redirect:/reservas/user";
 	}
 	
@@ -201,6 +202,7 @@ public class ReservaController {
 		Integer clienteId = cliente.getId();
 	    reservas.getReservasList().addAll(this.reservaService.findReservasByCliente(clienteId));
 		model.put("reservas", reservas);
+		log.info("Mostrando reservas del usuario que ha iniciado sesión.");
 		return "reservas/reservaUser";
 	} 
 	
@@ -229,6 +231,7 @@ public class ReservaController {
 		if (result.hasErrors()) {
 			reserva.setId(reservaId);
 			model.put("reserva",reserva);
+			log.warn("Error a la hora de actualizar los datos de una reserva.");
 			return "reservas/createOrUpdateReservaForm";
 		}
 		else {
@@ -236,6 +239,7 @@ public class ReservaController {
 //			ValidationUtils.invokeValidator(reservaValidator, reserva, result);
 			reserva.setId(reservaId);
 			this.reservaService.saveReserva(reserva);
+			log.info("Reserva actualizada.");
 			return "redirect:/reservas/{reservaId}/allMesasDisponibles";
 		}
 	}
@@ -245,25 +249,19 @@ public class ReservaController {
 	public String initDeleteReserva(@PathVariable("reservaId") int reservaId, ModelMap model) {
 		Reserva reserva = this.reservaService.findById(reservaId);
 		this.reservaService.deleteReserva(reserva);
+		log.info("Reserva eliminada.");
 		return "welcome";
 	}
 	
-	//Este método creo que no se usa
-	//buscar mesas de la reserva
-		@GetMapping(value = "/reservas/mesas/{reservaId}")
-		public String initReserva(@PathVariable("reservaId") int reservaId, ModelMap model) {
-			List<Mesa> lista= mesaService.findByReserva(reservaId);
-			model.put("mesas", lista);
-			return "redirect:/allReservas";
-		}
+//	//Este método creo que no se usa
+//	//buscar mesas de la reserva
+//		@GetMapping(value = "/reservas/mesas/{reservaId}")
+//		public String initReserva(@PathVariable("reservaId") int reservaId, ModelMap model) {
+//			List<Mesa> lista= mesaService.findByReserva(reservaId);
+//			model.put("mesas", lista);
+//			return "redirect:/allReservas";
+//		}
 		
-
-	@GetMapping(value = "/reserva/{reservaId}/delete")
-	public String deleteReserva(@PathVariable("reservaId") int reservaId) {
-		Reserva reserva = this.reservaService.findById(reservaId);
-		this.reservaService.deleteReserva(reserva);
-		return "redirect:/allReservas";
-	}
 	@ModelAttribute("tipoReserva")
     public Collection<tipoReserva> populateTipoReserva() {
         return this.reservaService.findTipoReserva();

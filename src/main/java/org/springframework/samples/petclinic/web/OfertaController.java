@@ -31,6 +31,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 
 public class OfertaController {
@@ -79,6 +81,7 @@ public class OfertaController {
 		ofertas.getOfertasList().addAll(this.ofertaService.findOfertas());
 		model.put("ofertas", ofertas);
 		model.put("hoy",LocalDate.now());
+		log.info("Mostrando lista de ofertas");
 		return "ofertas/ofertasList";
 	}
 
@@ -94,7 +97,6 @@ public class OfertaController {
 		model.put("bebidas", bebidas);
 		model.put("otros", otros);
 		model.put("oferta", oferta);
-		
 	//model.put("pizzasEnOferta", pizzasEnOferta);
 		return "ofertas/createOrUpdateOfertaForm";
 	}
@@ -110,12 +112,14 @@ public class OfertaController {
 			model.put("pizzas", pizzas);
 			model.put("bebidas", bebidas);
 			model.put("otros", otros);
+			log.warn("Errores en la creación de la oferta");
 			return "ofertas/createOrUpdateOfertaForm";
 		}
 		else {
 //			OfertaValidator ofValidator = new OfertaValidator();
 //			ValidationUtils.invokeValidator(ofValidator, oferta, result);
 			this.ofertaService.saveOferta(oferta);
+			log.info("Nueva oferta creada con éxito");
 			return "redirect:/ofertas/"+oferta.getId()+"/anadirProductos";
 		}
 		
@@ -131,12 +135,13 @@ public class OfertaController {
 			model.put("bebidas", bebidas);
 			model.put("otros", otros);
 			model.put("oferta", oferta);
+			log.info("Mostrando lista de productos para añadir en la oferta");
 			return "ofertas/anadirProductos";
 		}
 		
 		@PostMapping(value = "/ofertas/{ofertaId}/anadirProductos")
 		public String anadirProductos(@Valid Oferta oferta, BindingResult result,@PathVariable("ofertaId") int ofertaId, ModelMap model) {
-			
+			log.info("Productos añadidos con exito");
 				return "redirect:/allOfertas";
 		
 		}
@@ -151,6 +156,7 @@ public class OfertaController {
 		model.put("bebidas", bebidas);
 		model.put("otros", otros);
 		model.put("oferta", oferta);
+		log.info("Mostrando lista de productos para actualizar en la oferta");
 		return "ofertas/createOrUpdateOfertaForm";
 	}
 	
@@ -172,6 +178,7 @@ public class OfertaController {
 			model.put("bebidas", bebidas);
 			model.put("otros", otros);
 			model.put("oferta", oferta);
+			log.warn("Los productos no se pudieron añadir a la oferta");
 			return "ofertas/createOrUpdateOfertaForm";
 		}
 		else { 
@@ -185,6 +192,7 @@ public class OfertaController {
 //			oferta.setOtrosEnOferta(otrosEnOferta);
 			oferta.setId(ofertaId);
 			this.ofertaService.saveOferta(oferta);
+			log.info("Productos añadidos a la oferta");
 			return "redirect:/allOfertas";
 		}
 	}
@@ -199,6 +207,7 @@ public class OfertaController {
 				oferta.setEstadoOferta(false);
 			}
 			this.ofertaService.saveOferta(oferta);
+			log.info("Estado de la oferta cambiado");
 			return "redirect:/allOfertas";
 		}
 	
@@ -208,6 +217,7 @@ public class OfertaController {
 	public String initDeleteOferta(@PathVariable("ofertasId") int ofertaId, ModelMap model) {
 		Oferta oferta = this.ofertaService.findOfertaById(ofertaId);
 		this.ofertaService.deleteOferta(oferta);
+		log.info("oferta eliminada");
 		return "redirect:/allOfertas";
 	}
 
@@ -225,6 +235,7 @@ public class OfertaController {
 				model.put("pizzaEnOferta",p);
 				//model.put("pizzasEnOferta", pizzasEnOferta);
 				this.ofertaService.asociarOfertaAPizza(ofertaId, pizzaId);
+				log.info("Añadir una pizza");
 				return "redirect:/ofertas/{ofertaId}/anadirProductos";
 			}
 			//Aqui tenemos que añadir la pizza seleccionado a un nuevo pedido
@@ -241,6 +252,7 @@ public class OfertaController {
 				model.put("bebidaEnOferta",b);
 				//model.put("pizzasEnOferta", pizzasEnOferta);
 				this.ofertaService.asociarOfertaABebida(ofertaId, bebidaId);
+				log.info("Añadir una bebida");
 				return "redirect:/ofertas/{ofertaId}/anadirProductos";
 			}
 			//Aqui tenemos que añadir la pizza seleccionado a un nuevo pedido
@@ -257,6 +269,7 @@ public class OfertaController {
 				model.put("otroEnOferta",o);
 				//model.put("pizzasEnOferta", pizzasEnOferta);
 				this.ofertaService.asociarOfertaAOtro(ofertaId, otroId);
+				log.info("Añadir una otro");
 				return "redirect:/ofertas/{ofertaId}/anadirProductos";
 			}
 			

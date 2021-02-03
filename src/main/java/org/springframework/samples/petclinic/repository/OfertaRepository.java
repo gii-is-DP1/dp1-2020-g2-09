@@ -21,11 +21,17 @@ public interface OfertaRepository  extends CrudRepository<Oferta, Integer> {
 	
 	Oferta findOfertaById(int ofertaId) throws DataAccessException;
 	
+	List<Oferta> findOfertasByEstadoOferta(boolean estadoOferta) throws DataAccessException;
+	
 	@Query("SELECT tamofert FROM TamanoOferta tamofert")
 	List<TamanoOferta> findTamanoOferta() throws DataAccessException;
 
 	@Query("SELECT nsocio FROM NivelSocio nsocio")
 	List<NivelSocio> findNivelSocio() throws DataAccessException;
+	
+	//Encontrar ofertas de un pedido
+	@Query(value ="SELECT OFERTAS_EN_PEDIDO_ID FROM OFERTA_PEDIDO  WHERE PEDIDO_ID = ?1",	nativeQuery = true)
+	List<Integer> findOfertasEnPedidoById(int pedidoId) throws DataAccessException;
 
 	@Query(value ="SELECT * FROM PIZZAS WHERE ID LIKE( SELECT PIZZAS_EN_OFERTA_ID FROM OFERTA_PIZZA ) ",	nativeQuery = true)
 	List<Pizza> findPizzasEnOferta() throws DataAccessException;
@@ -56,4 +62,30 @@ public interface OfertaRepository  extends CrudRepository<Oferta, Integer> {
 	
 	@Query(value ="SELECT * FROM OTROS WHERE OTROS.ID IN( SELECT OTROS_EN_OFERTA_ID FROM OFERTA_OTRO WHERE OFERTA_ID = ?1) ",	nativeQuery = true)
 	List<Otro> findOtrosEnOfertaByOfertaId(int ofertaId) throws DataAccessException;
+
+	//Al borrar una pizza
+	@Modifying
+	@Query(value = "UPDATE OFERTAS SET ESTADO_OFERTA = FALSE WHERE OFERTAS.ID = ?1",	nativeQuery = true)
+	void ponerEstadoOfertaDePizzasAFalse(Integer pizzaId);
+	
+	@Query(value = "SELECT OFERTA_ID FROM OFERTA_PIZZA WHERE PIZZAS_EN_OFERTA_ID = ?1", nativeQuery = true)
+	List<Integer> numeroPizzasEnOferta(Integer pizzaId);
+	
+	//Al borrar una bebida
+	@Modifying
+	@Query(value = "UPDATE OFERTAS SET ESTADO_OFERTA = FALSE WHERE OFERTAS.ID = ?1",	nativeQuery = true)
+	void ponerEstadoOfertaDeBebidasAFalse(Integer bebidaId);
+	
+	@Query(value = "SELECT OFERTA_ID FROM OFERTA_BEBIDA WHERE BEBIDAS_EN_OFERTA_ID = ?1", nativeQuery = true)
+	List<Integer> numeroBebidasEnOferta(Integer bebidaId);
+	
+	//Al borrar un otro
+	@Modifying
+	@Query(value = "UPDATE OFERTAS SET ESTADO_OFERTA = FALSE WHERE OFERTAS.ID = ?1",	nativeQuery = true)
+	void ponerEstadoOfertaDeOtrosAFalse(Integer otrosId);
+	
+	@Query(value = "SELECT OFERTA_ID FROM OFERTA_OTRO WHERE OTROS_EN_OFERTA_ID = ?1", nativeQuery = true)
+	List<Integer> numeroOtrosEnOferta(Integer otrosId);
+
+	
 }
