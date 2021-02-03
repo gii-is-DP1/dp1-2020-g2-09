@@ -28,6 +28,10 @@ public interface OfertaRepository  extends CrudRepository<Oferta, Integer> {
 
 	@Query("SELECT nsocio FROM NivelSocio nsocio")
 	List<NivelSocio> findNivelSocio() throws DataAccessException;
+	
+	//Encontrar ofertas de un pedido
+	@Query(value ="SELECT OFERTAS_EN_PEDIDO_ID FROM OFERTA_PEDIDO  WHERE PEDIDO_ID = ?1",	nativeQuery = true)
+	List<Integer> findOfertasEnPedidoById(int pedidoId) throws DataAccessException;
 
 	@Query(value ="SELECT * FROM PIZZAS WHERE ID LIKE( SELECT PIZZAS_EN_OFERTA_ID FROM OFERTA_PIZZA ) ",	nativeQuery = true)
 	List<Pizza> findPizzasEnOferta() throws DataAccessException;

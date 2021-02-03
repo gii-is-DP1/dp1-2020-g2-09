@@ -37,9 +37,11 @@ public class CocineroService {
 	
 	@Transactional
 	public void saveCocinero(Cocina cocinero) throws DataAccessException {
-		cocineroRepository.save(cocinero);	
 		//creating user
 		userService.saveUser(cocinero.getUser());
+		
+		cocineroRepository.save(cocinero);	
+		
 		//creating authorities
 		authoritiesService.saveAuthorities(cocinero.getUser().getUsername(), "cocinero");
 	}	

@@ -42,7 +42,7 @@ public class Reserva extends BaseEntity {
 
 	@Column(name = "hora_reserva")
 	@NotNull
-	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+	@DateTimeFormat(pattern = "HH:mm")
 	private LocalTime hora;
 
 	@ManyToOne(cascade = CascadeType.MERGE)

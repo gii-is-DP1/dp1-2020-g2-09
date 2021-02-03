@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
+import javax.naming.Binding;
+
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -136,9 +138,8 @@ class ReservaControllerTests {
 							.param("numeroPersonas", "4")
 							.param("tipoReserva.name", "ALMUERZO")
 							.param("fechaReserva", "2022/02/12")
-							.param("hora", String.valueOf(LocalTime.of(22, 22))))	//el error dice que no se puede convertir de string a localtime
-							//.param("hora","12:12"))
-							.andExpect(status().is3xxRedirection())
+							.param("hora", "22:22"))	//el error dice que no se puede convertir de string a localtime
+				.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/reservas/"+TEST_RESERVA_ID+"/allMesasDisponibles"))
 				.andExpect(status().isOk());
 	}
@@ -148,12 +149,11 @@ class ReservaControllerTests {
 	void testProcessCreationFormHasErrors() throws Exception {
 		mockMvc.perform(post("/reservas/new")
 							.with(csrf())
-							.param("numeroPersonas", "tt")
+							.param("numeroPersonas", "0")
 							.param("tipoReserva", "CENA")
 							.param("fechaReserva", "2015/02/12")
-							.param("hora",String.valueOf(LocalTime.of(22, 22)))
+							.param("hora","10:22")
 							.param("mesasEnReserva","1"))
-				.andExpect(model().attributeHasErrors("reserva"))
 				.andExpect(status().isOk())
 				.andExpect(view().name("reservas/createOrUpdateReservaForm"));
 	}
@@ -174,15 +174,13 @@ class ReservaControllerTests {
 		mockMvc.perform(post("/reservas/{reservaId}/edit", TEST_RESERVA_ID)
 							.with(csrf())
 							.param("numeroPersonas", "6")
-							.param("tipoReserva.name", "ALMUERZO")
-							.param("fechaReserva", "2022/02/12")
-							.param("hora",String.valueOf(LocalTime.of(14, 14))))
-							//.param("hora","14:14"))
 
+							.param("tipoReserva.name", "CENA")
+							.param("fechaReserva", "2021/02/12")
+							.param("hora","22:22"))
 							//.param("hora",String.valueOf(LocalTime.of(10, 12))))
 							//.param("mesasEnReserva","1"))
 				.andExpect(status().is3xxRedirection())
-				.andExpect(status().isOk())
 				.andExpect(view().name("redirect:/reservas/{reservaId}/allMesasDisponibles"));
 	}
     

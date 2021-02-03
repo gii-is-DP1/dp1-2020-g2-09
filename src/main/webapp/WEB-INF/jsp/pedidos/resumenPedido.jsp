@@ -70,6 +70,77 @@
         
     </table>
     
+     <h3>Ofertas</h3>
+    <table id="ofertasTable" class="table table-striped">
+        <thead>
+        <tr>
+           	<th>Nombre</th>
+	        <th>Tamaño producto</th>
+	        <th>Coste</th>
+	        <th>Fin Oferta</th>
+	        <th>Nivel socio</th>
+	        <th>Descripción</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${ofertaPedido.ofertasList}" var="oferta">
+            <tr>
+               <td>
+	                    <c:out value="${oferta.name}"/>
+	               </td>
+	                <td>
+	             		<c:out value="${oferta.tamanoOferta}"/>
+	             	</td>
+	               <td>
+	                	<c:out value="${oferta.coste}"/>
+	             	</td>
+	             	<td>
+	             		<c:out value="${oferta.fechaFinal}"/>
+	             	</td>
+	             	
+	             	<td>
+	             		<c:out value="${oferta.nivelSocio}"/>
+	             	</td>
+             	<td>
+	             		<ul>
+	             			<c:forEach items="${oferta.pizzasEnOferta}" var="pizza">
+	             				<li>
+	             					<c:out value="${pizza.nombre}"/>
+	             				</li>
+	             			</c:forEach>
+	             		</ul>
+	             		<ul>
+	             			<c:forEach items="${oferta.bebidasEnOferta}" var="bebida">
+	             				<li>
+	             					<c:out value="${bebida.nombre}"/>
+	             				</li>
+	             			</c:forEach>
+	             		</ul>
+	             		<ul>
+	             			<c:forEach items="${oferta.otrosEnOferta}" var="otro">
+	             				<li>
+	             					<c:out value="${otro.nombre}"/>
+	             				</li>
+	             			</c:forEach>
+	             		</ul>
+	             		</td>    	
+             	<td>
+             	
+             	<sec:authorize access="hasAnyAuthority('cliente')"  >
+             		<spring:url value="/pedidos/{pedidoId}/cartas/{cartaId}/ofertas/{ofertaId}/borrarOf" var="borrarOferta">
+             			<spring:param name="cartaId" value="${cartaId}"/>
+             			<spring:param name="pedidoId" value="${pedido.id}"/>
+						<spring:param name="ofertaId" value="${oferta.id}"/>
+				 	</spring:url>
+					<a href="${fn:escapeXml(borrarOferta)}" class="btn btn-default">Eliminar</a>
+				</sec:authorize>
+      
+             	</td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+    
     <h3>Pizzas</h3>
     <table id="pizzasTable" class="table table-striped">
         <thead>
@@ -105,7 +176,6 @@
              			</c:forEach>
              		</ul>
              	</td>
-             	
              	
              	<td>
              	<sec:authorize access="hasAnyAuthority('cliente')"  >

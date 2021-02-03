@@ -92,7 +92,80 @@
         
         </tbody>
     </table>
-    <br/>  
+    <br/> 
+    <h3>Ofertas</h3>
+	    <table id="ofertasTableCarta" class="table table-striped">
+	        <thead>
+	        <tr>
+	            <th>Nombre</th>
+	            <th>Tamaño producto</th>
+	            <th>Coste</th>
+	            <th>Fin Oferta</th>
+	            <th>Nivel socio</th>
+	            <th>Descripción</th>
+	            <th></th>
+	            
+	        </tr>
+	        </thead>
+	        <tbody>
+	        <c:forEach items="${ofertaPedido}" var="oferta">
+	            <tr>
+	            <!-- <input  value="${pizza.id}">  -->
+	               <td>
+	                    <c:out value="${oferta.name}"/>
+	               </td>
+	                <td>
+	             		<c:out value="${oferta.tamanoOferta}"/>
+	             	</td>
+	               <td>
+	                	<c:out value="${oferta.coste}"/>
+	             	</td>
+	             	<td>
+	             		<c:out value="${oferta.fechaFinal}"/>
+	             	</td>
+	             	
+	             	<td>
+	             		<c:out value="${oferta.nivelSocio}"/>
+	             	</td>
+	             	 <td>
+	             		<ul>
+	             			<c:forEach items="${oferta.pizzasEnOferta}" var="pizza">
+	             				<li>
+	             					<c:out value="${pizza.nombre}"/>
+	             				</li>
+	             			</c:forEach>
+	             		</ul>
+	             		<ul>
+	             			<c:forEach items="${oferta.bebidasEnOferta}" var="bebida">
+	             				<li>
+	             					<c:out value="${bebida.nombre}"/>
+	             				</li>
+	             			</c:forEach>
+	             		</ul>
+	             		<ul>
+	             			<c:forEach items="${oferta.otrosEnOferta}" var="otro">
+	             				<li>
+	             					<c:out value="${otro.nombre}"/>
+	             				</li>
+	             			</c:forEach>
+	             		</ul>
+	             		<ul>
+	             			<sec:authorize access="hasAnyAuthority('cliente')"  >
+             					<spring:url value="/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirOferta/{ofertaId}" var="añadirOferta">
+             					<spring:param name="cartaId" value="${cartaId}"/>
+             					<spring:param name="pedidoId" value="${pedido.id}"/>
+								<spring:param name="ofertaId" value="${oferta.id}"/>
+				 			</spring:url>
+							<a href="${fn:escapeXml(añadirOferta)}" class="btn btn-default">Añadir Oferta</a>
+							</sec:authorize>
+	             		</ul>
+	             	</td>
+	             	
+	            </tr>
+	        </c:forEach>
+	        </tbody>
+	    </table>
+	    <br/> 
 	<h3>Pizzas</h3>
     <table id="pizzasTableCarta" class="table table-striped">
         <thead>
@@ -242,7 +315,6 @@
         <tr>
             <th>Nombre</th>
             <th>Coste</th>
-            <!--  <th>Contador</th> -->
             <th>Ingredientes</th>
         </tr>
         </thead>
@@ -254,10 +326,7 @@
                 </td>
                 <td>
                 	<c:out value="${otro.coste}"></c:out>
-             	<!--</td>
-             	   <td>
-             		<c:out value="${otro.contador}"/>
-             	</td>-->
+
              	<td>
              		<ul>
              			<c:forEach items="${otro.ingredientes}" var="ingrediente">
