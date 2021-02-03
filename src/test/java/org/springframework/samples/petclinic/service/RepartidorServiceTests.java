@@ -26,10 +26,13 @@ public class RepartidorServiceTests {
 	RepartidorRepository repartidorRepository;
 	
 	RepartidorService repartidorService;
+	UserService userService;
+	AuthoritiesService authoritiesService;
 	
 	@BeforeEach
 	void setUp() {
-		repartidorService = new RepartidorService(repartidorRepository);
+		repartidorService = new RepartidorService(repartidorRepository,
+				userService,authoritiesService);
 	}
 	
 	@Test

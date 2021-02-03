@@ -37,7 +37,6 @@ INSERT INTO authorities(id,username,authority) VALUES (13,'cliente1','cliente');
 INSERT INTO users(username,password,enabled) VALUES ('pepinho','pepinho',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (14,'pepinho','cliente');
 
-
 INSERT INTO NIVEL_SOCIO VALUES(3,'ORO');
 INSERT INTO NIVEL_SOCIO VALUES(1,'PLATA');
 INSERT INTO NIVEL_SOCIO VALUES(2,'BRONCE');

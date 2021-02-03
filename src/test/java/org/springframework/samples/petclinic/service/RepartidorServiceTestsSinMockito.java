@@ -79,16 +79,4 @@ public class RepartidorServiceTestsSinMockito {
 		//assertTrue(false);
 	}
 	
-	@Test
-	@Transactional
-	void shouldDeleteRepartidor() {
-		Repartidor repartidor = this.repartidorService.findRepartidorById(1);
-		
-		this.repartidorService.deleteRepartidor(repartidor);
-		
-		Repartidor repartidorEncontrado = this.repartidorService.findRepartidorById(1);
-		
-		assertNull(repartidorEncontrado);
-	}
-	
 }

@@ -12,6 +12,7 @@ import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Clientes;
 import org.springframework.samples.petclinic.model.NivelSocio;
 import org.springframework.samples.petclinic.model.Pedido;
+import org.springframework.samples.petclinic.model.Repartidor;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.service.ClienteService;
 import org.springframework.samples.petclinic.service.PedidoService;
@@ -109,27 +110,6 @@ public class ClienteController {
 	    UserDetails userDetail = (UserDetails) auth.getPrincipal();
 	    User usuario = this.userService.findUser(userDetail.getUsername()).get();
 	    Cliente cliente = this.clienteService.findCuentaByUser(usuario);
-	  //Nivel socio a determinar
-	    NivelSocio nivelSocio = new NivelSocio();
-	    List<Pedido> pedidosCliente = this.pedidoService
-				.findPedidosByCliente(cliente.getId());
-		Double acum = 0.;
-		for(int i=0; i<pedidosCliente.size(); i++) {
-			acum += pedidosCliente.get(i).getPrecio();
-		}
-		if(acum<100) {//mirar si eso las fechas
-			nivelSocio.setName("No tiene nivel de socio");
-			cliente.setNivelSocio(nivelSocio);
-		}else if(acum<200) {
-			nivelSocio.setName("BRONCE");
-			cliente.setNivelSocio(nivelSocio);
-		}else if(acum<300) {
-			nivelSocio.setName("PLATA");
-			cliente.setNivelSocio(nivelSocio);
-		}else {
-			nivelSocio.setName("ORO");
-			cliente.setNivelSocio(nivelSocio);
-		}
 	    mav.addObject(cliente);
 	    log.info("Devolviendo detalles del cliente");
 		return mav;
@@ -155,6 +135,31 @@ public class ClienteController {
 		}
 		else {
 			cliente.setId(cuentaId);
+			//Nivel socio a determinar
+		    NivelSocio nivelSocio = new NivelSocio();
+		    List<Pedido> pedidosCliente = this.pedidoService
+					.findPedidosByCliente(cliente.getId());
+			Double acum = 0.;
+			for(int i=0; i<pedidosCliente.size(); i++) {
+				acum += pedidosCliente.get(i).getPrecio();
+			}
+			if(acum<100) {//mirar si eso las fechas
+				nivelSocio.setId(4);
+				nivelSocio.setName("No tiene nivel de socio");
+				cliente.setNivelSocio(nivelSocio);
+			}else if(acum<200) {
+				nivelSocio.setId(2);
+				nivelSocio.setName("BRONCE");
+				cliente.setNivelSocio(nivelSocio);
+			}else if(acum<300) {
+				nivelSocio.setId(1);
+				nivelSocio.setName("PLATA");
+				cliente.setNivelSocio(nivelSocio);
+			}else {
+				nivelSocio.setId(3);
+				nivelSocio.setName("ORO");
+				cliente.setNivelSocio(nivelSocio);
+			}
 			this.clienteService.saveCliente(cliente);
 			log.info("Cliente actualizado");
 			return "clientes/clienteDetails";
