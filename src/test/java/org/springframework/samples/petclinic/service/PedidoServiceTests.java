@@ -251,4 +251,19 @@ public class PedidoServiceTests {
 	}
 	
 	
+	@Test
+	@Transactional
+	public void shouldCogerPrecioOferta() {
+		when(pedidoRepository.cogerPrecioOferta(anyInt())).thenReturn(22.5);
+		pedidoService.cogerPrecioOferta(4);
+		verify(pedidoRepository).cogerPrecioOferta(4);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotCogerPrecioOferta() {
+		
+		verify(pedidoRepository, never()).cogerPrecioOferta(4);
+	}
+	
 }

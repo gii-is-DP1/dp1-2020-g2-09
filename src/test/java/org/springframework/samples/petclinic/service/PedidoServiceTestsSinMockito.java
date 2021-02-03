@@ -14,6 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.petclinic.model.Bebida;
 import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.EstadoPedido;
+import org.springframework.samples.petclinic.model.Oferta;
 import org.springframework.samples.petclinic.model.Otro;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Pizza;
@@ -39,6 +40,9 @@ public class PedidoServiceTestsSinMockito {
 	
 	@Autowired
 	protected OtrosService otrosService;
+	
+	@Autowired
+	protected OfertaService ofertaService;
 	
 	@Test
 	@Transactional
@@ -169,6 +173,18 @@ public class PedidoServiceTestsSinMockito {
 	
 	@Test
 	@Transactional
+	void shouldAñadirOfertaAPedido() {
+		Pedido pedido = this.pedidoService.findPedidoById(1);
+		Oferta oferta = this.ofertaService.findOfertaById(1);
+		this.pedidoService.añadirOfertaAPedido(pedido.getId(), oferta.getId());
+		assertThat(pedido.getOfertasEnPedido().contains(oferta));
+		
+	}
+	
+	
+	
+	@Test
+	@Transactional
 	void shouldEliminarPizzaPedido() {
 		Pedido pedido = this.pedidoService.findPedidoById(1);
 		Pizza pizza = new Pizza();
@@ -212,6 +228,23 @@ public class PedidoServiceTestsSinMockito {
 		
 		
 	}
+	
+	@Test
+	@Transactional
+	void shouldEliminarOfertaPedido() {
+		Pedido pedido = this.pedidoService.findPedidoById(1);
+		Oferta oferta = new Oferta();
+		oferta.setId(1);
+		this.pedidoService.añadirOfertaAPedido(pedido.getId(), oferta.getId());
+		List<Oferta> ofertas = new ArrayList<>(pedido.getOfertasEnPedido());
+		Oferta o = ofertas.get(0);
+		this.pedidoService.eliminarOfertaPedido(pedido.getId(), o.getId());
+		assertThat(!pedido.getOtrosEnPedido().contains(o));
+		
+		
+	}
+	
+	
 	
 	
 	
