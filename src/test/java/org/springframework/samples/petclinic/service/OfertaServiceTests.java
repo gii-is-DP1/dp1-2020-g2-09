@@ -78,55 +78,194 @@ public class OfertaServiceTests {
 	
 	@Test
 	@Transactional
-	public void shouldNotFindAllReclamaciones() {
+	public void shouldNotFindAllOfertas() {
 		verify(ofertaRepository, never()).findAll();
 	}
 	
 	@Test
 	@Transactional
-	public void shouldSaveOferta() {
-		//Cargo los datos del SUT
-		Oferta o = new Oferta();
-		o.setCoste(20.0);
-		o.setFechaInicial(LocalDate.now());
-		o.setFechaFinal(LocalDate.of(2020, 12, 29));
-		
-		NivelSocio ns = new NivelSocio();
-		ns.setName("ORO");
-		o.setNivelSocio(ns);
-		
-		TamanoOferta to = new TamanoOferta();
-		to.setName("GRANDE");
-		o.setTamanoOferta(to);
-				
-	
-		
-		when(ofertaRepository.save(o)).thenReturn(o);
-		ofertaRepository.save(o);
-		verify(ofertaRepository).save(o);
+	public void shouldFindOfertasByEstadoOferta() {
+		when(ofertaRepository.findOfertasByEstadoOferta(org.mockito.ArgumentMatchers.anyBoolean())).thenReturn(new ArrayList<>());
+		ofertaService.findOfertasByEstadoOferta(true);
+		verify(ofertaRepository).findOfertasByEstadoOferta(true);
 	}
 	
-//	@Test
-//	@Transactional
-//	public void shouldNotSaveOferta() {
-//		//Cargo los datos del SUT
-//		Oferta o = new Oferta();
-//		o.setCoste(20.0);
-//		o.setFechaInicial(LocalDate.now());
-//		o.setFechaFinal(LocalDate.of(2020, 12, 29));
-//				
-//		NivelSocio ns = new NivelSocio();
-//		ns.setName("ORO");
-//		o.setNivelSocio(ns);
-//				
-//		TamanoOferta to = new TamanoOferta();
-//		to.setName("GRANDE");
-//		o.setTamanoOferta(to);
-//				
-//		
-//		verify(ofertaRepository, never())).saveOferta(o);
-//		
-//	}
+	@Test
+	@Transactional
+	public void shouldNotFindOfertasByEstadoOferta() {
+		verify(ofertaRepository, never()).findOfertasByEstadoOferta(true);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldFindTamanoOferta() {
+		when(ofertaRepository.findTamanoOferta()).thenReturn(new ArrayList<>());
+		ofertaService.findTamanoOferta();
+		verify(ofertaRepository).findTamanoOferta();
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotFindTamanoOferta() {
+		verify(ofertaRepository, never()).findTamanoOferta();
+	}
+	
+	@Test
+	@Transactional
+	public void shouldFindNivelSocio() {
+		when(ofertaRepository.findNivelSocio()).thenReturn(new ArrayList<>());
+		ofertaService.findNivelSocio();
+		verify(ofertaRepository).findNivelSocio();
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotFindNivelSocio() {
+		verify(ofertaRepository, never()).findNivelSocio();
+	}
+	
+	@Test
+	@Transactional
+	public void shouldFindOfertasEnPedidoById() {
+		when(ofertaRepository.findOfertasEnPedidoById(anyInt())).thenReturn(new ArrayList<>());
+		ofertaService.findOfertasEnPedidoById(1);
+		verify(ofertaRepository).findOfertasEnPedidoById(1);
+		
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotFindOfertasEnPedidoById() {
+		verify(ofertaRepository, never()).findOfertasEnPedidoById(1);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNumeroPizzasEnOferta() {
+		when(ofertaRepository.numeroPizzasEnOferta(anyInt())).thenReturn(new ArrayList<>());
+		ofertaService.numeroPizzasEnOferta(1);
+		verify(ofertaRepository).numeroPizzasEnOferta(1);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotNumeroPizzasEnOferta() {
+		verify(ofertaRepository, never()).numeroPizzasEnOferta(1);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNumeroBebidasEnOferta() {
+		when(ofertaRepository.numeroBebidasEnOferta(anyInt())).thenReturn(new ArrayList<>());
+		ofertaService.numeroBebidasEnOferta(1);
+		verify(ofertaRepository).numeroBebidasEnOferta(1);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotNumeroBebidasEnOferta() {
+		verify(ofertaRepository, never()).numeroBebidasEnOferta(1);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNumeroOtrosEnOferta() {
+		when(ofertaRepository.numeroOtrosEnOferta(anyInt())).thenReturn(new ArrayList<>());
+		ofertaService.numeroOtrosEnOferta(1);
+		verify(ofertaRepository).numeroOtrosEnOferta(1);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotNumeroOtrosEnOferta() {
+		verify(ofertaRepository, never()).numeroOtrosEnOferta(1);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldFindPizzasEnOferta() {
+		when(ofertaRepository.findPizzasEnOferta()).thenReturn(new ArrayList<>());
+		ofertaService.findPizzasEnOferta();
+		verify(ofertaRepository).findPizzasEnOferta();
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotFindPizzasEnOferta() {
+		verify(ofertaRepository, never()).findPizzasEnOferta();
+	}
+	
+	@Test
+	@Transactional
+	public void shouldFindBebidasEnOferta() {
+		when(ofertaRepository.findBebidasEnOferta()).thenReturn(new ArrayList<>());
+		ofertaService.findBebidasEnOferta();
+		verify(ofertaRepository).findBebidasEnOferta();
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotFindBebidasEnOferta() {
+		verify(ofertaRepository, never()).findBebidasEnOferta();
+	}
+	
+	@Test
+	@Transactional
+	public void shouldFindOtrosEnOferta() {
+		when(ofertaRepository.findOtrosEnOferta()).thenReturn(new ArrayList<>());
+		ofertaService.findOtrosEnOferta();
+		verify(ofertaRepository).findOtrosEnOferta();
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotFindOtrosEnOferta() {
+		verify(ofertaRepository, never()).findOtrosEnOferta();
+	}
+	
+	@Test
+	@Transactional
+	public void shouldFindPizzasEnOfertaByOfertaId(){
+		when(ofertaRepository.findPizzasEnOfertaByOfertaId(anyInt())).thenReturn(new ArrayList<>());
+		ofertaService.findPizzasEnOfertaByOfertaId(1);
+		verify(ofertaRepository).findPizzasEnOfertaByOfertaId(1);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotFindPizzasEnOfertaByOfertaId() {
+		verify(ofertaRepository, never()).findPizzasEnOfertaByOfertaId(1);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldFindBebidasEnOfertaByOfertaId(){
+		when(ofertaRepository.findBebidasEnOfertaByOfertaId(anyInt())).thenReturn(new ArrayList<>());
+		ofertaService.findBebidasEnOfertaByOfertaId(1);
+		verify(ofertaRepository).findBebidasEnOfertaByOfertaId(1);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotFindBebidasEnOfertaByOfertaId() {
+		verify(ofertaRepository, never()).findBebidasEnOfertaByOfertaId(1);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldFindOtrosEnOfertaByOfertaId(){
+		when(ofertaRepository.findOtrosEnOfertaByOfertaId(anyInt())).thenReturn(new ArrayList<>());
+		ofertaService.findOtrosEnOfertaByOfertaId(1);
+		verify(ofertaRepository).findOtrosEnOfertaByOfertaId(1);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotFindOtrosEnOfertaByOfertaId() {
+		verify(ofertaRepository, never()).findOtrosEnOfertaByOfertaId(1);
+	}
+	
+	
 	
 //	@Test
 //	@Transactional

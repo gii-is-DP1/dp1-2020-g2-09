@@ -13,21 +13,16 @@
         <thead>
         <tr>
             <th>ID de reclamación</th>
-            <th>Observación<th>
+            <th>Observación</th>
             <th>Respuesta </th>
             <th> Detalles </th>
             
             
         </tr>
-        
-<!--         <a href="/reclamaciones/new" class="btn btn-default">Añadir reclamación</a>
- -->        </thead>
+       </thead>
         <tbody>
         <c:forEach items="${reclamaciones.reclamacionesList}" var="reclamacion">
             <tr>
-               <%-- <td>
-             		<c:out value="${reclamacion.fechaReclamacion}"></c:out>
-             		</td> --%>
              		<td>
              		<c:out value="${reclamacion.id}"></c:out>
              		</td>
@@ -48,6 +43,7 @@
 	                </spring:url>
    					<a href="${fn:escapeXml(reclamacionUrl)}" class="btn btn-default">Responder</a>
              	</td>
+             	</c:if>
              	<td>
              	<spring:url value="/reclamaciones/{reclamacionId}/verDetalles" var="reclamacionUrl">
 	                        <spring:param name="reclamacionId" value="${reclamacion.id}"/>
@@ -55,7 +51,7 @@
    					<a href="${fn:escapeXml(reclamacionUrl)}" class="btn btn-default">Ver detalles</a>
              	</td>
              	
-             	</c:if>
+
              	<%-- <td>
              		<spring:url value="/reclamaciones/{reclamacionId}/delete" var="reclamacionUrl2">
 	                        <spring:param name="reclamacionId" value="${reclamacion.id}"/>
