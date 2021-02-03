@@ -103,6 +103,11 @@ public class CocineroController {
 //			CocineroValidator cocineroValidator = new CocineroValidator();
 //			ValidationUtils.invokeValidator(cocineroValidator, cocinero, result);
 			cocinero.setId(cocineroId);
+			Cocina antiguo = this.cocineroService.findCocineroById(cocineroId);
+			cocinero.setFechaInicioContrato(antiguo.getFechaInicioContrato());
+			if(antiguo.getFechaFinContrato()!=null) {
+				cocinero.setFechaFinContrato(antiguo.getFechaFinContrato());
+			}
 			this.cocineroService.saveCocinero(cocinero);
 			log.info("Cocinero actualizado");
 			return "redirect:/allCocineros";

@@ -14,15 +14,16 @@ public class RepartidorService {
 
 	private RepartidorRepository repartidorRepository;
 
-	@Autowired
 	private UserService userService;
-	
-	@Autowired
+
 	private AuthoritiesService authoritiesService;
 
 	@Autowired
-	public RepartidorService(RepartidorRepository repartidorRepository) {
+	public RepartidorService(RepartidorRepository repartidorRepository,
+			 UserService userService, AuthoritiesService authoritiesService) {
 		this.repartidorRepository = repartidorRepository;
+		this.userService = userService;
+		this.authoritiesService = authoritiesService;
 	}		
 
 	@Transactional(readOnly = true)	
@@ -43,12 +44,5 @@ public class RepartidorService {
 		//creating authorities
 		authoritiesService.saveAuthorities(repartidor.getUser().getUsername(), "repartidor");
 	}	
-	
-	@Transactional
-	public void deleteRepartidor(Repartidor repartidor) throws DataAccessException {
-		repartidorRepository.delete(repartidor);		
-	}	
-	
-	
 	
 }

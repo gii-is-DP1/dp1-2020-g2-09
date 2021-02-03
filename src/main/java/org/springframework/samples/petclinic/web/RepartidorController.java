@@ -6,9 +6,11 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Cocina;
 import org.springframework.samples.petclinic.model.Repartidor;
 import org.springframework.samples.petclinic.model.Repartidores;
 import org.springframework.samples.petclinic.service.RepartidorService;
+import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -24,11 +26,11 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class RepartidorController {
 
-	
 	private final RepartidorService repartidorService;
 
 	@Autowired
-	public RepartidorController(RepartidorService repartidorService) {
+	public RepartidorController(RepartidorService repartidorService,
+			UserService userService) {
 		this.repartidorService = repartidorService;
 	}
 
@@ -90,28 +92,21 @@ public class RepartidorController {
 	public String processUpdateCocineroForm(@Valid Repartidor repartidor, BindingResult result,
 			@PathVariable("repartidorId") int repartidorId, ModelMap model) {
 		if (result.hasErrors()) { 
-			repartidor.setId(repartidorId);
 			model.put("repartidores", repartidor);
 			log.warn("Fallo al actualizar repartidor");
 			return "repartidores/createOrUpdateRepartidorForm";
 		}
 		else {
-//			RepartidorValidator repValidator = new RepartidorValidator();
-//			ValidationUtils.invokeValidator(repValidator, repartidor, result);
 			repartidor.setId(repartidorId);
+			Repartidor antiguo = this.repartidorService.findRepartidorById(repartidorId);
+			repartidor.setFechaInicioContrato(antiguo.getFechaInicioContrato());
+			if(antiguo.getFechaFinContrato()!=null) {
+				repartidor.setFechaFinContrato(antiguo.getFechaFinContrato());
+			}
 			this.repartidorService.saveRepartidor(repartidor);
 			log.info("Repartidor actualizado");
 			return "redirect:/allRepartidores";
 		}
-	}
-	
-	//borrar repartidor
-	@GetMapping(value = "/repartidores/{repartidorId}/delete")
-	public String initDeleteCuenta(@PathVariable("repartidorId") int repartidorId, ModelMap model) {
-		Repartidor repartidor = this.repartidorService.findRepartidorById(repartidorId);
-		this.repartidorService.deleteRepartidor(repartidor);
-		log.info("Repartidor borrado");
-		return "redirect:/allRepartidores";
 	}
 	
 	//Alta y baja

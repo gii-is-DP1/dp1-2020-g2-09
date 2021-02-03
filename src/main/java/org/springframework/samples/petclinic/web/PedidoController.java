@@ -14,6 +14,7 @@ import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Cuenta;
 import org.springframework.samples.petclinic.model.EstadoPedido;
+import org.springframework.samples.petclinic.model.NivelSocio;
 import org.springframework.samples.petclinic.model.Oferta;
 import org.springframework.samples.petclinic.model.Ofertas;
 import org.springframework.samples.petclinic.model.Otro;
@@ -141,7 +142,7 @@ public class PedidoController {
 		}
 		String userName = userDetails.getUsername();
 	    User usuario = this.userService.findUser(userName).get();
-	    Cuenta cliente= this.clienteService.findCuentaByUser(usuario);
+	    Cliente cliente = this.clienteService.findCuentaByUser(usuario);
 	    pedidos.getPedidosList().addAll(this.pedidoService.findPedidosByCliente(cliente.getId()));
 		model.put("pedidos", pedidos);
 		LocalDate hoy = LocalDate.now();
@@ -380,6 +381,30 @@ public class PedidoController {
 			}else {
 				pedido.setGastosEnvio(3.5);
 			}*/
+			Cliente cliente = getClienteActivo();
+			
+			//Nivel socio a determinar
+		    NivelSocio nivelSocio = new NivelSocio();
+		    List<Pedido> pedidosCliente = this.pedidoService
+					.findPedidosByCliente(cliente.getId());
+			Double acum = 0.;
+			for(int i=0; i<pedidosCliente.size(); i++) {
+				acum += pedidosCliente.get(i).getPrecio();
+			}
+			if(acum<100) {//mirar si eso las fechas
+				nivelSocio.setName("No tiene nivel de socio");
+				cliente.setNivelSocio(nivelSocio);
+			}else if(acum<200) {
+				nivelSocio.setName("BRONCE");
+				cliente.setNivelSocio(nivelSocio);
+			}else if(acum<300) {
+				nivelSocio.setName("PLATA");
+				cliente.setNivelSocio(nivelSocio);
+			}else {
+				nivelSocio.setName("ORO");
+				cliente.setNivelSocio(nivelSocio);
+			}
+			this.clienteService.saveCliente(cliente);
 			log.info("Pedido en cocina.");
 			return "redirect:/pedidos/user";
 		}
