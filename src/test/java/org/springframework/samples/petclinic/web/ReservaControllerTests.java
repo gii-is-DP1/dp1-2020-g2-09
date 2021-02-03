@@ -136,8 +136,8 @@ class ReservaControllerTests {
 							.param("numeroPersonas", "4")
 							.param("tipoReserva.name", "ALMUERZO")
 							.param("fechaReserva", "2022/02/12")
-							//.param("hora", String.valueOf(LocalTime.of(22, 22))))	//el error dice que no se puede convertir de string a localtime
-							.param("hora","12:12"))
+							.param("hora", String.valueOf(LocalTime.of(22, 22))))	//el error dice que no se puede convertir de string a localtime
+							//.param("hora","12:12"))
 							.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/reservas/"+TEST_RESERVA_ID+"/allMesasDisponibles"))
 				.andExpect(status().isOk());

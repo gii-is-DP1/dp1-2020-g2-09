@@ -5,11 +5,13 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Administrador;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.stereotype.Service;
@@ -82,13 +84,16 @@ public class AdministradorServiceTestsSinMockito {
 	@Transactional
 	void shouldDeleteAdministrador() {
 		Administrador admin = this.administradorService.findAdministradorById(1);
-		
 		this.administradorService.deleteAdministrador(admin);
-		
 		Administrador adminEncontrado = this.administradorService.findAdministradorById(1);
-		
 		assertNull(adminEncontrado);
 	}
 	
 	
+	@Test
+	@Transactional
+	void shouldfindAdministradores() {
+		List<Administrador> admin = this.administradorService.findAdministradores();
+		assertTrue(true);
+	}
 }
