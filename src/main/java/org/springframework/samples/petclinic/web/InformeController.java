@@ -1,7 +1,9 @@
 package org.springframework.samples.petclinic.web;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,8 +12,14 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Ingrediente;
 import org.springframework.samples.petclinic.model.Mesa;
+import org.springframework.samples.petclinic.model.Oferta;
+import org.springframework.samples.petclinic.model.Otro;
+import org.springframework.samples.petclinic.model.Otros;
+import org.springframework.samples.petclinic.model.Pedido;
+import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.service.IngredienteService;
 import org.springframework.samples.petclinic.service.MesaService;
+import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.samples.petclinic.service.PizzaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -29,12 +37,14 @@ public class InformeController {
 	private final IngredienteService IngredienteService;
 	private final PizzaService PizzaService;
 	private final MesaService mesaService;
+	private final PedidoService pedidoService;
 
 	@Autowired
-	public InformeController(IngredienteService IngredienteService, PizzaService PizzaService,MesaService mesaService) {
+	public InformeController(IngredienteService IngredienteService, PizzaService PizzaService,MesaService mesaService, PedidoService pedidoService) {
 		this.mesaService = mesaService;
 		this.IngredienteService = IngredienteService;
 		this.PizzaService = PizzaService;
+		this.pedidoService = pedidoService;
 	}
 
 	@InitBinder
@@ -109,5 +119,46 @@ public class InformeController {
 		log.info("Mostrando informe caducidad ingredientes");
 
 		return "informe/CaducidadIngredientes";
+	}
+	
+	@GetMapping(value = "/informe/PizzasMasPedidos")
+	public String informePizzasMasPedidos(Map<String, Object> model) {
+		List<Pedido> l = this.pedidoService.findPedidos();
+		Map<Pizza, Integer> pizzaMap = new HashMap<Pizza, Integer>();
+		for (Pedido pedido: l) {
+			Collection<Pizza> pizzasEnPedido = pedido.getPizzasEnPedido();
+			for (Pizza p:pizzasEnPedido) {
+				if(pizzaMap.containsKey(p)) {
+					Integer contador = pizzaMap.get(p) +1;
+					pizzaMap.put(p, contador);
+					
+				}else {
+					pizzaMap.put(p, 1);
+				}
+			}
+			Collection<Oferta> ofertasEnPedido = pedido.getOfertasEnPedido();
+			for(Oferta o: ofertasEnPedido) {
+				List<Pizza> lPizza = o.getPizzasEnOferta();
+				for (Pizza p:lPizza) {
+					if(pizzaMap.containsKey(p)) {
+						Integer contador = pizzaMap.get(p) +1;
+						pizzaMap.put(p, contador);
+						
+					}else {
+						pizzaMap.put(p, 1);
+					}
+				}
+			}
+			
+		}
+	
+		Map<Pizza, Integer> mapaOrdenado=pizzaMap.entrySet().stream()
+				.sorted((Map.Entry.<Pizza, Integer>comparingByValue().reversed()))
+		        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+		model.put("mapa", mapaOrdenado);
+		
+		log.info("Monstrando informe de las pizzas mas pedidas");
+
+		return "informe/InformePizzasMasPedidas";
 	}
 }
