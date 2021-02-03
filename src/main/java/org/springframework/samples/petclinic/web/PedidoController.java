@@ -227,6 +227,17 @@ public class PedidoController {
 		}
 		else {
 			pedido.setId(pedidoId);
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			UserDetails userDetails = null;
+			if (principal instanceof UserDetails) {
+			  userDetails = (UserDetails) principal;
+			}
+			String userName = userDetails.getUsername();
+		    User usuario = this.userService.findUser(userName).get();
+		    Cuenta cliente= this.clienteService.findCuentaByUser(usuario);
+			pedido.setCliente((Cliente) cliente);
+			pedido.setPrecio(0.0);
+			pedido.setFechaPedido(LocalDate.now());
 			this.pedidoService.savePedido(pedido);
 			log.info("Pedido actualizado correctamente.");
 			return "redirect:/pedidos/user";
