@@ -4,6 +4,7 @@ package org.springframework.samples.petclinic.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
@@ -23,6 +24,9 @@ public class Mesa extends BaseEntity{
 	@Min(0)
 	@Max(6)
 	private Integer capacidad;
+	
+	@Version
+	private Integer version;
 	
 //	@ManyToMany(cascade = CascadeType.ALL)
 //	@JoinTable(name = "reservaAsociada", joinColumns =@JoinColumn(name= "mesa_id"))
