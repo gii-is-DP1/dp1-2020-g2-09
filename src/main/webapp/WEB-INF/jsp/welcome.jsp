@@ -23,6 +23,7 @@
     	<c:forEach items="${persons}" var="person">
     		<h4>${person.firstName}${person.lastName}</h4>
     	</c:forEach>
+<<<<<<< HEAD
     	</ul>
     </div>
 	</sec:authorize>
@@ -129,8 +130,6 @@
             </tbody>
         </table>
          			
-   
-
      </sec:authorize>
      
         <sec:authorize access="hasAnyAuthority('cliente')"  >
