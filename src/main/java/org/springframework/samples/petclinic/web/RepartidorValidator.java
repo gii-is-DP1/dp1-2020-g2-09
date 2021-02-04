@@ -31,43 +31,41 @@ public class RepartidorValidator implements Validator{
 		String nombreUsuario = usuario.getUsername();
 		String contraseña = usuario.getPassword();
 		
-		Pattern patternNombre = Pattern
-                .compile("^[a-zA-ZñÑ\\s]+$");
-		Matcher matcherNombre = patternNombre.matcher(nombre);
-		
 		//nombre
 		if(nombre==null) {
 			errors.rejectValue("nombre", "El nombre debe tener de 2 a 20 caracteres","El nombre debe tener de 2 a 20 caracteres");
 		}else if(nombre.length()<2 || nombre.length()>20) {
 			errors.rejectValue("nombre","El nombre debe tener de 2 a 20 caracteres", "El nombre debe tener de 2 a 20 caracteres");
-		}else if(!matcherNombre.find()) {
-			errors.rejectValue("nombre", 
-					"El nombre no posee el formato correcto",
-					"El nombre no posee el formato correcto");
 		}
 		
-		Matcher matcherApellidos = patternNombre.matcher(apellidos);
 		//apellidos
 		if(apellidos==null) {
 			errors.rejectValue("apellidos", REQUIRED+" y entre 2 y 20 caracteres (no nulo)",
 					REQUIRED+" y entre 2 y 20 caracteres");
 		}else if(apellidos.length()<2 || apellidos.length()>10) {
 			errors.rejectValue("apellidos","El nombre debe tener de 2 a 20 caracteres.", "El nombre debe tener de 2 a 20 caracteres.");
-		}else if(!matcherApellidos.find()) {
-			errors.rejectValue("apellidos", 
-					"Los apellidos no poseen el formato correcto",
-					"Los apellidos no poseen el formato correcto");
 		}
 		
 		//fechaNacimiento
 		if(fechaNacimiento==null) {
 			errors.rejectValue("fechaNacimiento", "La fecha no puede estar vacía",
 					"La fecha no puede estar vacía");
-		}else if(fechaNacimiento.isAfter(LocalDate.now())) {
-			errors.rejectValue("fechaNacimiento", 
-					"La fecha de nacimiento no puede ser superior a la de hoy",
-					"La fecha de nacimiento no puede ser superior a la de hoy");
 		}
+		//fecha de inicio de contrato
+		/*if (fechaInicioContrato.isAfter(LocalDate.now())) {
+			errors.rejectValue("fechaInicioContrato", REQUIRED, REQUIRED + "La fecha debe de ser pasada");
+		}
+		
+		//fecha de fin de contrato
+		if (fechaFinContrato.isBefore(LocalDate.now())) {
+			errors.rejectValue("fechaFinContrato", REQUIRED, 
+					REQUIRED + "La fecha debe de ser futura o actual");
+		}
+		
+		 if (fechaFinContrato.isBefore(fechaInicioContrato)) {
+			errors.rejectValue("fechaFinContrato", REQUIRED, 
+					REQUIRED + "La fecha de fin de contrato debe ser posterior a la de inicio");
+		}*/
 		
 		//telefono
 		if(telefono==null) {

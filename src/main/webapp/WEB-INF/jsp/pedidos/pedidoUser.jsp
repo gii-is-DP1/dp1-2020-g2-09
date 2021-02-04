@@ -97,6 +97,7 @@
             <!-- <th>Estado pedido</th> -->
             <th>Tipo Envio</th>
             <th>Tipo Pago</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>

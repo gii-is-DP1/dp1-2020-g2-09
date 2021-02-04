@@ -37,9 +37,9 @@ INSERT INTO authorities(id,username,authority) VALUES (13,'cliente1','cliente');
 INSERT INTO users(username,password,enabled) VALUES ('pepinho','pepinho',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (14,'pepinho','cliente');
 
-INSERT INTO NIVEL_SOCIO(id, name) VALUES(3,'ORO');
-INSERT INTO NIVEL_SOCIO(id, name) VALUES(1,'PLATA');
-INSERT INTO NIVEL_SOCIO(id, name) VALUES(2,'BRONCE');
+INSERT INTO NIVEL_SOCIO VALUES(3,'ORO');
+INSERT INTO NIVEL_SOCIO VALUES(1,'PLATA');
+INSERT INTO NIVEL_SOCIO VALUES(2,'BRONCE');
 
 
 INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
@@ -87,17 +87,17 @@ INSERT INTO repartidores(nombre,apellidos,fecha_nacimiento,telefono,email, fecha
 VALUES ('Pepa','Cansado Levante','1995-09-13','985432158','cansado_levante@gmail.com', '2020-11-22', 'ejemplo1');
 
 
-INSERT INTO TIPO_PAGO(id, name) VALUES(2,'EFECTIVO');
-INSERT INTO TIPO_PAGO(id, name) VALUES(1,'TARJETA');
+INSERT INTO TIPO_PAGO VALUES(2,'EFECTIVO');
+INSERT INTO TIPO_PAGO VALUES(1,'TARJETA');
 
-INSERT INTO ESTADO_PEDIDO(id, name)VALUES(1,'EN COCINA');
-INSERT INTO ESTADO_PEDIDO(id, name) VALUES(2,'PREPARADO');
-INSERT INTO ESTADO_PEDIDO(id, name) VALUES(3,'EN REPARTO');
-INSERT INTO ESTADO_PEDIDO(id, name) VALUES(4,'ENTREGADO');
-INSERT INTO ESTADO_PEDIDO(id, name) VALUES(5,'RECOGIDO');
+INSERT INTO ESTADO_PEDIDO VALUES(1,'EN COCINA');
+INSERT INTO ESTADO_PEDIDO VALUES(2,'PREPARADO');
+INSERT INTO ESTADO_PEDIDO VALUES(3,'EN REPARTO');
+INSERT INTO ESTADO_PEDIDO VALUES(4,'ENTREGADO');
+INSERT INTO ESTADO_PEDIDO VALUES(5,'RECOGIDO');
 
-INSERT INTO TIPO_ENVIO(id, name) VALUES(2,'DOMICILIO');
-INSERT INTO TIPO_ENVIO(id, name) VALUES(1,'RECOGER EN TIENDA');
+INSERT INTO TIPO_ENVIO VALUES(2,'DOMICILIO');
+INSERT INTO TIPO_ENVIO VALUES(1,'RECOGER EN TIENDA');
 
 
 INSERT INTO administradores(nombre,apellidos,fecha_nacimiento,telefono,email, usuario)
@@ -113,19 +113,19 @@ INSERT INTO administradores(nombre,apellidos,fecha_nacimiento,telefono,email, us
 VALUES ('Lucia','Torres','2000-01-01','654789654','luciatg30@gmail.com', 'luctorgom');
 
 
-INSERT INTO TIPO_RESERVA(id, name) VALUES(1,'ALMUERZO');
-INSERT INTO TIPO_RESERVA(id, name) VALUES(2,'CENA');
+INSERT INTO TIPO_RESERVA VALUES(1,'ALMUERZO');
+INSERT INTO TIPO_RESERVA VALUES(2,'CENA');
 
-INSERT INTO RESERVAS(id, fecha_reserva, hora_reserva, numero_personas, tipo_reserva) VALUES(1,'2020-05-29','10:34:09',5,1);
-INSERT INTO RESERVAS(id, fecha_reserva, hora_reserva, numero_personas, tipo_reserva) VALUES(2,'2020-07-12','20:34:09',2,1); 
-INSERT INTO RESERVAS(id, fecha_reserva, hora_reserva, numero_personas, tipo_reserva) VALUES(3,'2020-05-29','10:34:09',5,1);
-INSERT INTO RESERVAS(id, fecha_reserva, hora_reserva, numero_personas, tipo_reserva) VALUES(4,'2020-07-12','20:34:09',2,1);
-INSERT INTO RESERVAS(id, fecha_reserva, hora_reserva, numero_personas, tipo_reserva) VALUES(5,'2020-05-29','10:34:09',5,2);
-INSERT INTO RESERVAS(id, fecha_reserva, hora_reserva, numero_personas, tipo_reserva) VALUES(6,'2020-07-12','20:34:09',2,2);
-INSERT INTO RESERVAS(id, fecha_reserva, hora_reserva, numero_personas, tipo_reserva) VALUES(7,'2020-05-29','10:34:09',5,2);
-INSERT INTO RESERVAS(id, fecha_reserva, hora_reserva, numero_personas, tipo_reserva) VALUES(8,'2020-07-12','20:34:09',2,2);
-INSERT INTO RESERVAS(id, fecha_reserva, hora_reserva, numero_personas, tipo_reserva) VALUES(9,'2020-05-29','10:34:09',5,2);
-INSERT INTO RESERVAS(id, fecha_reserva, hora_reserva, numero_personas, tipo_reserva) VALUES(10,'2020-07-12','20:34:09',2,2);
+INSERT INTO RESERVAS VALUES(1,'2020-05-29','10:34:09',5,1,1);
+INSERT INTO RESERVAS VALUES(2,'2020-07-12','20:34:09',2,1,1); 
+INSERT INTO RESERVAS VALUES(3,'2020-05-29','10:34:09',5,1,2);
+INSERT INTO RESERVAS VALUES(4,'2020-07-12','20:34:09',2,1,1);
+INSERT INTO RESERVAS VALUES(5,'2020-05-29','10:34:09',5,2,2);
+INSERT INTO RESERVAS VALUES(6,'2020-07-12','20:34:09',2,2,1);
+INSERT INTO RESERVAS VALUES(7,'2020-05-29','10:34:09',5,2,1);
+INSERT INTO RESERVAS VALUES(8,'2020-07-12','20:34:09',2,2,1);
+INSERT INTO RESERVAS VALUES(9,'2020-05-29','10:34:09',5,2,1);
+INSERT INTO RESERVAS VALUES(10,'2020-07-12','20:34:09',2,2,1);
 
 
 INSERT INTO RECLAMACIONES(observacion, respuesta)
@@ -154,11 +154,11 @@ INSERT INTO RESERVA_MESA (RESERVA_ID, MESAS_EN_RESERVA_ID) VALUES (8,2);
 INSERT INTO RESERVA_MESA (RESERVA_ID, MESAS_EN_RESERVA_ID) VALUES (10,8);
 INSERT INTO RESERVA_MESA (RESERVA_ID, MESAS_EN_RESERVA_ID) VALUES (7,5);
 
-INSERT INTO TAMANO_PRODUCTO(id, name) VALUES(1,'NORMAL');
-INSERT INTO TAMANO_PRODUCTO(id, name) VALUES(2,'GRANDE');
+INSERT INTO TAMANO_PRODUCTO VALUES(1,'NORMAL');
+INSERT INTO TAMANO_PRODUCTO VALUES(2,'GRANDE');
 
-INSERT INTO TAMANO_OFERTA(id, name) VALUES(1,'NORMAL');
-INSERT INTO TAMANO_OFERTA(id, name) VALUES(3,'GRANDE');
+INSERT INTO TAMANO_OFERTA VALUES(1,'NORMAL');
+INSERT INTO TAMANO_OFERTA VALUES(3,'GRANDE');
 
 
 INSERT INTO OFERTAS(NAME,ESTADO_OFERTA,TAMANO_OFERTA,COSTE,FECHA_INICIAL,NIVEL_SOCIO,FECHA_FINAL) values
@@ -189,28 +189,28 @@ INSERT INTO OFERTA_PEDIDO(PEDIDO_ID, OFERTAS_EN_PEDIDO_ID) values (1, 1);
 INSERT INTO OFERTA_PEDIDO(PEDIDO_ID, OFERTAS_EN_PEDIDO_ID) values (1, 2); 
 INSERT INTO OFERTA_PEDIDO(PEDIDO_ID, OFERTAS_EN_PEDIDO_ID) values (4, 3); 
 
-INSERT INTO TIPO_MASA(id, name) VALUES(1,'FINA');
-INSERT INTO TIPO_MASA(id, name) VALUES(3,'GRUESA');
-INSERT INTO TIPO_MASA(id, name) VALUES(2,'RELLENA');
+INSERT INTO TIPO_MASA VALUES(1,'FINA');
+INSERT INTO TIPO_MASA VALUES(3,'GRUESA');
+INSERT INTO TIPO_MASA VALUES(2,'RELLENA');
 
 /*INSERT INTO TAMAÑO VALUES(1,'GRANDE');
 INSERT INTO TAMAÑO VALUES(3,'PEQUEÑA');
 INSERT INTO TAMAÑO VALUES(2,'MEDIANA');*/
 
-INSERT INTO Alergenos(id,name) VALUES(1,'Crustaceos y productos a base de crustaceos');
-INSERT INTO Alergenos(id,name) VALUES(2,'Cereales que contengan gluten');
-INSERT INTO Alergenos(id,name) VALUES(3,'Huevos y productos a base de huevo');
-INSERT INTO Alergenos(id,name) VALUES(4,'Pescado y productos a base de pescado');
-INSERT INTO Alergenos(id,name) VALUES(5,'Cacahuetes y productos a base de cacahuetes');
-INSERT INTO Alergenos(id,name) VALUES(6,'Soja y productos a base de soja');
-INSERT INTO Alergenos(id,name) VALUES(7,'Leche y sus derivados');
-INSERT INTO Alergenos(id,name) VALUES(8,'Frutos de cascara');
-INSERT INTO Alergenos(id,name) VALUES(9,'Apio y productos derivados');
-INSERT INTO Alergenos(id,name) VALUES(10,'Mostaza y productos derivados');
-INSERT INTO Alergenos(id,name) VALUES(11,'Granos de sesamo');
-INSERT INTO Alergenos(id,name) VALUES(12,'Dioxido de azufre y sulfitos');
-INSERT INTO Alergenos(id,name) VALUES(13,'Altramuces y productos a base de altramuces');
-INSERT INTO Alergenos(id,name) VALUES(14,'Moluscos y productos a base de moluscos');
+INSERT INTO Alergenos VALUES(1,'Crustaceos y productos a base de crustaceos');
+INSERT INTO Alergenos VALUES(2,'Cereales que contengan gluten');
+INSERT INTO Alergenos VALUES(3,'Huevos y productos a base de huevo');
+INSERT INTO Alergenos VALUES(4,'Pescado y productos a base de pescado');
+INSERT INTO Alergenos VALUES(5,'Cacahuetes y productos a base de cacahuetes');
+INSERT INTO Alergenos VALUES(6,'Soja y productos a base de soja');
+INSERT INTO Alergenos VALUES(7,'Leche y sus derivados');
+INSERT INTO Alergenos VALUES(8,'Frutos de cascara');
+INSERT INTO Alergenos VALUES(9,'Apio y productos derivados');
+INSERT INTO Alergenos VALUES(10,'Mostaza y productos derivados');
+INSERT INTO Alergenos VALUES(11,'Granos de sesamo');
+INSERT INTO Alergenos VALUES(12,'Dioxido de azufre y sulfitos');
+INSERT INTO Alergenos VALUES(13,'Altramuces y productos a base de altramuces');
+INSERT INTO Alergenos VALUES(14,'Moluscos y productos a base de moluscos');
 
 INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ( '2021-01-01' ,'Pan', 'Rico en carbohidratos', 2); 
 INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-02-02' ,'Queso', 'Rico en proteinas', 7);

@@ -39,6 +39,14 @@
 	                </spring:url>
              		<a href="${fn:escapeXml(cartaUrl3)}" class="btn btn-default">Acceder a la carta</a>
                 </td>
+                <td>
+                <sec:authorize access="hasAnyAuthority('administrador')"  >
+             		<spring:url value="/cartas/{cartaId}/edit" var="cartaUrl">
+	                        <spring:param name="cartaId" value="${cartas.id}"/>
+	                </spring:url>
+   					<a href="${fn:escapeXml(cartaUrl)}" class="btn btn-default">Editar</a>
+   					</sec:authorize>
+             	</td>
              	<td>
              	<sec:authorize access="hasAnyAuthority('administrador')"  >
              		<spring:url value="/cartas/{cartaId}/delete" var="cartaUrl2">

@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Bebida;
 import org.springframework.samples.petclinic.model.Bebidas;
-import org.springframework.samples.petclinic.model.Mesa;
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -88,8 +86,7 @@ public class BebidaController {
 	// mandar actualizacion
 	@PostMapping(value = "/bebidas/{bebidaId}/edit")
 	public String processUpdateBebidaForm(@Valid Bebida bebida, BindingResult result,
-			@PathVariable("bebidaId") int bebidaId, @RequestParam(value = "version", required=false) Integer version) {
-		
+			@PathVariable("bebidaId") int bebidaId) {
 		if (result.hasErrors()) {
 			log.error("Error en la actualizacion de bebida");
 			return "bebidas/createOrUpdateBebidaForm";

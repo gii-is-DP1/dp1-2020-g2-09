@@ -29,7 +29,8 @@ public class RepartidorController {
 	private final RepartidorService repartidorService;
 
 	@Autowired
-	public RepartidorController(RepartidorService repartidorService) {
+	public RepartidorController(RepartidorService repartidorService,
+			UserService userService) {
 		this.repartidorService = repartidorService;
 	}
 
@@ -133,12 +134,4 @@ public class RepartidorController {
 			return "redirect:/allRepartidores";
 		}
 		
-		//borrar repartidor
-		@GetMapping(value = "/repartidores/{repartidorId}/delete")
-		public String initDeleteCuenta(@PathVariable("repartidorId") int repartidorId, ModelMap model) {
-			Repartidor rep = this.repartidorService.findRepartidorById(repartidorId);
-			this.repartidorService.deleteRepartidor(rep);
-			log.info("Repartidor borrado");
-			return "redirect:/allRepartidores";
-		}	
 }

@@ -5,65 +5,192 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%> 
-<!-- LA SIGUIENTE LINEA ES IMPRESCINDIBLE SINO NO SALDRIA EL C:FOREACH -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<petclinic:layout pageName="home">
-    <!--<h2><fmt:message key="welcome"/></h2>
-    <spring:url value="/resources/images/logoPNG_3.png" htmlEscape="true" var="logoImage"/>
-            <img class="img-responsive" src="${logoImage}"/>-->
+
+<petclinic:layout pageName="home">   
     <div class="row">
     	<h2>Bienvenido a Roto's Pizza ${title}</h2>
-    	<h2>Este proyecto ha sido realizado por:  ${group}</h2>
+        
+     	<sec:authorize access="anonymous">
+	<div class="row">
+        <div class="col-md-12">
+            <spring:url value="/resources/images/pizza.jpg" htmlEscape="true" var="pizzaImagen"/> 
+            <img class="img-responsive" src="${pizzaImagen}"/>
+        </div>
+    </div>
+    <h3>Este proyecto ha sido realizado por:  ${group}</h3>
     	<ul>
     	<c:forEach items="${persons}" var="person">
-    		<li>${person.firstName}${person.lastName}</li>
+    		<h4>${person.firstName}${person.lastName}</h4>
     	</c:forEach>
-    	</ul>	
-    </div>    
-    <div><p><b>HISTORIAS DE USUARIO IMPLEMENTADAS (Iniciar sesión como administrador(admin1 -> admin1)).</b></p> </div>
-    <sec:authorize access="hasAnyAuthority('administrador')"  >
-    <div> <a href="/allCuentas">Cuentas</a></div>
-    <div><a href="/allCocineros">H-001: Gestión de plantilla (cocineros).</a></div>
-    <div><a href="/allRepartidores">H-001: Gestión de plantilla (repartidores).</a></div>
-     <div> <a href="/allMesas">H-002: Número de mesas.</a></div>
-     <div><a href="/informe/IngredientesMasUsados">H-003: Informe de ingredientes.</a></div>
-     <div><a href="/allOfertas">H-004: Ofertas disponibles, H-023: Modificar Ofertas, H-024: Eliminar Ofertas</a></div>
-     <div><a href="/informe/CaducidadIngredientes">H-006: Informe de caducidad.</a></div>
-     <div><a href="/allReclamaciones">H-007: Visualizar reclamaciones, H-027: Responder reclamación</a></div>
-     <div><a href="/allCartas">H-008: Actualizaciones en la carta, H-030: Contenido de carta</a></div>
-     <div><a >H-019: Pizzas más vendidas (NO ESTÁ HECHO)</a></div>
-     <div><a >H-020: Iniciar sesión(HECHO)</a></div>
-     <div><a href="/informe/MesasMasUsadas">H-021: Informe de mesas más reservadas.</a></div>
+<<<<<<< HEAD
+    	</ul>
+    </div>
+	</sec:authorize>
+        <sec:authorize access="hasAnyAuthority('administrador')"  >
+
+ <!--   <div><p><b>HISTORIAS DE USUARIO IMPLEMENTADAS (Iniciar sesión como administrador(admin1 -> admin1)).</b></p> </div> -->
+ 
+ 
+     <table id="administradorTable" class="table table-striped" aria-describedby="gestionGeneral">
+            <thead>
+            <tr>
+                <th scope="col">GESTION DEL NEGOCIO</th>
+            </tr>
+            </thead>
+            <tbody> 
+            <c:forEach items="{1}" var="nums">  
+                <tr>
+                     <td>
+     					<div><a href="/allOfertas">Ofertas</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+    					<div><a href="/allReclamaciones">Reclamaciones</a></div>
+                    </td>
+                </tr>
+                <tr>
+                     <td>
+     					<div><a href="/allCartas">Carta</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                         <div> <a href="/allMesas">Mesas</a></div>
+                    </td>
+                </tr>
+              <!--  <tr>
+                    <td>
+    				 <div><a >H-020: Iniciar sesión(HECHO)</a></div> 
+                    </td>
+                </tr>-->
+            </c:forEach>
+            </tbody>
+        </table>
+        
+        
+    <table id="administradorTable" class="table table-striped" aria-describedby="gestionPersonal">
+            <thead>
+            <tr>
+                <th scope="col">GESTION DE PERSONAL</th>
+            </tr>
+            </thead>
+            <tbody> 
+            <c:forEach items="{1}" var="nums">  
+           		 <tr>
+                 	<td>
+                         <div> <a href="/allCuentas">Gestion de cuentas</a></div>
+                    </td>
+           		</tr>
+          		<tr>         
+                    <td>
+                         <div><a href="/allCocineros">Gestión de cocineros.</a></div>
+                    </td>
+         		</tr>
+         		<tr>           
+                    <td>
+    					 <div><a href="/allRepartidores">Gestión de repartidores</a></div>
+                    </td>
+          		</tr>          
+            </c:forEach>
+            </tbody>
+        </table>
+        
+        
+    <table id="administradorTable" class="table table-striped" aria-describedby="Informes">
+            <thead>
+            <tr>
+                <th scope="col">INFORMES</th>
+            </tr>
+            </thead>
+            <tbody> 
+            <c:forEach items="{1}" var="nums">  
+                <tr>
+                     <td>
+    					 <div><a href="/informe/IngredientesMasUsados">Informe de ingredientes</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+     					<div><a href="/informe/CaducidadIngredientes">Informe de caducidad</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+     					<div><a href="/informe/MesasMasUsadas">Informe de mesas más reservadas</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+     					<div><a href="/informe/PizzasMasPedidos">Informe pizzas más vendidas</a></div>
+     				</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+         			
      </sec:authorize>
      
-     <div><p><b>HISTORIAS DE USUARIO IMPLEMENTADAS (Iniciar sesión como cliente(margarcac1 -> margarcac1)).</b></p> </div>
-   <sec:authorize access="hasAnyAuthority('cliente')"  >
-    		<div><a href="/clientes/DetallesPerfil">H-005: Datos del cliente.</a></div>
-    		<div><a href="/pedidos/user">H-009:Pedidos a domicilio, H-011:Personalizar pizzas, H-012:Tamaño del producto, H-014:Pago del pedido, H-015:Recogida del pedido, H-016:Estado del pedido, H-017:Cancelar pedido</a></div>
-    		<div><a href="/reservas/user">H-010: Reservar una mesa</a></div>
-    		<div><a href="/allCartas">H-013: Acceder a la carta, H-028: Pizzas en oferta, H-029: Ingredientes de Pizzas</a></div>
-    		<div><a href="/reclamaciones/user">H-022: Realizar reclamaciones</a></div>
+        <sec:authorize access="hasAnyAuthority('cliente')"  >
+
+    <!-- <div><p><b>HISTORIAS DE USUARIO IMPLEMENTADAS (Iniciar sesión como cliente(margarcac1 -> margarcac1)).</b></p> </div> -->
+         <table id="clienteTable" class="table table-striped" aria-describedby="Cliente">
+            <thead>
+           	 	<th scope="col">Acceder a</th>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="col"><a href="/clientes/DetallesPerfil">Datos personales</a></th>
+            </tr>            
+             <tr>
+                <th scope="col"><a href="/pedidos/user">Mis pedidos</a></th>
+            </tr>
+             <tr>
+                <th scope="col"><a href="/pedidos/new">Nuevo pedido</a></th>
+            </tr>
+             <tr>
+                <th scope="col"><a href="/reservas/user">Mis reservas</a></th>
+            </tr>
+             <tr>
+                <th scope="col"><a href="/cartas/1/VerCarta">Carta y Ofertas</a></th>
+            </tr>
+            <tr>
+                <th scope="col"><a href="/reclamaciones/user">Mis reclamaciones</a></th>
+            </tr>
+
+            </tbody>
+            
+        </table>
     		
     	</sec:authorize>
-
-     <div><p><b>HISTORIAS DE USUARIO IMPLEMENTADAS (Iniciar sesión como cocinero(cocinero1 -> cocinero1)).</b></p> </div>
-      <div>
      	<sec:authorize access="hasAnyAuthority('cocinero')"  >
-      		<a href="/pedidos/cocinero">H-018: Control de elaboración del pedido, H-025: Control de pedido(cocinero), H-031: Elaboración de pizzas</a>
+
+    <!-- <div><p><b>HISTORIAS DE USUARIO IMPLEMENTADAS (Iniciar sesión como cocinero(cocinero1 -> cocinero1)).</b></p> </div> -->
+     
+     	<table id="cocineroTable" class="table table-striped" aria-describedby="Cocinero">
+            <thead>     
+           	 	<th scope="col"><a href="/pedidos/cocinero">PEDIDOS</a></th>
+	
+            </thead>            
+        </table> 
+      		
       	</sec:authorize>
-     </div>
+      	<sec:authorize access="hasAnyAuthority('repartidor')"  >
+
       
-      
-      <div><p><b>HISTORIAS DE USUARIO IMPLEMENTADAS (Iniciar sesión como repartidor(repartidor1 -> repartidor1)).</b></p> </div>
+     <!-- <div><p><b>HISTORIAS DE USUARIO IMPLEMENTADAS (Iniciar sesión como repartidor(repartidor1 -> repartidor1)).</b></p> </div> -->
       <div>
-     	<sec:authorize access="hasAnyAuthority('repartidor')"  >
-      		<a href="/pedidos/repartidor">H-018: Control de elaboración del pedido, H-025: Control de pedido(repartidor)</a>
+      <table id="repartidorTable" class="table table-striped" aria-describedby="Repartidor">
+            <thead>     
+           	 	<th scope="col"><a href="/pedidos/repartidor">PEDIDOS</a></th>
+            </thead>            
+        </table>
+      		
       	</sec:authorize>
      </div>
  
-    
-    
-      
+
     <!--  <div>
      <a href="/allReservas">Prueba 3: muestreo, post y edit de reservas</a>
 	</div>
@@ -85,10 +212,6 @@
 	<div>
      <a href="/allCartas">Prueba 11: muestreo, post y edit de cartas</a>
     </div> -->
-    <div class="row">
-        <div class="col-md-12">
-            <spring:url value="/resources/images/pizza.jpg" htmlEscape="true" var="pizzaImagen"/>
-            <img class="img-responsive" src="${pizzaImagen}"/>
-        </div>
-    </div>
+    
+    
 </petclinic:layout>

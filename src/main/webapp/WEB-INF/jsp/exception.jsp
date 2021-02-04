@@ -11,8 +11,6 @@
 
     <h2>Algo paso...</h2>
 
-	<p>Problema del propio servidor, lo sentimos.</p>
-	
     <p>${mensaje}</p>
 
 </petclinic:layout>

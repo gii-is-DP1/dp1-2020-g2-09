@@ -140,6 +140,32 @@ public class CartaController {
 		}
 	}
 
+	//iniciar actualizacion de carta
+	@GetMapping(value = "/cartas/{cartaId}/edit")
+	public String initUpdateForm(@PathVariable("cartaId") int cartaId, ModelMap model) {
+		Carta Carta = this.CartaService.findCartaById(cartaId);
+		model.put("carta", Carta);
+		log.info("Iniciar actualizacion de carta");
+		return "cartas/createOrUpdateCartaForm";
+	}
+	
+	//mandar actualizacion de carta
+	@PostMapping(value = "/cartas/{cartaId}/edit")
+	public String processUpdateCartaForm(@Valid Carta carta, BindingResult result,
+			@PathVariable("cartaId") int cartaId, ModelMap model) {
+		if (result.hasErrors()) {
+			model.put("carta", carta);
+			log.warn("Fallo en la actualizacion de una carta");
+			return "cartas/createOrUpdateCartaForm";
+		}
+		else {
+			carta.setId(cartaId);
+			this.CartaService.saveCarta(carta);
+			log.info("Carta actualizada");
+			return "redirect:/allCartas";
+		}
+	}
+	
 	//borrar Carta
 	@GetMapping(value = "/cartas/{cartaId}/delete")
 	public String initDeleteCarta(@PathVariable("cartaId") int cartaId, ModelMap model) {

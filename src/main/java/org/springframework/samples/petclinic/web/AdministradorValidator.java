@@ -31,10 +31,7 @@ public class AdministradorValidator implements Validator{
 		User usuario = administrador.getUser();
 		String nombreUsuario = usuario.getUsername();	
 		String contraseña = usuario.getPassword();
-
-		Pattern patternNombre = Pattern
-                .compile("^[a-zA-ZñÑ\\s]+$");
-		Matcher matcherNombre = patternNombre.matcher(nombre);
+		
 		//nombre
 		if(nombre==null) {
 			errors.rejectValue("nombre",
@@ -44,12 +41,8 @@ public class AdministradorValidator implements Validator{
 			errors.rejectValue("nombre",
 					"El nombre debe poseer de 2 a 20 caracteres", 
 					"El nombre debe poseer entre 2 a 20 caracteres");
-		}else if(!matcherNombre.find()) {
-			errors.rejectValue("nombre", 
-					"El nombre no posee el formato correcto",
-					"El nombre no posee el formato correcto");
 		}
-		Matcher matcherApellidos = patternNombre.matcher(apellidos);
+		
 		//apellidos
 		if(apellidos==null) {
 			errors.rejectValue("apellidos", 
@@ -59,10 +52,6 @@ public class AdministradorValidator implements Validator{
 			errors.rejectValue("apellidos",
 					"El apellido debe poseer entre 2 y 20 caracteres", 
 					"El apellido debe poseer entre 2 a 20 caracteres");
-		}else if(!matcherApellidos.find()) {
-			errors.rejectValue("apellidos", 
-					"Los apellidos no poseen el formato correcto",
-					"Los apellidos no poseen el formato correcto");
 		}
 		
 		//fechaNacimiento
@@ -70,10 +59,6 @@ public class AdministradorValidator implements Validator{
 			errors.rejectValue("fechaNacimiento", 
 					"La fecha no puede estar vacía",
 					"La fecha no puede estar vacía");
-		}else if(fechaNacimiento.isAfter(LocalDate.now())) {
-			errors.rejectValue("fechaNacimiento", 
-					"La fecha de nacimiento no puede ser superior a la de hoy",
-					"La fecha de nacimiento no puede ser superior a la de hoy");
 		}
 		
 		//telefono
@@ -83,6 +68,10 @@ public class AdministradorValidator implements Validator{
 					"Escriba un número de teléfono válido",
 					"Escriba un número de teléfono válido");
 		}else {
+			/*String telefonoString = String.valueOf(telefono);
+			if(telefonoString.length()!=9|| telefonoString.length()<1) {
+				errors.rejectValue("telefono", "Escriba un número de teléfono válido","Escriba un número de teléfono válido");
+			}*/
 			if(telefono<100000000 || telefono>999999999) {
 				errors.rejectValue("telefono", 
 						"Escriba un número válido",
