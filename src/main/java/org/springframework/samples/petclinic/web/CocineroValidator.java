@@ -36,7 +36,7 @@ public class CocineroValidator implements Validator {
 		String contraseña = usuario.getPassword();
 		
 		Pattern patternNombre = Pattern
-                .compile("^[a-zA-ZñÑ\\s]+");
+                .compile("^[a-zA-ZñÑ\\s]+$");
 		Matcher matcherNombre = patternNombre.matcher(nombre);
 		//nombre
 				if(nombre.equals(null)) {
