@@ -2,13 +2,12 @@ package org.springframework.samples.petclinic.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertNull;
-
 import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.TamanoProducto;
 import org.springframework.samples.petclinic.model.tipoMasa;
@@ -22,6 +21,9 @@ public class PizzaServiceTestsSinMockito {
 
 	@Autowired
 	protected PizzaService pizzaService;
+	
+	@Autowired
+	protected CartaService cartaService;
 	
 	@Test
 	void shouldFindPizzaById() {
@@ -100,5 +102,22 @@ public class PizzaServiceTestsSinMockito {
 		assertNull(pizza);
 	}
 	
+	 @Test
+	 @Transactional
+	 void shouldAñadirPizzaACarta() {
+		 	Carta c = this.cartaService.findCartaById(1);
+			Pizza p = this.pizzaService.findPizzaById(1);
+			this.pizzaService.añadirPizzaACarta(p.getId(), c.getId());
+			assertThat(c.getPizzasEnCarta().contains(p));	 
+	}
+	
+	 @Test
+	 @Transactional
+	 void shouldDeletePizzaFromComposicionCarta() {
+		 	Carta c = this.cartaService.findCartaById(1);
+			Pizza p = this.pizzaService.findPizzaById(1);
+			this.pizzaService.deletePizzaFromComposicionCarta(p.getId());
+			assertThat(!c.getPizzasEnCarta().contains(p));	 
+	}
 	
 }

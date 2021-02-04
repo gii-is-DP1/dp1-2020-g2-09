@@ -25,9 +25,6 @@ INSERT INTO authorities(id,username,authority) VALUES (7,'jesrolcad','cliente');
 INSERT INTO users(username,password,enabled) VALUES ('serfiggom','serfiggom',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (8, 'serfiggom','administrador');
 
-INSERT INTO users(username,password,enabled) VALUES ('ejemplo1','ejemplo1',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (9,'ejemplo1','ejemplo');
-
 INSERT INTO users(username,password,enabled) VALUES ('serfiggom1','serfiggom1',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (10, 'serfiggom1','cliente');
 
@@ -73,18 +70,18 @@ INSERT INTO authorities(id,username,authority) VALUES (12,'repartidor1','reparti
 
 
 INSERT INTO cocineros(nombre,apellidos,fecha_nacimiento,telefono,email, fecha_inicio_contrato, usuario) 
-VALUES ('Paco','Pérez Maldonado','1998-12-29','777777777','paquitorechulon@gmail.com', '2020-10-01', 'ejemplo1');
+VALUES ('Paco','Pérez Maldonado','1998-12-29','777777777','paquitorechulon@gmail.com', '2020-10-01', 'cocinero1');
 
-INSERT INTO cocineros(nombre,apellidos,fecha_nacimiento,telefono,email,usuario, fecha_inicio_contrato) 
-VALUES ('Marmona','Jimenez Ronaldinha','1997-12-29','777555555','mariana@gmail.com','ejemplo1', '2020-09-30');
+/*INSERT INTO cocineros(nombre,apellidos,fecha_nacimiento,telefono,email,usuario, fecha_inicio_contrato) 
+VALUES ('Marmona','Jimenez Ronaldinha','1997-12-29','777555555','mariana@gmail.com','ejemploCocinero', '2020-09-30');*/
 
 
 /*DATETIME fecha_actual = DATETIME.NOW() -> No funciona*/
 INSERT INTO repartidores(nombre,apellidos,fecha_nacimiento,telefono,email, fecha_inicio_contrato, usuario)
-VALUES ('Minguito','Gutiérrez Ronaldo','1998-11-03','682547321','minguitoo@gmail.com', '2019-12-12', 'ejemplo1');
+VALUES ('Minguito','Gutiérrez Ronaldo','1998-11-03','682547321','minguitoo@gmail.com', '2019-12-12', 'repartidor1');
 
-INSERT INTO repartidores(nombre,apellidos,fecha_nacimiento,telefono,email, fecha_inicio_contrato, usuario)
-VALUES ('Pepa','Cansado Levante','1995-09-13','985432158','cansado_levante@gmail.com', '2020-11-22', 'ejemplo1');
+/*INSERT INTO repartidores(nombre,apellidos,fecha_nacimiento,telefono,email, fecha_inicio_contrato, usuario)
+VALUES ('Pepa','Cansado Levante','1995-09-13','985432158','cansado_levante@gmail.com', '2020-11-22', 'ejemplo1');*/
 
 
 INSERT INTO TIPO_PAGO(id, name) VALUES(2,'EFECTIVO');
@@ -102,9 +99,6 @@ INSERT INTO TIPO_ENVIO(id, name) VALUES(1,'RECOGER EN TIENDA');
 
 INSERT INTO administradores(nombre,apellidos,fecha_nacimiento,telefono,email, usuario)
 VALUES ('Juan','Pérez Ruíz','1990-01-01','863838343','perez_ruiz@gmail.com', 'admin1');
-
-INSERT INTO administradores(nombre,apellidos,fecha_nacimiento,telefono,email, usuario)
-VALUES ('Rodolfa','Abduzcan Play','1996-07-22','685390102','abduzcan_1@gmail.com', 'ejemplo1');
 
 INSERT INTO administradores(nombre,apellidos,fecha_nacimiento,telefono,email, usuario)
 VALUES ('Servando','Figueroa','1990-01-01','863838343','perez_ruiz@gmail.com', 'serfiggom');
