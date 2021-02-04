@@ -35,6 +35,7 @@ import org.springframework.samples.petclinic.model.tipoMasa;
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.CartaService;
 import org.springframework.samples.petclinic.service.ClienteService;
+import org.springframework.samples.petclinic.service.OfertaService;
 import org.springframework.samples.petclinic.service.OtrosService;
 import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.samples.petclinic.service.PizzaService;
@@ -73,6 +74,8 @@ public class PedidoControllerTests {
     private OtrosService OtrosService;
     @MockBean
     private BebidaService BebidaService;
+    @MockBean
+	private OfertaService ofertaService;
     
     
 	@Autowired
