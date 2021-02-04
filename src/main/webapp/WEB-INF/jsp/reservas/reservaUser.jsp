@@ -9,10 +9,7 @@
     pageEncoding="UTF-8"%>
     
     <petclinic:layout pageName="reservas">
-        <h2>Mis reservas</h2>
-
-    <a href="/reservas/new" class="btn btn-default">Nueva reserva</a>
-    
+    <h2>Mis reservas</h2>
     <table id="reservasTable" class="table table-striped">
         <thead>
         <tr>

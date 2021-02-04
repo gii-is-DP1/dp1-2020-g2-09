@@ -27,46 +27,65 @@
 					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 					<span>Home</span>
 				</petclinic:menuItem>
-
-				<!-- <petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"
-					title="find owners">
-					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>Find owners</span>
-				</petclinic:menuItem>
-
-				<petclinic:menuItem active="${name eq 'vets'}" url="/vets"
-					title="veterinarians">
-					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-					<span>Veterinarians</span>
-				</petclinic:menuItem> -->
 				
-				 <petclinic:menuItem active="${name eq 'reserva'}" url="/reservas/new"
-					title="Reserva">
-					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-					<span>Reservar una mesa</span>
-				</petclinic:menuItem>
 				<sec:authorize access="hasAnyAuthority('administrador')"  >
 					<petclinic:menuItem active="${name eq 'cartas'}" url="/allCartas"
 						title="Carta">
 						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 						<span>Ver cartas</span>
 					</petclinic:menuItem> 
+					
+					<petclinic:menuItem active="${name eq 'reclamaciones'}" url="/allReclamaciones"
+						title="Carta">
+						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+						<span>Ver reclamaciones</span>
+					</petclinic:menuItem> 
+					
+					<petclinic:menuItem active="${name eq 'informes'}" url=""
+						title="Informes">
+						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+						<span>Ver informes</span>
+					</petclinic:menuItem> 
+					
 				</sec:authorize>
 				
 				<sec:authorize access="hasAnyAuthority('cliente')"  >
+					<petclinic:menuItem active="${name eq 'reserva'}" url="/reservas/new"
+						title="Reserva">
+						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+						<span>Reservar una mesa</span>
+					</petclinic:menuItem>
+				
 					<petclinic:menuItem active="${name eq 'carta'}" url="/cartas/cartaActiva"
 						title="CartaActiva">
 						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 						<span>Ver carta</span>
 					</petclinic:menuItem> 
+					
+					<petclinic:menuItem active="${name eq 'reclamaciones cliente'}" url="/reclamaciones/user"
+						title="CartaActiva">
+						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+						<span>Ver reclamaciones</span>
+					</petclinic:menuItem> 
+					
 				</sec:authorize>
 				
-				<petclinic:menuItem active="${name eq 'reclamaciones'}" url="/reclamaciones/new"
-					title="Reclamaciones">
-					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-					<span>Escribir reclamación</span>
-				</petclinic:menuItem> 
-
+				<sec:authorize access="hasAnyAuthority('cocinero')"  >
+					<petclinic:menuItem active="${name eq 'pedidos cocinero'}" url="/pedidos/cocinero"
+					title="CocineroPedidos">
+						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+						<span>Ver pedidos</span>
+					</petclinic:menuItem> 
+      			</sec:authorize>
+      			
+      			<sec:authorize access="hasAnyAuthority('repartidor')"  >
+					<petclinic:menuItem active="${name eq 'pedidos repartidor'}" url="/pedidos/repartidor"
+					title="RepartidorPedidos">
+						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+						<span>Ver pedidos</span>
+					</petclinic:menuItem> 
+      			</sec:authorize>
+				
 				<petclinic:menuItem active="${name eq 'error'}" url="/oups"
 					title="trigger a RuntimeException to see how it is handled">
 					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
