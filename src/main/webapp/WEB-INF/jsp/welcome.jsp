@@ -22,7 +22,7 @@
     </div>    
     <div><p><b>HISTORIAS DE USUARIO IMPLEMENTADAS (Iniciar sesión como administrador(admin1 -> admin1)).</b></p> </div>
     <sec:authorize access="hasAnyAuthority('administrador')"  >
-    <div> <a href="/allCuentas"></a></div>
+    <div> <a href="/allCuentas">Cuentas</a></div>
     <div><a href="/allCocineros">H-001: Gestión de plantilla (cocineros).</a></div>
     <div><a href="/allRepartidores">H-001: Gestión de plantilla (repartidores).</a></div>
      <div> <a href="/allMesas">H-002: Número de mesas.</a></div>
