@@ -11,6 +11,7 @@
     <form:form modelAttribute="mesa" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
             <petclinic:inputField label="Capacidad" name="capacidad"/>
+            <input type="hidden" name="version" value="${mesa.version}"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

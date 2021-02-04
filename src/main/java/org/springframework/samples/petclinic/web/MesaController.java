@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -81,8 +82,15 @@ public class MesaController {
 	
 	//mandar actualizacion
 	@PostMapping(value = "/mesas/{mesaId}/edit")
-	public String processUpdateMesaForm(@Valid Mesa mesa, BindingResult result,
-			@PathVariable("mesaId") int mesaId) {
+	public String processUpdateMesaForm(@Valid Mesa mesa, BindingResult result, ModelMap model,
+			@PathVariable("mesaId") int mesaId, @RequestParam(value = "version", required=false) Integer version) {
+		Mesa mesaToUpdate=this.mesaService.findById(mesaId);
+		if(mesaToUpdate.getVersion()!=version) {
+		model.put("message","Problema de concurrencia a la hora de editar la mesa. "
+				+ "Inténtelo de nuevo más tarde.");
+		return initUpdateForm(mesaId,model);
+		}
+
 		if (result.hasErrors()) {
 			log.warn("Error a la hora de actualizar una mesa.");
 			return "mesas/createOrUpdateMesaForm";
