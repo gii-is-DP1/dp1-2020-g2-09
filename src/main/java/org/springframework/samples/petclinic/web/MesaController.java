@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Mesa;
 import org.springframework.samples.petclinic.model.Mesas;
@@ -84,10 +85,12 @@ public class MesaController {
 	@PostMapping(value = "/mesas/{mesaId}/edit")
 	public String processUpdateMesaForm(@Valid Mesa mesa, BindingResult result, ModelMap model,
 			@PathVariable("mesaId") int mesaId, @RequestParam(value = "version", required=false) Integer version) {
+		
 		Mesa mesaToUpdate=this.mesaService.findById(mesaId);
 		if(mesaToUpdate.getVersion()!=version) {
 		model.put("message","Problema de concurrencia a la hora de editar la mesa. "
 				+ "Inténtelo de nuevo más tarde.");
+		log.info("Problema de concurrencia a la hora de editar la mesa.");
 		return initUpdateForm(mesaId,model);
 		}
 
@@ -96,8 +99,6 @@ public class MesaController {
 			return "mesas/createOrUpdateMesaForm";
 		}
 		else {
-			MesaValidator mesaValidator = new MesaValidator();
-			ValidationUtils.invokeValidator(mesaValidator, mesa, result);
 			mesa.setId(mesaId);
 			this.mesaService.saveMesa(mesa);
 			log.info("Mesa actualizada correctamente.");
