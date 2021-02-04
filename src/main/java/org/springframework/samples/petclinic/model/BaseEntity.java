@@ -19,10 +19,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Version;
-
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * Simple JavaBean domain object with an id property. Used as a base class for objects
@@ -31,8 +27,6 @@ import lombok.Setter;
  * @author Ken Krebs
  * @author Juergen Hoeller
  */
-@Getter
-@Setter
 @MappedSuperclass
 public class BaseEntity {
 
@@ -40,10 +34,16 @@ public class BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Integer id;
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public boolean isNew() {
 		return this.id == null;
 	}
-	
-	@Version
-	private Integer version;
+
 }
