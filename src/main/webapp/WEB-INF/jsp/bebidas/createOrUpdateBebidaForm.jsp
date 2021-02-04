@@ -14,7 +14,6 @@
     <form:form modelAttribute="bebida" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre de la bebida" name="nombre"/>
-            
             <label for="esCarbonatada">Es o no carbonatada:</label>
              <select label="esCarbonatada" name="esCarbonatada">
 			  <option value="true">Carbonatada</option> 

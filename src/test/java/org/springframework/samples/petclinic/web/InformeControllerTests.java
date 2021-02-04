@@ -36,8 +36,6 @@ public class InformeControllerTests {
 
 	
 	@MockBean
-	private PizzaService cocineroService;
-	@MockBean
 	private BebidaService bebidaService;
 	@MockBean
 	private MesaService mesasService;
@@ -101,14 +99,6 @@ public class InformeControllerTests {
 				.andExpect(status().isOk())
 				.andExpect(model().attributeExists("mapa"))
 				.andExpect(view().name("informe/CaducidadIngredientes"));
-	}
-	@WithMockUser(value = "spring")
-    @Test
-	void testInformePizzasMasPedidas() throws Exception {
-		mockMvc.perform(get("/informe/PizzasMasPedidos"))
-				.andExpect(status().isOk())
-				.andExpect(model().attributeExists("mapa"))
-				.andExpect(view().name("informe/InformePizzasMasPedidas"));
 	}
 
 
