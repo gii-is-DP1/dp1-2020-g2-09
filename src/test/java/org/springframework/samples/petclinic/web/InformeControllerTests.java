@@ -16,6 +16,7 @@ import org.springframework.samples.petclinic.configuration.SecurityConfiguration
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.IngredienteService;
 import org.springframework.samples.petclinic.service.MesaService;
+import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.samples.petclinic.service.PizzaService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -33,6 +34,7 @@ public class InformeControllerTests {
 	@Autowired
 	private InformeController informeController;
 
+	
 	@MockBean
 	private PizzaService cocineroService;
 	@MockBean
@@ -41,7 +43,10 @@ public class InformeControllerTests {
 	private MesaService mesasService;
 	@MockBean
 	private IngredienteService ingredienteService;
-	
+	@MockBean
+	private  PizzaService pizzaService;
+	@MockBean
+	private  PedidoService pedidoService;
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -96,6 +101,14 @@ public class InformeControllerTests {
 				.andExpect(status().isOk())
 				.andExpect(model().attributeExists("mapa"))
 				.andExpect(view().name("informe/CaducidadIngredientes"));
+	}
+	@WithMockUser(value = "spring")
+    @Test
+	void testInformePizzasMasPedidas() throws Exception {
+		mockMvc.perform(get("/informe/PizzasMasPedidos"))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeExists("mapa"))
+				.andExpect(view().name("informe/InformePizzasMasPedidas"));
 	}
 
 
