@@ -87,16 +87,8 @@ public class BebidaController {
 
 	// mandar actualizacion
 	@PostMapping(value = "/bebidas/{bebidaId}/edit")
-	public String processUpdateBebidaForm(@Valid Bebida bebida, BindingResult result,  ModelMap model,
+	public String processUpdateBebidaForm(@Valid Bebida bebida, BindingResult result,
 			@PathVariable("bebidaId") int bebidaId, @RequestParam(value = "version", required=false) Integer version) {
-		
-		Bebida bebidaToUpdate=this.bebidaService.findById(bebidaId);
-		if(bebidaToUpdate.getVersion()!=version) {
-		model.put("message","Problema de concurrencia a la hora de editar la bebida. "
-				+ "Inténtelo de nuevo más tarde.");
-		log.info("Problema de concurrencia a la hora de editar la bebida.");
-		return initUpdateForm(bebidaId,model);
-		}
 		
 		if (result.hasErrors()) {
 			log.error("Error en la actualizacion de bebida");
