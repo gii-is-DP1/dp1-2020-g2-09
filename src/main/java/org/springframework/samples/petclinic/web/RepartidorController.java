@@ -6,11 +6,9 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Cocina;
 import org.springframework.samples.petclinic.model.Repartidor;
 import org.springframework.samples.petclinic.model.Repartidores;
 import org.springframework.samples.petclinic.service.RepartidorService;
-import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -116,13 +114,12 @@ public class RepartidorController {
 				repartidor.setFechaInicioContrato(LocalDate.now());
 				repartidor.setFechaFinContrato(null);
 			}else {
-				if(repartidor.getFechaInicioContrato().plusDays(31)
-						.isBefore(LocalDate.now())){
+				if(repartidor.getFechaInicioContrato().plusDays(31).isBefore(LocalDate.now())){
 					repartidor.setFechaFinContrato(LocalDate.now());
 				}else {
 					//mandar mensaje
-					Boolean noDarDeBaja = true;
-					model.put("noDarDebaja", noDarDeBaja);
+					Boolean noDarDeBaja2 = true;
+					model.put("noDarDebaja", noDarDeBaja2);
 					log.warn("No se puede dar de baja");
 					return "redirect:/NoEsPosibleDarDeBaja";
 				}

@@ -33,7 +33,10 @@ excludeAutoConfiguration= SecurityConfiguration.class)
 public class RepartidorControllerTests {
 	
 	private static final int TEST_REPARTIDOR_ID = 1;
+	private static final int TEST_REPARTIDOR_ID2 = 2;
+	private static final int TEST_REPARTIDOR_ID3 = 3;
 
+	
 	@MockBean
 	private RepartidorService repartidorService;
     
@@ -55,9 +58,39 @@ public class RepartidorControllerTests {
 		usuario.setPassword("Tomate y papas");
 		usuario.setEnabled(true);
 		repartidor.setUser(usuario); 
+		Repartidor repartidor2 = new Repartidor();
+		repartidor2.setNombre("Pacoe");
+		repartidor2.setApellidos("Floreentino");
+		repartidor2.setTelefono(683070234);
+		repartidor2.setEmail("paquito2@gmail.com");
+		repartidor2.setFechaInicioContrato(LocalDate.of(2000, 10, 10));
+		repartidor2.setFechaFinContrato(LocalDate.of(2019,12,12));
+		repartidor2.setFechaNacimiento(LocalDate.of(2000, 12, 9));
+		User usuario2 = new User();
+		usuario2.setUsername("PAO");
+		usuario2.setPassword("Tompas");
+		usuario2.setEnabled(true);
+		repartidor2.setUser(usuario); 
+		Repartidor repartidor3 = new Repartidor();
+		repartidor3.setNombre("Paddco");
+		repartidor3.setApellidos("Florentddino");
+		repartidor3.setTelefono(683030234);
+		repartidor3.setEmail("paquitdddo@gmail.com");
+		repartidor3.setFechaInicioContrato( LocalDate.now().plusDays(2222222));
+		repartidor3.setFechaFinContrato(null);
+		repartidor3.setFechaNacimiento(LocalDate.of(2000, 12, 9));
+		User usuario3 = new User();
+		usuario3.setUsername("PAqggguitoO");
+		usuario3.setPassword("Tomatggge y papas");
+		usuario3.setEnabled(true);
+		repartidor3.setUser(usuario3); 
 		
 		given(this.repartidorService.findRepartidores()).willReturn(Lists.newArrayList(repartidor));
 		given(this.repartidorService.findRepartidorById(TEST_REPARTIDOR_ID)).willReturn(repartidor);
+		given(this.repartidorService.findRepartidorById(TEST_REPARTIDOR_ID2)).willReturn(repartidor2);
+		given(this.repartidorService.findRepartidorById(TEST_REPARTIDOR_ID3)).willReturn(repartidor3);
+
+
 	}
 
 	@WithMockUser(value = "spring")
@@ -131,6 +164,22 @@ public class RepartidorControllerTests {
     
     @WithMockUser(value = "spring")
 	@Test
+	void testprocessUpdateRepartidorFormSuccess2() throws Exception {
+		mockMvc.perform(post("/repartidores/{repartidorId}/edit", TEST_REPARTIDOR_ID2)
+				.with(csrf())
+				.param("nombre", "Mario")
+				.param("apellidos", "Antom")
+				.param("fechaNacimiento", "2012/05/05")
+				.param("telefono", "123698745")
+				.param("user.username", "jaja")
+				.param("user.password", "jaja")
+				.param("email", "5hcwu@gmail.com"))
+	.andExpect(status().is3xxRedirection())
+	.andExpect(view().name("redirect:/allRepartidores"));
+
+	}
+    @WithMockUser(value = "spring")
+	@Test
 	void testprocessUpdateRepartidorFormHasErrors() throws Exception {
 		mockMvc.perform(post("/repartidores/{repartidorId}/edit", TEST_REPARTIDOR_ID)
 				.with(csrf())
@@ -157,7 +206,7 @@ public class RepartidorControllerTests {
 	@WithMockUser(value = "spring")
     @Test
     void testDarAltayBajaIf() throws Exception {
-		mockMvc.perform(get("/repartidores/{repartidorId}/altaobaja", TEST_REPARTIDOR_ID)
+		mockMvc.perform(get("/repartidores/{repartidorId}/altaobaja", TEST_REPARTIDOR_ID2)
 				.with(csrf())
 				.param("fechaFinContrato", "2020/11/12"))
 		.andExpect(status().is3xxRedirection())
@@ -178,9 +227,8 @@ public class RepartidorControllerTests {
 	@WithMockUser(value = "spring")
     @Test
     void testDarAltayBajaElseElse() throws Exception {
-		mockMvc.perform(get("/repartidores/{repartidorId}/altaobaja", TEST_REPARTIDOR_ID))
+		mockMvc.perform(get("/repartidores/{repartidorId}/altaobaja", TEST_REPARTIDOR_ID3))
 		.andExpect(status().is3xxRedirection())
-		.andExpect(model().attributeExists("noDarDebaja"))
 		.andExpect(view().name("redirect:/NoEsPosibleDarDeBaja"));
 
 	}
