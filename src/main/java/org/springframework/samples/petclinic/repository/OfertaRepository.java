@@ -86,6 +86,10 @@ public interface OfertaRepository  extends CrudRepository<Oferta, Integer> {
 	
 	@Query(value = "SELECT OFERTA_ID FROM OFERTA_OTRO WHERE OTROS_EN_OFERTA_ID = ?1", nativeQuery = true)
 	List<Integer> numeroOtrosEnOferta(Integer otrosId);
+	
+	//filtrar ofertas Activas según el nivel de socio
+	@Query(value= "SELECT * FROM OFERTAS WHERE NIVEL_SOCIO=?1 AND ESTADO_OFERTA=TRUE", nativeQuery = true)
+	List<Oferta> ofertasNivelSocio(Integer nivelSocio);
 
 	
 }

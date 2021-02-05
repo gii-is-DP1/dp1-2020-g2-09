@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -547,9 +548,25 @@ public class PedidoController {
 		pizzasP.getPizzasList().addAll(this.PizzaService.findPizzaByCliente(getClienteActivo()));
 		model.put("PizzasP", pizzasP);  //si pongo Pizzas me pone la tabla vacia, si pongo pizza me da un error de tamaño
 	
-		List<Oferta>  ofertas = ofertaService.findOfertasByEstadoOferta(true);
-		model.put("ofertaPedido",ofertas);
+		Cliente cliente=getClienteActivo();
+		NivelSocio num=cliente.getNivelSocio();
+		List<Oferta>  ofertas = new ArrayList<>();
+		int i;
 		
+		if(num.getName().compareTo("ORO")==0) {
+			for(i=1; i<=3; i++) {
+				ofertas.addAll(ofertaService.ofertasNivelSocio(i));
+			}
+			model.put("ofertaPedido",ofertas);
+		} else if(num.getName().compareTo("PLATA")==0){
+			for(i=1; i<=2; i++) {
+				ofertas.addAll(ofertaService.ofertasNivelSocio(i));
+			}
+			model.put("ofertaPedido",ofertas);
+		}else if(num.getName().compareTo("BRONCE")==0){
+			ofertas.addAll(ofertaService.ofertasNivelSocio(1));
+			model.put("ofertaPedido",ofertas);
+		} else {}
 		log.info("Recogiendo productos de la carta.");
 	}
 	

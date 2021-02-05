@@ -35,8 +35,8 @@ INSERT INTO users(username,password,enabled) VALUES ('pepinho','pepinho',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (14,'pepinho','cliente');
 
 INSERT INTO NIVEL_SOCIO(id, name) VALUES(3,'ORO');
-INSERT INTO NIVEL_SOCIO(id, name) VALUES(1,'PLATA');
-INSERT INTO NIVEL_SOCIO(id, name) VALUES(2,'BRONCE');
+INSERT INTO NIVEL_SOCIO(id, name) VALUES(2,'PLATA');
+INSERT INTO NIVEL_SOCIO(id, name) VALUES(1,'BRONCE');
 
 
 INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
