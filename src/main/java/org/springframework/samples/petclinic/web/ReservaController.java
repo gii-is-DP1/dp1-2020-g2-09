@@ -140,11 +140,7 @@ public class ReservaController {
 				if(reservasId.size()==0) {
 					mesasDisponibles.add(m);
 				} else {
-					//calcular las reservas mediante los ids
 					List<Reserva> reservas = this.reservaService.calcularReservasAPartirIds(reservasId);
-					//y para cada reserva ver cuantos días 
-					//hay entre mi fecha de la reserva y esa reserva => si es 0 ver las horas de diferencia entre 
-					//la hora de la reserva y mi hora => si hay 1h o más, añado la mesa a la lista de mesas disponibles
 					for(Reserva r: reservas) {
 						if(!(DAYS.between(reserva.getFechaReserva(), r.getFechaReserva())==0)) {
 							mesasDisponibles.add(m);

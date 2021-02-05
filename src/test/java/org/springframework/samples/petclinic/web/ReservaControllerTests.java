@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import javax.naming.Binding;
@@ -53,8 +54,12 @@ import com.mysql.cj.x.protobuf.MysqlxDatatypes.Any;
 class ReservaControllerTests {
 
 	private static final int TEST_MESA_ID = 1;
+	private static final int TEST_MESA_ID2 = 2;
+	private static final int TEST_MESA_ID3 = 3;
 	private static final String TEST_user= "spring";
 	private static final int TEST_RESERVA_ID = 1;
+	private static final int TEST_RESERVA_ID2 = 1;
+	private static final int TEST_RESERVA_ID3 = 3;
 	private static final int TEST_CLIENTE_ID = 1;
 	@Autowired
 	private ReservaController reservaController;
@@ -81,13 +86,25 @@ class ReservaControllerTests {
 		tipoReserva tr = new tipoReserva();
 		tr.setName("ALMUERZO");
 		tr.setId(1);
-		
 		r.setId(TEST_RESERVA_ID);
 		r.setFechaReserva(LocalDate.of(2021, 11, 24));
 		r.setHora(LocalTime.of(13, 12));
 		r.setNumeroPersonas(6);
 		r.setTipoReserva(tr);
 		
+		Reserva r2 = new Reserva();
+		r2.setId(TEST_RESERVA_ID2);
+		r2.setFechaReserva(LocalDate.of(2021, 11, 24));
+		r2.setHora(LocalTime.of(13, 12));
+		r2.setNumeroPersonas(2);
+		r2.setTipoReserva(tr);
+		
+		Reserva r3 = new Reserva();
+		r3.setId(TEST_RESERVA_ID3);
+		r3.setFechaReserva(LocalDate.of(2021, 11, 24));
+		r3.setHora(LocalTime.of(13, 12));
+		r3.setNumeroPersonas(4);
+		r3.setTipoReserva(tr);
 		
 		Cliente cliente = new Cliente();
 		cliente.setApellidos("Roldán Cadena");
@@ -108,18 +125,42 @@ class ReservaControllerTests {
 		Mesa m = new Mesa();
 		m.setCapacidad(3);
 		m.setId(TEST_MESA_ID);
-		Collection<Mesa> m1= new ArrayList<>();
-		m1.add(m);
+		Mesa m2 = new Mesa();
+		m2.setCapacidad(6);
+		m2.setId(TEST_MESA_ID2);
+		List<Mesa> m1= new ArrayList<Mesa>();
+		m1.add(m2);
+		List<Mesa> m12= new ArrayList<Mesa>();
+		m12.add(m2);
 		r.setMesasEnReserva(m1);
+		r2.setMesasEnReserva(m12);
+		
+		List<Integer> reservasId =new ArrayList<Integer>();
+		reservasId.add(TEST_RESERVA_ID2);
+		List<Reserva> reservas =new ArrayList<Reserva>();
+		reservas.add(r2);
+		Mesa m3 = new Mesa();
+		m3.setCapacidad(6);
+		m3.setId(TEST_MESA_ID3);
+		List<Mesa> m123= new ArrayList<Mesa>();
+		r3.setMesasEnReserva(m123);
+		m123.add(m3);
+		List<Integer> reservasId3 =new ArrayList<Integer>();
+		
 		this.reservaService.saveReserva(r);
 		given(this.mesaService.findIdMesaByReserva(TEST_RESERVA_ID)).willReturn(TEST_MESA_ID);
 		given(this.reservaService.findReservas()).willReturn(Lists.newArrayList(r));
 		given(this.mesaService.findById(TEST_MESA_ID)).willReturn(m);
 		given(this.mesaService.findByReserva(TEST_RESERVA_ID)).willReturn(Lists.newArrayList(m));
-
+		given(this.mesaService.findMesas()).willReturn(m1);
 		given(this.reservaService.findById(TEST_RESERVA_ID)).willReturn(r);
 		given(this.clienteService.findCuentaById(TEST_CLIENTE_ID)).willReturn(cliente);
 		given(this.reservaService.findReservasByCliente(TEST_CLIENTE_ID)).willReturn(Lists.newArrayList(r));
+		given(this.reservaService.findReservasIdByMesaId(m2.getId())).willReturn(reservasId);
+		given(this.reservaService.calcularReservasAPartirIds(reservasId)).willReturn(reservas);
+		
+		given(this.reservaService.findById(TEST_RESERVA_ID3)).willReturn(r3);
+		given(this.reservaService.findReservasIdByMesaId(TEST_RESERVA_ID3)).willReturn(reservasId3);
 		
 		given(this.userService.findUser(u1.getUsername())).willReturn(op);
 		given(this.clienteService.findCuentaByUser(u1)).willReturn(cliente);
@@ -219,15 +260,7 @@ class ReservaControllerTests {
 		.andExpect(model().attributeExists("reservas"));
     }
     
-    //Hay una parte que no se prueba (mirar con Coverage). ¿Se tendrá que probar en el service?
-    @WithMockUser(value = "spring")
-    @Test
-    void testMesasDisponibles() throws Exception {
-    	mockMvc.perform(get("/reservas/{reservaId}/allMesasDisponibles", TEST_RESERVA_ID)).andExpect(status().isOk())
-		.andExpect(view().name("mesas/mesasDisponibles"))
-		.andExpect(model().attributeExists("miReserva"))
-		.andExpect(model().attributeExists("mesasDisponiblesSolucion"));
-    }
+
     
     //No funciona
     @WithMockUser(value = "spring")
@@ -250,7 +283,6 @@ class ReservaControllerTests {
 		.andExpect(view().name("redirect:/reservas/user"));
     }
     
-    //Da fallo
     @WithMockUser(value = "spring")
     @Test
     void testShowMisReservas() throws Exception {
@@ -267,7 +299,31 @@ class ReservaControllerTests {
     			.andExpect(model().attributeDoesNotExist("reserva"));
     }
     
-  
-    
-   
+  /* @WithMockUser(value = "spring")
+    @Test
+    void testMesasDisponibles() throws Exception {
+    	mockMvc.perform(get("/reservas/{reservaId}/allMesasDisponibles", TEST_RESERVA_ID2))
+    	.andExpect(status().isOk())
+		.andExpect(view().name("mesas/mesasDisponibles"))
+		.andExpect(model().attributeExists("miReserva"))
+		.andExpect(model().attributeExists("mesasDisponiblesSolucion"));
+    }*/
+    @WithMockUser(value = "spring")
+    @Test
+    void testMesasDisponiblesIfIf() throws Exception {
+    	mockMvc.perform(get("/reservas/{reservaId}/allMesasDisponibles", TEST_RESERVA_ID3))
+    	.andExpect(status().isOk())
+		.andExpect(view().name("mesas/mesasDisponibles"))
+		.andExpect(model().attributeExists("miReserva"))
+		.andExpect(model().attributeExists("mesasDisponiblesSolucion"));
+    }
+   /* @WithMockUser(value = "spring")
+    @Test
+    void testMesasDisponiblesElse() throws Exception {
+    	mockMvc.perform(get("/reservas/{reservaId}/allMesasDisponibles", TEST_RESERVA_ID2))
+    	.andExpect(status().isOk())
+		.andExpect(view().name("mesas/mesasDisponibles"))
+		.andExpect(model().attributeExists("miReserva"))
+		.andExpect(model().attributeExists("mesasDisponiblesSolucion"));
+    }*/
 }
