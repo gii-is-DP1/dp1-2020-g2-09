@@ -294,7 +294,7 @@ public class ReclamacionServiceTests {
 		//reclamacionRepository es el mock que le debo pasar como argumento al método verify
 		//Un mock es un stub que espera unos valores y te devuelve 
 		when(reclamacionRepository.findPedidosConReclamacionesDeUnCliente(anyInt())).thenReturn(new ArrayList<Integer>(1));
-		reclamacionService.findPedidosConReclamacionesDeUnCliente(cliente.getId());
+		reclamacionService.findPedidosConReclamacionesDeUnCliente(cliente.getId());//Esta funcion esta mal
 		
 		//Testeo que se ha llamado al método indicado una vez
 		verify(reclamacionRepository).findPedidosConReclamacionesDeUnCliente(cliente.getId());

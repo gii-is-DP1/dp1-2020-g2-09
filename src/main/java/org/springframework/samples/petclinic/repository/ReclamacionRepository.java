@@ -27,7 +27,12 @@ List<Reclamacion> findAll() throws DataAccessException;
 	
 	@Query(value = "SELECT DISTINCT PEDIDO_RECLAMACION.RECLAMACION_ID FROM PEDIDO NATURAL JOIN PEDIDO_RECLAMACION WHERE (PEDIDO.PEDIDOCLIENTE LIKE ?1)", 
 			nativeQuery = true)
-	List<Integer> findPedidosConReclamacionesDeUnCliente(int clienteId);
+	List<Integer> findPedidosConReclamacionesDeUnCliente(int clienteId);//Obsoleto
+		
+	@Query(value = "SELECT PEDIDO.ID FROM PEDIDO NATURAL JOIN PEDIDO_RECLAMACION WHERE PEDIDO_ID = PEDIDO.ID AND PEDIDOCLIENTE = ?1",
+			nativeQuery=true)
+	List<Integer> findPedidosConReclamacionDeCliente(int clienteId);
 
-
+	@Query(value = "SELECT RECLAMACION_ID FROM PEDIDO_RECLAMACION  WHERE PEDIDO_ID = ?1", nativeQuery = true)
+	List<Integer> findReclamacionesDePedidosDeCliente(int pedidoId);
 }
