@@ -38,10 +38,6 @@ public class MesaControllerTests {
 
 	@BeforeEach
 	void setup() {
-		Mesa mesa1 = new Mesa();
-		mesa1.setId(3);
-		mesa1.setCapacidad(5);
-		mesa1.setVersion(1);
 		given(this.mesaService.findById(TEST_MESA_ID)).willReturn(new Mesa());
 	}
 

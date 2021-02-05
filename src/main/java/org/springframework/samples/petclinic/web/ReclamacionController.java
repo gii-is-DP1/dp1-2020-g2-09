@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -90,7 +91,6 @@ public class ReclamacionController {
 	//CORREGIR, MUESTRA MAL EL ID DE PEDIDO (MUESTRA EL ID DE LA RECLAMACIÓN).
 		@GetMapping("/reclamaciones/user")
 		public String showMisReclamaciones(Map<String, Object> model) {
-			Reclamaciones reclamaciones = new Reclamaciones();
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			UserDetails userDetails = null;
 			if (principal instanceof UserDetails) {
@@ -98,16 +98,23 @@ public class ReclamacionController {
 			}
 			String userName = userDetails.getUsername();
 		    User usuario = this.userService.findUser(userName).get();
-		    Cuenta cliente= this.clienteService.findCuentaByUser(usuario);
-		    
-		    List<Integer> l =this.reclamacionService.
-		    		findPedidosConReclamacionesDeUnCliente(cliente.getId());
-		    for(int i=0;i<l.size();i++) {
-		    	reclamaciones.getReclamacionesList().add(reclamacionService.
-		    			findReclamacionById(l.get(i)));
+		    Cuenta cliente = this.clienteService.findCuentaByUser(usuario);
+		    //Cogemos los pedidos con reclamaciones según el clienteId
+		    List<Integer> pedidosConReclamacion = this.reclamacionService.findPedidosConReclamacionDeCliente(cliente.getId());
+		    Reclamaciones reclamacionesAcumuladasDeCliente = new Reclamaciones();
+		    for(int i = 0; i < pedidosConReclamacion.size(); i++) {
+		    	//Cogemos las reclamaciones de los pedidos de antes
+		    	Integer pedidoId = pedidosConReclamacion.get(i);
+			    List<Integer> reclamacionDePedido = this.reclamacionService.findReclamacionesDePedidosDeCliente(pedidoId);
+			    for(int j = 0; j < reclamacionDePedido.size(); j++) {
+			    	Integer reclamacionId = reclamacionDePedido.get(j);
+			    	Reclamacion reclamacion = this.reclamacionService.findReclamacionById(reclamacionId);
+			    	reclamacionesAcumuladasDeCliente.getReclamacionesList().add(reclamacion);	
+			    }
 		    }
+		    
 		    //reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findPedidosConReclamacionesDeUnCliente(cliente.getId()));
-			model.put("reclamaciones", reclamaciones);
+			model.put("reclamaciones", reclamacionesAcumuladasDeCliente);
 			log.info("Mostrando reclamaciones de un usuario que ha iniciado sesión.");
 			return "reclamaciones/reclamacionUser";
 		} 

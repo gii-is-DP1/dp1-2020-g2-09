@@ -48,6 +48,7 @@ public class RepartidorControllerTests {
 		repartidor.setTelefono(683020234);
 		repartidor.setEmail("paquito@gmail.com");
 		repartidor.setFechaInicioContrato(LocalDate.of(2010, 10, 10));
+		repartidor.setFechaFinContrato(null);
 		repartidor.setFechaNacimiento(LocalDate.of(2000, 12, 9));
 		User usuario = new User();
 		usuario.setUsername("PAquitoO");
@@ -158,31 +159,38 @@ public class RepartidorControllerTests {
     void testDarAltayBajaIf() throws Exception {
 		mockMvc.perform(get("/repartidores/{repartidorId}/altaobaja", TEST_REPARTIDOR_ID)
 				.with(csrf())
-				.param("fechaFinContrato", "2021/11/12"))
-		.andExpect(status().isOk())
-		.andExpect(view().name("redirect:/NoEsPosibleDarDeBaja"));
+				.param("fechaFinContrato", "2020/11/12"))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/allRepartidores"));
 	}
 	
 	@WithMockUser(value = "spring")
     @Test
-    void testDarAltayBajaElse() throws Exception {
-		mockMvc.perform(get("/repartidores/{repartidorId}/altaobaja", TEST_REPARTIDOR_ID))
-		.andExpect(status().isOk())
-		.andExpect(model().attributeExists("noDarDebaja"))
-		.andExpect(view().name("redirect:/NoEsPosibleDarDeBaja"));
-
-	}
-	
-	@WithMockUser(value = "spring")
-    @Test
-    void testDarAltayBaja() throws Exception {
+    void testDarAltayBajaElseIf() throws Exception {
 		mockMvc.perform(get("/repartidores/{repartidorId}/altaobaja", TEST_REPARTIDOR_ID)
 				.with(csrf()) 
-				.param("fechaInicioContrato", String.valueOf(LocalDate.now().plusDays(31)))
-				.param("fechaFinContrato", "2021/11/12"))
-		.andExpect(status().isOk())
+				.param("fechaInicioContrato", String.valueOf(LocalDate.now().plusDays(30))))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/allRepartidores"));
+
+	}
+	
+	@WithMockUser(value = "spring")
+    @Test
+    void testDarAltayBajaElseElse() throws Exception {
+		mockMvc.perform(get("/repartidores/{repartidorId}/altaobaja", TEST_REPARTIDOR_ID))
+		.andExpect(status().is3xxRedirection())
 		.andExpect(model().attributeExists("noDarDebaja"))
 		.andExpect(view().name("redirect:/NoEsPosibleDarDeBaja"));
 
 	}
+	
+    @WithMockUser(value = "spring")
+   	@Test
+   	void testsshowRepartidoresList() throws Exception {
+    	mockMvc.perform(get("/allRepartidores"))
+    	.andExpect(status().isOk())
+		.andExpect(view().name("repartidores/repartidoresList"))
+		.andExpect(model().attributeExists("listarepartidores"));
+    }
 }
