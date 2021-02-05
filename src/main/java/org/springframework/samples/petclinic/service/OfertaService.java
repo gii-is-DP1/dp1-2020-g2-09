@@ -165,4 +165,9 @@ public class OfertaService {
 		return ofertaRepository.findOtrosEnOfertaByOfertaId(oferta_id);
 	}
 	
+	@Transactional(readOnly = true)
+	public List<Oferta> ofertasNivelSocio(Integer nivelSocio) throws DataAccessException {
+		return ofertaRepository.ofertasNivelSocio(nivelSocio);	
+	}
+	
 }
