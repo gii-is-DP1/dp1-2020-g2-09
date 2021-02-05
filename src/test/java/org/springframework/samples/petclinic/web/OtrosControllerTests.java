@@ -74,6 +74,16 @@ class OtrosControllerTests {
 	}
 
 	@WithMockUser(value = "spring")
+    @Test
+	void testshowOtrosList() throws Exception {
+		mockMvc.perform(get("/allOtros"))
+				.andExpect(status().isOk())
+				.andExpect(view().name("Otros/OtrosList"))
+				.andExpect(model().attributeExists("otros"));
+		
+	}
+	
+	@WithMockUser(value = "spring")
         @Test
 	void testInitCreationForm() throws Exception {
 		mockMvc.perform(get("/Otros/new"))
