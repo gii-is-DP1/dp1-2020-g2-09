@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -163,6 +164,16 @@ public class InformeControllerTests {
 		pedido.setFechaPedido(hoy);
 		pedido2.setFechaPedido(hoy);
 		
+		Pizza pizza2 = new Pizza();
+		pizza2.setId(1);
+		pizza2.setCoste(12);
+		pizza2.setNombre("Barbacoa");
+		
+		Collection<Oferta> ofertasEnPedido= new ArrayList<>();
+		List<Pizza> pizzasEnOferta= new ArrayList<>();
+		o.setPizzasEnOferta(pizzasEnOferta);
+		ofertasEnPedido.add(o);
+		pedido.setOfertasEnPedido(ofertasEnPedido);
 		
 		//Creación de pizzas
 		List<Pizza> pizzasEnPedido=new ArrayList<Pizza>();
@@ -180,7 +191,25 @@ public class InformeControllerTests {
 			t2.setName("extrafina");
 			pizza1.setTipoMasa(t2);
 			pizzasEnPedido.add(pizza1);
+			pizzasEnPedido.add(pizza1);	
+			pizzasEnOferta.add(pizza1);
+
 		}
+		
+		Pizza pizza12 = new Pizza();
+		pizza12.setId(12);
+		pizza12.setCoste(12);
+		pizza12.setNombre("Barbacoa");
+		TamanoProducto t2=new TamanoProducto();
+		t2.setId(12);
+		t2.setName("mini");
+		pizza12.setTamano(t2);
+		tipoMasa t22=new tipoMasa();
+		t22.setId(12);
+		t22.setName("extrafina");
+		pizza12.setTipoMasa(t22);
+		pizzasEnOferta.add(pizza12);
+
 		Alergenos alergeno1 = new Alergenos();
 		alergeno1.setName("contiene lactosa");
 		alergeno1.setId(55);
