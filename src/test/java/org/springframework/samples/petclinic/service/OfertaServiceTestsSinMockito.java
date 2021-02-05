@@ -220,5 +220,13 @@ public class OfertaServiceTestsSinMockito {
 			this.ofertaService.asociarOfertaAOtro(o.getId(), ot.getId());
 			assertThat(o.getOtrosEnOferta().contains(ot));	 
 	}
+	 
+	 @Test
+	 @Transactional
+	 void shouldPonerEstadoOfertaAFalse() {
+		 Oferta of=this.ofertaService.findOfertaById(1);
+		this.ofertaService.ponerEstadoOfertaAFalse(of.getId());
+		assertThat(of.getEstadoOferta()==false);
+	 }
 
 }

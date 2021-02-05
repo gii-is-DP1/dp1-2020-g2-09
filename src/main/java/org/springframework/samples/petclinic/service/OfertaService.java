@@ -64,20 +64,10 @@ public class OfertaService {
 	
 	//Para borrar las pizzas
 	@Transactional
-	public void ponerEstadoOfertaDePizzasAFalse(Integer pizzaId) throws DataAccessException {
-		ofertaRepository.ponerEstadoOfertaDePizzasAFalse(pizzaId);//HACER PRUEBAS
-	}
-	
-	@Transactional
 	public List<Integer> numeroPizzasEnOferta(Integer pizzaId) throws DataAccessException {
 		return ofertaRepository.numeroPizzasEnOferta(pizzaId);//HACER PRUEBAS
 	}
 	//Para borrar las bebidas
-	@Transactional
-	public void ponerEstadoOfertaDeBebidasAFalse(Integer bebidaId) throws DataAccessException {
-		ofertaRepository.ponerEstadoOfertaDeBebidasAFalse(bebidaId);//HACER PRUEBAS
-	}
-	
 	@Transactional
 	public List<Integer> numeroBebidasEnOferta(Integer bebidaId) throws DataAccessException {
 		return ofertaRepository.numeroBebidasEnOferta(bebidaId);//HACER PRUEBAS
@@ -85,13 +75,14 @@ public class OfertaService {
 	
 	//Para borrar los otros
 	@Transactional
-	public void ponerEstadoOfertaDeOtrosAFalse(Integer otrosId) throws DataAccessException {
-		ofertaRepository.ponerEstadoOfertaDeOtrosAFalse(otrosId);//HACER PRUEBAS
-	}
-		
-	@Transactional
 	public List<Integer> numeroOtrosEnOferta(Integer otrosId) throws DataAccessException {
 		return ofertaRepository.numeroOtrosEnOferta(otrosId);//HACER PRUEBAS
+	}
+	
+	//para borrar
+	@Transactional
+	public void ponerEstadoOfertaAFalse(Integer ofertaId) throws DataAccessException {
+		ofertaRepository.ponerEstadoOfertaAFalse(ofertaId);
 	}
 	
 	@Transactional

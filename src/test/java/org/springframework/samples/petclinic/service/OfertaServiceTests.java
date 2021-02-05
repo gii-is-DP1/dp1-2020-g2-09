@@ -265,6 +265,15 @@ public class OfertaServiceTests {
 		verify(ofertaRepository, never()).findOtrosEnOfertaByOfertaId(1);
 	}
 	
+	@Test
+	@Transactional
+	public void shouldFindOfertasNivelSocio() {
+		when(ofertaRepository.ofertasNivelSocio(anyInt())).thenReturn(new ArrayList<>());
+		ofertaService.ofertasNivelSocio(1);
+		verify(ofertaRepository).ofertasNivelSocio(1);
+	}
+	
+	
 	
 	
 //	@Test

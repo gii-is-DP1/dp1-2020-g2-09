@@ -454,7 +454,9 @@ public class CartaController {
 			
 			List<Integer> listaOfertasIds = this.OfertaService.numeroPizzasEnOferta(pizzaId);
 			for(int i=0; i<listaOfertasIds.size(); i++) {
-				this.OfertaService.ponerEstadoOfertaDePizzasAFalse(pizzaId);
+				this.OfertaService.ponerEstadoOfertaAFalse(listaOfertasIds.get(i));
+				Oferta f=this.OfertaService.findOfertaById(listaOfertasIds.get(i));
+				this.OfertaService.saveOferta(f);
 			}
 			
 			this.PizzaService.deletePizza(pizza);
@@ -471,7 +473,9 @@ public class CartaController {
 			
 			List<Integer> listaOfertasIds = this.OfertaService.numeroBebidasEnOferta(bebidaId);
 			for(int i=0; i<listaOfertasIds.size(); i++) {
-				this.OfertaService.ponerEstadoOfertaDeBebidasAFalse(bebidaId);
+				this.OfertaService.ponerEstadoOfertaAFalse(listaOfertasIds.get(i));
+				Oferta f=this.OfertaService.findOfertaById(listaOfertasIds.get(i));
+				this.OfertaService.saveOferta(f);
 			}
 			
 			this.BebidaService.deleteBebida(bebida);
@@ -488,7 +492,9 @@ public class CartaController {
 			
 			List<Integer> listaOfertasIds = this.OfertaService.numeroOtrosEnOferta(OtrosId);
 			for(int i=0; i<listaOfertasIds.size(); i++) {
-				this.OfertaService.ponerEstadoOfertaDeOtrosAFalse(OtrosId);
+				this.OfertaService.ponerEstadoOfertaAFalse(listaOfertasIds.get(i));
+				Oferta f=this.OfertaService.findOfertaById(listaOfertasIds.get(i));
+				this.OfertaService.saveOferta(f);
 			}
 			
 			this.OtrosService.deleteOtros(Otros);
