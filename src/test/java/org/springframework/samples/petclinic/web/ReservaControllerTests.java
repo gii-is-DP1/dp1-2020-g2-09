@@ -80,6 +80,7 @@ class ReservaControllerTests {
 	@Autowired
 	private MockMvc mockMvc;
 
+	@SuppressWarnings("unchecked")
 	@BeforeEach
 	void setup() {
 		Reserva r = new Reserva();
@@ -128,15 +129,17 @@ class ReservaControllerTests {
 		Mesa m2 = new Mesa();
 		m2.setCapacidad(6);
 		m2.setId(TEST_MESA_ID2);
-		List<Mesa> m1= new ArrayList<Mesa>();
-		m1.add(m2);
+		List<Mesa> listaMesas = new ArrayList<Mesa>();
+		listaMesas.add(m2);
+		listaMesas.add(m);
 		List<Mesa> m12= new ArrayList<Mesa>();
 		m12.add(m2);
-		r.setMesasEnReserva(m1);
+		r.setMesasEnReserva(listaMesas);
 		r2.setMesasEnReserva(m12);
 		
-		List<Integer> reservasId =new ArrayList<Integer>();
-		reservasId.add(TEST_RESERVA_ID2);
+		List<Integer> reservasId1 =new ArrayList<Integer>(0);
+		List<Integer> reservasId2 = new ArrayList<Integer>();
+		reservasId2.add(TEST_RESERVA_ID2);
 		List<Reserva> reservas =new ArrayList<Reserva>();
 		reservas.add(r2);
 		Mesa m3 = new Mesa();
@@ -145,23 +148,20 @@ class ReservaControllerTests {
 		List<Mesa> m123= new ArrayList<Mesa>();
 		r3.setMesasEnReserva(m123);
 		m123.add(m3);
-		List<Integer> reservasId3 =new ArrayList<Integer>();
 		
 		this.reservaService.saveReserva(r);
 		given(this.mesaService.findIdMesaByReserva(TEST_RESERVA_ID)).willReturn(TEST_MESA_ID);
 		given(this.reservaService.findReservas()).willReturn(Lists.newArrayList(r));
 		given(this.mesaService.findById(TEST_MESA_ID)).willReturn(m);
 		given(this.mesaService.findByReserva(TEST_RESERVA_ID)).willReturn(Lists.newArrayList(m));
-		given(this.mesaService.findMesas()).willReturn(m1);
+		given(this.mesaService.findMesas()).willReturn(listaMesas);
 		given(this.reservaService.findById(TEST_RESERVA_ID)).willReturn(r);
 		given(this.clienteService.findCuentaById(TEST_CLIENTE_ID)).willReturn(cliente);
 		given(this.reservaService.findReservasByCliente(TEST_CLIENTE_ID)).willReturn(Lists.newArrayList(r));
-		given(this.reservaService.findReservasIdByMesaId(m2.getId())).willReturn(reservasId);
-		given(this.reservaService.calcularReservasAPartirIds(reservasId)).willReturn(reservas);
+		given(this.reservaService.findReservasIdByMesaId(Mockito.anyInt())).willReturn(reservasId2);
+		given(this.reservaService.calcularReservasAPartirIds(Mockito.anyList())).willReturn(reservas);
 		
-		given(this.reservaService.findById(TEST_RESERVA_ID3)).willReturn(r3);
-		given(this.reservaService.findReservasIdByMesaId(TEST_RESERVA_ID3)).willReturn(reservasId3);
-		
+		given(this.reservaService.findById(TEST_RESERVA_ID3)).willReturn(r3);		
 		given(this.userService.findUser(u1.getUsername())).willReturn(op);
 		given(this.clienteService.findCuentaByUser(u1)).willReturn(cliente);
 		
