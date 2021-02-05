@@ -265,7 +265,7 @@ public class PedidoController {
 		//model2.put("cartas", carta);
 		//model2.put("pedido", pedido);
 		log.info("Mostrando cartas para añadir productos al pedido.");
-		return "redirect:/pedidos/"+pedidoId+"/cartas/"+cartaId+"/verCarta"; 
+		return "redirect:/pedidos/{pedidoId}/cartas/"+cartaId+"/verCarta"; 
 	}
 	
 	//Acceso a la carta desde un pedido

@@ -113,36 +113,6 @@ public class CartaControllerTests {
 		.andExpect(model().attributeHasErrors())			
 		.andExpect(view().name("cartas/createOrUpdateCartaForm"));
 	}
-
-    @WithMockUser(value = "spring")
-	@Test
-	void testInitUpdateForm() throws Exception {
-		mockMvc.perform(get("/cartas/{cartaId}/edit", TEST_CARTA_ID))
-				.andExpect(status().isOk())
-				.andExpect(view().name("cartas/createOrUpdateCartaForm"))
-				.andExpect(model().attributeExists("carta"));
-	}
-    
-    @WithMockUser(value = "spring")
-	@Test
-	void testprocessUpdateCartaFormSuccess() throws Exception {
-		mockMvc.perform(post("/cartas/{cartaId}/edit", TEST_CARTA_ID)
-				.with(csrf())
-				.param("nombre", "cartaPrincipal"))
-		.andExpect(status().is3xxRedirection())
-		.andExpect(view().name("redirect:/allCartas"));
-	}
-    
-    @WithMockUser(value = "spring")
-	@Test
-	void testprocessUpdateOtrosFormHasErrors() throws Exception {
-		mockMvc.perform(post("/cartas/{cartaId}/edit", TEST_CARTA_ID)
-				.with(csrf())
-				.param("nombre", "d")
-				.param("fecha", "d"))
-		.andExpect(model().attributeHasErrors())			
-		.andExpect(view().name("cartas/createOrUpdateCartaForm"));
-    }
     
     @WithMockUser(value = "spring")
    	@Test

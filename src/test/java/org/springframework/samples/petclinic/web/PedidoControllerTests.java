@@ -1,6 +1,8 @@
 package org.springframework.samples.petclinic.web;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doAnswer;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -14,6 +16,8 @@ import java.util.Optional;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -22,6 +26,7 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.Alergenos;
 import org.springframework.samples.petclinic.model.Bebida;
+import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.EstadoPedido;
 import org.springframework.samples.petclinic.model.Ingrediente;
@@ -130,6 +135,35 @@ public class PedidoControllerTests {
 		pedido.setFechaPedido(hoy);
 		pedido2.setFechaPedido(hoy);
 		
+//		doAnswer(new Answer() {
+//		    public Object answer(InvocationOnMock invocation) {
+//		        Object[] args = invocation.getArguments();
+//		        ((Pedido)args[0]).setId(1);
+//		        return null; // void method, so return null
+//		    }
+//		}).when(this.PedidoService).savePedido(any(Pedido.class));
+		
+//		doAnswer(new Answer() {
+//		    public Object answer(InvocationOnMock invocation) {
+//		        Object[] args = invocation.getArguments();
+//		        ((Carta)args[0]).setId(1);
+//		        return null; // void method, so return null
+//		    }
+//		}).when(this.PedidoService).savePedido(any(Pedido.class));
+		
+//		doAnswer(new Answer() {
+//		    public Object answer(InvocationOnMock invocation) {
+//		        Object[] args = invocation.getArguments();
+//		        EstadoPedido estd = new EstadoPedido();
+//		        estd.setId(2);
+//		        TipoEnvio envio = new TipoEnvio();
+//		        envio.setId(1);
+//		        ((Pedido)args[0]).setTipoEnvio(envio);
+//		        ((Pedido)args[1]).setEstadoPedido(estd);
+//		        return invocation.getMock(); // void method, so return null
+//		    }
+//		}).when(this.PedidoService).putRecogido(any());
+		
 		
 		//pizza
 		Pizza pizza1 = new Pizza();
@@ -194,6 +228,8 @@ public class PedidoControllerTests {
 		given(this.PedidoService.findPedidosByCliente(TEST_CLIENTE_ID)).willReturn(Lists.newArrayList(pedido));
 		given(this.PedidoService.findPedidoForCocinero()).willReturn(Lists.newArrayList(pedido));
 		given(this.PedidoService.findPedidoForRepartidor()).willReturn(Lists.newArrayList(pedido));
+		given(this.CartaService.findCartaByFechaCreacionYFechaFinal(hoy)).willReturn(new Carta());
+		
 	}
 	
 
@@ -316,9 +352,9 @@ public class PedidoControllerTests {
     @WithMockUser(value = "spring")
    	@Test
    	void showCartaParaPedidosList() throws Exception {
-    	mockMvc.perform(get("/pedidos/{pedidoId}/allCartas", TEST_PEDIDO_ID, TEST_CARTA_ID))
+    	mockMvc.perform(get("/pedidos/{pedidoId}/allCartas", TEST_PEDIDO_ID))
     	.andExpect(status().is3xxRedirection())
-		.andExpect(view().name("redirect:/pedidos/"+TEST_PEDIDO_ID+"/cartas/"+TEST_CARTA_ID+"/verCarta"));
+		.andExpect(view().name("redirect:/pedidos/{pedidoId}/cartas/{cartaId}/verCarta"));
     	//System.out.println("redirect:/pedidos/"+TEST_PEDIDO_ID+"/cartas/"+TEST_CARTA_ID+"/verCarta");
     	
 		/*.andExpect(model().attributeExists("pizzas"))
@@ -378,7 +414,6 @@ public class PedidoControllerTests {
    	@Test
    	void testenCocinaPreparadoSuccess() throws Exception {
     	mockMvc.perform(get("/cocinero/{pedidoId}/estadoPedido", TEST_PEDIDO_ID))
-    	/*.andReturn().getRequest();*/
     	.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/pedidos/cocinero"));
     }
@@ -406,9 +441,10 @@ public class PedidoControllerTests {
    	@Test
    	void testeliminarPizza() throws Exception {
     	mockMvc.perform(get("/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/{pizzaId}/borrarP", TEST_PEDIDO_ID, TEST_CARTA_ID, TEST_PIZZA_ID))
+    	.andExpect(status().isOk())
     	.andExpect(status().is3xxRedirection())
-    	.andExpect(model().attributeExists("cartaId"))
-		.andExpect(model().attributeExists("pedido"))
+//    	.andExpect(model().attributeExists("cartaId"))
+//		.andExpect(model().attributeExists("pedido"))
 		.andExpect(view().name("redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen"));
 		
     }
