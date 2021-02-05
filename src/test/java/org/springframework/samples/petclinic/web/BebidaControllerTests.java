@@ -74,6 +74,16 @@ public class BebidaControllerTests {
 	
 	@WithMockUser(value = "spring")
     @Test
+	void testshowBebidasList() throws Exception {
+		mockMvc.perform(get("/allBebidas"))
+				.andExpect(status().isOk())
+				.andExpect(view().name("bebidas/bebidasList"))
+				.andExpect(model().attributeExists("bebidas"));
+		
+	}
+	
+	@WithMockUser(value = "spring")
+    @Test
     void testInitCreationForm() throws Exception {
 
 		mockMvc.perform(get("/bebidas/new"))
