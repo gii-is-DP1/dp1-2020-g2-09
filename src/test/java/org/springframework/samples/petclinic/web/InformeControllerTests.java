@@ -49,11 +49,14 @@ import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import lombok.extern.slf4j.Slf4j;
+
 
 @WebMvcTest(value = InformeController.class,
 excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
 excludeAutoConfiguration= SecurityConfiguration.class)
 
+@Slf4j
 public class InformeControllerTests {
 	
 	private static final int TEST_INFORME_ID = 1;
@@ -161,48 +164,43 @@ public class InformeControllerTests {
 		pedido2.setFechaPedido(hoy);
 		
 		
-		//pizza
-		Pizza pizza1 = new Pizza();
-		pizza1.setId(TEST_PIZZA_ID);
-		pizza1.setCoste(12);
-		pizza1.setNombre("Barbacoa");
-		
+		//Creación de pizzas
+		List<Pizza> pizzasEnPedido=new ArrayList<Pizza>();
+		for(int i=0;i<10;i++) {
+			Pizza pizza1 = new Pizza();
+			pizza1.setId(i);
+			pizza1.setCoste(12);
+			pizza1.setNombre("Barbacoa");
+			TamanoProducto t=new TamanoProducto();
+			t.setId(i);
+			t.setName("mini");
+			pizza1.setTamano(t);
+			tipoMasa t2=new tipoMasa();
+			t2.setId(i);
+			t2.setName("extrafina");
+			pizza1.setTipoMasa(t2);
+			pizzasEnPedido.add(pizza1);
+		}
 		Alergenos alergeno1 = new Alergenos();
 		alergeno1.setName("contiene lactosa");
 		alergeno1.setId(55);
 		
-		Ingrediente ingrediente1 = new Ingrediente();
-		ingrediente1.setAlergenos(alergeno1);
-		ingrediente1.setFechaCaducidad(LocalDate.of(2021, 12, 05));
-		ingrediente1.setId(55);
-		ingrediente1.setNombre("tomate");
-		ingrediente1.setTipo("contiene lácteos");
-		
-		Ingrediente ingrediente2 = new Ingrediente();
-		ingrediente2.setAlergenos(alergeno1);
-		ingrediente2.setFechaCaducidad(LocalDate.of(2021, 12, 05));
-		ingrediente2.setId(55);
-		ingrediente2.setNombre("tomate");
-		ingrediente2.setTipo("contiene lácteos");
 		List<Ingrediente> lista_ingredientes = new ArrayList<Ingrediente>();
-		lista_ingredientes.add(ingrediente1);
-		lista_ingredientes.add(ingrediente2);
-		pizza1.setIngredientes(lista_ingredientes);
+		for(int i=0; i<=15; i++) {
+			Ingrediente ingrediente1 = new Ingrediente();
+			ingrediente1.setAlergenos(alergeno1);
+			ingrediente1.setFechaCaducidad(LocalDate.of(2021, 12, 05));
+			ingrediente1.setId(i);
+			ingrediente1.setNombre("tomate"+String.valueOf(i));
+			ingrediente1.setTipo("contiene lácteos");
+			lista_ingredientes.add(ingrediente1);
+		}
+		for(Pizza p: pizzasEnPedido) {
+			p.setIngredientes(lista_ingredientes);
+		}
+
 		
-		TamanoProducto t=new TamanoProducto();
-		t.setId(66);
-		t.setName("mini");
-		pizza1.setTamano(t);
-		
-		tipoMasa t2=new tipoMasa();
-		t2.setId(66);
-		t2.setName("extrafina");
-		pizza1.setTipoMasa(t2);
-		
-		List<Pizza> pizzasEnPedido=new ArrayList<Pizza>();
-		pizzasEnPedido.add(pizza1);
-		
-		Integer costeP=pizza1.getCoste();
+		//Integer costeP=pizza1.getCoste();
 		
 		//bebida
 		TamanoProducto tamp=new TamanoProducto();
@@ -219,9 +217,9 @@ public class InformeControllerTests {
 		List<Bebida> bebidasEnPedido= new ArrayList<Bebida>();
 		bebidasEnPedido.add(b);
 		
-		Integer costeB=b.getCoste();
+		//Integer costeB=b.getCoste();
 		
-		pedido.setPrecio((double)costeP+costeB);
+		pedido.setPrecio((double)0);
 		
 		pedido.setPizzasEnPedido(pizzasEnPedido);
 		pedido.setBebidasEnPedido(bebidasEnPedido);
@@ -231,9 +229,12 @@ public class InformeControllerTests {
 		List<Mesa> listaMesas = new ArrayList<>();
 		listaMesas.add(mesa1);
 		listaMesas.add(mesa2);
+		
+		List<Pedido> pedidos = new ArrayList<Pedido>();
+		pedidos.add(pedido);
+		//pedidos.add(pedido2);
 	
-		given(this.pedidoService.findPedidos()).willReturn(Lists.newArrayList(pedido));
-		given(this.pedidoService.findPedidos()).willReturn(new ArrayList<>());
+		given(this.pedidoService.findPedidos()).willReturn(pedidos);
 		given(this.pedidoService.findPedidoById(TEST_PEDIDO_ID)).willReturn(new Pedido());
 		given(this.pedidoService.findPedidosByCliente(TEST_CLIENTE_ID)).willReturn(Lists.newArrayList(pedido));
 		given(this.pedidoService.findPedidoForCocinero()).willReturn(Lists.newArrayList(pedido));
@@ -241,7 +242,7 @@ public class InformeControllerTests {
 		given(this.mesaService.findMesas()).willReturn(listaMesas);
 		given(this.mesaService.CountMesa(TEST_MESA_ID)).willReturn(0);
 		given(this.ingredienteService.findIngredientes()).willReturn(lista_ingredientes);
-		given(this.ingredienteService.CountIngrediente(Mockito.anyInt())).willReturn(0,10);
+		given(this.ingredienteService.CountIngrediente(Mockito.anyInt())).willReturn(-1,0,1,2,3,4,5,6,7,8,9,10,11,14,1000);
 	}
 
 	@WithMockUser(value = "spring")
