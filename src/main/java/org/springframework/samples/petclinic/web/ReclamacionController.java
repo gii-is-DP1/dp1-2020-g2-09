@@ -200,6 +200,7 @@ public class ReclamacionController {
 		public String processUpdateReclamacionForm(@Valid Reclamacion reclamacion, BindingResult result,
 				@PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
 			if (result.hasErrors()) {
+				reclamacion.setId(reclamacionId);
 				model.put("reclamacion", reclamacion);
 				log.warn("Error a la hora de actualizar una reclamación.");
 				return "reclamaciones/createOrUpdateReclamacionForm";

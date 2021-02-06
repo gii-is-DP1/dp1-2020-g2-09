@@ -185,8 +185,9 @@ public class CartaController {
 		model.put("otros", listaOtros);
 		log.info("Obtenidas los otros para la carta");
 		
+		LocalDate hoy=LocalDate.now();
 		
-		List<Oferta>  ofertas = OfertaService.findOfertasByEstadoOferta(true);
+		List<Oferta>  ofertas = OfertaService.findOfertasTrueEnTiempo(hoy);
 		model.put("ofertas",ofertas);
 		
 		return "cartas/verCarta";

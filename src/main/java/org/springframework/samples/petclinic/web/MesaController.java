@@ -95,6 +95,7 @@ public class MesaController {
 		}
 
 		if (result.hasErrors()) {
+			mesa.setId(mesaId);
 			log.warn("Error a la hora de actualizar una mesa.");
 			return "mesas/createOrUpdateMesaForm";
 		}

@@ -42,6 +42,7 @@ public class OfertaControllerTests {
 
 	private static final int TEST_OFERTA_ID = 1;
 	private static final int TEST_OFERTA_ID2 = 2;
+	private static final int TEST_OFERTA_ID3 = 3;
 	private static final int TEST_PIZZA_ID = 1;
 	private static final int TEST_PIZZA_ID2 = 2;
 	private static final int TEST_BEBIDA_ID = 1;
@@ -75,6 +76,13 @@ public class OfertaControllerTests {
 		o2.setEstadoOferta(false);
 		o2.setId(TEST_OFERTA_ID2);
 		
+		Oferta o3 = new Oferta();
+		o3.setCoste(20.0);
+		o3.setFechaInicial(LocalDate.of(2020, 11, 10));
+		o3.setFechaFinal(LocalDate.of(2020, 11, 22));
+		o3.setEstadoOferta(true);
+		o3.setId(TEST_OFERTA_ID3);
+		
 		NivelSocio ns = new NivelSocio();
 		ns.setId(2);
 		ns.setName("ORO");
@@ -104,7 +112,8 @@ public class OfertaControllerTests {
 		
 		Bebida b = new Bebida();
 		b.setId(3);
-		b.setCoste(10.0);
+		b.setCoste(1.5);
+
 		b.setEsCarbonatada(true);
 		b.setNombre("Hidromiel");
 		b.setTamano(t);
@@ -114,7 +123,7 @@ public class OfertaControllerTests {
 		
 		Otro patatas = new Otro();
 		patatas.setId(3);
-		patatas.setCoste(12.0);
+		patatas.setCoste(8.5);
 		patatas.setNombre("Patatas fritas");
 
 		List<Otro> listO=new ArrayList<>();
@@ -123,6 +132,7 @@ public class OfertaControllerTests {
 		given(this.ofertaService.findOfertas()).willReturn(Lists.newArrayList(o));
 		given(this.ofertaService.findOfertaById(TEST_OFERTA_ID)).willReturn(o);
 		given(this.ofertaService.findOfertaById(TEST_OFERTA_ID2)).willReturn(o2);
+		given(this.ofertaService.findOfertaById(TEST_OFERTA_ID3)).willReturn(o3);
 		given(this.pizzaService.findPizzaById(TEST_PIZZA_ID)).willReturn(pizza1);
 		given(this.pizzaService.findPizzas()).willReturn(listP);
 		given(this.bebidaService.findBebidas()).willReturn(listB);
@@ -244,6 +254,17 @@ public class OfertaControllerTests {
     	mockMvc.perform(get("/ofertas/{ofertaId}/changeState", TEST_OFERTA_ID2)
 				.with(csrf())
 				.param("estadoOferta.name", "true"))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/allOfertas"));
+    }
+    
+    @WithMockUser(value = "spring")
+    @Test
+    void testChangeOfertaStateTrueEnTiempo() throws Exception {
+    	mockMvc.perform(get("/ofertas/{ofertaId}/changeState", TEST_OFERTA_ID3)
+				.with(csrf())
+				.param("fechaInicial", "LocalDate.now()")
+				.param("fechaFinal", "LocalDate.now().plusDays(30)"))
 		.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/allOfertas"));
     }
