@@ -21,7 +21,7 @@ public class PizzaValidator implements Validator{
 		String nombre = pizza.getNombre();
 		tipoMasa tipoMasa = pizza.getTipoMasa();
 		TamanoProducto tamaño = pizza.getTamano();
-		Integer coste = pizza.getCoste();
+		Double coste = pizza.getCoste();
         
 		Collection<Ingrediente> ing = pizza.getIngredientes();
 		

@@ -32,7 +32,7 @@ public class Producto extends BaseEntity {
 	@NotNull
 	@Min(0)
 	@Max(100)
-	private Integer coste;
+	private Double coste;
 	
 	
 //	@ManyToMany (cascade = CascadeType.MERGE)

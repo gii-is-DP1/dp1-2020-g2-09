@@ -136,7 +136,16 @@ public class PizzaController {
 			pizza1.setCliente(cliente);
 			pizza1.setPersonalizada(true);
 			Integer numIng = pizza1.getIngredientes().size();
-			pizza1.setCoste(6 + numIng);
+			pizza1.setCoste(6 + numIng*0.80);
+			if(pizza1.getTamano().getName()=="GRANDE") {
+				pizza1.setCoste(pizza1.getCoste()+1.5);
+			}
+			if(pizza1.getTipoMasa().getName()=="GRUESA") {
+				pizza1.setCoste(pizza1.getCoste()+1);
+			}
+			if(pizza1.getTipoMasa().getName()=="RELLENA") {
+				pizza1.setCoste(pizza1.getCoste()+2);
+			}
 			
 			//comprobamos que el nombre de la pizza personalizada no está duplicado (RN-4)
 			Boolean duplicado = false;
@@ -200,6 +209,62 @@ public class PizzaController {
 		log.info("Pizza eliminada con éxito");
 
 		return "redirect:/allPizzas"; 
+	}
+	
+	@GetMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/new")
+	public String actualizarPizza(@PathVariable("pedidoId") int pedidoId,@PathVariable("cartaId") int cartaId,
+			 ModelMap model) {
+		Pizza pizza = new Pizza();
+		model.put("pizza", pizza);
+		Pedido pedido= this.pedidoService.findPedidoById(pedidoId);
+		
+		model.put("pedido", pedido);
+		model.put("cartaId", cartaId);
+		log.info("Inicializando actualizacion pizza de pedido");
+		return "pizzas/createOrUpdatePizzaFormCliente";
+	}
+
+	// mandar actualizacion
+	@PostMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/new")
+	public String processUpdatePizzaForm2(@Valid Pizza pizza, BindingResult result,
+			@PathVariable("pedidoId") int pedidoId,@PathVariable("cartaId") int cartaId) {
+		if (result.hasErrors()) {
+			log.warn("No se pudo actualizar la pizza del pedido");
+			return "pizzas/createOrUpdatePizzaFormCliente";
+		} else {
+			Cliente cliente = getClienteActivo();
+			pizza.setCliente(cliente);
+			pizza.setPersonalizada(true);
+			Integer numIng = pizza.getIngredientes().size();
+			pizza.setCoste(6 + numIng*0.80);
+			if(pizza.getTamano().getName().equals("GRANDE")) {
+				pizza.setCoste(pizza.getCoste()+1.5);
+			}
+			String tamaño = pizza.getTipoMasa().getName();
+			if(tamaño.equals("GRUESA")) {
+				pizza.setCoste(pizza.getCoste()+1);
+			}
+			if(tamaño.equals("RELLENA")) {
+				pizza.setCoste(pizza.getCoste()+2);
+			}
+			
+			//comprobamos que el nombre de la pizza personalizada no está duplicado (RN-4)
+			Boolean duplicado = false;
+			List<Pizza> pizzasCliente = pizzaService.findPizzaByCliente(cliente);
+			for(int i=0; i<pizzasCliente.size() && !duplicado; i++) {
+				if(pizza.getNombre().equals(pizzasCliente.get(i).getNombre())) {
+					 duplicado = true;
+				}
+			}
+			if(duplicado) {
+				log.warn("La pizza introducida por el cliente estaba duplicada");
+
+				return "redirect:/NombreDePizzaPersonalizadaDuplicado";
+			}
+			this.pizzaService.savePizza(pizza);
+			log.info("Pizza del pedido actualizada");
+			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/verCarta";
+		}
 	}
 	
 	// editar pizzas de un pedido

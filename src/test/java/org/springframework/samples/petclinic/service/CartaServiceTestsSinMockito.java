@@ -37,7 +37,7 @@ public class CartaServiceTestsSinMockito {
 		
 		Bebida bebida= new Bebida();
 		bebida.setEsCarbonatada(true);
-		bebida.setCoste(20);
+		bebida.setCoste(20.0);
 		bebida.setNombre("cocacola");
 		bebida.setTamano(tamaño);
 		
@@ -45,7 +45,7 @@ public class CartaServiceTestsSinMockito {
 		tm.setName("Fina");
 		
 		Pizza pizza= new Pizza();
-		pizza.setCoste(20);
+		pizza.setCoste(20.0);
 		pizza.setNombre("Carbonara");
 		pizza.setTipoMasa(tm);
 		pizza.setTamano(tamaño);
@@ -71,7 +71,7 @@ public class CartaServiceTestsSinMockito {
 			ingredientes.add(i2);
 		
 		Otro otro=new Otro();
-		otro.setCoste(20);
+		otro.setCoste(20.0);
 		otro.setNombre("pollo");
 		otro.setIngredientes(ingredientes);
 		

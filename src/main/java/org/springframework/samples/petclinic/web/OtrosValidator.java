@@ -20,7 +20,7 @@ public class OtrosValidator implements Validator{
 		Otro otros = (Otro) obj;
 		String nombre = otros.getNombre();
 		//Collection<Ingrediente> ingredientes = otros.getIngredientes();
-		Integer coste = otros.getCoste();
+		Double coste = otros.getCoste();
 		Collection<Ingrediente> ing = otros.getIngredientes();
 		
 		if (!StringUtils.hasLength(nombre) || nombre.length()>50 || nombre.length()<2) {

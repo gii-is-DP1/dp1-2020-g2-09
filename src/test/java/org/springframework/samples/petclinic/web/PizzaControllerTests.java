@@ -108,7 +108,7 @@ private PizzaController pizzaController;
 		cliente.setTelefono(123456789);
         
 		pizza1.setId(3);
-		pizza1.setCoste(12);
+		pizza1.setCoste(12.0);
 		pizza1.setNombre("Barbacoa");
 		
 		Ingrediente ingrediente1 = new Ingrediente();

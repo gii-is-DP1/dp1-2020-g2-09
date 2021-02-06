@@ -18,7 +18,7 @@ public class BebidaValidator implements Validator {
 		String nombre = bebida.getNombre();
 		Boolean carbonatada = bebida.getEsCarbonatada();
 		TamanoProducto tamaño = bebida.getTamano();
-		Integer coste = bebida.getCoste();
+		Double coste = bebida.getCoste();
 		
 		// nombre validation
 		if (!StringUtils.hasLength(nombre) || nombre.length()>50 || nombre.length()<2) {
