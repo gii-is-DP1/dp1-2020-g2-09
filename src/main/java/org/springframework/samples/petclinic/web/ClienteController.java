@@ -91,6 +91,7 @@ public class ClienteController {
 //			ValidationUtils.invokeValidator(cuentaValidator, cliente, result);
 			cliente.setFechaAlta(LocalDate.now());
 			NivelSocio nivelSocio = new NivelSocio();
+			//nivelSocio.setId(4);
 			nivelSocio.setName("No tiene nivel de socio");
 			cliente.setNivelSocio(nivelSocio);
 			

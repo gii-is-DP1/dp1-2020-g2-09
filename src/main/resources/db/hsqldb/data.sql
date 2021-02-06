@@ -1,24 +1,19 @@
 -- One admin user, named admin1 with passwor 4dm1n and authority admin
 INSERT INTO users(username,password,enabled) VALUES ('admin1','admin1',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (1,'admin1','administrador');
--- One owner user, named owner1 with passwor 0wn3r
-INSERT INTO users(username,password,enabled) VALUES ('owner1','0wn3r',TRUE); 
-INSERT INTO authorities(id,username,authority) VALUES (2,'owner1','owner');
--- One vet user, named vet1 with passwor v3t
-INSERT INTO users(username,password,enabled) VALUES ('vet1','v3t',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
 
-
--- One owner user, named luctorgom with password luctorgom
 INSERT INTO users(username,password,enabled) VALUES ('luctorgom','luctorgom',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (4,'luctorgom','administrador');
--- One owner user, named raupargor with password raupargor
+
+INSERT INTO users(username,password,enabled) VALUES ('luctorgom1','luctorgom1',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (15,'luctorgom1','cliente');
+
 INSERT INTO users(username,password,enabled) VALUES ('raupargor','raupargor',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (5,'raupargor','cliente');
--- One owner user, named margarcac1 with password margarcac1
+
 INSERT INTO users(username,password,enabled) VALUES ('margarcac1','margarcac1',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (6,'margarcac1','cliente');
--- One owner user, named jesrolcad with passwor jesrolcad
+
 INSERT INTO users(username,password,enabled) VALUES ('jesrolcad','jesrolcad',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (7,'jesrolcad','cliente');
 
@@ -37,28 +32,32 @@ INSERT INTO authorities(id,username,authority) VALUES (14,'pepinho','cliente');
 INSERT INTO NIVEL_SOCIO(id, name) VALUES(3,'ORO');
 INSERT INTO NIVEL_SOCIO(id, name) VALUES(2,'PLATA');
 INSERT INTO NIVEL_SOCIO(id, name) VALUES(1,'BRONCE');
+INSERT INTO NIVEL_SOCIO(id, name) VALUES(4,'No tiene nivel de socio');
 
 
-INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
-VALUES ('María','García Cáceres','2000-01-01','654123987','margarcar@alum.us.es', 'margarcac1');
+
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario,fecha_alta, nivel_socio) 
+VALUES ('María','García Cáceres','2000-01-01','654123987','margarcar@alum.us.es', 'margarcac1', '2020-01-02', 3);
 
 INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario, fecha_alta, nivel_socio) 
 VALUES ('Pepe','García Cáceres','2000-01-01','654123987','pepepalotes@gmail.com', 'pepinho', '2020-01-02', 3);
 
-INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
-VALUES ('Servando','Figueroa Gómez','2000-08-12','698745213','serfiggom@alum.us.es', 'serfiggom1');
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario, fecha_alta, nivel_socio) 
+VALUES ('Servando','Figueroa Gómez','2000-08-12','698745213','serfiggom@alum.us.es', 'serfiggom1', '2020-01-02', 3);
+
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario, fecha_alta, nivel_socio) 
+VALUES ('Raúl','Parrado Gordón','2000-05-29','717548963','raupargor@alum.us.es', 'raupargor', '2020-01-02', 3);
+
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario, fecha_alta, nivel_socio) 
+VALUES ('Álvaro','Sánchez González','2000-01-30','687452196','alvsangon@alum.us.es', 'cliente1', '2020-01-02', 3);
+
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario, fecha_alta, nivel_socio) 
+VALUES ('Jesús','Roldán Cadena','2000-08-07','632145879','jesrolcad@alum.us.es', 'jesrolcad', '2020-01-02', 3);
+
 
 INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
-VALUES ('Raúl','Parrado Gordón','2000-05-29','717548963','raupargor@alum.us.es', 'raupargor');
+VALUES ('Lucía','Torres Gómez','2000-03-30','614589725','luctorgom@alum.us.es', 'luctorgom1');
 
-INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
-VALUES ('Álvaro','Sánchez González','2000-01-30','687452196','alvsangon@alum.us.es', 'cliente1');
-
-INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
-VALUES ('Jesús','Roldán Cadena','2000-08-07','632145879','jesrolcad@alum.us.es', 'jesrolcad');
-
-INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
-VALUES ('Lucía','Torres Gómez','2000-03-30','614589725','luctorgom@alum.us.es', 'luctorgom');
 
 /*cocinero util */
 INSERT INTO users(username,password,enabled) VALUES ('cocinero1','cocinero1',TRUE);
@@ -226,7 +225,6 @@ INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021
 INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-02-02' ,'Roquefort', 'Rico en proteinas', 7);
 INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-02-02' ,'Emmental', 'Rico en proteinas', 7);
 INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-02-02' ,'Gouda', 'Rico en proteinas', 7);
-INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-02-02' ,'Queso', 'Rico en proteinas', 7);
 INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-03-03' , 'Pepino', 'Verduras y frutas');
 INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-03-03' , 'Rúcula', 'Verduras y frutas');
 INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-03-03' , 'Berenjena', 'Verduras y frutas');
@@ -236,6 +234,7 @@ INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-03-03' , '
 INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-03-03' , 'Pimiento verde', 'Verduras y frutas');
 INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-03-03' , 'Pimiento rojo', 'Verduras y frutas');
 INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-03-03' , 'Pimiento amarillo', 'Verduras y frutas');
+INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo) values ('2021-03-03' , 'Patatas', 'Verduras y frutas');
 INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-04-04' ,'Barbacoa', 'Rico en proteinas', 10);
 INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-05-05' ,'Salsa de yogurt', 'Rico en proteinas', 7);
 INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021-04-04' ,'Salsa Belouté', 'Rico en proteinas', 8);
@@ -320,15 +319,74 @@ INSERT INTO COMPOSICION_CARTA_OTROS(CARTA_ID, OTROS_EN_CARTA_ID) VALUES (1,2);
 INSERT INTO COMPOSICION_CARTA_OTROS(CARTA_ID, OTROS_EN_CARTA_ID) VALUES (1,4);
 INSERT INTO COMPOSICION_CARTA_OTROS(CARTA_ID, OTROS_EN_CARTA_ID) VALUES (2,1);
 
-INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (1,1);
-INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (1,3);
-INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (2,2);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (1,30);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (2,30);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (3,30);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (4,21);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (4,3);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (5,21);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (5,21);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (6,14);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (8,34);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (9,12);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (9,13);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (10,12);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (10,35);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (11,9);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (12,27);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (12,28);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (13,4);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (14,12);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (14,14);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (15,14);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (16,14);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (17,6);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (18,25);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (19,17);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (20,30);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (21,16);
+INSERT INTO OTROS_INGREDIENTES(OTRO_ID,INGREDIENTES_ID) VALUES (22,23);
+
 
 INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (1,1);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (1,2);
 INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (1,3);
-INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (2,2);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (1,4);
 INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (2,1);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (2,2);
 INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (2,3);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (2,4);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (3,1);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (3,2);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (3,3);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (3,4);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (3,21);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (4,1);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (4,2);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (4,3);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (4,4);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (4,15);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (5,1);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (5,2);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (5,3);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (5,4);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (5,9);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (6,1);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (6,2);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (6,3);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (7,1);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (7,2);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (7,3);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (7,18);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (8,1);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (8,2);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (8,3);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (8,23);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (9,1);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (9,2);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (9,3);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (9,31);
+INSERT INTO PIZZAS_INGREDIENTES(PIZZA_ID,INGREDIENTES_ID) VALUES (9,10);
 
 INSERT INTO OFERTA_PIZZA (OFERTA_ID,PIZZAS_EN_OFERTA_ID) VALUES (1,7);
 INSERT INTO OFERTA_PIZZA (OFERTA_ID,PIZZAS_EN_OFERTA_ID) VALUES (2,1);
