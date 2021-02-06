@@ -87,12 +87,12 @@ public class OfertaControllerTests {
 		
 		Pizza pizza1 = new Pizza();
 		pizza1.setId(TEST_PIZZA_ID);
-		pizza1.setCoste(12);
+		pizza1.setCoste(12.0);
 		pizza1.setNombre("Barbacoa");
 		
 		Pizza pizza2 = new Pizza();
 		pizza2.setId(TEST_PIZZA_ID2);
-		pizza2.setCoste(10);
+		pizza2.setCoste(10.0);
 		pizza2.setNombre("Hawaiana");
 		
 		List<Pizza> listP=new ArrayList<>();
@@ -104,7 +104,7 @@ public class OfertaControllerTests {
 		
 		Bebida b = new Bebida();
 		b.setId(3);
-		b.setCoste(10);
+		b.setCoste(10.0);
 		b.setEsCarbonatada(true);
 		b.setNombre("Hidromiel");
 		b.setTamano(t);
@@ -114,7 +114,7 @@ public class OfertaControllerTests {
 		
 		Otro patatas = new Otro();
 		patatas.setId(3);
-		patatas.setCoste(12);
+		patatas.setCoste(12.0);
 		patatas.setNombre("Patatas fritas");
 
 		List<Otro> listO=new ArrayList<>();
