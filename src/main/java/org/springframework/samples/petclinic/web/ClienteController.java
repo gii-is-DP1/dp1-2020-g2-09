@@ -56,7 +56,6 @@ public class ClienteController {
 	
 	@InitBinder("cliente")
 	public void initClienteBinder(WebDataBinder dataBinder) {
-		//dataBinder.setValidator(new UserValidator());
 		dataBinder.setValidator(new CuentaValidator());
 	}
 	
@@ -69,7 +68,6 @@ public class ClienteController {
 		return "clientes/clientesList";
 	}
 
-	//crear nuevo cliente
 	@GetMapping(value = "/clientes/new")
 	public String initCreationForm(Map<String, Object> model) {
 		Cliente cuenta = new Cliente();
@@ -78,7 +76,6 @@ public class ClienteController {
 		return "clientes/createOrUpdateCuentaForm";
 	}
 
-	//mandar nuevo cliente
 	@PostMapping(value = "/clientes/new")
 	public String processCreationForm(@Valid Cliente cliente, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
@@ -87,8 +84,6 @@ public class ClienteController {
 			return "clientes/createOrUpdateCuentaForm";
 		}
 		else {
-//			CuentaValidator cuentaValidator = new CuentaValidator();
-//			ValidationUtils.invokeValidator(cuentaValidator, cliente, result);
 			cliente.setFechaAlta(LocalDate.now());
 			NivelSocio nivelSocio = new NivelSocio();
 			//nivelSocio.setId(4);
@@ -101,7 +96,7 @@ public class ClienteController {
 		}
 	}
 	
-	//para ver los datos de mi perfil de cliente que ha iniciado sesión
+
 	@GetMapping("/clientes/DetallesPerfil")
 	public ModelAndView showCliente() {
 		ModelAndView mav = new ModelAndView("clientes/clienteDetails");
@@ -116,7 +111,7 @@ public class ClienteController {
 		return mav;
 	}
 
-	//iniciar actualizacion
+
 	@GetMapping(value = "/clientes/{cuentaId}/edit")
 	public String initUpdateForm(@PathVariable("cuentaId") int cuentaId, ModelMap model) {
 		Cliente cuenta = this.clienteService.findCuentaById(cuentaId);
@@ -125,7 +120,7 @@ public class ClienteController {
 		return "clientes/createOrUpdateCuentaForm";
 	}
 	
-	//mandar actualizacion
+
 	@PostMapping(value = "/clientes/{cuentaId}/edit")
 	public String processUpdateCuentaForm(@Valid Cliente cliente, BindingResult result,
 			@PathVariable("cuentaId") int cuentaId, ModelMap model) {
@@ -136,7 +131,7 @@ public class ClienteController {
 		}
 		else {
 			cliente.setId(cuentaId);
-			//Nivel socio a determinar
+
 		    NivelSocio nivelSocio = new NivelSocio();
 		    List<Pedido> pedidosCliente = this.pedidoService
 					.findPedidosByCliente(cliente.getId());
@@ -144,7 +139,7 @@ public class ClienteController {
 			for(int i=0; i<pedidosCliente.size(); i++) {
 				acum += pedidosCliente.get(i).getPrecio();
 			}
-			if(acum<100) {//mirar si eso las fechas
+			if(acum<100) {
 				nivelSocio.setId(4);
 				nivelSocio.setName("No tiene nivel de socio");
 				cliente.setNivelSocio(nivelSocio);
@@ -167,7 +162,6 @@ public class ClienteController {
 		}
 	}
 	
-	//borrar cliente
 	@GetMapping(value = "/clientes/{cuentaId}/delete")
 	public String initDeleteCuenta(@PathVariable("cuentaId") int cuentaId, ModelMap model) {
 		Cliente cliente = this.clienteService.findCuentaById(cuentaId);
@@ -176,10 +170,5 @@ public class ClienteController {
 		return "redirect:/allCuentas";
 	}
 
-//	@DeleteMapping(value = "/cuentas/{cuentaId}/delete")
-//	public String deleteCuenta(@PathVariable("cuentaId") int cuentaId) {
-//		Cliente cliente = this.clienteService.findCuentaById(cuentaId);
-//		this.clienteService.deleteCliente(cliente);
-//		return "redirect:/allCuentas";
-//	}
+
 }
