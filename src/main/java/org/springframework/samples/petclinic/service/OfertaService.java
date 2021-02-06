@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.service;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,12 @@ public class OfertaService {
 	@Transactional
 	public void saveOferta(Oferta oferta) throws DataAccessException {
 		ofertaRepository.save(oferta);		
+	}
+	
+	//Encontrar ofertas activas en tiempo para carta
+	@Transactional
+	public List<Oferta> findOfertasTrueEnTiempo(LocalDate hoy) throws DataAccessException {
+		return ofertaRepository.findOfertasTrueEnTiempo(hoy);
 	}
 	
 	//Encontrar ofertas de un pedido
