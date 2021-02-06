@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -95,7 +96,6 @@ public class PedidoControllerTests {
     
 	@Autowired
 	private MockMvc mockMvc;
-
 	
 	@BeforeEach
 	void setup() {
@@ -105,15 +105,16 @@ public class PedidoControllerTests {
 		
 		NivelSocio s=new NivelSocio();
 		s.setName("No tiene nivel de socio");
-		
+		s.setId(1);
 		NivelSocio s2=new NivelSocio();
 		s2.setName("BRONCE");
-		
+		s2.setId(2);
 		NivelSocio s3=new NivelSocio();
 		s3.setName("PLATA");
-		
+		s3.setId(3);
 		NivelSocio s4=new NivelSocio();
 		s4.setName("ORO");
+		s4.setId(4);
 		
 		Cliente cliente = new Cliente();
 		cliente.setUser(u1);
@@ -215,16 +216,20 @@ public class PedidoControllerTests {
 		pedido2.setFechaPedido(hoy);
 		pedido3.setFechaPedido(hoy);
 		pedido4.setFechaPedido(hoy);
-				
+		
+		
+		
 		//pizza
 		Pizza pizza1 = new Pizza();
 		pizza1.setId(TEST_PIZZA_ID);
-		pizza1.setCoste(12.0);
+		pizza1.setCoste(12.);
 		pizza1.setNombre("Barbacoa");
 		
 		Pizza pizza2 = new Pizza();
 		pizza2.setId(TEST_PIZZA_ID);
+
 		pizza2.setCoste(120.0);
+
 		pizza2.setNombre("Hawaiana");
 		
 		Alergenos alergeno1 = new Alergenos();
@@ -255,8 +260,10 @@ public class PedidoControllerTests {
 		pizzasEnPedido.add(pizza1);
 		
 
+
 		Double costeP=pizza1.getCoste();
 		Double costeP2=pizza2.getCoste();
+
 
 		
 		//bebida
@@ -266,7 +273,7 @@ public class PedidoControllerTests {
 		
 		Bebida b = new Bebida();
 		b.setId(TEST_BEBIDA_ID);
-		b.setCoste(10.0);
+		b.setCoste(10.);
 		b.setEsCarbonatada(true);
 		b.setNombre("Hidromiel");
 		b.setTamano(tamp);
@@ -279,6 +286,7 @@ public class PedidoControllerTests {
 		//otros
 		Otro otro1=new Otro();
 		otro1.setCoste(6.0);
+
 		otro1.setId(TEST_OTROS_ID);
 		otro1.setNombre("Chicken wings");
 		otro1.setIngredientes(lista_ingredientes);
@@ -309,6 +317,9 @@ public class PedidoControllerTests {
 		pedido2.setPrecio((double)costeP2);
 		pedido3.setPrecio((double)200);
 		pedido4.setPrecio((double)350);
+		
+		List<Oferta> ofertasNivel1=new ArrayList<Oferta>();
+		ofertasNivel1.add(oferta);
 		
 		List<Pedido> listaPedidos=new ArrayList<Pedido>();
 		listaPedidos.add(pedido);
@@ -358,10 +369,7 @@ public class PedidoControllerTests {
 		given(this.PedidoService.findPedidoForCocinero()).willReturn(Lists.newArrayList(pedido));
 		given(this.PedidoService.findPedidoForRepartidor()).willReturn(Lists.newArrayList(pedido));
 		given(this.CartaService.findCartaByFechaCreacionYFechaFinal(hoy)).willReturn(carta);
-
 		given(this.PizzaService.findPizzaById(TEST_PIZZA_ID)).willReturn(pizza1);
-		
-
 		given(this.PedidoService.findPedidosByCliente(cliente.getId())).willReturn(listaPedidos);
 		given(this.PedidoService.findPedidosByCliente(cliente2.getId())).willReturn(listaPedidos2);
 		given(this.PedidoService.findPedidosByCliente(cliente3.getId())).willReturn(listaPedidos3);
@@ -373,7 +381,8 @@ public class PedidoControllerTests {
 		given(this.BebidaService.findBebidaPedidoById(TEST_PEDIDO_ID)).willReturn(idsBebidasEnCarta);
 		given(this.OtrosService.findOtrosPedidoById(TEST_PEDIDO_ID)).willReturn(idsOtrosEnCarta);
 		given(this.ofertaService.findOfertasEnPedidoById(TEST_PEDIDO_ID)).willReturn(idsOfertasEnCarta);
-	
+
+		given(this.ofertaService.ofertasNivelSocio(1)).willReturn(ofertasNivel1);
 	}
 	
 
