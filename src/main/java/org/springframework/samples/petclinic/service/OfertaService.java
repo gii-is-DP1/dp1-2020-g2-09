@@ -104,30 +104,6 @@ public class OfertaService {
 		ofertaRepository.asociarOfertaAOtro(ofertaId, otroId);
 	}
 	
-	
-	
-	@Transactional
-	public void asociarOfertaAPizzas(int ofertaId,List<Pizza> pizzasEnOferta) throws DataAccessException {
-		for(int i =0;i<=pizzasEnOferta.size();i++) {		
-		ofertaRepository.asociarOfertaAPizza(ofertaId, pizzasEnOferta.get(i).getId());
-		}
-	}
-	@Transactional
-	public void asociarOfertaABebidas(int ofertaId,List<Bebida> bebidasEnOferta) throws DataAccessException {
-		for(int i =0;i<=bebidasEnOferta.size();i++) {		
-		ofertaRepository.asociarOfertaABebida(ofertaId, bebidasEnOferta.get(i).getId());
-		}
-	}
-	@Transactional
-	public void asociarOfertaAOtros(int ofertaId,List<Otro> otrosEnOferta) throws DataAccessException {
-		for(int i =0;i<=otrosEnOferta.size();i++) {		
-		ofertaRepository.asociarOfertaAOtro(ofertaId, otrosEnOferta.get(i).getId());
-		}
-	}
-	
-	
-
-	
 	@Transactional(readOnly = true)
 	public List<Pizza> findPizzasEnOferta() throws DataAccessException {
 		return ofertaRepository.findPizzasEnOferta();
