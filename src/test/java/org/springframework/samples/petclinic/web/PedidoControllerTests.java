@@ -277,6 +277,7 @@ public class PedidoControllerTests {
 		given(this.PedidoService.findPedidoForCocinero()).willReturn(Lists.newArrayList(pedido));
 		given(this.PedidoService.findPedidoForRepartidor()).willReturn(Lists.newArrayList(pedido));
 		given(this.CartaService.findCartaByFechaCreacionYFechaFinal(hoy)).willReturn(carta);
+		given(this.PizzaService.findPizzaById(TEST_PIZZA_ID)).willReturn(pizza1);
 		
 	}
 	
@@ -513,10 +514,9 @@ public class PedidoControllerTests {
    	@Test
    	void testeliminarPizza() throws Exception {
     	mockMvc.perform(get("/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/{pizzaId}/borrarP", TEST_PEDIDO_ID, TEST_CARTA_ID, TEST_PIZZA_ID))
-    	.andExpect(status().isOk())
+    	//.andExpect(status().isOk())
 //    	.andExpect(model().attributeExists("cartaId"))
 //		.andExpect(model().attributeExists("pedido"))
-    	.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen"));
 		
     }
