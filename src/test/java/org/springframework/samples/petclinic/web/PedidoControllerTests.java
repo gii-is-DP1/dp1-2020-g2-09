@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.rmi.CORBA.Stub;
+//import javax.rmi.CORBA.Stub;
 
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
@@ -91,7 +91,7 @@ public class PedidoControllerTests {
     
 	@Autowired
 	private MockMvc mockMvc;
-	private Stub stub; 
+	//private Stub stub; 
 	
 	@BeforeEach
 	void setup() {
