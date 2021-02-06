@@ -4,6 +4,7 @@ package org.springframework.samples.petclinic.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -226,7 +227,7 @@ public class OfertaServiceTestsSinMockito {
 	 void shouldPonerEstadoOfertaAFalse() {
 		 Oferta of=this.ofertaService.findOfertaById(1);
 		this.ofertaService.ponerEstadoOfertaAFalse(of.getId());
-		assertThat(of.getEstadoOferta()==false);
+		assertFalse(of.getEstadoOferta());
 	 }
-
+	
 }

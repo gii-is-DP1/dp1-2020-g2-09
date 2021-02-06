@@ -125,7 +125,7 @@ public class ReclamacionServiceTests {
 		
 		//pizza
 		Pizza pizza1 = new Pizza();
-		pizza1.setCoste(12);
+		pizza1.setCoste(12.0);
 		pizza1.setNombre("Barbacoa");
 		
 		Alergenos alergeno1 = new Alergenos();
@@ -155,7 +155,7 @@ public class ReclamacionServiceTests {
 		List<Pizza> pizzasEnPedido=new ArrayList<Pizza>();
 		pizzasEnPedido.add(pizza1);
 		
-		Integer costeP=pizza1.getCoste();
+		Double costeP=pizza1.getCoste();
 		
 		//bebida
 		TamanoProducto tamp=new TamanoProducto();
@@ -163,7 +163,7 @@ public class ReclamacionServiceTests {
 		tamp.setName("ENORME");
 		
 		Bebida b = new Bebida();
-		b.setCoste(10);
+		b.setCoste(10.0);
 		b.setEsCarbonatada(true);
 		b.setNombre("Hidromiel");
 		b.setTamano(tamp);
@@ -171,7 +171,7 @@ public class ReclamacionServiceTests {
 		List<Bebida> bebidasEnPedido= new ArrayList<Bebida>();
 		bebidasEnPedido.add(b);
 		
-		Integer costeB=b.getCoste();
+		Double costeB=b.getCoste();
 		
 		pedido.setPrecio((double)costeP+costeB);
 		
@@ -231,7 +231,7 @@ public class ReclamacionServiceTests {
 		
 		//pizza
 		Pizza pizza1 = new Pizza();
-		pizza1.setCoste(12);
+		pizza1.setCoste(12.0);
 		pizza1.setNombre("Barbacoa");
 		
 		Alergenos alergeno1 = new Alergenos();
@@ -261,7 +261,7 @@ public class ReclamacionServiceTests {
 		List<Pizza> pizzasEnPedido=new ArrayList<Pizza>();
 		pizzasEnPedido.add(pizza1);
 		
-		Integer costeP=pizza1.getCoste();
+		Double costeP=pizza1.getCoste();
 		
 		//bebida
 		TamanoProducto tamp=new TamanoProducto();
@@ -269,7 +269,7 @@ public class ReclamacionServiceTests {
 		tamp.setName("ENORME");
 		
 		Bebida b = new Bebida();
-		b.setCoste(10);
+		b.setCoste(10.0);
 		b.setEsCarbonatada(true);
 		b.setNombre("Hidromiel");
 		b.setTamano(tamp);
@@ -277,7 +277,7 @@ public class ReclamacionServiceTests {
 		List<Bebida> bebidasEnPedido= new ArrayList<Bebida>();
 		bebidasEnPedido.add(b);
 		
-		Integer costeB=b.getCoste();
+		Double costeB=b.getCoste();
 		
 		pedido.setPrecio((double)costeP+costeB);
 		

@@ -7,9 +7,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-
 import java.time.LocalDate;
-
+import java.util.ArrayList;
+import java.util.List;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,10 +19,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
+import org.springframework.samples.petclinic.model.Bebida;
 import org.springframework.samples.petclinic.model.NivelSocio;
 import org.springframework.samples.petclinic.model.Oferta;
+import org.springframework.samples.petclinic.model.Otro;
 import org.springframework.samples.petclinic.model.Pizza;
 import org.springframework.samples.petclinic.model.TamanoOferta;
+import org.springframework.samples.petclinic.model.TamanoProducto;
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.OfertaService;
 import org.springframework.samples.petclinic.service.OtrosService;
@@ -38,14 +41,12 @@ excludeAutoConfiguration= SecurityConfiguration.class)
 public class OfertaControllerTests {
 
 	private static final int TEST_OFERTA_ID = 1;
+	private static final int TEST_OFERTA_ID2 = 2;
+	private static final int TEST_OFERTA_ID3 = 3;
 	private static final int TEST_PIZZA_ID = 1;
+	private static final int TEST_PIZZA_ID2 = 2;
 	private static final int TEST_BEBIDA_ID = 1;
 	private static final int TEST_OTRO_ID = 1;
-	//private static final int TEST_PET_ID = 1;
-
-	@Autowired
-	private OfertaController ofertaController;
-
 
 	@MockBean
 	private OfertaService ofertaService;
@@ -55,14 +56,9 @@ public class OfertaControllerTests {
 	private PizzaService pizzaService;
 	@MockBean
 	private OtrosService otrosService;
-	
-
-        
-// @MockBean
-//	private OwnerService ownerService;
-
 	@Autowired
 	private MockMvc mockMvc;
+	
 
 	@BeforeEach
 	void setup() {
@@ -71,7 +67,21 @@ public class OfertaControllerTests {
 		o.setFechaInicial(LocalDate.of(2021, 11, 10));
 		o.setFechaFinal(LocalDate.of(2021, 11, 22));
 		o.setEstadoOferta(true);
-		o.setId(1);
+		o.setId(TEST_OFERTA_ID);
+		
+		Oferta o2 = new Oferta();
+		o2.setCoste(30.0);
+		o2.setFechaInicial(LocalDate.of(2021, 03, 10));
+		o2.setFechaFinal(LocalDate.of(2021, 03, 22));
+		o2.setEstadoOferta(false);
+		o2.setId(TEST_OFERTA_ID2);
+		
+		Oferta o3 = new Oferta();
+		o3.setCoste(20.0);
+		o3.setFechaInicial(LocalDate.of(2020, 11, 10));
+		o3.setFechaFinal(LocalDate.of(2020, 11, 22));
+		o3.setEstadoOferta(true);
+		o3.setId(TEST_OFERTA_ID3);
 		
 		NivelSocio ns = new NivelSocio();
 		ns.setId(2);
@@ -82,10 +92,52 @@ public class OfertaControllerTests {
 		to.setId(2);
 		to.setName("GRANDE");
 		o.setTamanoOferta(to);
+		
+		Pizza pizza1 = new Pizza();
+		pizza1.setId(TEST_PIZZA_ID);
+		pizza1.setCoste(12.0);
+		pizza1.setNombre("Barbacoa");
+		
+		Pizza pizza2 = new Pizza();
+		pizza2.setId(TEST_PIZZA_ID2);
+		pizza2.setCoste(10.0);
+		pizza2.setNombre("Hawaiana");
+		
+		List<Pizza> listP=new ArrayList<>();
+		listP.add(pizza1); listP.add(pizza2);
+		
+		TamanoProducto t=new TamanoProducto();
+		t.setId(5);
+		t.setName("NORMAL");
+		
+		Bebida b = new Bebida();
+		b.setId(3);
+		b.setCoste(1.5);
+
+		b.setEsCarbonatada(true);
+		b.setNombre("Hidromiel");
+		b.setTamano(t);
+		
+		List<Bebida> listB=new ArrayList<>();
+		listB.add(b); 
+		
+		Otro patatas = new Otro();
+		patatas.setId(3);
+		patatas.setCoste(8.5);
+		patatas.setNombre("Patatas fritas");
+
+		List<Otro> listO=new ArrayList<>();
+		listO.add(patatas); 
+
 		given(this.ofertaService.findOfertas()).willReturn(Lists.newArrayList(o));
-		given(this.ofertaService.findOfertaById(TEST_OFERTA_ID)).willReturn(new Oferta());
-		given(this.pizzaService.findPizzaById(TEST_PIZZA_ID)).willReturn(new Pizza());
-		given(this.ofertaService.findOfertaById(TEST_OFERTA_ID)).willReturn(new Oferta());
+		given(this.ofertaService.findOfertaById(TEST_OFERTA_ID)).willReturn(o);
+		given(this.ofertaService.findOfertaById(TEST_OFERTA_ID2)).willReturn(o2);
+		given(this.ofertaService.findOfertaById(TEST_OFERTA_ID3)).willReturn(o3);
+		given(this.pizzaService.findPizzaById(TEST_PIZZA_ID)).willReturn(pizza1);
+		given(this.pizzaService.findPizzas()).willReturn(listP);
+		given(this.bebidaService.findBebidas()).willReturn(listB);
+		given(this.otrosService.findOtros()).willReturn(listO);
+
 
 	}
 
@@ -120,16 +172,19 @@ public class OfertaControllerTests {
 	@WithMockUser(value = "spring")
     @Test 
 	void testProcessCreationFormHasErrors() throws Exception {
-		mockMvc.perform(post("/ofertas/{ofertaId}/edit", TEST_OFERTA_ID)
+		mockMvc.perform(post("/ofertas/new", TEST_OFERTA_ID)
 							.with(csrf())
 							.param("coste", "20.0")
-							.param("name", "")
 							.param("fechaInicial", "x")
 							.param("fechaFinal", "z")
 							.param("nivelSocio.name", "ORO") 
 							.param("tamanoOferta.name", "GRANDE")
 							.param("estadoOferta.name", "true"))
 				.andExpect(model().attributeHasErrors("oferta"))
+				.andExpect(model().attributeExists("oferta"))
+				.andExpect(model().attributeExists("pizzas"))
+				.andExpect(model().attributeExists("bebidas"))
+				.andExpect(model().attributeExists("otros"))
 				.andExpect(view().name("ofertas/createOrUpdateOfertaForm"));
 	}
 
@@ -179,14 +234,6 @@ public class OfertaControllerTests {
     @WithMockUser(value = "spring")
     @Test
     void testInitDeleteOferta() throws Exception {
-    	
-    	//Creo que el MockMvcRequestBuilders es para json y eso pero ni idea 
-    	//Con este test me da 403 forbidden
-//    	mockMvc.perform(MockMvcRequestBuilders.delete("/ofertas/{ofertasId}/delete", TEST_OFERTA_ID))
-//    	.andExpect(status().is3xxRedirection())
-//    	.andExpect(view().name("redirect:/allOfertas"))
-//    	.andExpect(model().attributeDoesNotExist("oferta"));
-    	
     	mockMvc.perform(get("/ofertas/{ofertasId}/delete", TEST_OFERTA_ID))
     			.andExpect(status().is3xxRedirection()).andExpect(view()
     					.name("redirect:/allOfertas"))
@@ -201,13 +248,23 @@ public class OfertaControllerTests {
 		.andExpect(model().attributeExists("ofertas"));
     }
     
-    //No sé muy bien cómo se prueba esto
     @WithMockUser(value = "spring")
     @Test
     void testChangeOfertaStateTrue() throws Exception {
-    	mockMvc.perform(get("/ofertas/{ofertaId}/changeState", TEST_OFERTA_ID)
+    	mockMvc.perform(get("/ofertas/{ofertaId}/changeState", TEST_OFERTA_ID2)
 				.with(csrf())
 				.param("estadoOferta.name", "true"))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/allOfertas"));
+    }
+    
+    @WithMockUser(value = "spring")
+    @Test
+    void testChangeOfertaStateTrueEnTiempo() throws Exception {
+    	mockMvc.perform(get("/ofertas/{ofertaId}/changeState", TEST_OFERTA_ID3)
+				.with(csrf())
+				.param("fechaInicial", "LocalDate.now()")
+				.param("fechaFinal", "LocalDate.now().plusDays(30)"))
 		.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/allOfertas"));
     }

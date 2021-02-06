@@ -21,6 +21,13 @@
 		    </spring:url>
 		    <a href="${fn:escapeXml(listaPizzas)}" class="btn btn-default">Añadir pizza a la carta</a>
     	</sec:authorize>
+    	<sec:authorize access="hasAnyAuthority('cliente')"  >
+	   			<spring:url value="/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/new" var="crearPizzaPers">
+		         <spring:param name="cartaId" value="${cartaId}"/> 
+		         <spring:param name="pedidoId" value="${pedido.id}"/> 
+		    </spring:url>
+		    <a href="${fn:escapeXml(crearPizzaPers)}" class="btn btn-default">Crear Pizza Personalizada</a>
+    	</sec:authorize>
 
 	<table id="pizzasPersonalizadasTable" class="table table-striped">
         <thead>

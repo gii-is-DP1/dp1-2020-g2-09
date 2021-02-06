@@ -29,10 +29,10 @@ List<Reclamacion> findAll() throws DataAccessException;
 			nativeQuery = true)
 	List<Integer> findPedidosConReclamacionesDeUnCliente(int clienteId);//Obsoleto
 		
-	@Query(value = "SELECT PEDIDO.ID FROM PEDIDO NATURAL JOIN PEDIDO_RECLAMACION WHERE PEDIDO_ID = PEDIDO.ID AND PEDIDOCLIENTE = ?1",
+	@Query(value = "SELECT DISTINCT PEDIDO.ID FROM PEDIDO NATURAL JOIN PEDIDO_RECLAMACION WHERE PEDIDO_ID = PEDIDO.ID AND PEDIDOCLIENTE = ?1",
 			nativeQuery=true)
 	List<Integer> findPedidosConReclamacionDeCliente(int clienteId);
 
-	@Query(value = "SELECT RECLAMACION_ID FROM PEDIDO_RECLAMACION  WHERE PEDIDO_ID = ?1", nativeQuery = true)
+	@Query(value = "SELECT DISTINCT RECLAMACION_ID FROM PEDIDO_RECLAMACION  WHERE PEDIDO_ID = ?1", nativeQuery = true)
 	List<Integer> findReclamacionesDePedidosDeCliente(int pedidoId);
 }

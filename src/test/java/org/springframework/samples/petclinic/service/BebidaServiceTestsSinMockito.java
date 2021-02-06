@@ -68,7 +68,7 @@ public class BebidaServiceTestsSinMockito {
 		Bebida bebida = new Bebida();
 		bebida.setNombre("Pepsi");
 		bebida.setEsCarbonatada(true);
-		bebida.setCoste(12);
+		bebida.setCoste(12.0);
 		bebida.setTamano(tamano);
 		
 		this.bebidaService.saveBebida(bebida);

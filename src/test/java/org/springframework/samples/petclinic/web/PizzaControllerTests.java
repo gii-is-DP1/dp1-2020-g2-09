@@ -61,8 +61,6 @@ class PizzaControllerTests {
 	private static final int TEST_PIZZA_ID = 1;
 
 
-	/*@Autowired
-	private PizzaController pizzaController;*/
 	private static final int TEST_PEDIDO_ID = 1;
 	private static final int TEST_CARTA_ID = 1;
 	private static final int TEST_OFERTA_ID = 1;
@@ -73,9 +71,6 @@ class PizzaControllerTests {
 
 @Autowired
 private PizzaController pizzaController;
-
-
-
 
 	@MockBean
 	private PizzaService pizzaService;
@@ -108,9 +103,23 @@ private PizzaController pizzaController;
 		cliente.setTelefono(123456789);
         
 		pizza1.setId(3);
-		pizza1.setCoste(12);
-		pizza1.setNombre("Barbacoa");
+
 		
+
+		pizza1.setCoste(12.0);
+		pizza1.setNombre("miPizza");
+		pizza1.setPersonalizada(true);
+
+		Pizza pizza2 = new Pizza();
+		pizza2.setCoste(1.0);
+		pizza2.setNombre("miPizza");
+		Pizza pizza3 = new Pizza();
+		pizza3.setCoste(1.0);
+		pizza3.setNombre("miPizza");
+		pizza2.setPersonalizada(true);
+		pizza3.setPersonalizada(true);
+
+
 		Ingrediente ingrediente1 = new Ingrediente();
 		Alergenos alergeno1 = new Alergenos();
 		
@@ -126,19 +135,35 @@ private PizzaController pizzaController;
 		List<Ingrediente> lista_ingredientes = new ArrayList<Ingrediente>();
 		lista_ingredientes.add(ingrediente1);
 
-		
 		pizza1.setIngredientes(lista_ingredientes);
-		
+		pizza3.setIngredientes(lista_ingredientes);
+
 		TamanoProducto t=new TamanoProducto();
 		t.setId(66);
 		t.setName("mini");
 		pizza1.setTamano(t);
+		pizza3.setTamano(t);
+
 		
 		tipoMasa t2=new tipoMasa();
 		t2.setId(66);
 		t2.setName("extrafina");
 		pizza1.setTipoMasa(t2);
+		tipoMasa t3=new tipoMasa();
+		t3.setId(66);
+		t3.setName("fina");
+		pizza3.setTipoMasa(t3);
 		
+		List<Pizza> pizzasCliente = new ArrayList<Pizza>();
+		pizza1.setCliente(null);
+		pizza2.setCliente(null);
+		pizza3.setCliente(null);
+		pizzasCliente.add(pizza2);
+		pizzasCliente.add(pizza1);
+		pizzasCliente.add(pizza3);
+		pizzasCliente.add(pizza3);
+		pizzasCliente.add(pizza3);
+
 		given(this.pizzaService.findPizzas()).willReturn(Lists.newArrayList(pizza1));
 		given(this.pizzaService.findPizzaById(TEST_PIZZA_ID)).willReturn(new Pizza());
 		given(this.pizzaService.findIdPizzaById(TEST_CARTA_ID)).willReturn(new ArrayList<Integer>());
@@ -148,6 +173,8 @@ private PizzaController pizzaController;
 		given(this.ofertaService.findOfertaById(TEST_OFERTA_ID)).willReturn(new Oferta());
 		given(this.clienteService.findCuentaById(TEST_CLIENTE_ID)).willReturn(new Cliente());
 		given(this.ingredienteService.findIngredienteById(TEST_OFERTA_ID)).willReturn(new Ingrediente());
+		
+		given(this.pizzaService.findPizzaByCliente(null)).willReturn(pizzasCliente);
 		
 		User u1 = new User();
 		Optional<User> op= Optional.of(u1);
@@ -201,11 +228,8 @@ private PizzaController pizzaController;
 							.param("tamano.name", "mini")
 							.param("tipoMasa.name", "extrafina")
 							.param("ingredientes", "tomate"))
-
-				//.andExpect(model().attributeHasErrors("pizza"))
 				.andExpect(status().isOk())
 				.andExpect(view().name("pizzas/createOrUpdatePizzaForm"));
-		
 	}
 
    
@@ -215,10 +239,7 @@ private PizzaController pizzaController;
 		mockMvc.perform(get("/pizzas/cliente/new"))
 				.andExpect(view().name("pizzas/createOrUpdatePizzaFormCliente"))
 				.andExpect(model().attributeExists("pizza"));
-		
 	}
-
-
 
 	@WithMockUser(value = "spring")
     @Test
@@ -230,25 +251,37 @@ private PizzaController pizzaController;
 							.param("tamano.name", "mini")
 							.param("tipoMasa.name", "extrafina")
 							.param("ingredientes", "tomate"))
-				//.andExpect(model().attributeExists("pizza"))
 				.andExpect(model().attributeHasErrors("pizza"))
 				.andExpect(status().isOk())
 				.andExpect(view().name("pizzas/createOrUpdatePizzaFormCliente"));
 		
 	}
 	@WithMockUser(value = "spring")
-    @Test//necesita saber quien es el cliente que está iniciado sesión, por eso falla
+    @Test
 	void testProcessCreationFormClienteSucess() throws Exception {	
 		mockMvc.perform(post("/pizzas/cliente/new")
 						.with(csrf())
-						.param("coste", "1")
-						.param("nombre", "miPizza")
+						.param("coste", "4")
+						.param("nombre", "miPiffffffffffffzza")
 						.param("tamano.name", "mini")
 						.param("tipoMasa.name", "fina")
 						.param("ingredientes", "tomate"))
 		
 			.andExpect(status().is3xxRedirection())
 			.andExpect(view().name("redirect:/pizzas/cliente"));
+	}
+	
+	@WithMockUser(value = "spring")
+    @Test
+	void testProcessCreationFormClienteSucessDuplicado() throws Exception {	
+		mockMvc.perform(post("/pizzas/cliente/new")
+				.with(csrf())
+				.param("coste", "1")
+				.param("nombre", "miPizza")
+				.param("tamano.name", "mini")
+				.param("tipoMasa.name", "fina")
+				.param("ingredientes", "tomate"))
+			.andExpect(view().name("redirect:/NombreDePizzaPersonalizadaDuplicado"));
 	}
 	
 	@WithMockUser(value = "spring")
@@ -300,9 +333,7 @@ private PizzaController pizzaController;
 				.andExpect(model().attributeDoesNotExist("pizza"));
 		
 	}
-	
-	//ESTOS TESTS HAY QUE HACERLOS SUPONGO
-	
+		
 	@WithMockUser(value = "spring")
     @Test
 	void testActualizarPizza() throws Exception { 

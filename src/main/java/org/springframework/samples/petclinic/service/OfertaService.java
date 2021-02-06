@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.service;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,12 @@ public class OfertaService {
 		ofertaRepository.save(oferta);		
 	}
 	
+	//Encontrar ofertas activas en tiempo para carta
+	@Transactional
+	public List<Oferta> findOfertasTrueEnTiempo(LocalDate hoy) throws DataAccessException {
+		return ofertaRepository.findOfertasTrueEnTiempo(hoy);
+	}
+	
 	//Encontrar ofertas de un pedido
 	@Transactional
 	public List<Integer> findOfertasEnPedidoById(int pedidoId) throws DataAccessException {
@@ -103,30 +110,6 @@ public class OfertaService {
 	public void asociarOfertaAOtro(int ofertaId,int otroId) throws DataAccessException {
 		ofertaRepository.asociarOfertaAOtro(ofertaId, otroId);
 	}
-	
-	
-	
-	@Transactional
-	public void asociarOfertaAPizzas(int ofertaId,List<Pizza> pizzasEnOferta) throws DataAccessException {
-		for(int i =0;i<=pizzasEnOferta.size();i++) {		
-		ofertaRepository.asociarOfertaAPizza(ofertaId, pizzasEnOferta.get(i).getId());
-		}
-	}
-	@Transactional
-	public void asociarOfertaABebidas(int ofertaId,List<Bebida> bebidasEnOferta) throws DataAccessException {
-		for(int i =0;i<=bebidasEnOferta.size();i++) {		
-		ofertaRepository.asociarOfertaABebida(ofertaId, bebidasEnOferta.get(i).getId());
-		}
-	}
-	@Transactional
-	public void asociarOfertaAOtros(int ofertaId,List<Otro> otrosEnOferta) throws DataAccessException {
-		for(int i =0;i<=otrosEnOferta.size();i++) {		
-		ofertaRepository.asociarOfertaAOtro(ofertaId, otrosEnOferta.get(i).getId());
-		}
-	}
-	
-	
-
 	
 	@Transactional(readOnly = true)
 	public List<Pizza> findPizzasEnOferta() throws DataAccessException {

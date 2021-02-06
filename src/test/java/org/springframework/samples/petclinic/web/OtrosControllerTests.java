@@ -62,7 +62,7 @@ class OtrosControllerTests {
 	void setup() {
 		Otro patatas = new Otro();
 		patatas.setId(3);
-		patatas.setCoste(12);
+		patatas.setCoste(12.0);
 		patatas.setNombre("Patatas fritas");
 		given(this.otrosService.findOtros()).willReturn(Lists.newArrayList(patatas));
 		given(this.otrosService.findOtrosById(TEST_OTROS_ID)).willReturn(new Otro());

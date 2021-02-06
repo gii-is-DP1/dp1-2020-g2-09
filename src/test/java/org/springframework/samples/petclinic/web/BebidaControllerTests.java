@@ -62,12 +62,12 @@ public class BebidaControllerTests {
 		
 		Bebida b = new Bebida();
 		b.setId(3);
-		b.setCoste(10);
+		b.setCoste(10.0);
 		b.setEsCarbonatada(true);
 		b.setNombre("Hidromiel");
 		b.setTamano(t);
 		given(this.bebidaService.findBebidas()).willReturn(Lists.newArrayList(b));
-		given(this.bebidaService.findById(TEST_BEBIDA_ID)).willReturn(new Bebida());
+		given(this.bebidaService.findById(TEST_BEBIDA_ID)).willReturn(b);
 				
 		
 	}

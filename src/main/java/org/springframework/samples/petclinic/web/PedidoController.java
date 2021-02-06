@@ -564,7 +564,9 @@ public class PedidoController {
 		}else if(num.getName().compareTo("BRONCE")==0){
 			ofertas.addAll(ofertaService.ofertasNivelSocio(1));
 			model.put("ofertaPedido",ofertas);
-		} else {}
+		} else {
+			
+		}
 		log.info("Recogiendo productos de la carta.");
 	}
 	

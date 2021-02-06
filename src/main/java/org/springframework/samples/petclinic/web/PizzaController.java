@@ -68,7 +68,7 @@ public class PizzaController {
 	public String showPizzaList(Map<String, Object> model) {
 		Pizzas pizzas = new Pizzas();
 		pizzas.getPizzasList().addAll(this.pizzaService.findPizzaNoPersonalizada());
-		model.put("Pizzas", pizzas);  //si pongo Pizzas me pone la tabla vacia, si pongo pizza me da un error de tamaño
+		model.put("Pizzas", pizzas);
 		log.info("Mostrar todas las pizzas");
 		return "pizzas/pizzasList";
 	}
@@ -77,17 +77,16 @@ public class PizzaController {
 	public String showPizzaListCliente(Map<String, Object> model) {
 		Pizzas pizzas = new Pizzas();
 		pizzas.getPizzasList().addAll(this.pizzaService.findPizzaNoPersonalizada());
-		model.put("Pizzas", pizzas);  //si pongo Pizzas me pone la tabla vacia, si pongo pizza me da un error de tamaño
+		model.put("Pizzas", pizzas);
 		
 		Pizzas pizzasP = new Pizzas();
 		pizzasP.getPizzasList().addAll(this.pizzaService.findPizzaByCliente(getClienteActivo()));
-		model.put("PizzasP", pizzasP);  //si pongo Pizzas me pone la tabla vacia, si pongo pizza me da un error de tamaño
+		model.put("PizzasP", pizzasP); 
 		log.info("Mostrar todas las pizzas del cliente");
 
 		return "pizzas/PizzaClienteList";
 	}
 
-	// crear nuevo Pizza
 	@GetMapping(value = "/pizzas/admin/new")
 	public String initCreationFormAdmin(Map<String, Object> model) {
 		Pizza pizza = new Pizza();
@@ -95,11 +94,10 @@ public class PizzaController {
 		return "pizzas/createOrUpdatePizzaForm";
 	}
 
-	// mandar nuevo Pizza
 	@PostMapping(value = "/pizzas/admin/new")
 	public String processCreationFormAdmin(@Valid Pizza pizza, BindingResult result,ModelMap model) {
 		if (result.hasErrors()) {
-			model.put("pizza", pizza);//importanteeee
+			model.put("pizza", pizza);
 			log.warn("La pizza contenía errores");
 			return "pizzas/createOrUpdatePizzaForm";
 		} else {
@@ -123,11 +121,10 @@ public class PizzaController {
 		return "pizzas/createOrUpdatePizzaFormCliente";
 	}
 
-	// mandar nuevo Pizza
 	@PostMapping(value = "/pizzas/cliente/new")
 	public String processCreationFormCliente(@Valid Pizza pizza1, BindingResult result,ModelMap model) {
 		if (result.hasErrors()) {
-			model.put("pizza", pizza1);//importanteeee
+			model.put("pizza", pizza1);
 			log.info("La pizza contenía errores");
 
 			return "pizzas/createOrUpdatePizzaFormCliente";
@@ -136,11 +133,19 @@ public class PizzaController {
 			pizza1.setCliente(cliente);
 			pizza1.setPersonalizada(true);
 			Integer numIng = pizza1.getIngredientes().size();
-			pizza1.setCoste(6 + numIng);
+			pizza1.setCoste(6 + numIng*0.80);
+			if(pizza1.getTamano().getName()=="GRANDE") {
+				pizza1.setCoste(pizza1.getCoste()+1.5);
+			}
+			if(pizza1.getTipoMasa().getName()=="GRUESA") {
+				pizza1.setCoste(pizza1.getCoste()+1);
+			}
+			if(pizza1.getTipoMasa().getName()=="RELLENA") {
+				pizza1.setCoste(pizza1.getCoste()+2);
+			}
 			
-			//comprobamos que el nombre de la pizza personalizada no está duplicado (RN-4)
 			Boolean duplicado = false;
-			List<Pizza> pizzasCliente = pizzaService.findPizzaByCliente(cliente);
+			List<Pizza> pizzasCliente = this.pizzaService.findPizzaByCliente(cliente);
 			for(int i=0; i<pizzasCliente.size() && !duplicado; i++) {
 				if(pizza1.getNombre().equals(pizzasCliente.get(i).getNombre())) {
 					 duplicado = true;
@@ -152,8 +157,6 @@ public class PizzaController {
 				return "redirect:/NombreDePizzaPersonalizadaDuplicado";
 			}
 		}
-//			PizzaValidator pizzaValidator = new PizzaValidator();
-//			ValidationUtils.invokeValidator(pizzaValidator, pizza, result);
 			this.pizzaService.savePizza(pizza1);
 			log.info("Pizza guardada con éxito");
 
@@ -161,10 +164,6 @@ public class PizzaController {
 		}
 	
 	
-	
-	
-
-	// iniciar actualizacion
 	@GetMapping(value = "/pizzas/admin/{pizzaId}/edit")
 	public String initUpdateForm(@PathVariable("pizzaId") int pizzaId, ModelMap model) {
 		Pizza pizza = this.pizzaService.findPizzaById(pizzaId);
@@ -173,7 +172,6 @@ public class PizzaController {
 		return "pizzas/createOrUpdatePizzaForm";
 	}
 
-	// mandar actualizacion
 	@PostMapping(value = "/pizzas/admin/{pizzaId}/edit")
 	public String processUpdatePizzaForm(@Valid Pizza Pizza, BindingResult result,
 			@PathVariable("pizzaId") int pizzaId) {
@@ -182,17 +180,12 @@ public class PizzaController {
 			return "pizzas/createOrUpdatePizzaForm";
 		} else {
 			Pizza.setId(pizzaId);
-//			PizzaValidator pizzaValidator = new PizzaValidator();
-//			ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
-
 			this.pizzaService.savePizza(Pizza);
 			log.info("Pizza actualizada con éxito");
-
 			return "redirect:/allPizzas";
 		}
 	}
 
-	// borrar Pizza
 	@GetMapping(value = "/pizzas/admin/{pizzaId}/delete")
 	public String initDeletePizza(@PathVariable("pizzaId") int pizzaId, ModelMap model) {
 		Pizza pizza = this.pizzaService.findPizzaById(pizzaId);
@@ -202,7 +195,65 @@ public class PizzaController {
 		return "redirect:/allPizzas"; 
 	}
 	
+
+	@GetMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/new")
+	public String actualizarPizza(@PathVariable("pedidoId") int pedidoId,@PathVariable("cartaId") int cartaId,
+			 ModelMap model) {
+		Pizza pizza = new Pizza();
+		model.put("pizza", pizza);
+		Pedido pedido= this.pedidoService.findPedidoById(pedidoId);
+		
+		model.put("pedido", pedido);
+		model.put("cartaId", cartaId);
+		log.info("Inicializando actualizacion pizza de pedido");
+		return "pizzas/createOrUpdatePizzaFormCliente";
+	}
+
+	// mandar actualizacion
+	@PostMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/new")
+	public String processUpdatePizzaForm2(@Valid Pizza pizza, BindingResult result,
+			@PathVariable("pedidoId") int pedidoId,@PathVariable("cartaId") int cartaId) {
+		if (result.hasErrors()) {
+			log.warn("No se pudo actualizar la pizza del pedido");
+			return "pizzas/createOrUpdatePizzaFormCliente";
+		} else {
+			Cliente cliente = getClienteActivo();
+			pizza.setCliente(cliente);
+			pizza.setPersonalizada(true);
+			Integer numIng = pizza.getIngredientes().size();
+			pizza.setCoste(6 + numIng*0.80);
+			if(pizza.getTamano().getName().equals("GRANDE")) {
+				pizza.setCoste(pizza.getCoste()+1.5);
+			}
+			String tamaño = pizza.getTipoMasa().getName();
+			if(tamaño.equals("GRUESA")) {
+				pizza.setCoste(pizza.getCoste()+1);
+			}
+			if(tamaño.equals("RELLENA")) {
+				pizza.setCoste(pizza.getCoste()+2);
+			}
+			
+			//comprobamos que el nombre de la pizza personalizada no está duplicado (RN-4)
+			Boolean duplicado = false;
+			List<Pizza> pizzasCliente = pizzaService.findPizzaByCliente(cliente);
+			for(int i=0; i<pizzasCliente.size() && !duplicado; i++) {
+				if(pizza.getNombre().equals(pizzasCliente.get(i).getNombre())) {
+					 duplicado = true;
+				}
+			}
+			if(duplicado) {
+				log.warn("La pizza introducida por el cliente estaba duplicada");
+
+				return "redirect:/NombreDePizzaPersonalizadaDuplicado";
+			}
+			this.pizzaService.savePizza(pizza);
+			log.info("Pizza del pedido actualizada");
+			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/verCarta";
+		}
+	}
+	
 	// editar pizzas de un pedido
+
 			@GetMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/{pizzaId}/edit")
 			public String actualizarPizza(@PathVariable("pedidoId") int pedidoId,@PathVariable("cartaId") int cartaId,
 					@PathVariable("pizzaId") int pizzaId, ModelMap model) {
@@ -215,7 +266,6 @@ public class PizzaController {
 				return "/pizzas/UpdatePizzaFormPedido";
 			}
 
-			// mandar actualizacion
 			@PostMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/{pizzaId}/edit")
 			public String processUpdatePizzaForm2(@Valid Pizza pizza, BindingResult result,
 					@PathVariable("pizzaId") int pizzaId,

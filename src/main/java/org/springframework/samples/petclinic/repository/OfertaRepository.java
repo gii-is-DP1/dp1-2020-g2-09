@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -28,6 +29,10 @@ public interface OfertaRepository  extends CrudRepository<Oferta, Integer> {
 
 	@Query("SELECT nsocio FROM NivelSocio nsocio")
 	List<NivelSocio> findNivelSocio() throws DataAccessException;
+	
+	//Encontrar ofertas activadas y en tiempo
+	@Query(value ="SELECT * FROM OFERTAS WHERE ESTADO_OFERTA=TRUE AND (CAST(FECHA_FINAL AS date) >= CAST(?1 AS date)) ",	nativeQuery = true)
+	List<Oferta> findOfertasTrueEnTiempo(LocalDate hoy) throws DataAccessException;
 	
 	//Encontrar ofertas de un pedido
 	@Query(value ="SELECT OFERTAS_EN_PEDIDO_ID FROM OFERTA_PEDIDO  WHERE PEDIDO_ID = ?1",	nativeQuery = true)

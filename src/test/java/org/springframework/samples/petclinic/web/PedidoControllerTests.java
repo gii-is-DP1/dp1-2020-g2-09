@@ -1,6 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
-import static org.mockito.BDDMockito.*;
+import static org.mockito.BDDMockito.given;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -13,7 +13,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
@@ -96,6 +95,7 @@ public class PedidoControllerTests {
     
 	@Autowired
 	private MockMvc mockMvc;
+
 	
 	@BeforeEach
 	void setup() {
@@ -215,41 +215,11 @@ public class PedidoControllerTests {
 		pedido2.setFechaPedido(hoy);
 		pedido3.setFechaPedido(hoy);
 		pedido4.setFechaPedido(hoy);
-		
-//		doAnswer(new Answer() {
-//		    public Object answer(InvocationOnMock invocation) {
-//		        Object[] args = invocation.getArguments();
-//		        ((Pedido)args[0]).setId(1);
-//		        return null; // void method, so return null
-//		    }
-//		}).when(this.PedidoService).savePedido(any(Pedido.class));
-		
-//		doAnswer(new Answer() {
-//		    public Object answer(InvocationOnMock invocation) {
-//		        Object[] args = invocation.getArguments();
-//		        ((Carta)args[0]).setId(1);
-//		        return null; // void method, so return null
-//		    }
-//		}).when(this.PedidoService).savePedido(any(Pedido.class));
-		
-//		doAnswer(new Answer() {
-//		    public Object answer(InvocationOnMock invocation) {
-//		        Object[] args = invocation.getArguments();
-//		        EstadoPedido estd = new EstadoPedido();
-//		        estd.setId(2);
-//		        TipoEnvio envio = new TipoEnvio();
-//		        envio.setId(1);
-//		        ((Pedido)args[0]).setTipoEnvio(envio);
-//		        ((Pedido)args[1]).setEstadoPedido(estd);
-//		        return invocation.getMock(); // void method, so return null
-//		    }
-//		}).when(this.PedidoService).putRecogido(any());
-		
-		
+				
 		//pizza
 		Pizza pizza1 = new Pizza();
 		pizza1.setId(TEST_PIZZA_ID);
-		pizza1.setCoste(12);
+		pizza1.setCoste(12.0);
 		pizza1.setNombre("Barbacoa");
 		
 		Pizza pizza2 = new Pizza();
@@ -284,8 +254,10 @@ public class PedidoControllerTests {
 		List<Pizza> pizzasEnPedido=new ArrayList<Pizza>();
 		pizzasEnPedido.add(pizza1);
 		
+
 		Integer costeP=pizza1.getCoste();
 		Integer costeP2=pizza2.getCoste();
+
 		
 		//bebida
 		TamanoProducto tamp=new TamanoProducto();
@@ -294,7 +266,7 @@ public class PedidoControllerTests {
 		
 		Bebida b = new Bebida();
 		b.setId(TEST_BEBIDA_ID);
-		b.setCoste(10);
+		b.setCoste(10.0);
 		b.setEsCarbonatada(true);
 		b.setNombre("Hidromiel");
 		b.setTamano(tamp);
@@ -302,7 +274,7 @@ public class PedidoControllerTests {
 		List<Bebida> bebidasEnPedido= new ArrayList<Bebida>();
 		bebidasEnPedido.add(b);
 		
-		Integer costeB=b.getCoste();
+		Double costeB=b.getCoste();
 		
 		//otros
 		Otro otro1=new Otro();

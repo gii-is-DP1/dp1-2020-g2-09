@@ -41,12 +41,6 @@
 						<span>Ver reclamaciones</span>
 					</petclinic:menuItem> 
 					
-					<petclinic:menuItem active="${name eq 'informes'}" url=""
-						title="Informes">
-						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-						<span>Ver informes</span>
-					</petclinic:menuItem> 
-					
 				</sec:authorize>
 				
 				<sec:authorize access="hasAnyAuthority('cliente')"  >

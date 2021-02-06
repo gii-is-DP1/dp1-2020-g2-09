@@ -131,22 +131,27 @@ public class ReservaController {
 		model.put("miReserva", reserva);
 		Integer numPersonas = reserva.getNumeroPersonas();
 		
-		//Cojo el listado de mesas
 		List<Mesa> mesas = this.mesaService.findMesas();
 		List<Mesa> mesasDisponibles = new ArrayList<Mesa>();
+		
 		for(Mesa m: mesas) { 
 			if(m.getCapacidad()>=numPersonas) {
 				List<Integer> reservasId = this.reservaService.findReservasIdByMesaId(m.getId());
+				
 				if(reservasId.size()==0) {
 					mesasDisponibles.add(m);
+					
 				} else {
 					List<Reserva> reservas = this.reservaService.calcularReservasAPartirIds(reservasId);
+					
 					for(Reserva r: reservas) {
 						if(!(DAYS.between(reserva.getFechaReserva(), r.getFechaReserva())==0)) {
 							mesasDisponibles.add(m);
+							
 						} else {
 							LocalTime miHora = reserva.getHora();
 							LocalTime horaReservaComparacion = r.getHora();
+							
 							if(Math.abs(ChronoUnit.MINUTES.between(miHora, horaReservaComparacion))>60) {
 								mesasDisponibles.add(m);
 								
