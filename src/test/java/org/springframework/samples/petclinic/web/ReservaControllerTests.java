@@ -95,7 +95,7 @@ class ReservaControllerTests {
 		
 		Reserva r2 = new Reserva();
 		r2.setId(TEST_RESERVA_ID2);
-		r2.setFechaReserva(LocalDate.of(2021, 11, 24));
+		r2.setFechaReserva(LocalDate.of(2021, 10, 24));
 		r2.setHora(LocalTime.of(13, 12));
 		r2.setNumeroPersonas(2);
 		r2.setTipoReserva(tr);
@@ -106,6 +106,13 @@ class ReservaControllerTests {
 		r3.setHora(LocalTime.of(13, 12));
 		r3.setNumeroPersonas(4);
 		r3.setTipoReserva(tr);
+		
+		Reserva r4 = new Reserva();
+		r4.setId(TEST_RESERVA_ID3);
+		r4.setFechaReserva(LocalDate.of(2021, 11, 24));
+		r4.setHora(LocalTime.of(12, 10));
+		r4.setNumeroPersonas(4);
+		r4.setTipoReserva(tr);
 		
 		Cliente cliente = new Cliente();
 		cliente.setApellidos("Roldán Cadena");
@@ -123,15 +130,21 @@ class ReservaControllerTests {
 		
 		cliente.setUser(u1);
 		
+		//Creación de mesas y lista de mesas
 		Mesa m = new Mesa();
-		m.setCapacidad(3);
+		m.setCapacidad(6);
 		m.setId(TEST_MESA_ID);
 		Mesa m2 = new Mesa();
 		m2.setCapacidad(6);
 		m2.setId(TEST_MESA_ID2);
+		Mesa m3 = new Mesa();
+		m3.setCapacidad(3);
+		m3.setId(TEST_MESA_ID3);
 		List<Mesa> listaMesas = new ArrayList<Mesa>();
 		listaMesas.add(m2);
 		listaMesas.add(m);
+		listaMesas.add(m3);
+		/////////////////////////////////////////////////
 		List<Mesa> m12= new ArrayList<Mesa>();
 		m12.add(m2);
 		r.setMesasEnReserva(listaMesas);
@@ -142,23 +155,22 @@ class ReservaControllerTests {
 		reservasId2.add(TEST_RESERVA_ID2);
 		List<Reserva> reservas =new ArrayList<Reserva>();
 		reservas.add(r2);
-		Mesa m3 = new Mesa();
-		m3.setCapacidad(6);
-		m3.setId(TEST_MESA_ID3);
+		reservas.add(r3);
+		reservas.add(r4);
 		List<Mesa> m123= new ArrayList<Mesa>();
 		r3.setMesasEnReserva(m123);
 		m123.add(m3);
 		
-		this.reservaService.saveReserva(r);
+		//this.reservaService.saveReserva(r);
 		given(this.mesaService.findIdMesaByReserva(TEST_RESERVA_ID)).willReturn(TEST_MESA_ID);
-		given(this.reservaService.findReservas()).willReturn(Lists.newArrayList(r));
+	//	given(this.reservaService.findReservas()).willReturn(Lists.newArrayList(r))
 		given(this.mesaService.findById(TEST_MESA_ID)).willReturn(m);
 		given(this.mesaService.findByReserva(TEST_RESERVA_ID)).willReturn(Lists.newArrayList(m));
 		given(this.mesaService.findMesas()).willReturn(listaMesas);
 		given(this.reservaService.findById(TEST_RESERVA_ID)).willReturn(r);
 		given(this.clienteService.findCuentaById(TEST_CLIENTE_ID)).willReturn(cliente);
 		given(this.reservaService.findReservasByCliente(TEST_CLIENTE_ID)).willReturn(Lists.newArrayList(r));
-		given(this.reservaService.findReservasIdByMesaId(Mockito.anyInt())).willReturn(reservasId2);
+		given(this.reservaService.findReservasIdByMesaId(anyInt())).willReturn(reservasId2, reservasId1);
 		given(this.reservaService.calcularReservasAPartirIds(Mockito.anyList())).willReturn(reservas);
 		
 		given(this.reservaService.findById(TEST_RESERVA_ID3)).willReturn(r3);		
@@ -310,7 +322,17 @@ class ReservaControllerTests {
     }*/
     @WithMockUser(value = "spring")
     @Test
-    void testMesasDisponiblesIfIf() throws Exception {
+    void testMesasDisponibles() throws Exception {
+    	mockMvc.perform(get("/reservas/{reservaId}/allMesasDisponibles", TEST_RESERVA_ID3))
+    	.andExpect(status().isOk())
+		.andExpect(view().name("mesas/mesasDisponibles"))
+		.andExpect(model().attributeExists("miReserva"))
+		.andExpect(model().attributeExists("mesasDisponiblesSolucion"));
+    }
+    
+    @WithMockUser(value = "spring")
+    @Test
+    void testMesasDisponiblesIf() throws Exception {
     	mockMvc.perform(get("/reservas/{reservaId}/allMesasDisponibles", TEST_RESERVA_ID3))
     	.andExpect(status().isOk())
 		.andExpect(view().name("mesas/mesasDisponibles"))
