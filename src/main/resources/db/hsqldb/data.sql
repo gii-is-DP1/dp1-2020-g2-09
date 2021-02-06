@@ -35,26 +35,29 @@ INSERT INTO NIVEL_SOCIO(id, name) VALUES(1,'BRONCE');
 INSERT INTO NIVEL_SOCIO(id, name) VALUES(4,'No tiene nivel de socio');
 
 
-INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
-VALUES ('María','García Cáceres','2000-01-01','654123987','margarcar@alum.us.es', 'margarcac1');
+
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario,fecha_alta, nivel_socio) 
+VALUES ('María','García Cáceres','2000-01-01','654123987','margarcar@alum.us.es', 'margarcac1', '2020-01-02', 3);
 
 INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario, fecha_alta, nivel_socio) 
 VALUES ('Pepe','García Cáceres','2000-01-01','654123987','pepepalotes@gmail.com', 'pepinho', '2020-01-02', 3);
 
-INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
-VALUES ('Servando','Figueroa Gómez','2000-08-12','698745213','serfiggom@alum.us.es', 'serfiggom1');
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario, fecha_alta, nivel_socio) 
+VALUES ('Servando','Figueroa Gómez','2000-08-12','698745213','serfiggom@alum.us.es', 'serfiggom1', '2020-01-02', 3);
 
-INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
-VALUES ('Raúl','Parrado Gordón','2000-05-29','717548963','raupargor@alum.us.es', 'raupargor');
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario, fecha_alta, nivel_socio) 
+VALUES ('Raúl','Parrado Gordón','2000-05-29','717548963','raupargor@alum.us.es', 'raupargor', '2020-01-02', 3);
 
-INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
-VALUES ('Álvaro','Sánchez González','2000-01-30','687452196','alvsangon@alum.us.es', 'cliente1');
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario, fecha_alta, nivel_socio) 
+VALUES ('Álvaro','Sánchez González','2000-01-30','687452196','alvsangon@alum.us.es', 'cliente1', '2020-01-02', 3);
 
-INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
-VALUES ('Jesús','Roldán Cadena','2000-08-07','632145879','jesrolcad@alum.us.es', 'jesrolcad');
+INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario, fecha_alta, nivel_socio) 
+VALUES ('Jesús','Roldán Cadena','2000-08-07','632145879','jesrolcad@alum.us.es', 'jesrolcad', '2020-01-02', 3);
+
 
 INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario) 
 VALUES ('Lucía','Torres Gómez','2000-03-30','614589725','luctorgom@alum.us.es', 'luctorgom1');
+
 
 /*cocinero util */
 INSERT INTO users(username,password,enabled) VALUES ('cocinero1','cocinero1',TRUE);
