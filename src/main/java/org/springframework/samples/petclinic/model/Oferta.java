@@ -12,6 +12,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,7 +25,11 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "Ofertas")
-public class Oferta extends NamedEntity{//Cambiar a BaseEntity
+public class Oferta extends BaseEntity{
+	
+	@Size(min = 3, max = 50)
+	@Column(name = "name")
+	private String name;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "tamano_oferta")

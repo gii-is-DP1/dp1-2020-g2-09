@@ -113,6 +113,7 @@ public class OfertaControllerTests {
 		Bebida b = new Bebida();
 		b.setId(3);
 		b.setCoste(1.5);
+
 		b.setEsCarbonatada(true);
 		b.setNombre("Hidromiel");
 		b.setTamano(t);
