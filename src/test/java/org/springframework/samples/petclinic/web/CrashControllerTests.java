@@ -1,27 +1,79 @@
 package org.springframework.samples.petclinic.web;
 
-/**
- * Test class for {@link CrashController}
- *
- * @author Colin But
- */
-//Waiting https://github.com/spring-projects/spring-boot/issues/5574
-/*@WebMvcTest(CrashController.class)
-class CrashControllerTests {
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-	@Autowired
-	private CrashController crashController;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
+import org.springframework.samples.petclinic.service.AdministradorService;
+import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
 
-	
+@WebMvcTest(value = CrashController.class,
+excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,
+classes = WebSecurityConfigurer.class),
+excludeAutoConfiguration= SecurityConfiguration.class)
+public class CrashControllerTests {
+
+	//private static final int TEST_ADMIN_ID = 1;
+
+    //@MockBean
+    //private AdministradorService administradorService;
+    
 	@Autowired
 	private MockMvc mockMvc;
 	
-
-	@Test
-	void testTriggerException() throws Exception {
-		mockMvc.perform(get("/oups")).andExpect(view().name("exception"))
-				.andExpect(model().attributeExists("exception")).andExpect(forwardedUrl("exception"))
-				.andExpect(status().isOk());
+	@WithMockUser(value = "spring")
+    @Test
+	void testTriggerExceptionRN5() throws Exception {
+		mockMvc.perform(get("/NoEsPosibleDarDeBaja"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("exception"));
+		
 	}
-
-}*/
+	
+	@WithMockUser(value = "spring")
+    @Test
+	void testNombreDePizzaPersonalizadaDuplicado() throws Exception {
+		mockMvc.perform(get("/NombreDePizzaPersonalizadaDuplicado"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("exception"));
+		
+	}
+	
+	@WithMockUser(value = "spring")
+    @Test
+	void testTriggerExceptionRN7Pizza() throws Exception {
+		mockMvc.perform(get("/PizzaDuplicadaEnCarta"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("exception"));
+		
+	}
+	
+	@WithMockUser(value = "spring")
+    @Test
+	void testTriggerExceptionRN7Bebida() throws Exception {
+		mockMvc.perform(get("/BebidaDuplicadaEnCarta"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("exception"));
+		
+	}
+	
+	@WithMockUser(value = "spring")
+    @Test
+	void testTriggerExceptionRN7Otro() throws Exception {
+		mockMvc.perform(get("/OtroDuplicadaEnCarta"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("exception"));
+		
+	}
+	
+}
