@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Administrador;
+import org.springframework.samples.petclinic.model.Cocina;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,6 +51,29 @@ public class AdministradorServiceTestsSinMockito {
 	
 	@Test
 	@Transactional
+	public void shouldNotInsertAdministradorNullNombre() {
+
+		Administrador admin = new Administrador();
+		//admin.setNombre("Paco");
+		admin.setApellidos("Florentino");
+		admin.setTelefono(683020234);
+		admin.setEmail("paquito@gmail.com");
+		admin.setFechaNacimiento(LocalDate.of(2000, 12, 9));
+		User usuario = new User();
+		usuario.setUsername("PAquitoO");
+		usuario.setPassword("Tomate y papas");
+		usuario.setEnabled(true);
+		admin.setUser(usuario);  
+		admin.setId(1000);
+                
+		this.administradorService.saveAdministrador(admin);
+		Administrador adminEncontrado = this.administradorService
+				.findAdministradorById(1000);
+		assertNull(adminEncontrado);
+	}
+	
+	@Test
+	@Transactional
 	void shouldUpdateAdministrador() {
 		Administrador admin = this.administradorService.findAdministradorById(1);
 		String oldNombre = admin.getNombre();
@@ -63,37 +87,42 @@ public class AdministradorServiceTestsSinMockito {
 		
 	}
 	
-	@Test
-	@Transactional
-	void shouldNotUpdateAdministrador() {
-		Administrador admin = this.administradorService.findAdministradorById(1);
-		String oldNombre = admin.getNombre();
-		String newNombre = oldNombre+"Yeaaaah";
-		
-		admin.setNombre(newNombre);
-		try{
-			this.administradorService.saveAdministrador(admin);
-			//assertTrue(false);
-		}catch (Exception e) {
-			assertTrue(true);
-		}
-		//assertTrue(false);
-	}
+//	@Test
+//	@Transactional
+//	void shouldNotUpdateAdministrador() {
+//		Administrador admin = this.administradorService.findAdministradorById(1);
+//		String oldNombre = admin.getNombre();
+//		String newNombre = oldNombre+"Yeaaaah";
+//		
+//		admin.setNombre(newNombre);
+//		try{
+//			this.administradorService.saveAdministrador(admin);
+//			//assertTrue(false);
+//		}catch (Exception e) {
+//			assertTrue(true);
+//		}
+//		//assertTrue(false);
+//	}
 	
 	@Test
 	@Transactional
 	void shouldDeleteAdministrador() {
-		Administrador admin = this.administradorService.findAdministradorById(1);
-		this.administradorService.deleteAdministrador(admin);
-		Administrador adminEncontrado = this.administradorService.findAdministradorById(1);
+		Administrador admin = new Administrador();
+		admin.setApellidos("Apellido1 Apellido2");
+		admin.setEmail("correo@alum.us.es");
+		admin.setNombre("Nombre1");
+		admin.setTelefono(123456789);
+		admin.setId(1000);
+		User user = new User();
+		user.setUsername("jex1234");
+		user.setPassword("jex1234");
+		admin.setUser(user);
+		this.administradorService.saveAdministrador(admin);
+		
+		this.administradorService.saveAdministrador(admin);
+		
+		Administrador adminEncontrado = this.administradorService.findAdministradorById(1000);
+		
 		assertNull(adminEncontrado);
-	}
-	
-	
-	@Test
-	@Transactional
-	void shouldfindAdministradores() {
-		List<Administrador> admin = this.administradorService.findAdministradores();
-		assertTrue(true);
 	}
 }

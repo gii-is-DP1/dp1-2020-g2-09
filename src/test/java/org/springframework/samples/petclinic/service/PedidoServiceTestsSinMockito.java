@@ -67,6 +67,30 @@ public class PedidoServiceTestsSinMockito {
 	
 	@Test
 	@Transactional
+	public void shouldNotInsertPedidoNullPrecio() {
+		Pedido pedido = new Pedido();
+		TipoPago pago = new TipoPago();
+		TipoEnvio envio = new TipoEnvio();
+		EstadoPedido estado = new EstadoPedido();
+		Cliente cliente = this.clienteService.findCuentaById(1);
+		pedido.setDireccion("C/Ferrara 4, 9A");
+		//pedido.setPrecio(50.65);
+		pedido.setGastosEnvio(3.5);
+		pedido.setEstadoPedido(estado);
+		pedido.setFechaPedido(LocalDate.of(2020, 11, 9));
+		pedido.setCliente(cliente);
+		pedido.setTipoEnvio(envio);
+		pedido.setTipoPago(pago);    
+		pedido.setId(1000);
+		this.pedidoService.savePedido(pedido);
+		Pedido pedidoEncontrado = this.pedidoService.findPedidoById(1000);
+		assertNull(pedidoEncontrado);
+	}
+	
+	
+	
+	@Test
+	@Transactional
 	void shouldUpdatePedido() {
 		Pedido pedido = this.pedidoService.findPedidoById(2);
 		Double newPrecio=55.2;
@@ -239,7 +263,7 @@ public class PedidoServiceTestsSinMockito {
 		List<Oferta> ofertas = new ArrayList<>(pedido.getOfertasEnPedido());
 		Oferta o = ofertas.get(0);
 		this.pedidoService.eliminarOfertaPedido(pedido.getId(), o.getId());
-		assertThat(!pedido.getOtrosEnPedido().contains(o));
+		assertThat(!pedido.getOfertasEnPedido().contains(o));
 		
 		
 	}

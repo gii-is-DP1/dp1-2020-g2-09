@@ -5,6 +5,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,32 +21,6 @@ public class MesaServiceTestsSinMockito {
 	protected MesaService mesaService;
 	
 	
-	//Este test creo que no tiene sentido
-//	@Test 	
-//	public void shouldFindByReserva() {
-//		
-//		Mesa mesa = new Mesa();
-//		mesa.setCapacidad(4);
-//		
-//		Reserva reserva = new Reserva();
-//		List<Reserva> listaReservas = new ArrayList<Reserva>();
-//		reserva.setHora(LocalTime.of(4, 53));
-//		reserva.setFechaReserva(LocalDate.of(2020, 05, 11));
-//		reserva.setNumeroPersonas(5);
-//		tipoReserva tipo = new tipoReserva();
-//		
-//		tipo.setName("hola");
-//		reserva.setTipoReserva(tipo);
-//		listaReservas.add(reserva);
-//		
-//        mesa.setReserva(listaReservas); 
-//		
-//        this.mesaService.saveMesa(mesa);
-//		List<Mesa> listaMesas = this.mesaService.findByReserva(reserva.getId());
-//
-//		assertThat(listaReservas.get(0).getId()).isEqualTo(listaMesas.get(0).getId());
-//	}
-	
 	
 	@Test
 	@Transactional
@@ -58,30 +34,17 @@ public class MesaServiceTestsSinMockito {
 		assertThat(mesa).isEqualTo(mesaEncontrada);
 	}
 	
-	@Test
+	@ParameterizedTest
+	@ValueSource(ints = {-5,0, 7, 10})
 	@Transactional
-	public void shouldNotInsertMesaCapacidadHigherThanSix() {
+	public void shouldNotInsertMesaIncorrectCapacidad(int argument) {
 		Mesa mesa = new Mesa();
-		mesa.setCapacidad(8);
+		mesa.setCapacidad(argument);
 		
 		try {
 			this.mesaService.saveMesa(mesa);
 			
-		} catch(Exception e) { //La capacidad de la mesa no puede ser mayor que 6!
-			assertTrue(true);
-		}
-	}
-	
-	@Test
-	@Transactional
-	public void shouldNotInsertMesaCapacidadLessThanZero() {
-		Mesa mesa = new Mesa();
-		mesa.setCapacidad(-2);
-		
-		try {
-			this.mesaService.saveMesa(mesa);
-			
-		} catch(Exception e) { //La capacidad de la mesa no puede ser menor o igual a cero
+		} catch(Exception e) {
 			assertTrue(true);
 		}
 	}
@@ -101,37 +64,37 @@ public class MesaServiceTestsSinMockito {
 		assertThat(mesa.getCapacidad()).isEqualTo(newCapacidad);
 	}
 	
-	@Test
-	@Transactional
-	void shouldNotUpdateMesaCapacidadHigherThanSix() {
-		Mesa oldMesa = this.mesaService.findById(1);
-		Integer newCapacidad = 9;
-		oldMesa.setCapacidad(newCapacidad);
-		
-		try{
-			this.mesaService.saveMesa(oldMesa);
-			//assertTrue(false);
-		}catch (Exception e) {
-			assertTrue(true);
-		}
-		//assertTrue(false);
-	}
+//	@Test
+//	@Transactional
+//	void shouldNotUpdateMesaCapacidadHigherThanSix() {
+//		Mesa oldMesa = this.mesaService.findById(1);
+//		Integer newCapacidad = 9;
+//		oldMesa.setCapacidad(newCapacidad);
+//		
+//		try{
+//			this.mesaService.saveMesa(oldMesa);
+//			//assertTrue(false);
+//		}catch (Exception e) {
+//			assertTrue(true);
+//		}
+//		//assertTrue(false);
+//	}
 	
-	@Test
-	@Transactional
-	void shouldNotUpdateMesaCapacidadLessThanZero() {
-		Mesa oldMesa = this.mesaService.findById(1);
-		Integer newCapacidad = -7;
-		oldMesa.setCapacidad(newCapacidad);
-		
-		try{
-			this.mesaService.saveMesa(oldMesa);
-			//assertTrue(false);
-		}catch (Exception e) {
-			assertTrue(true);
-		}
-		//assertTrue(false);
-	}
+//	@Test
+//	@Transactional
+//	void shouldNotUpdateMesaCapacidadLessThanZero() {
+//		Mesa oldMesa = this.mesaService.findById(1);
+//		Integer newCapacidad = -7;
+//		oldMesa.setCapacidad(newCapacidad);
+//		
+//		try{
+//			this.mesaService.saveMesa(oldMesa);
+//			//assertTrue(false);
+//		}catch (Exception e) {
+//			assertTrue(true);
+//		}
+//		//assertTrue(false);
+//	}
 	
 	@Test
 	@Transactional

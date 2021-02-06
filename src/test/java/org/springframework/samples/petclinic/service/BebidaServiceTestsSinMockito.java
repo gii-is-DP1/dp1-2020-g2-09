@@ -26,37 +26,6 @@ public class BebidaServiceTestsSinMockito {
 	@Autowired 
 	protected CartaService cartaService;
 	
-	@Test
-	void shouldFindBebidaById() {
-		
-		Bebida bebidaEncontrada = this.bebidaService.findById(1);
-
-		assertThat(bebidaEncontrada).isNotNull();
-	}
-	
-	@Test
-	void shouldNotFindBebidaById() {
-
-		Bebida bebidaEncontrada = this.bebidaService.findById(99);
-
-		assertThat(bebidaEncontrada).isNull();
-	}
-	
-	@Test
-	void shouldFindIdBebidaById() {
-		
-		List<Integer> lista = this.bebidaService.findIdBebidaByCartaId(1);
-		
-		assertThat(lista).isNotNull();
-	}
-	
-	@Test
-	void shouldNotFindIdBebidaById() {
-		
-		List<Integer> lista = this.bebidaService.findIdBebidaByCartaId(99);
-		
-		assertThat(lista).isEmpty();
-	}
 	
 	@Test
 	@Transactional
@@ -75,6 +44,25 @@ public class BebidaServiceTestsSinMockito {
         Bebida bebidaEncontrada = this.bebidaService.findById(bebida.getId());
         assertThat(bebida).isEqualTo(bebidaEncontrada);
 	}
+	
+	@Test
+	@Transactional
+	public void shouldNotInsertBebidaNullNombre() {
+
+		TamanoProducto tamano = new TamanoProducto();
+		tamano.setName("Grande");
+		Bebida bebida = new Bebida();
+		//bebida.setNombre("Pepsi");
+		bebida.setEsCarbonatada(true);
+		bebida.setCoste(12.0);
+		bebida.setTamano(tamano);
+		bebida.setId(1000);
+		this.bebidaService.saveBebida(bebida);
+        Bebida bebidaEncontrada = this.bebidaService.findById(1000);
+        assertNull(bebidaEncontrada);
+	}
+	
+	
 	
 	@Test
 	@Transactional

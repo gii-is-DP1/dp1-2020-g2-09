@@ -23,39 +23,6 @@ public class ClienteServiceTestsSinMockito {
 	
 	
 	@Test
-	void shouldFindClienteByUser() {
-		
-		Cliente cliente = new Cliente();
-		cliente.setNombre("Paco");
-		cliente.setApellidos("Florentino");
-		cliente.setTelefono(683020234);
-		cliente.setEmail("paquito@gmail.com");
-		cliente.setFechaNacimiento(LocalDate.of(2000, 12, 9));
-		//cliente.setFechaAlta(LocalDate.now());
-		User usuario = new User();
-		usuario.setUsername("PAquitoO");
-		usuario.setPassword("Tomate y papas");
-		usuario.setEnabled(true);
-        cliente.setUser(usuario);
-
-        this.clienteService.saveCliente(cliente);
-		Cuenta clienteEncontrado = this.clienteService.findCuentaByUser(usuario);
-
-		assertThat(cliente).isEqualTo(clienteEncontrado);
-	}
-	
-	@Test
-	void shouldFindClienteByUserYaCreado() {
-		User usuario = new User();
-		usuario.setUsername("margarcac1");
-		usuario.setPassword("margarcac1");
-		usuario.setEnabled(true);
-		Cuenta clienteEncontrado = this.clienteService.findCuentaByUser(usuario);
-		assertThat(clienteEncontrado.getUser().getUsername()).isEqualTo("margarcac1");
-//		System.out.println("Cliente: " + clienteEncontrado.getUser().getUsername());
-	}
-	
-	@Test
 	@Transactional
 	public void shouldInsertCliente() {
 
@@ -75,6 +42,30 @@ public class ClienteServiceTestsSinMockito {
 		this.clienteService.saveCliente(cliente);
 		Cliente clienteEncontrado = this.clienteService.findCuentaById(cliente.getId());
 		assertThat(cliente).isEqualTo(clienteEncontrado);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotInsertClienteNullNombre() {
+
+		Cliente cliente = new Cliente();
+		//cliente.setNombre("Paco");
+		cliente.setApellidos("Florentino");
+		cliente.setTelefono(683020234);
+		cliente.setEmail("paquito@gmail.com");
+		cliente.setFechaNacimiento(LocalDate.of(2000, 12, 9));
+		//cliente.setFechaAlta(LocalDate.now());
+		User usuario = new User();
+		usuario.setUsername("PAquitoO");
+		usuario.setPassword("Tomate y papas");
+		usuario.setEnabled(true);
+        cliente.setUser(usuario);
+        
+        cliente.setId(1000);
+                
+		this.clienteService.saveCliente(cliente);
+		Cliente clienteEncontrado = this.clienteService.findCuentaById(1000);
+		assertNull(clienteEncontrado);
 	}
 	
 	@Test

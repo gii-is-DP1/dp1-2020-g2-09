@@ -25,37 +25,6 @@ public class PizzaServiceTestsSinMockito {
 	@Autowired
 	protected CartaService cartaService;
 	
-	@Test
-	void shouldFindPizzaById() {
-		
-		Pizza pizzaEncontrada = this.pizzaService.findPizzaById(1);
-
-		assertThat(pizzaEncontrada).isNotNull();
-	}
-	
-	@Test
-	void shouldNotFindPizzaById() {
-
-		Pizza pizzaEncontrada = this.pizzaService.findPizzaById(99);
-
-		assertThat(pizzaEncontrada).isNull();
-	}
-	
-	@Test
-	void shouldFindIdPizzaById() {
-		
-		List<Integer> lista = this.pizzaService.findIdPizzaById(1);
-		
-		assertThat(lista).isNotNull();
-	}
-	
-	@Test
-	void shouldNotFindIdPizzaById() {
-		
-		List<Integer> lista = this.pizzaService.findIdPizzaById(99);
-		
-		assertThat(lista).isEmpty();
-	}
 	
 	@Test
 	@Transactional
@@ -74,6 +43,26 @@ public class PizzaServiceTestsSinMockito {
 		this.pizzaService.savePizza(pizza);
 		Pizza pizzaEncontrada = this.pizzaService.findPizzaById(pizza.getId());
         assertThat(pizza).isEqualTo(pizzaEncontrada);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotInsertPizzaWithNullNombre() {
+		TamanoProducto tamanoProducto = new TamanoProducto();
+		tamanoProducto.setName("Grande");
+		Pizza pizza = new Pizza();
+		//pizza.setNombre("Probando");
+		pizza.setCoste(14.0);
+		pizza.setTamano(tamanoProducto);
+		tipoMasa tipo = new tipoMasa();
+		tipo.setName("Fina");
+		pizza.setTipoMasa(tipo);
+		pizza.setId(1000);
+		
+		this.pizzaService.savePizza(pizza);
+		Pizza pizzaEncontrada = this.pizzaService.findPizzaById(1000);
+        assertNull(pizzaEncontrada);
+		
 	}
 	
 	@Test

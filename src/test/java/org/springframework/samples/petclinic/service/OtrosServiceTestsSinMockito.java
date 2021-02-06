@@ -41,18 +41,16 @@ public class OtrosServiceTestsSinMockito {
 	
 	@Test
 	@Transactional
-	public void shouldNotInsertOtros() {
+	public void shouldNotInsertOtrosNullNombre() {
 		Otro otro = new Otro();
 		otro.setCoste(10.0);
+		otro.setId(1000);
 		//otro.setNombre("Pollo con queso");
-
-		try {
-			this.otrosService.saveOtros(otro);
-			
-		} catch(Exception e){ //Debe entrar en el catch porque el nombre es obligatorio
-			assertTrue(true);
-			
-		}
+		this.otrosService.saveOtros(otro);
+		
+		Otro otroEncontrado = this.otrosService.findOtrosById(1000);
+		
+		assertNull(otroEncontrado);
 	}
 	
 	@Test

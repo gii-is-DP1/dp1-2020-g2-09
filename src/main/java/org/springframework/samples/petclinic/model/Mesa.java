@@ -21,7 +21,7 @@ public class Mesa extends BaseEntity{
 	
 	@Column(name = "capacidad")
 	@NotNull
-	@Min(0)
+	@Min(1)
 	@Max(6)
 	private Integer capacidad;
 	
