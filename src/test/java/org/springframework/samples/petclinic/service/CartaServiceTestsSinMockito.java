@@ -101,6 +101,79 @@ public class CartaServiceTestsSinMockito {
 	
 	@Test
 	@Transactional
+	public void shouldNotInsertCartaNullNombre() {//Son null todos los Collection<> dentro de cada Collection<> en pizza bebidas y otros, NO VALIDAR QUE NO SEAN NULL
+		TamanoProducto tamaño=new TamanoProducto();
+		tamaño.setName("Mucho");
+		
+		Bebida bebida= new Bebida();
+		bebida.setEsCarbonatada(true);
+		bebida.setCoste(20.0);
+		bebida.setNombre("cocacola");
+		bebida.setTamano(tamaño);
+		
+		tipoMasa tm=new tipoMasa();
+		tm.setName("Fina");
+		
+		Pizza pizza= new Pizza();
+		pizza.setCoste(20.0);
+		pizza.setNombre("Carbonara");
+		pizza.setTipoMasa(tm);
+		pizza.setTamano(tamaño);
+		
+		Alergenos a1= new Alergenos();
+		a1.setName("Lactosa");
+		Alergenos a2= new Alergenos();
+		a1.setName("Vegetal");
+		
+		
+		Ingrediente i1= new Ingrediente();
+		i1.setFechaCaducidad(LocalDate.of(2020,2,29));
+		i1.setNombre("tomate");
+		i1.setTipo("verdura");
+		i1.setAlergenos(a2);
+		Ingrediente i2= new Ingrediente();
+		i1.setFechaCaducidad(LocalDate.of(2019,5,9));
+		i1.setNombre("queso");
+		i1.setTipo("lacteo");
+		i1.setAlergenos(a1);
+		Collection<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
+			ingredientes.add(i1);
+			ingredientes.add(i2);
+		
+		Otro otro=new Otro();
+		otro.setCoste(20.0);
+		otro.setNombre("pollo");
+		otro.setIngredientes(ingredientes);
+		
+		Carta carta = new Carta();
+		//carta.setNombre("CartitaGonsi");
+		carta.setFechaCreacion(LocalDate.of(2020, 2, 2));
+		carta.setFechaFinal(LocalDate.of(2020, 4, 10));
+		
+		Collection<Bebida> cartaDeBebidas = new HashSet<Bebida>();
+		cartaDeBebidas.add(bebida);
+		carta.setBebidasEnCarta(cartaDeBebidas);
+		
+		Collection<Pizza> cartaDePizzas=new HashSet<Pizza>();
+		cartaDePizzas.add(pizza);
+		carta.setPizzasEnCarta(cartaDePizzas);
+		
+		Collection<Otro> cartaDeOtros=new HashSet<Otro>();
+		cartaDeOtros.add(otro);
+		carta.setOtrosEnCarta(cartaDeOtros);
+	        
+		carta.setId(1000);
+                
+		this.cartaService.saveCarta(carta);
+		Carta cartaEncontrada = this.cartaService
+				.findCartaById(1000);
+		assertNull(cartaEncontrada);
+	}
+	
+	
+	
+	@Test
+	@Transactional
 	void shouldUpdateCarta() {
 		Carta carta = this.cartaService.findCartaById(1);
 		String oldNombre = carta.getNombre();
@@ -114,22 +187,22 @@ public class CartaServiceTestsSinMockito {
 		
 	}
 	
-	@Test
-	@Transactional
-	void shouldNotUpdateCarta() {
-		Carta carta = this.cartaService.findCartaById(1);
-		String oldNombre = carta.getNombre();
-		String newNombre = oldNombre+"Yeaaaah";
-		
-		carta.setNombre(newNombre);
-		try{
-			this.cartaService.saveCarta(carta);
-			//assertTrue(false);
-		}catch (Exception e) {
-			assertTrue(true);
-		}
-		//assertTrue(false);
-	}
+//	@Test
+//	@Transactional
+//	void shouldNotUpdateCarta() {
+//		Carta carta = this.cartaService.findCartaById(1);
+//		String oldNombre = carta.getNombre();
+//		String newNombre = oldNombre+"Yeaaaah";
+//		
+//		carta.setNombre(newNombre);
+//		try{
+//			this.cartaService.saveCarta(carta);
+//			//assertTrue(false);
+//		}catch (Exception e) {
+//			assertTrue(true);
+//		}
+//		//assertTrue(false);
+//	}
 	
 	@Test
 	@Transactional
@@ -141,16 +214,5 @@ public class CartaServiceTestsSinMockito {
 				
 		assertNull(cartaEncontrada);
 	}
-//	
-//	@Test
-//	@Transactional
-//	void shouldFindCartaByFecha() {
-//		Carta carta=this.cartaService.findCartaById(1);	
-//		
-//		LocalDate cartaFecha= LocalDate.of(2020,04,30);//esta fecha debe ser la misma que la de la carta con id=1
-//        this.cartaService.saveCarta(carta);
-//		Carta cartaEncontrada = this.cartaService.findCartaByFecha(cartaFecha);
-//
-//		assertThat(carta).isEqualTo(cartaEncontrada);
-//	}
+
 }

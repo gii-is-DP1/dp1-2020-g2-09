@@ -39,6 +39,11 @@ public class MesaController {
 		dataBinder.setDisallowedFields("id");
 	}
 	
+	@InitBinder("mesa")
+	public void initMesaBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new MesaValidator());
+	}
+	
 	@GetMapping(value = { "/allMesas" })
 	public String showMesaList(Map<String, Object> model) {
 		Mesas mesas = new Mesas();

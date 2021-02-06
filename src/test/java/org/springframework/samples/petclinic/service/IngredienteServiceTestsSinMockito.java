@@ -43,21 +43,15 @@ public class IngredienteServiceTestsSinMockito {
 	@Transactional
 	public void shouldNotInsertIngredienteWithNullName() {
 		Ingrediente ingrediente = new Ingrediente();
-		ingrediente.setFechaCaducidad(LocalDate.of(2021, 10, 5));
-		
-		try{
-			this.ingredienteService.saveIngrediente(ingrediente);
-			//assertTrue(false);
-			
-		} //Debe entrar en el catch porque el nombre del ingrediente es obligatorio, entre otros
-		catch (Exception e) {
-			 //Compruebo que he entrado en el catch y que no se ha guardado la reclamación
-			assertTrue(true);
+		ingrediente.setTipo("Lácteo");
+		ingrediente.setFechaCaducidad(LocalDate.of(2021, 10, 5)); 
+		ingrediente.setId(1000);
+		this.ingredienteService.saveIngrediente(ingrediente);
+		Ingrediente ingredienteEncontrado = this.ingredienteService.findIngredienteById(1000);
+		assertNull(ingredienteEncontrado);
 	}
 	
-	
 
-}
 	
 	@Test
 	@Transactional
@@ -77,7 +71,6 @@ public class IngredienteServiceTestsSinMockito {
 			try{
 				Ingrediente ingrediente = this.ingredienteService.findIngredienteById(990999);
 				this.ingredienteService.deleteIngrediente(ingrediente);
-				//assertTrue(false);
 			}catch (Exception e) {
 				assertTrue(true);
 			}

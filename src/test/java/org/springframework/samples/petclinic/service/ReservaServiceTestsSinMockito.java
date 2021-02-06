@@ -32,23 +32,6 @@ public class ReservaServiceTestsSinMockito {
 	@Autowired
 	protected MesaService mesaService;
 	
-	@Test
-	@Transactional
-	public void shouldFindReservaById() {
-		tipoReserva tr=new tipoReserva();
-		tr.setName("MERIENDA");
-		Reserva reserva = new Reserva();
-		reserva.setFechaReserva(LocalDate.of(2000, 12, 9));
-		reserva.setHora(LocalTime.of(10, 20));
-		reserva.setNumeroPersonas(5);
-		reserva.setTipoReserva(tr);
-		
-        this.reservaService.saveReserva(reserva);
-		Reserva reservaEncontrada = this.reservaService.findById(reserva.getId());
-
-		assertThat(reserva).isEqualTo(reservaEncontrada);
-		
-	}
 	
 	@Test
 	@Transactional
@@ -65,15 +48,16 @@ public class ReservaServiceTestsSinMockito {
 		Reserva reservaEncontrada = this.reservaService.findById(reserva.getId());
 		assertThat(reserva).isEqualTo(reservaEncontrada);
 	}
+	
 	@Test
 	@Transactional
-	public void shouldNotInsertReserva() {
+	public void shouldNotInsertReservaNumeroPersonasHigherThanSix() {
 		tipoReserva tr=new tipoReserva();
 		tr.setName("MERIENDA");
 		Reserva reserva = new Reserva();
 		reserva.setFechaReserva(LocalDate.of(2000, 12, 9));
 		reserva.setHora(LocalTime.of(10, 20));
-		reserva.setNumeroPersonas(8);//Meter un numero de personas >6 que no se puede por el COVID
+		reserva.setNumeroPersonas(8);
 		reserva.setTipoReserva(tr);
         
 		try {
@@ -82,9 +66,6 @@ public class ReservaServiceTestsSinMockito {
 		catch(Exception e){
 			assertTrue(true);
 		}
-		//assertTrue(false);
-		//Reserva reservaEncontrada = this.reservaService.findById(reserva.getId());
-		//assertThat(reserva).isNotEqualTo(reservaEncontrada);
 	}
 	
 	@Test
@@ -92,8 +73,7 @@ public class ReservaServiceTestsSinMockito {
 	void shouldUpdateReserva() {
 		Reserva reserva = this.reservaService.findById(1);
 		LocalTime oldHora = reserva.getHora();
-		LocalTime newHora = oldHora.plusHours(1);///Atrasa la reserva una hora
-		
+		LocalTime newHora = oldHora.plusHours(1);
 		reserva.setHora(newHora);
 		this.reservaService.saveReserva(reserva);
 		
@@ -104,19 +84,14 @@ public class ReservaServiceTestsSinMockito {
 	
 	@Test
 	@Transactional
-	void shouldNotUpdateReserva() {
+	void shouldNotUpdateReservaNumeroPersonasHigherThanSix() {
 		Reserva reserva = this.reservaService.findById(1);
-		LocalTime oldHora = reserva.getHora();
-		LocalTime newHora = oldHora.plusHours(999999);///Atrasa la reserva una hora
-		
-		reserva.setHora(newHora);
+		reserva.setNumeroPersonas(8);
 		try{
 			this.reservaService.saveReserva(reserva);
-			//assertTrue(false);
 		}catch (Exception e) {
 			assertTrue(true);
 		}
-		//assertTrue(false);
 	}
 	
 	@Test
@@ -136,7 +111,6 @@ public class ReservaServiceTestsSinMockito {
 		try{
 			Reserva reserva = this.reservaService.findById(990999);
 			this.reservaService.deleteReserva(reserva);
-			//assertTrue(false);
 		}catch (Exception e) {
 			assertTrue(true);
 		}
