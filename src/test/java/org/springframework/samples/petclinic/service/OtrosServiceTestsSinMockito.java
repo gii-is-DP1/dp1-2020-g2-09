@@ -28,7 +28,7 @@ public class OtrosServiceTestsSinMockito {
 	public void shouldInsertOtros() {
 
 		Otro otro = new Otro();
-		otro.setCoste(10);
+		otro.setCoste(10.0);
 		otro.setNombre("Pollo con queso");
 		
         
@@ -43,7 +43,7 @@ public class OtrosServiceTestsSinMockito {
 	@Transactional
 	public void shouldNotInsertOtros() {
 		Otro otro = new Otro();
-		otro.setCoste(10);
+		otro.setCoste(10.0);
 		//otro.setNombre("Pollo con queso");
 
 		try {

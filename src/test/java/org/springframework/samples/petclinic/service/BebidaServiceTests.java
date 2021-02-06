@@ -44,7 +44,7 @@ public class BebidaServiceTests {
 	void shouldFindBebidaById() {
 		
 		Bebida bebida = new Bebida();
-		bebida.setCoste(8);
+		bebida.setCoste(8.00);
 		bebida.setEsCarbonatada(true);
 		bebida.setId(99);
 		bebida.setNombre("Coca cola");

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-//import javax.rmi.CORBA.Stub;
+
 
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
@@ -91,7 +91,7 @@ public class PedidoControllerTests {
     
 	@Autowired
 	private MockMvc mockMvc;
-	//private Stub stub; 
+
 	
 	@BeforeEach
 	void setup() {
@@ -203,7 +203,7 @@ public class PedidoControllerTests {
 		//pizza
 		Pizza pizza1 = new Pizza();
 		pizza1.setId(TEST_PIZZA_ID);
-		pizza1.setCoste(12);
+		pizza1.setCoste(12.0);
 		pizza1.setNombre("Barbacoa");
 		
 		Alergenos alergeno1 = new Alergenos();
@@ -233,7 +233,7 @@ public class PedidoControllerTests {
 		List<Pizza> pizzasEnPedido=new ArrayList<Pizza>();
 		pizzasEnPedido.add(pizza1);
 		
-		Integer costeP=pizza1.getCoste();
+		Double costeP=pizza1.getCoste();
 		
 		//bebida
 		TamanoProducto tamp=new TamanoProducto();
@@ -242,7 +242,7 @@ public class PedidoControllerTests {
 		
 		Bebida b = new Bebida();
 		b.setId(TEST_BEBIDA_ID);
-		b.setCoste(10);
+		b.setCoste(10.0);
 		b.setEsCarbonatada(true);
 		b.setNombre("Hidromiel");
 		b.setTamano(tamp);
@@ -250,7 +250,7 @@ public class PedidoControllerTests {
 		List<Bebida> bebidasEnPedido= new ArrayList<Bebida>();
 		bebidasEnPedido.add(b);
 		
-		Integer costeB=b.getCoste();
+		Double costeB=b.getCoste();
 		
 		pedido.setPrecio((double)costeP+costeB);
 		

@@ -166,7 +166,7 @@ public class InformeControllerTests {
 		
 		Pizza pizza2 = new Pizza();
 		pizza2.setId(1);
-		pizza2.setCoste(12);
+		pizza2.setCoste(12.0);
 		pizza2.setNombre("Barbacoa");
 		
 		Collection<Oferta> ofertasEnPedido= new ArrayList<>();
@@ -180,7 +180,7 @@ public class InformeControllerTests {
 		for(int i=0;i<10;i++) {
 			Pizza pizza1 = new Pizza();
 			pizza1.setId(i);
-			pizza1.setCoste(12);
+			pizza1.setCoste(12.0);
 			pizza1.setNombre("Barbacoa");
 			TamanoProducto t=new TamanoProducto();
 			t.setId(i);
@@ -198,7 +198,7 @@ public class InformeControllerTests {
 		
 		Pizza pizza12 = new Pizza();
 		pizza12.setId(12);
-		pizza12.setCoste(12);
+		pizza12.setCoste(12.0);
 		pizza12.setNombre("Barbacoa");
 		TamanoProducto t2=new TamanoProducto();
 		t2.setId(12);
@@ -238,7 +238,7 @@ public class InformeControllerTests {
 		
 		Bebida b = new Bebida();
 		b.setId(TEST_BEBIDA_ID);
-		b.setCoste(10);
+		b.setCoste(10.0);
 		b.setEsCarbonatada(true);
 		b.setNombre("Hidromiel");
 		b.setTamano(tamp);

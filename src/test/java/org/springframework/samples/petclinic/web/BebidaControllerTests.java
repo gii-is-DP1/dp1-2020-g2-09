@@ -62,7 +62,7 @@ public class BebidaControllerTests {
 		
 		Bebida b = new Bebida();
 		b.setId(3);
-		b.setCoste(10);
+		b.setCoste(10.0);
 		b.setEsCarbonatada(true);
 		b.setNombre("Hidromiel");
 		b.setTamano(t);

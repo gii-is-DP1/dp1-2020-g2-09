@@ -103,18 +103,22 @@ private PizzaController pizzaController;
 		cliente.setTelefono(123456789);
         
 		pizza1.setId(3);
-		pizza1.setCoste(12);
+
+		
+
+		pizza1.setCoste(12.0);
 		pizza1.setNombre("miPizza");
 		pizza1.setPersonalizada(true);
 
 		Pizza pizza2 = new Pizza();
-		pizza2.setCoste(1);
+		pizza2.setCoste(1.0);
 		pizza2.setNombre("miPizza");
 		Pizza pizza3 = new Pizza();
-		pizza3.setCoste(1);
+		pizza3.setCoste(1.0);
 		pizza3.setNombre("miPizza");
 		pizza2.setPersonalizada(true);
 		pizza3.setPersonalizada(true);
+
 
 		Ingrediente ingrediente1 = new Ingrediente();
 		Alergenos alergeno1 = new Alergenos();
