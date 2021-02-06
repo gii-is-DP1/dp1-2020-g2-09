@@ -544,7 +544,7 @@ public class PedidoController {
 		model.put("otros", listaOtros);
 		Pizzas pizzasP = new Pizzas();
 		pizzasP.getPizzasList().addAll(this.PizzaService.findPizzaByCliente(getClienteActivo()));
-		model.put("PizzasP", pizzasP);  //si pongo Pizzas me pone la tabla vacia, si pongo pizza me da un error de tamaño
+		model.put("PizzasP", pizzasP);  
 	
 		Cliente cliente=getClienteActivo();
 		NivelSocio num=cliente.getNivelSocio();
