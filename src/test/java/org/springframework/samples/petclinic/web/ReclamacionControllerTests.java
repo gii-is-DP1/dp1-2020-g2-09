@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import org.assertj.core.util.Lists;
@@ -47,6 +48,10 @@ class ReclamacionControllerTests {
 	private static final int TEST_PEDIDO_ID = 1;
 	private static final int TEST_CLIENTE_ID = 1;
 	private static final String TEST_user= "spring";
+	private static final Integer TEST_RECLAMACION_ID2 = 2;
+	private static final Integer TEST_CLIENTE_ID2 = 2;
+	private static final Integer TEST_PEDIDO_ID2 = 2;
+	private static final String TEST_user2 = null;
 	
 	@Autowired
 	private ReclamacionController reclamacionController;
@@ -72,6 +77,10 @@ class ReclamacionControllerTests {
 		User u1 = new User();
 		Optional<User> op= Optional.of(u1);
 		given(this.userService.findUser(TEST_user)).willReturn(op);
+		
+		User u2 = new User();
+		Optional<User> op2= Optional.of(u2);
+		given(this.userService.findUser(TEST_user2)).willReturn(op2);
 		
 		Reclamacion r = new Reclamacion();
 		Pedido p = new Pedido();
@@ -111,17 +120,65 @@ class ReclamacionControllerTests {
 		r1.add(r);
 		p.setReclamacion(r1);
 		
+		Reclamacion r2 = new Reclamacion();
+		Pedido p2 = new Pedido();
+		Cliente cliente2 = new Cliente();
+		cliente2.setApellidos("doldán Cadena");
+		cliente2.setEmail("jrc@gmaix.com");
+		cliente2.setFechaNacimiento(LocalDate.of(2001, 6,7));
+		cliente2.setId(TEST_CLIENTE_ID2);
+		cliente2.setNombre("Jesulín");
+		cliente2.setTelefono(123456789);
+		cliente2.setUser(u2);
+		
+		p2.setId(TEST_PEDIDO_ID2);
+		p2.setCliente(cliente);
+		p2.setDireccion("Bda San Diego");
+		EstadoPedido ep2 = new EstadoPedido();
+		ep2.setName("EN COCINA");
+		p2.setEstadoPedido(ep);
+		p2.setFechaPedido(LocalDate.of(2021, 12, 1));
+		//p.setId(1);
+		p2.setPrecio(40.5);
+	
+		TipoEnvio te2 = new TipoEnvio();
+		te2.setName("A DOMICILIO");
+		p2.setTipoEnvio(te2);
+		
+		TipoPago tp2 = new TipoPago();
+		tp2.setName("TARJETA");
+		p2.setTipoPago(tp2);
+		p2.setGastosEnvio(3.90);
+		
+		r2.setId(TEST_RECLAMACION_ID2);
+		r2.setObservacion("aaaaaaaaasdasaaaaa"); 
+		r2.setRespuesta("aaaaaaaaaaaa asdasd aaaaaaaa");
+		
+		Collection<Reclamacion> rl =new ArrayList<>();
+		rl.add(r2);
+		p2.setReclamacion(rl);
+		
 		this.reclamacionService.anadirReclamacionAPedido(TEST_RECLAMACION_ID, TEST_PEDIDO_ID);
-		Cliente cliente2= p.getCliente();
+		Cliente cliente3= p.getCliente();
 		User usuario = cliente.getUser();
 		Reclamaciones reclamaciones=new Reclamaciones();
 		reclamaciones.getReclamacionesList().add(reclamacionService.findReclamacionById(TEST_RECLAMACION_ID));
+		List<Integer> l= new ArrayList<Integer>();
+		l.add(TEST_CLIENTE_ID2);
+		l.add(TEST_CLIENTE_ID);
+		given(this.reclamacionService.findPedidosConReclamaciones()).willReturn(l);
 		given(this.clienteService.findCuentaByUser(u1)).willReturn(cliente);
 		given(this.reclamacionService.findReclamaciones()).willReturn(Lists.newArrayList(r));
 		given(this.pedidoService.findPedidoById(TEST_PEDIDO_ID)).willReturn(p);
 		given(this.reclamacionService.findReclamacionById(TEST_RECLAMACION_ID)).willReturn(r);
+		given(this.reclamacionService.findReclamacionById(TEST_RECLAMACION_ID2)).willReturn(r2);
 		given(this.pedidoService.findIdPedidoByReclamacionId(TEST_RECLAMACION_ID)).willReturn(TEST_PEDIDO_ID);
-
+		List<Integer> l2= new ArrayList<Integer>();
+		l2.add(TEST_PEDIDO_ID);
+		List<Integer> l3= new ArrayList<Integer>();
+		l3.add(TEST_RECLAMACION_ID);
+		given(this.reclamacionService.findPedidosConReclamacionDeCliente(TEST_CLIENTE_ID)).willReturn(l2);
+		given(this.reclamacionService.findReclamacionesDePedidosDeCliente(TEST_PEDIDO_ID)).willReturn(l3);
 	}
 
 	

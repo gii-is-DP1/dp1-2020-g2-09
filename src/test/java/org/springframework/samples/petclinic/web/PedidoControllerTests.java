@@ -1,6 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
-import static org.mockito.BDDMockito.*;
+import static org.mockito.BDDMockito.given;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -13,7 +13,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 
 
 import org.assertj.core.util.Lists;
@@ -31,8 +30,12 @@ import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.EstadoPedido;
 import org.springframework.samples.petclinic.model.Ingrediente;
+import org.springframework.samples.petclinic.model.NivelSocio;
+import org.springframework.samples.petclinic.model.Oferta;
+import org.springframework.samples.petclinic.model.Otro;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Pizza;
+import org.springframework.samples.petclinic.model.TamanoOferta;
 import org.springframework.samples.petclinic.model.TamanoProducto;
 import org.springframework.samples.petclinic.model.TipoEnvio;
 import org.springframework.samples.petclinic.model.TipoPago;
@@ -59,15 +62,17 @@ includeFilters = @ComponentScan.Filter(value = BebidaFormatter.class, type = Fil
 public class PedidoControllerTests {
 	
 	private static final int TEST_BEBIDA_ID = 1;
-	//private static final int TEST_OTROS_ID = 1;
+	private static final int TEST_OTROS_ID = 1;
 	private static final int TEST_PIZZA_ID = 1;
 	private static final int TEST_PEDIDO_ID = 1;
 	private static final int TEST_PEDIDO_ID2=2;
 	private static final int TEST_PEDIDO_ID3=3;
 	private static final int TEST_PEDIDO_ID4=4;
-	private static final int TEST_PEDIDO_ID5=5;
-
+	private static final int TEST_OFERTA_ID=1;
 	private static final int TEST_CLIENTE_ID = 1;
+	private static final int TEST_CLIENTE_ID2 = 2;
+	private static final int TEST_CLIENTE_ID3 = 3;
+	private static final int TEST_CLIENTE_ID4 = 4;
 	private static final int TEST_CARTA_ID = 1;
 	private static final String TEST_user= "spring";
 	
@@ -91,14 +96,26 @@ public class PedidoControllerTests {
     
 	@Autowired
 	private MockMvc mockMvc;
-
 	
 	@BeforeEach
 	void setup() {
 		User u1 = new User();
 		Optional<User> op= Optional.of(u1);
 		given(this.userService.findUser(TEST_user)).willReturn(op);
-
+		
+		NivelSocio s=new NivelSocio();
+		s.setName("No tiene nivel de socio");
+		s.setId(1);
+		NivelSocio s2=new NivelSocio();
+		s2.setName("BRONCE");
+		s2.setId(2);
+		NivelSocio s3=new NivelSocio();
+		s3.setName("PLATA");
+		s3.setId(3);
+		NivelSocio s4=new NivelSocio();
+		s4.setName("ORO");
+		s4.setId(4);
+		
 		Cliente cliente = new Cliente();
 		cliente.setUser(u1);
 		cliente.setApellidos("Roldán Cadena");
@@ -107,6 +124,37 @@ public class PedidoControllerTests {
 		cliente.setId(TEST_CLIENTE_ID);
 		cliente.setNombre("Jesús");
 		cliente.setTelefono(123456789);
+		cliente.setNivelSocio(s);
+		
+		Cliente cliente2 = new Cliente();
+		cliente2.setUser(u1);
+		cliente2.setApellidos("Roldán Cadena");
+		cliente2.setEmail("jrc@gmail.com");
+		cliente2.setFechaNacimiento(LocalDate.of(2000, 6,7));
+		cliente2.setId(TEST_CLIENTE_ID2);
+		cliente2.setNombre("Jesús");
+		cliente2.setTelefono(123456789);
+		cliente2.setNivelSocio(s2);
+		
+		Cliente cliente3 = new Cliente();
+		cliente3.setUser(u1);
+		cliente3.setApellidos("Roldán Cadena");
+		cliente3.setEmail("jrc@gmail.com");
+		cliente3.setFechaNacimiento(LocalDate.of(2000, 6,7));
+		cliente3.setId(TEST_CLIENTE_ID3);
+		cliente3.setNombre("Jesús");
+		cliente3.setTelefono(123456789);
+		cliente3.setNivelSocio(s3);
+
+		Cliente cliente4 = new Cliente();
+		cliente4.setUser(u1);
+		cliente4.setApellidos("Roldán Cadena");
+		cliente4.setEmail("jrc@gmail.com");
+		cliente4.setFechaNacimiento(LocalDate.of(2000, 6,7));
+		cliente4.setId(TEST_CLIENTE_ID4);
+		cliente4.setNombre("Jesús");
+		cliente4.setTelefono(123456789);
+		cliente4.setNivelSocio(s4);
 		
 		EstadoPedido estd = new EstadoPedido();
 		estd.setName("EN COCINA");
@@ -135,14 +183,13 @@ public class PedidoControllerTests {
 		pedido.setCliente(cliente);
 		pedido.setGastosEnvio(3.50);
 		pedido.setTipoPago(tp);
-		pedido.setPrecio(34.50);
 
 		Pedido pedido2=new Pedido();
 		pedido2.setId(TEST_PEDIDO_ID2);
 		pedido2.setEstadoPedido(estd2);
 		pedido2.setDireccion("C/Ferrara, 4");
 		pedido2.setTipoEnvio(te2);
-		pedido2.setCliente(cliente);
+		pedido2.setCliente(cliente2);
 		pedido2.setGastosEnvio(3.50);
 		pedido2.setTipoPago(tp);
 		
@@ -151,7 +198,7 @@ public class PedidoControllerTests {
 		pedido3.setEstadoPedido(estd);
 		pedido3.setDireccion("C/Ferrara, 4");
 		pedido3.setTipoEnvio(te2);
-		pedido3.setCliente(cliente);
+		pedido3.setCliente(cliente3);
 		pedido3.setGastosEnvio(3.50);
 		pedido3.setTipoPago(tp);
 		
@@ -160,7 +207,7 @@ public class PedidoControllerTests {
 		pedido4.setEstadoPedido(estd);
 		pedido4.setDireccion("C/Ferrara, 4");
 		pedido4.setTipoEnvio(te);
-		pedido4.setCliente(cliente);
+		pedido4.setCliente(cliente4);
 		pedido4.setGastosEnvio(3.50);
 		pedido4.setTipoPago(tp);
 		
@@ -170,41 +217,20 @@ public class PedidoControllerTests {
 		pedido3.setFechaPedido(hoy);
 		pedido4.setFechaPedido(hoy);
 		
-//		doAnswer(new Answer() {
-//		    public Object answer(InvocationOnMock invocation) {
-//		        Object[] args = invocation.getArguments();
-//		        ((Pedido)args[0]).setId(1);
-//		        return null; // void method, so return null
-//		    }
-//		}).when(this.PedidoService).savePedido(any(Pedido.class));
-		
-//		doAnswer(new Answer() {
-//		    public Object answer(InvocationOnMock invocation) {
-//		        Object[] args = invocation.getArguments();
-//		        ((Carta)args[0]).setId(1);
-//		        return null; // void method, so return null
-//		    }
-//		}).when(this.PedidoService).savePedido(any(Pedido.class));
-		
-//		doAnswer(new Answer() {
-//		    public Object answer(InvocationOnMock invocation) {
-//		        Object[] args = invocation.getArguments();
-//		        EstadoPedido estd = new EstadoPedido();
-//		        estd.setId(2);
-//		        TipoEnvio envio = new TipoEnvio();
-//		        envio.setId(1);
-//		        ((Pedido)args[0]).setTipoEnvio(envio);
-//		        ((Pedido)args[1]).setEstadoPedido(estd);
-//		        return invocation.getMock(); // void method, so return null
-//		    }
-//		}).when(this.PedidoService).putRecogido(any());
 		
 		
 		//pizza
 		Pizza pizza1 = new Pizza();
 		pizza1.setId(TEST_PIZZA_ID);
-		pizza1.setCoste(12.0);
+		pizza1.setCoste(12.);
 		pizza1.setNombre("Barbacoa");
+		
+		Pizza pizza2 = new Pizza();
+		pizza2.setId(TEST_PIZZA_ID);
+
+		pizza2.setCoste(120.0);
+
+		pizza2.setNombre("Hawaiana");
 		
 		Alergenos alergeno1 = new Alergenos();
 		alergeno1.setName("contiene lactosa");
@@ -233,7 +259,12 @@ public class PedidoControllerTests {
 		List<Pizza> pizzasEnPedido=new ArrayList<Pizza>();
 		pizzasEnPedido.add(pizza1);
 		
+
+
 		Double costeP=pizza1.getCoste();
+		Double costeP2=pizza2.getCoste();
+
+
 		
 		//bebida
 		TamanoProducto tamp=new TamanoProducto();
@@ -242,7 +273,7 @@ public class PedidoControllerTests {
 		
 		Bebida b = new Bebida();
 		b.setId(TEST_BEBIDA_ID);
-		b.setCoste(10.0);
+		b.setCoste(10.);
 		b.setEsCarbonatada(true);
 		b.setNombre("Hidromiel");
 		b.setTamano(tamp);
@@ -252,12 +283,58 @@ public class PedidoControllerTests {
 		
 		Double costeB=b.getCoste();
 		
-		pedido.setPrecio((double)costeP+costeB);
+		//otros
+		Otro otro1=new Otro();
+		otro1.setCoste(6.0);
+
+		otro1.setId(TEST_OTROS_ID);
+		otro1.setNombre("Chicken wings");
+		otro1.setIngredientes(lista_ingredientes);
+		List<Otro> otrosEnPedido= new ArrayList<Otro>();
+		otrosEnPedido.add(otro1);
+		
+		Double costeO=otro1.getCoste();
+		
+		Boolean bt=true;
+		TamanoOferta to=new TamanoOferta();
+		to.setName("GRANDE");
+		Oferta oferta=new Oferta();
+		oferta.setCoste(1.);
+		oferta.setId(TEST_OFERTA_ID);
+		oferta.setEstadoOferta(bt);
+		oferta.setPizzasEnOferta(pizzasEnPedido);
+		oferta.setBebidasEnOferta(bebidasEnPedido);
+		oferta.setOtrosEnOferta(otrosEnPedido);
+		oferta.setFechaFinal(LocalDate.now().plusDays(30));
+		oferta.setFechaInicial(LocalDate.now().minusDays(30));
+		oferta.setNivelSocio(s);
+		oferta.setTamanoOferta(to);
+		List<Oferta> ofertasEnPedido= new ArrayList<Oferta>();
+		ofertasEnPedido.add(oferta);
+		Double costeOf=oferta.getCoste();
+		
+		pedido.setPrecio((double)(costeP+costeB+costeO+costeOf));
+		pedido2.setPrecio((double)costeP2);
+		pedido3.setPrecio((double)200);
+		pedido4.setPrecio((double)350);
+		
+		List<Oferta> ofertasNivel1=new ArrayList<Oferta>();
+		ofertasNivel1.add(oferta);
+		
+		List<Pedido> listaPedidos=new ArrayList<Pedido>();
+		listaPedidos.add(pedido);
+		List<Pedido> listaPedidos2=new ArrayList<Pedido>();
+		listaPedidos2.add(pedido2);
+		List<Pedido> listaPedidos3=new ArrayList<Pedido>();
+		listaPedidos3.add(pedido3);
+		List<Pedido> listaPedidos4=new ArrayList<Pedido>();
+		listaPedidos4.add(pedido4); 
 		
 		pedido.setPizzasEnPedido(pizzasEnPedido);
 		pedido.setBebidasEnPedido(bebidasEnPedido);
-		
-		
+		pedido.setOtrosEnPedido(otrosEnPedido);
+		pedido.setOfertasEnPedido(ofertasEnPedido);
+
 		Carta carta=new Carta();
 		carta.setBebidasEnCarta(bebidasEnPedido);
 		carta.setFechaCreacion(LocalDate.now().minusDays(30));
@@ -266,6 +343,14 @@ public class PedidoControllerTests {
 		carta.setNombre("cumpleaos");
 		carta.setPizzasEnCarta(pizzasEnPedido);
 		
+		List<Integer> idsPizzasEnCarta=new ArrayList<Integer>();
+		idsPizzasEnCarta.add(pizza1.getId());
+		List<Integer> idsBebidasEnCarta=new ArrayList<Integer>();
+		idsBebidasEnCarta.add(b.getId());
+		List<Integer> idsOtrosEnCarta=new ArrayList<Integer>();
+		idsOtrosEnCarta.add(otro1.getId());
+		List<Integer> idsOfertasEnCarta=new ArrayList<Integer>();
+		idsOfertasEnCarta.add(oferta.getId());
 		
 		given(this.clienteService.findCuentaByUser(u1)).willReturn(cliente);
 		given(this.PedidoService.findPedidos()).willReturn(Lists.newArrayList(pedido));
@@ -273,11 +358,31 @@ public class PedidoControllerTests {
 		given(this.PedidoService.findPedidoById(TEST_PEDIDO_ID2)).willReturn(pedido2);
 		given(this.PedidoService.findPedidoById(TEST_PEDIDO_ID3)).willReturn(pedido3);
 		given(this.PedidoService.findPedidoById(TEST_PEDIDO_ID4)).willReturn(pedido4);
+		given(this.PizzaService.findPizzaById(TEST_PIZZA_ID)).willReturn(pizza1);
+		given(this.BebidaService.findById(TEST_BEBIDA_ID)).willReturn(b);
+		given(this.OtrosService.findOtrosById(TEST_OTROS_ID)).willReturn(otro1);
+		given(this.ofertaService.findOfertaById(TEST_OFERTA_ID)).willReturn(oferta);
 		given(this.PedidoService.findPedidosByCliente(TEST_CLIENTE_ID)).willReturn(Lists.newArrayList(pedido));
+		given(this.PedidoService.findPedidosByCliente(TEST_CLIENTE_ID2)).willReturn(Lists.newArrayList(pedido2));
+		given(this.PedidoService.findPedidosByCliente(TEST_CLIENTE_ID3)).willReturn(Lists.newArrayList(pedido3));
+		given(this.PedidoService.findPedidosByCliente(TEST_CLIENTE_ID4)).willReturn(Lists.newArrayList(pedido4));
 		given(this.PedidoService.findPedidoForCocinero()).willReturn(Lists.newArrayList(pedido));
 		given(this.PedidoService.findPedidoForRepartidor()).willReturn(Lists.newArrayList(pedido));
 		given(this.CartaService.findCartaByFechaCreacionYFechaFinal(hoy)).willReturn(carta);
-		
+		given(this.PizzaService.findPizzaById(TEST_PIZZA_ID)).willReturn(pizza1);
+		given(this.PedidoService.findPedidosByCliente(cliente.getId())).willReturn(listaPedidos);
+		given(this.PedidoService.findPedidosByCliente(cliente2.getId())).willReturn(listaPedidos2);
+		given(this.PedidoService.findPedidosByCliente(cliente3.getId())).willReturn(listaPedidos3);
+		given(this.PedidoService.findPedidosByCliente(cliente4.getId())).willReturn(listaPedidos4);
+		given(this.PizzaService.findIdPizzaById(TEST_CARTA_ID)).willReturn(idsPizzasEnCarta);
+		given(this.BebidaService.findIdBebidaByCartaId(TEST_CARTA_ID)).willReturn(idsBebidasEnCarta);
+		given(this.OtrosService.findIdOtroById(TEST_CARTA_ID)).willReturn(idsOtrosEnCarta);
+		given(this.PizzaService.findPizzaPedidoById(TEST_PEDIDO_ID)).willReturn(idsPizzasEnCarta);
+		given(this.BebidaService.findBebidaPedidoById(TEST_PEDIDO_ID)).willReturn(idsBebidasEnCarta);
+		given(this.OtrosService.findOtrosPedidoById(TEST_PEDIDO_ID)).willReturn(idsOtrosEnCarta);
+		given(this.ofertaService.findOfertasEnPedidoById(TEST_PEDIDO_ID)).willReturn(idsOfertasEnCarta);
+
+		given(this.ofertaService.ofertasNivelSocio(1)).willReturn(ofertasNivel1);
 	}
 	
 
@@ -343,8 +448,7 @@ public class PedidoControllerTests {
 			
 	}
 
-	//PEDIDO ESTA VALIDADO??
-	/*@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring")
     @Test
 	void testprocessCreationFormHasErrors() throws Exception {
 		mockMvc.perform(post("/pedidos/new")
@@ -353,8 +457,8 @@ public class PedidoControllerTests {
 					.param("tipoPago.name", "TARJETA")
 					.param("tipoEnvio.name", "DOMICILIO"))
 		.andExpect(model().attributeHasErrors())			
-		.andExpect(view().name("cartas/createOrUpdateCartaForm"));
-	}*/
+		.andExpect(view().name("pedidos/createOrUpdatePedidoForm"));
+	}
 
     @WithMockUser(value = "spring")
 	@Test
@@ -377,17 +481,17 @@ public class PedidoControllerTests {
 		.andExpect(view().name("redirect:/pedidos/user"));
 	}
     
-    /* NO SE SI PEDIDO ESTA VALIDADO
     @WithMockUser(value = "spring")
 	@Test
-	void testprocessUpdateOtrosFormHasErrors() throws Exception {
-		mockMvc.perform(post("/cartas/{cartaId}/edit", TEST_CARTA_ID)
+	void testprocessUpdatePeFormHasErrors() throws Exception {
+    	mockMvc.perform(post("/pedidos/{pedidoId}/edit", TEST_PEDIDO_ID)
 				.with(csrf())
-				.param("nombre", "d")
-				.param("fecha", "d"))
-		.andExpect(model().attributeHasErrors())			
-		.andExpect(view().name("cartas/createOrUpdateCartaForm"));
-    }*/
+				.param("direccion", "4")
+				.param("tipoPago.name", "EFEfgdgCTIVO")
+				.param("tipoEnvio.name", "asd"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("pedidos/createOrUpdatePedidoForm"));
+    }
     
     @WithMockUser(value = "spring")
    	@Test
@@ -421,17 +525,34 @@ public class PedidoControllerTests {
 		
     }
     
-    //anadir Pizza es igual q otros y q bebidas
     @WithMockUser(value = "spring")
    	@Test
    	void testanadirPizza() throws Exception {
     	mockMvc.perform(get("/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirPizza/{pizzaId}", TEST_PEDIDO_ID, TEST_CARTA_ID, TEST_PIZZA_ID))
     	.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen"));
-		//.andExpect(model().attributeExists("pedido"))
-    	//.andExpect(model().attributeExists("cartaId"));
     }
-    
+    @WithMockUser(value = "spring")
+   	@Test
+   	void testanadirBebida() throws Exception {
+    	mockMvc.perform(get("/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirBebida/{bebidaId}", TEST_PEDIDO_ID, TEST_CARTA_ID, TEST_BEBIDA_ID))
+    	.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen"));
+    }
+    @WithMockUser(value = "spring")
+   	@Test
+   	void testanadirOtro() throws Exception {
+    	mockMvc.perform(get("/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirOtros/{otrosId}", TEST_PEDIDO_ID, TEST_CARTA_ID, TEST_OTROS_ID))
+    	.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen"));
+    }
+    @WithMockUser(value = "spring")
+   	@Test
+   	void testanadirOferta() throws Exception {
+    	mockMvc.perform(get("/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirOferta/{ofertaId}", TEST_PEDIDO_ID, TEST_CARTA_ID, TEST_OFERTA_ID))
+    	.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen"));
+    }
     @WithMockUser(value = "spring")
    	@Test
    	void testverResumenPedido() throws Exception {
@@ -444,13 +565,36 @@ public class PedidoControllerTests {
     
     @WithMockUser(value = "spring")
    	@Test
-   	void testenCocinaSuccessIfCaso() throws Exception {
+   	void testenCocinaSuccessIfCaso1() throws Exception {
     	mockMvc.perform(get("/pedidos/{pedidoId}/finalizarPedido", TEST_PEDIDO_ID))
     	.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/pedidos/user"));
     	
     }
-
+    @WithMockUser(value = "spring")
+   	@Test
+   	void testenCocinaSuccessIfCaso2() throws Exception {
+    	mockMvc.perform(get("/pedidos/{pedidoId}/finalizarPedido", TEST_PEDIDO_ID2))
+    	.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/pedidos/user"));
+    	
+    }
+    @WithMockUser(value = "spring")
+   	@Test
+   	void testenCocinaSuccessIfCaso3() throws Exception {
+    	mockMvc.perform(get("/pedidos/{pedidoId}/finalizarPedido", TEST_PEDIDO_ID3))
+    	.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/pedidos/user"));
+    	
+    }
+    @WithMockUser(value = "spring")
+   	@Test
+   	void testenCocinaSuccessIfCaso4() throws Exception {
+    	mockMvc.perform(get("/pedidos/{pedidoId}/finalizarPedido", TEST_PEDIDO_ID4))
+    	.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/pedidos/user"));
+    	
+    }
 
     @WithMockUser(value = "spring")
    	@Test
@@ -508,18 +652,49 @@ public class PedidoControllerTests {
 		.andExpect(model().attributeExists("pedido"));
     }
     
-  //borrar Pizza es igual q otros y q bebidas
+  
     @WithMockUser(value = "spring")
    	@Test
    	void testeliminarPizza() throws Exception {
     	mockMvc.perform(get("/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/{pizzaId}/borrarP", TEST_PEDIDO_ID, TEST_CARTA_ID, TEST_PIZZA_ID))
-    	.andExpect(status().isOk())
+
+    	//.andExpect(status().isOk())
 //    	.andExpect(model().attributeExists("cartaId"))
 //		.andExpect(model().attributeExists("pedido"))
+
+		.andExpect(view().name("redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen"));
+		
+    }
+    @WithMockUser(value = "spring")
+   	@Test
+   	void testeliminarBebida() throws Exception {
+    	mockMvc.perform(get("/pedidos/{pedidoId}/cartas/{cartaId}/bebidas/{bebidaId}/borrarB", TEST_PEDIDO_ID, TEST_CARTA_ID, TEST_BEBIDA_ID))
     	.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen"));
 		
     }
-    
-    
+    @WithMockUser(value = "spring")
+   	@Test
+   	void testeliminarOtro() throws Exception {
+    	mockMvc.perform(get("/pedidos/{pedidoId}/cartas/{cartaId}/otros/{otroId}/borrarO", TEST_PEDIDO_ID, TEST_CARTA_ID, TEST_OTROS_ID))
+    	.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen"));
+		
+    }
+    @WithMockUser(value = "spring")
+   	@Test
+   	void testeliminarOfertas() throws Exception {
+    	mockMvc.perform(get("/pedidos/{pedidoId}/cartas/{cartaId}/ofertas/{ofertaId}/borrarOf", TEST_PEDIDO_ID, TEST_CARTA_ID, TEST_OFERTA_ID))
+    	.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen"));
+		
+    }
+    @WithMockUser(value = "spring")
+   	@Test
+   	void testIrPizzaTracker() throws Exception {
+    	mockMvc.perform(get("/pedidos/{pedidoId}/estadoPedido", TEST_PEDIDO_ID))
+    	.andExpect(status().isOk())
+		.andExpect(view().name("pedidos/pizzaTracker"));
+		
+    }
 }

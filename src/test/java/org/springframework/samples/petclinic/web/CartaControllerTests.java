@@ -9,6 +9,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +22,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
+import org.springframework.samples.petclinic.model.Alergenos;
+import org.springframework.samples.petclinic.model.Bebida;
 import org.springframework.samples.petclinic.model.Carta;
+import org.springframework.samples.petclinic.model.Ingrediente;
+import org.springframework.samples.petclinic.model.Otro;
+import org.springframework.samples.petclinic.model.Pizza;
+import org.springframework.samples.petclinic.model.TamanoProducto;
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.CartaService;
 import org.springframework.samples.petclinic.service.IngredienteService;
@@ -40,6 +49,7 @@ public class CartaControllerTests {
 	private static final int TEST_BEBIDA_ID = 1;
 	private static final int TEST_OTROS_ID = 1;
 	private static final int TEST_CARTA_ID = 1;
+	private static final int TEST_CARTA_ID2 = 2;
 	private static final int TEST_PIZZA_ID = 1;
 	private static final int TEST_OFERTA_ID = 1;
 	
@@ -62,16 +72,100 @@ public class CartaControllerTests {
 
 	@BeforeEach
 	void setup() {
+		TamanoProducto t=new TamanoProducto();
+		t.setId(5);
+		t.setName("ENORME");
+		
+		
+		Ingrediente ingrediente1 = new Ingrediente();
+		Alergenos alergeno1 = new Alergenos();
+		
+		alergeno1.setName("contiene lactosa");
+		alergeno1.setId(55);
+		
+		ingrediente1.setAlergenos(alergeno1);
+		ingrediente1.setFechaCaducidad(LocalDate.of(2021, 12, 05));
+		ingrediente1.setId(55);
+		ingrediente1.setNombre("tomate");
+		ingrediente1.setTipo("contiene lácteos");
+		List<Ingrediente> lista_ingredientes = new ArrayList<Ingrediente>();
+		lista_ingredientes.add(ingrediente1);
+		
+		Pizza pizza = new Pizza();
+		pizza.setCoste(1.0);
+		pizza.setNombre("miPizza");
+		pizza.setPersonalizada(false);
+		pizza.setId(TEST_PIZZA_ID);
+		pizza.setIngredientes(lista_ingredientes);
+		pizza.setTamano(t);
+		pizza.setCliente(null);
+		
+		
+		Bebida b = new Bebida();
+		b.setId(TEST_BEBIDA_ID);
+		b.setCoste(10.0);
+		b.setEsCarbonatada(true);
+		b.setNombre("Hidromiel");
+		b.setTamano(t);
+		
+		Otro patatas = new Otro();
+		patatas.setId(TEST_OTROS_ID);
+		patatas.setCoste(12.0);
+		patatas.setNombre("Patatas fritas");
+		patatas.setIngredientes(lista_ingredientes);
+		
 		Carta carta = new Carta();
 		carta.setId(TEST_CARTA_ID);
 		carta.setNombre("CartitaGonsi");
 		carta.setFechaCreacion(LocalDate.of(2020, 2, 2));
 		carta.setFechaFinal(LocalDate.of(2021, 4, 10));
+		
+		Carta carta2 = new Carta();
+		carta2.setId(TEST_CARTA_ID);
+		carta2.setNombre("CartitaGonsi");
+		carta2.setFechaCreacion(LocalDate.of(2020, 2, 2));
+		carta2.setFechaFinal(LocalDate.of(2021, 4, 10));
+		
 		LocalDate hoy = LocalDate.now();
 		
-		given(this.CartaService.findCartas()).willReturn(Lists.newArrayList(carta));
+//		Collection<Pizza> pizzas = new ArrayList<Pizza>();
+//		pizzas.add(pizza);
+//		Collection<Bebida> bebidas = new ArrayList<Bebida>();
+//		bebidas.add(b);
+//		Collection<Otro> otros = new ArrayList<Otro>();
+//		otros.add(patatas);
+		List<Integer> pizzasIds = new ArrayList<Integer>();
+		pizzasIds.add(TEST_PIZZA_ID);
+		List<Integer> bebidasIds = new ArrayList<Integer>();
+		bebidasIds.add(TEST_BEBIDA_ID);
+		List<Integer> otrosIds = new ArrayList<Integer>();
+		otrosIds.add(TEST_OTROS_ID);
+		List<Integer> ofertas = new ArrayList<Integer>();
+		ofertas.add(TEST_OFERTA_ID);
+		
+//		carta.setPizzasEnCarta(pizzas);
+//		carta.setBebidasEnCarta(bebidas);
+//		carta.setOtrosEnCarta(otros);
+		
+		given(this.CartaService.findCartas()).willReturn(Lists.newArrayList(carta,carta2));
 		given(this.CartaService.findCartaById(TEST_CARTA_ID)).willReturn(carta);
+		given(this.CartaService.findCartaById(TEST_CARTA_ID2)).willReturn(carta2);
 		given(this.CartaService.findCartaByFechaCreacionYFechaFinal(hoy)).willReturn(carta);
+		given(this.PizzaService.findIdPizzaById(TEST_CARTA_ID)).willReturn(pizzasIds);
+		given(this.BebidaService.findIdBebidaByCartaId(TEST_CARTA_ID)).willReturn(bebidasIds);
+		given(this.OtrosService.findIdOtroById(TEST_CARTA_ID)).willReturn(otrosIds);
+		given(this.PizzaService.findPizzaById(TEST_PIZZA_ID)).willReturn(pizza);
+		given(this.BebidaService.findById(TEST_BEBIDA_ID)).willReturn(b);
+		given(this.OtrosService.findOtrosById(TEST_OTROS_ID)).willReturn(patatas);
+		given(this.PizzaService.findPizzaById(TEST_PIZZA_ID)).willReturn(pizza);
+		given(this.BebidaService.findById(TEST_BEBIDA_ID)).willReturn(b);
+		given(this.OtrosService.findOtrosById(TEST_OTROS_ID)).willReturn(patatas);
+		given(this.ofertaService.numeroPizzasEnOferta(TEST_PIZZA_ID)).willReturn(ofertas);
+		given(this.ofertaService.numeroBebidasEnOferta(TEST_BEBIDA_ID)).willReturn(ofertas);
+		given(this.ofertaService.numeroOtrosEnOferta(TEST_OTROS_ID)).willReturn(ofertas);
+		//given(this.ofertaService.ponerEstadoOfertaAFalse(TEST_OFERTA_ID)).willReturn();
+	
+	
 	}
 
 	@WithMockUser(value = "spring")
@@ -180,19 +274,31 @@ public class CartaControllerTests {
     @WithMockUser(value = "spring")
    	@Test
    	void testañadirPizzaACartaSuccess() throws Exception {
+    	mockMvc.perform(get("/cartas/{cartaId}/anadirPizzaACarta/{pizzaId}", TEST_CARTA_ID2, TEST_PIZZA_ID)
+				.with(csrf())
+				.param("carta.nombre", "cartaPrincipal")
+				.param("carta.fechaFinal", "2021/11/12"))
+
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/cartas/{cartaId}/VerCarta"));
+    }
+    
+    @WithMockUser(value = "spring")
+   	@Test
+   	void testañadirPizzaACartaDuplicated() throws Exception {
     	mockMvc.perform(get("/cartas/{cartaId}/anadirPizzaACarta/{pizzaId}", TEST_CARTA_ID, TEST_PIZZA_ID)
 				.with(csrf())
 				.param("carta.nombre", "cartaPrincipal")
 				.param("carta.fechaFinal", "2021/11/12"))
 
 		.andExpect(status().is3xxRedirection())
-		.andExpect(view().name("redirect:/cartas/{cartaId}/VerCarta"));
+		.andExpect(view().name("redirect:/PizzaDuplicadaEnCarta"));
     }
     
     @WithMockUser(value = "spring")
    	@Test
    	void testañadirBebidaACartaSuccess() throws Exception {
-    	mockMvc.perform(get("/cartas/{cartaId}/anadirBebidaACarta/{bebidaId}", TEST_CARTA_ID, TEST_BEBIDA_ID)
+    	mockMvc.perform(get("/cartas/{cartaId}/anadirBebidaACarta/{bebidaId}", TEST_CARTA_ID2, TEST_BEBIDA_ID)
 				.with(csrf())
 				.param("carta.nombre", "cartaPrincipal")
 				.param("carta.fechaFinal", "2021/11/12"))
@@ -201,15 +307,39 @@ public class CartaControllerTests {
 		.andExpect(view().name("redirect:/cartas/{cartaId}/VerCarta"));
     }
     
+
+    @WithMockUser(value = "spring")
+   	@Test
+   	void testañadirBebidaACartaDuplicated() throws Exception {
+    	mockMvc.perform(get("/cartas/{cartaId}/anadirBebidaACarta/{bebidaId}", TEST_CARTA_ID, TEST_BEBIDA_ID)
+				.with(csrf())
+				.param("carta.nombre", "cartaPrincipal")
+				.param("carta.fechaFinal", "2021/11/12"))
+
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/BebidaDuplicadaEnCarta"));
+    }
+    
     @WithMockUser(value = "spring")
    	@Test
    	void testañadirOtroACartaSuccess() throws Exception {
-    	mockMvc.perform(get("/cartas/{cartaId}/anadirOtroACarta/{otroId}", TEST_CARTA_ID, TEST_OTROS_ID)
+    	mockMvc.perform(get("/cartas/{cartaId}/anadirOtroACarta/{otroId}", TEST_CARTA_ID2, TEST_OTROS_ID)
 				.with(csrf())
 				.param("carta.nombre", "cartaPrincipal")
 				.param("carta.fechaFinal", "2021/11/12"))
 		.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/cartas/{cartaId}/VerCarta"));
+    }
+    
+    @WithMockUser(value = "spring")
+   	@Test
+   	void testañadirOtroACartaDuplicated() throws Exception {
+    	mockMvc.perform(get("/cartas/{cartaId}/anadirOtroACarta/{otroId}", TEST_CARTA_ID, TEST_OTROS_ID)
+				.with(csrf())
+				.param("carta.nombre", "cartaPrincipal")
+				.param("carta.fechaFinal", "2021/11/12"))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/OtroDuplicadaEnCarta"));
     }
     
 	
@@ -454,6 +584,33 @@ public class CartaControllerTests {
 						.with(csrf()))		
     		.andExpect(status().is3xxRedirection())
 			.andExpect(view().name("redirect:/cartas/{cartaId}/VerCarta"));
+    }
+    
+    @WithMockUser(value = "spring")
+    @Test
+    void testdeletePizza() throws Exception {
+    	mockMvc.perform(get("/cartas/{cartaId}/pizza/{pizzaId}/delete", TEST_CARTA_ID, TEST_PIZZA_ID)
+						.with(csrf()))		
+    		.andExpect(status().is3xxRedirection())
+			.andExpect(view().name("redirect:/cartas/{cartaId}/pizzas"));
+    }
+    
+    @WithMockUser(value = "spring")
+    @Test
+    void testdeleteBebida() throws Exception {
+    	mockMvc.perform(get("/cartas/{cartaId}/bebida/{bebidaId}/delete", TEST_CARTA_ID, TEST_BEBIDA_ID)
+						.with(csrf()))		
+    		.andExpect(status().is3xxRedirection())
+			.andExpect(view().name("redirect:/cartas/{cartaId}/bebidas"));
+    }
+    
+    @WithMockUser(value = "spring")
+    @Test
+    void testdeleteOtro() throws Exception {
+    	mockMvc.perform(get("/cartas/{cartaId}/otro/{OtrosId}/delete", TEST_CARTA_ID, TEST_OTROS_ID)
+						.with(csrf()))		
+    		.andExpect(status().is3xxRedirection())
+			.andExpect(view().name("redirect:/cartas/{cartaId}/otros"));
     }
     
 }

@@ -200,7 +200,7 @@ public class PizzaController {
 	public String actualizarPizza(@PathVariable("pedidoId") int pedidoId,@PathVariable("cartaId") int cartaId,
 			 ModelMap model) {
 		Pizza pizza = new Pizza();
-		model.put("pizza", pizza);
+		model.put("pizza", pizza); 
 		Pedido pedido= this.pedidoService.findPedidoById(pedidoId);
 		
 		model.put("pedido", pedido);
@@ -225,11 +225,11 @@ public class PizzaController {
 			if(pizza.getTamano().getName().equals("GRANDE")) {
 				pizza.setCoste(pizza.getCoste()+1.5);
 			}
-			String tamaño = pizza.getTipoMasa().getName();
-			if(tamaño.equals("GRUESA")) {
+			String tipoMasa = pizza.getTipoMasa().getName();
+			if(tipoMasa.equals("GRUESA")) {
 				pizza.setCoste(pizza.getCoste()+1);
 			}
-			if(tamaño.equals("RELLENA")) {
+			if(tipoMasa.equals("RELLENA")) {
 				pizza.setCoste(pizza.getCoste()+2);
 			}
 			

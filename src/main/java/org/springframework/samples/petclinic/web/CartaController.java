@@ -155,7 +155,7 @@ public class CartaController {
 		
 		model.put("cartaId", cartaId);
 		
-		List<Integer> listaIdPizzas = PizzaService.findIdPizzaById(cartaId);
+		List<Integer> listaIdPizzas = this.PizzaService.findIdPizzaById(cartaId);
 		Pizzas listaPizzas = new Pizzas();
 		for(int i=0; i<listaIdPizzas.size(); i++) {
 			Integer pizzaId = listaIdPizzas.get(i);
@@ -165,7 +165,7 @@ public class CartaController {
 		model.put("pizzas", listaPizzas);
 		log.info("Obtenidas las pizzas para la carta");
 		
-		List<Integer> listaIdBebidas = BebidaService.findIdBebidaByCartaId(cartaId);
+		List<Integer> listaIdBebidas = this.BebidaService.findIdBebidaByCartaId(cartaId);
 		Bebidas listaBebidas = new Bebidas();
 		for(int i=0; i<listaIdBebidas.size(); i++) {
 			Integer bebidaId = listaIdBebidas.get(i);
@@ -175,7 +175,7 @@ public class CartaController {
 		model.put("bebidas", listaBebidas);
 		log.info("Obtenidas las bebidas para la carta");
 		
-		List<Integer> listaIdOtros = OtrosService.findIdOtroById(cartaId);
+		List<Integer> listaIdOtros = this.OtrosService.findIdOtroById(cartaId);
 		Otros listaOtros = new Otros();
 		for(int i=0; i<listaIdOtros.size(); i++) {
 			Integer otroId = listaIdOtros.get(i);
