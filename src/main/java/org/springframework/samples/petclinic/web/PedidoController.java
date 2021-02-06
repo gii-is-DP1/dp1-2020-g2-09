@@ -199,9 +199,7 @@ public class PedidoController {
 			String userName = userDetails.getUsername();
 		    User usuario = this.userService.findUser(userName).get();
 		    Cuenta cliente= this.clienteService.findCuentaByUser(usuario);
-			//hay que asociar el pedido creado al usuario que lo ha creado
 			pedido.setCliente((Cliente) cliente);
-			//por defecto 
 			pedido.setPrecio(0.0);
 			pedido.setFechaPedido(LocalDate.now());
 			this.pedidoService.savePedido(pedido);
@@ -392,7 +390,7 @@ public class PedidoController {
 			for(int i=0; i<pedidosCliente.size(); i++) {
 				acum += pedidosCliente.get(i).getPrecio();
 			}
-			if(acum<100) {//mirar si eso las fechas
+			if(acum<100) {
 				nivelSocio.setName("No tiene nivel de socio");
 				cliente.setNivelSocio(nivelSocio);
 			}else if(acum<200) {
