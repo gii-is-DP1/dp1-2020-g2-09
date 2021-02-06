@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
+
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
@@ -201,10 +202,16 @@ public class OfertaController {
 	public String changeOfertaState(@PathVariable("ofertaId") int ofertaId, ModelMap model){
 	
 			Oferta oferta= ofertaService.findOfertaById(ofertaId);
-			if(oferta.getEstadoOferta().equals(false)) {
-				oferta.setEstadoOferta(true);
-			}else {
+			LocalDate hoy= LocalDate.now();
+			if(oferta.getEstadoOferta().equals(true) && oferta.getFechaFinal().isBefore(hoy)) {
+				oferta.setFechaInicial(hoy);
+				oferta.setFechaFinal(hoy.plusDays(30));		
+			} else if(oferta.getEstadoOferta().equals(true)) {
 				oferta.setEstadoOferta(false);
+			}else {
+				oferta.setEstadoOferta(true);
+				oferta.setFechaInicial(hoy);
+				oferta.setFechaFinal(hoy.plusDays(30));
 			}
 			this.ofertaService.saveOferta(oferta);
 			log.info("Estado de la oferta cambiado");
