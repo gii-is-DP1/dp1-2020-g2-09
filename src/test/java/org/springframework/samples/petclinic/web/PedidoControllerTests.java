@@ -227,7 +227,9 @@ public class PedidoControllerTests {
 		
 		Pizza pizza2 = new Pizza();
 		pizza2.setId(TEST_PIZZA_ID);
-		pizza2.setCoste(120.);
+
+		pizza2.setCoste(120.0);
+
 		pizza2.setNombre("Hawaiana");
 		
 		Alergenos alergeno1 = new Alergenos();
@@ -257,8 +259,12 @@ public class PedidoControllerTests {
 		List<Pizza> pizzasEnPedido=new ArrayList<Pizza>();
 		pizzasEnPedido.add(pizza1);
 		
+
+
 		Double costeP=pizza1.getCoste();
 		Double costeP2=pizza2.getCoste();
+
+
 		
 		//bebida
 		TamanoProducto tamp=new TamanoProducto();
@@ -279,7 +285,8 @@ public class PedidoControllerTests {
 		
 		//otros
 		Otro otro1=new Otro();
-		otro1.setCoste(6.);
+		otro1.setCoste(6.0);
+
 		otro1.setId(TEST_OTROS_ID);
 		otro1.setNombre("Chicken wings");
 		otro1.setIngredientes(lista_ingredientes);
@@ -374,8 +381,8 @@ public class PedidoControllerTests {
 		given(this.BebidaService.findBebidaPedidoById(TEST_PEDIDO_ID)).willReturn(idsBebidasEnCarta);
 		given(this.OtrosService.findOtrosPedidoById(TEST_PEDIDO_ID)).willReturn(idsOtrosEnCarta);
 		given(this.ofertaService.findOfertasEnPedidoById(TEST_PEDIDO_ID)).willReturn(idsOfertasEnCarta);
-		given(this.ofertaService.ofertasNivelSocio(1)).willReturn(ofertasNivel1);
 
+		given(this.ofertaService.ofertasNivelSocio(1)).willReturn(ofertasNivel1);
 	}
 	
 
@@ -654,8 +661,6 @@ public class PedidoControllerTests {
     	//.andExpect(status().isOk())
 //    	.andExpect(model().attributeExists("cartaId"))
 //		.andExpect(model().attributeExists("pedido"))
-
-    	.andExpect(status().is3xxRedirection())
 
 		.andExpect(view().name("redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen"));
 		
