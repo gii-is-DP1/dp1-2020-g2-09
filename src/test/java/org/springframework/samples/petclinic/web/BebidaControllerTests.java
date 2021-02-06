@@ -67,7 +67,7 @@ public class BebidaControllerTests {
 		b.setNombre("Hidromiel");
 		b.setTamano(t);
 		given(this.bebidaService.findBebidas()).willReturn(Lists.newArrayList(b));
-		given(this.bebidaService.findById(TEST_BEBIDA_ID)).willReturn(new Bebida());
+		given(this.bebidaService.findById(TEST_BEBIDA_ID)).willReturn(b);
 				
 		
 	}
