@@ -14,6 +14,7 @@
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre del plato" name="nombre"/>
 			<petclinic:input name="coste" label="Precio"/>
+			<input type="hidden" name="version" value="${otro.version}"/>
             <table id="ingredientesTable" class="table table-striped">
              <thead>
        		 <tr>

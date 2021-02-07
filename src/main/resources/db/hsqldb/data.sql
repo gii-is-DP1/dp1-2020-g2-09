@@ -245,39 +245,39 @@ INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021
 
 
 
-INSERT INTO PIZZAS(id, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (1, 20, 'PROSCIUTTO E FUNGHI', 1 ,2, null, false);
-INSERT INTO PIZZAS(id, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (2, 22, 'PROSCIUTTO', 2 ,3, null, false);
-INSERT INTO PIZZAS(id, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (3, 10, 'HAWAIANA', 2 ,1, null, false);
-INSERT INTO PIZZAS(id, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (4, 15, 'DIAVOLA', 1 ,3, null, false);
-INSERT INTO PIZZAS(id, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (5, 19, '4 STAGIONI', 1 ,1, null, false);
-INSERT INTO PIZZAS(id, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (6, 22, 'TONNATA', 2 ,3, null, false);
-INSERT INTO PIZZAS(id, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (7, 10, '4 FORMAGGI ', 2 ,1, null, false);
-INSERT INTO PIZZAS(id, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (8, 15, 'POMODORINI', 1 ,3, null, false);
-INSERT INTO PIZZAS(id, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (9, 19, 'BARBACOA', 1 ,1, null, false);
+INSERT INTO PIZZAS(id, coste, nombre, version, tamano_producto, tipo_masa, cliente_id, personalizada) values (1, 20, 'PROSCIUTTO E FUNGHI',1, 1 ,2, null, false);
+INSERT INTO PIZZAS(id, coste, nombre, version, tamano_producto, tipo_masa, cliente_id, personalizada) values (2, 22, 'PROSCIUTTO',1, 2 ,3, null, false);
+INSERT INTO PIZZAS(id, coste, nombre, version, tamano_producto, tipo_masa, cliente_id, personalizada) values (3, 10, 'HAWAIANA',1, 2 ,1, null, false);
+INSERT INTO PIZZAS(id, coste, nombre, version, tamano_producto, tipo_masa, cliente_id, personalizada) values (4, 15, 'DIAVOLA',1, 1 ,3, null, false);
+INSERT INTO PIZZAS(id, coste, nombre, version, tamano_producto, tipo_masa, cliente_id, personalizada) values (5, 19, '4 STAGIONI',1, 1 ,1, null, false);
+INSERT INTO PIZZAS(id, coste, nombre, version, tamano_producto, tipo_masa, cliente_id, personalizada) values (6, 22, 'TONNATA',1, 2 ,3, null, false);
+INSERT INTO PIZZAS(id, coste, nombre, version, tamano_producto, tipo_masa, cliente_id, personalizada) values (7, 10, '4 FORMAGGI ',1, 2 ,1, null, false);
+INSERT INTO PIZZAS(id, coste, nombre, version, tamano_producto, tipo_masa, cliente_id, personalizada) values (8, 15, 'POMODORINI',1, 1 ,3, null, false);
+INSERT INTO PIZZAS(id, coste, nombre, version, tamano_producto, tipo_masa, cliente_id, personalizada) values (9, 19, 'BARBACOA',1, 1 ,1, null, false);
 
 
-INSERT INTO OTROS(coste,nombre) values (10, 'Patatas bravas');
-INSERT INTO OTROS(coste,nombre) values (22, 'Papitas Rellenas con Carne Molida');
-INSERT INTO OTROS(coste,nombre) values (10, 'papas aliñás');
-INSERT INTO OTROS(coste,nombre) values (11, 'Gazpacho');
-INSERT INTO OTROS(coste,nombre) values (15, 'Salmorejo');
-INSERT INTO OTROS(coste,nombre) values (19, 'Pescaíto frito');
-INSERT INTO OTROS(coste,nombre) values (2, 'Aceitunas');
-INSERT INTO OTROS(coste,nombre) values (22, 'Boquerones en vinagre');
-INSERT INTO OTROS(coste,nombre) values (10, 'Tortillita de camarones');
-INSERT INTO OTROS(coste,nombre) values (15, 'Adobos de pescado');
-INSERT INTO OTROS(coste,nombre) values (19, 'Chicken Wings');
-INSERT INTO OTROS(coste,nombre) values (15, 'Bacalao deshebrado');
-INSERT INTO OTROS(coste,nombre) values (22, 'Huevos tontos');
-INSERT INTO OTROS(coste,nombre) values (11, 'Pastel de pescado');
-INSERT INTO OTROS(coste,nombre) values (15, 'Chipirones afogaos');
-INSERT INTO OTROS(coste,nombre) values (15, 'Adobos de pescado');
-INSERT INTO OTROS(coste,nombre) values (19, 'Ortiguillas');
-INSERT INTO OTROS(coste,nombre) values (2, 'Bollos preñaos');
-INSERT INTO OTROS(coste,nombre) values (2, 'Chorizo de untar');
-INSERT INTO OTROS(coste,nombre) values (10, 'Papas arrugadas');
-INSERT INTO OTROS(coste,nombre) values (15, 'Morcilla dulce');
-INSERT INTO OTROS(coste,nombre) values (9, 'Berenjenas de Almagro');
+INSERT INTO OTROS(coste,nombre,version) values (10, 'Patatas bravas',1);
+INSERT INTO OTROS(coste,nombre,version) values (22, 'Papitas Rellenas con Carne Molida',1);
+INSERT INTO OTROS(coste,nombre,version) values (10, 'papas aliñás',1);
+INSERT INTO OTROS(coste,nombre,version) values (11, 'Gazpacho',1);
+INSERT INTO OTROS(coste,nombre,version) values (15, 'Salmorejo',1);
+INSERT INTO OTROS(coste,nombre,version) values (19, 'Pescaíto frito',1);
+INSERT INTO OTROS(coste,nombre,version) values (2, 'Aceitunas',1);
+INSERT INTO OTROS(coste,nombre,version) values (22, 'Boquerones en vinagre',1);
+INSERT INTO OTROS(coste,nombre,version) values (10, 'Tortillita de camarones',1);
+INSERT INTO OTROS(coste,nombre,version) values (15, 'Adobos de pescado',1);
+INSERT INTO OTROS(coste,nombre,version) values (19, 'Chicken Wings',1);
+INSERT INTO OTROS(coste,nombre,version) values (15, 'Bacalao deshebrado',1);
+INSERT INTO OTROS(coste,nombre,version) values (22, 'Huevos tontos',1);
+INSERT INTO OTROS(coste,nombre,version) values (11, 'Pastel de pescado',1);
+INSERT INTO OTROS(coste,nombre,version) values (15, 'Chipirones afogaos',1);
+INSERT INTO OTROS(coste,nombre,version) values (15, 'Adobos de pescado',1);
+INSERT INTO OTROS(coste,nombre,version) values (19, 'Ortiguillas',1);
+INSERT INTO OTROS(coste,nombre,version) values (2, 'Bollos preñaos',1);
+INSERT INTO OTROS(coste,nombre,version) values (2, 'Chorizo de untar',1);
+INSERT INTO OTROS(coste,nombre,version) values (10, 'Papas arrugadas',1);
+INSERT INTO OTROS(coste,nombre,version) values (15, 'Morcilla dulce',1);
+INSERT INTO OTROS(coste,nombre,version) values (9, 'Berenjenas de Almagro',1);
 /*INSERT INTO OTROS values ( 1, 20, 'patatas bravas', 5);
 INSERT INTO OTROS values ( 1, 22, 'Spaghetti con salsa de tomate casera',	2);
 INSERT INTO OTROS values ( 1, 10, 'crema catalana',1);
@@ -285,18 +285,18 @@ INSERT INTO OTROS values ( 1, 15, 'tiramisú',	4);
 INSERT INTO OTROS values ( 2, 19, 'brownie',	3);*/
 
 
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values (1,'Nestea', false ,1);
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values (1,'Fanta naranja', false ,1);
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values (1,'Fanta limon', true ,2);
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values (2,'Agua', false ,1);
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values (1,'Coca-cola', true ,2);
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values ( 1, 'Coca-cola Zero azúcar y Zero cafeína', true ,2);
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values (1, 'Coca-cola Sabor light', true ,2);
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values ( 1, 'Coca-cola Zero azúcar', true ,2);
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values ( 1, 'Sprite', true ,1);
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values ( 1, 'Powerade', false ,1);
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values ( 1, 'Aquarius', true ,2);
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values ( 2, 'Schweppes', true ,1);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values (1,'Nestea',1, false ,1);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values (1,'Fanta naranja',1, false ,1);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values (1,'Fanta limon',1, true ,2);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values (2,'Agua',1, false ,1);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values (1,'Coca-cola',1, true ,2);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values ( 1, 'Coca-cola Zero azúcar y Zero cafeína',1, true ,2);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values (1, 'Coca-cola Sabor light',1, true ,2);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values ( 1, 'Coca-cola Zero azúcar',1, true ,2);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values ( 1, 'Sprite',1, true ,1);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values ( 1, 'Powerade',1, false ,1);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values ( 1, 'Aquarius',1, true ,2);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values ( 2, 'Schweppes',1, true ,1);
 
 /*NO ME TOQUEIS LAS FECHAS DE CARTAS*/
 INSERT INTO CARTAS(nombre, fecha_Creacion, fecha_Final) values ('CartaPrincipal', '2021-01-01', '2021-12-31');

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Version;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
@@ -33,6 +34,9 @@ public class Producto extends BaseEntity {
 	@Min(0)
 	@Max(100)
 	private Double coste;
+	
+	@Version
+	private Integer version;
 	
 	
 //	@ManyToMany (cascade = CascadeType.MERGE)
