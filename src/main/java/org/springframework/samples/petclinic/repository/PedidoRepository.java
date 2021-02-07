@@ -40,10 +40,10 @@ public interface PedidoRepository  extends CrudRepository<Pedido, Integer> {
 	List<TipoEnvio> findTipoEnvio() throws DataAccessException;
 	
 	//FILTRAR PEDIDOS SEGUN SU ESTADO
-	@Query(value ="SELECT * FROM Pedido WHERE Estado_Pedido='1' or Estado_Pedido='2' or Estado_Pedido='5' ", nativeQuery = true)
+	@Query(value ="SELECT * FROM Pedido WHERE Estado_Pedido='1' or Estado_Pedido='2' or Estado_Pedido='5' ORDER BY Fecha_Pedido DESC", nativeQuery = true)
 	List<Pedido> findPedidoForCocinero() throws DataAccessException;
 	
-	@Query(value ="SELECT * FROM Pedido WHERE Tipo_Envio='2' and (Estado_Pedido='2' or Estado_Pedido='3' or Estado_Pedido='4')", nativeQuery = true)
+	@Query(value ="SELECT * FROM Pedido WHERE Tipo_Envio='2' and (Estado_Pedido='2' or Estado_Pedido='3' or Estado_Pedido='4') ORDER BY Fecha_Pedido DESC", nativeQuery = true)
 	List<Pedido> findPedidoForRepartidor() throws DataAccessException;
 	
 	//ACTUALIZAR ESTADO DE UN PEDIDO
