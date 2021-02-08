@@ -27,8 +27,4 @@ public class Bebida extends Producto {
 	@NotNull
 	private Boolean esCarbonatada;
 
-	
-//	@ManyToMany(cascade = CascadeType.ALL)
-//	@JoinTable(name = "composicionCartaBebida", joinColumns =@JoinColumn(name= "bebidasEnCarta"))
-//	private Collection<Carta> cartaDeBebidas;
 }
