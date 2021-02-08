@@ -55,13 +55,6 @@
    					<a href="${fn:escapeXml(otroUrl)}" class="btn btn-default">Editar</a>
              	</td>
              	<td>
-             		<spring:url value="/cartas/{cartaId}/otro/{OtrosId}/delete" var="otroUrl2">
-             				<spring:param name="cartaId" value="${cartaId}"/>
-	                        <spring:param name="OtrosId" value="${otro.id}"/>
-	                </spring:url>
-             		<a href="${fn:escapeXml(otroUrl2)}" class="btn btn-default">Eliminar</a>
-             	</td>
-             	<td>
              		<spring:url value="/cartas/{cartaId}/anadirOtroACarta/{otroId}" var="otroUrl3">
 	                        <spring:param name="otroId" value="${otro.id}"/>
 	                        <spring:param name="cartaId" value="${cartaId}"/>

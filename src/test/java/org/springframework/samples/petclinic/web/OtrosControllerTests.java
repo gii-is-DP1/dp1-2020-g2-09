@@ -72,16 +72,6 @@ class OtrosControllerTests {
 		given(this.cartaService.findCartaById(TEST_CARTA_ID)).willReturn(new Carta());
 		given(this.ofertaService.findOfertaById(TEST_OFERTA_ID)).willReturn(new Oferta());
 	}
-
-	@WithMockUser(value = "spring")
-    @Test
-	void testshowOtrosList() throws Exception {
-		mockMvc.perform(get("/allOtros"))
-				.andExpect(status().isOk())
-				.andExpect(view().name("Otros/OtrosList"))
-				.andExpect(model().attributeExists("otros"));
-		
-	}
 	
 	@WithMockUser(value = "spring")
         @Test
@@ -155,14 +145,5 @@ class OtrosControllerTests {
 		.andExpect(view().name("Otros/createOrUpdateOtrosForm"));
 		
 		}
-    
-    @WithMockUser(value = "spring")
-	@Test
-	void initDeleteOtros() throws Exception {
-    	mockMvc.perform(get("/Otros/{OtrosId}/delete", TEST_OTROS_ID))
-		.andExpect(status().is3xxRedirection())
-		.andExpect(view().name("redirect:/allOtros"))
-		.andExpect(model().attributeDoesNotExist("otro"));
-    }
 	
 }

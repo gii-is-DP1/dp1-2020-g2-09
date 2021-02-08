@@ -78,18 +78,6 @@ public class PizzaServiceTestsSinMockito {
 		assertThat(pizza.getNombre()).isEqualTo(newNombre);
 	}
 	
-	@Test
-	@Transactional
-	void shouldDeletePizza() {
-		Pizza pizza = this.pizzaService.findPizzaById(7);
-		
-		this.pizzaService.deletePizza(pizza);
-		
-		pizza = this.pizzaService.findPizzaById(7);
-		
-		assertNull(pizza);
-	}
-	
 	 @Test
 	 @Transactional
 	 void shouldAñadirPizzaACarta() {

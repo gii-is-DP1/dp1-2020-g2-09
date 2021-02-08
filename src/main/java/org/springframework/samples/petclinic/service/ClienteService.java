@@ -50,12 +50,6 @@ public class ClienteService {
 		userService.saveUser(cliente.getUser());
 		//creating authorities
 		authoritiesService.saveAuthorities(cliente.getUser().getUsername(), "cliente");
-	}	
-	
-	@Transactional
-	public void deleteCliente(Cliente cliente) throws DataAccessException {
-		clienteRepository.delete(cliente);	
-	}	
-	
+	}		
 	
 }

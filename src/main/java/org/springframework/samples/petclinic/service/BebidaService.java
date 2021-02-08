@@ -46,13 +46,6 @@ public class BebidaService {
 	}	
 	
 	@Transactional
-	public void deleteBebida(Bebida bebida) throws DataAccessException {
-		bebidaRepository.deleteComposicion(bebida.getId());
-		bebidaRepository.deleteOfertaBebida(bebida.getId());
-		bebidaRepository.delete(bebida);
-	}
-	
-	@Transactional
 	public void deleteBebidaFromComposicionCarta(Integer bebidaId) throws DataAccessException {
 		bebidaRepository.deleteComposicion(bebidaId);
 	}

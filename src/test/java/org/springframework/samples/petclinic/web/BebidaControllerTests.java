@@ -74,16 +74,6 @@ public class BebidaControllerTests {
 	
 	@WithMockUser(value = "spring")
     @Test
-	void testshowBebidasList() throws Exception {
-		mockMvc.perform(get("/allBebidas"))
-				.andExpect(status().isOk())
-				.andExpect(view().name("bebidas/bebidasList"))
-				.andExpect(model().attributeExists("bebidas"));
-		
-	}
-	
-	@WithMockUser(value = "spring")
-    @Test
     void testInitCreationForm() throws Exception {
 
 		mockMvc.perform(get("/bebidas/new"))
@@ -157,13 +147,5 @@ public class BebidaControllerTests {
 				.andExpect(status().isOk())
 				.andExpect(view().name("bebidas/createOrUpdateBebidaForm"));
 		}
-	@WithMockUser(value = "spring")
-	@Test
-	void initDeleteBebida() throws Exception {
-		mockMvc.perform(get("/bebidas/{bebidaId}/delete", TEST_BEBIDA_ID))
-		.andExpect(status().is3xxRedirection())
-		.andExpect(view().name("redirect:/allBebidas"))
-		.andExpect(model().attributeDoesNotExist("bebida"));
-	}
 	
 }

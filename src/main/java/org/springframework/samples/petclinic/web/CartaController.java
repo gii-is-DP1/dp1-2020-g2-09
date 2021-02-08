@@ -461,63 +461,8 @@ public class CartaController {
 			}
 		}
 
-		//DELETE's
-		// borrar Pizza
-		@GetMapping(value = "/cartas/{cartaId}/pizza/{pizzaId}/delete")
-		public String initDeletePizza(@PathVariable("cartaId") Integer cartaId,
-				@PathVariable("pizzaId") int pizzaId, ModelMap model) {
-			Pizza pizza = this.PizzaService.findPizzaById(pizzaId);
-			
-			List<Integer> listaOfertasIds = this.OfertaService.numeroPizzasEnOferta(pizzaId);
-			for(int i=0; i<listaOfertasIds.size(); i++) {
-				this.OfertaService.ponerEstadoOfertaAFalse(listaOfertasIds.get(i));
-				Oferta f=this.OfertaService.findOfertaById(listaOfertasIds.get(i));
-				this.OfertaService.saveOferta(f);
-			}
-			
-			this.PizzaService.deletePizza(pizza);
-			model.put("cartaId", cartaId);
-			log.info("Pizza borrada");
-			return "redirect:/cartas/{cartaId}/pizzas";
-		}
-		//borrar Bebida
-		@GetMapping(value = "/cartas/{cartaId}/bebida/{bebidaId}/delete")
-		public String initDeleteBebida(@PathVariable("cartaId") Integer cartaId,
-				@PathVariable("bebidaId") int bebidaId, ModelMap model) {
-			model.put("cartaId", cartaId);
-			Bebida bebida = this.BebidaService.findById(bebidaId);
-			
-			List<Integer> listaOfertasIds = this.OfertaService.numeroBebidasEnOferta(bebidaId);
-			for(int i=0; i<listaOfertasIds.size(); i++) {
-				this.OfertaService.ponerEstadoOfertaAFalse(listaOfertasIds.get(i));
-				Oferta f=this.OfertaService.findOfertaById(listaOfertasIds.get(i));
-				this.OfertaService.saveOferta(f);
-			}
-			
-			this.BebidaService.deleteBebida(bebida);
-			log.info("Bebida borrada");
-			return "redirect:/cartas/{cartaId}/bebidas";
-		}
 		
-		//borrar Otros
-		@GetMapping(value = "/cartas/{cartaId}/otro/{OtrosId}/delete")
-		public String initDeleteOtros(@PathVariable("cartaId") Integer cartaId, 
-				@PathVariable("OtrosId") int OtrosId, ModelMap model) {
-			model.put("cartaId", cartaId);
-			Otro Otros = this.OtrosService.findOtrosById(OtrosId);
-			
-			List<Integer> listaOfertasIds = this.OfertaService.numeroOtrosEnOferta(OtrosId);
-			for(int i=0; i<listaOfertasIds.size(); i++) {
-				this.OfertaService.ponerEstadoOfertaAFalse(listaOfertasIds.get(i));
-				Oferta f=this.OfertaService.findOfertaById(listaOfertasIds.get(i));
-				this.OfertaService.saveOferta(f);
-			}
-			
-			this.OtrosService.deleteOtros(Otros);
-			log.info("Otro borrado");
-			return "redirect:/cartas/{cartaId}/otros";
-		}
-		
+		//Quitar de la carta
 		@GetMapping(value = "/cartas/{cartaId}/pizza/{pizzaId}/deleteFromCarta")
 		public String deletePizzaFromCarta(@PathVariable("cartaId") Integer cartaId, 
 				@PathVariable("pizzaId") int pizzaId, ModelMap model) {

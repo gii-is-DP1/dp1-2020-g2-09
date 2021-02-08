@@ -51,10 +51,6 @@ public interface PizzaRepository extends CrudRepository<Pizza, Integer> {
 			nativeQuery = true)
 	void deleteComposicion(Integer pizzaId);
 	
-	@Modifying
-	@Query(value = "DELETE FROM OFERTA_PIZZA WHERE PIZZAS_EN_OFERTA_ID = ?1",
-			nativeQuery = true)
-	void deleteOfertaPizza(Integer pizzaId);
 	
 	@Query(value = "SELECT * FROM PIZZAS WHERE CLIENTE_ID = ?1",
 			nativeQuery = true)

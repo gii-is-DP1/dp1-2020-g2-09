@@ -63,15 +63,6 @@ public class PizzaController {
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
 	}
-
-	@GetMapping(value = { "/allPizzas" })
-	public String showPizzaList(Map<String, Object> model) {
-		Pizzas pizzas = new Pizzas();
-		pizzas.getPizzasList().addAll(this.pizzaService.findPizzaNoPersonalizada());
-		model.put("Pizzas", pizzas);
-		log.info("Mostrar todas las pizzas");
-		return "pizzas/pizzasList";
-	}
 	
 	@GetMapping(value = { "/pizzas/cliente" })
 	public String showPizzaListCliente(Map<String, Object> model) {
@@ -186,15 +177,6 @@ public class PizzaController {
 		}
 	}
 
-	@GetMapping(value = "/pizzas/admin/{pizzaId}/delete")
-	public String initDeletePizza(@PathVariable("pizzaId") int pizzaId, ModelMap model) {
-		Pizza pizza = this.pizzaService.findPizzaById(pizzaId);
-		this.pizzaService.deletePizza(pizza);
-		log.info("Pizza eliminada con éxito");
-
-		return "redirect:/allPizzas"; 
-	}
-	
 
 	@GetMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/new")
 	public String actualizarPizza(@PathVariable("pedidoId") int pedidoId,@PathVariable("cartaId") int cartaId,

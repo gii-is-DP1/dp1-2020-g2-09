@@ -176,14 +176,5 @@ public class ClienteController {
 			
 		}
 	}
-	
-	@GetMapping(value = "/clientes/{cuentaId}/delete")
-	public String initDeleteCuenta(@PathVariable("cuentaId") int cuentaId, ModelMap model) {
-		Cliente cliente = this.clienteService.findCuentaById(cuentaId);
-		this.clienteService.deleteCliente(cliente);
-		log.info("Cliente borrado");
-		return "redirect:/allCuentas";
-	}
-
 
 }
