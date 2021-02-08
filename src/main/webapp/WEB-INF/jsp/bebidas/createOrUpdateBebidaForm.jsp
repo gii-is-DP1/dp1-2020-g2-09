@@ -26,6 +26,7 @@
 			  <option value="GRANDE" selected>Grande</option>
 			</select>
 			<petclinic:input name="coste" label="Precio"/>
+			<input type="hidden" name="version" value="${bebida.version}"/>
             <!--<petclinic:inputField label="Id" name="id"/> -->
         </div>
         <div class="form-group">

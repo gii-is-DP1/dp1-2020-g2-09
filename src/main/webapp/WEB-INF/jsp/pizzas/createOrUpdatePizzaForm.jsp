@@ -28,6 +28,7 @@
                      
 			<!--  <label for="precio">Precio </label>	<input type="number" id="precio" name="coste">-->
 			<petclinic:input name="coste" label="Precio"/>
+			<input type="hidden" name="version" value="${pizza.version}"/>
 			
 			  <!-- <petclinic:selectField name="ingredientes" label="ingredientes" names="${ingredientes}" size="3"/> -->
              <table id="ingredientesTable" class="table table-striped">

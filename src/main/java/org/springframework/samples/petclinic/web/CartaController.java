@@ -12,6 +12,7 @@ import org.springframework.samples.petclinic.model.Bebida;
 import org.springframework.samples.petclinic.model.Bebidas;
 import org.springframework.samples.petclinic.model.Carta;
 import org.springframework.samples.petclinic.model.Ingrediente;
+import org.springframework.samples.petclinic.model.Mesa;
 import org.springframework.samples.petclinic.model.Oferta;
 import org.springframework.samples.petclinic.model.Otro;
 import org.springframework.samples.petclinic.model.Otros;
@@ -34,6 +35,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -374,8 +376,15 @@ public class CartaController {
 
 		// mandar actualizacion de pizza
 		@PostMapping(value = "/cartas/{cartaId}/pizza/{pizzaId}/edit")
-		public String processUpdatePizzaForm(@Valid Pizza Pizza, BindingResult result,
-				@PathVariable("pizzaId") int pizzaId) {
+		public String processUpdatePizzaForm(@Valid Pizza Pizza, BindingResult result, @PathVariable("cartaId") Integer cartaId,
+				@PathVariable("pizzaId") int pizzaId, @RequestParam(value = "version", required=false) Integer version, ModelMap model) {
+			Pizza pizzaToUpdate = this.PizzaService.findPizzaById(pizzaId);
+			if(pizzaToUpdate.getVersion()!=version) {
+			model.put("message","Problema de concurrencia a la hora de editar la pizza. "
+					+ "Inténtelo de nuevo más tarde.");
+			log.info("Problema de concurrencia a la hora de editar la pizza.");
+			return initUpdatePizzaForm(cartaId,pizzaId,model);
+			}
 			if (result.hasErrors()) {
 				log.error("Fallo en la actualizacion de una pizza");
 				return "pizzas/createOrUpdatePizzaForm";
@@ -389,9 +398,11 @@ public class CartaController {
 			}
 		}
 		
+
+		
 		// iniciar actualizacion de bebida
 		@GetMapping(value = "/cartas/{cartaId}/bebida/{bebidaId}/edit")
-		public String initUpdateBebidaForm(@PathVariable("cartaId") Integer cartaId, @PathVariable("bebidaId") int bebidaId, ModelMap model) {
+		public String initUpdateBebidaForm(@PathVariable("cartaId") Integer cartaId, @PathVariable("bebidaId") int bebidaId,ModelMap model) {
 			Bebida bebida = this.BebidaService.findById(bebidaId);
 			model.put("bebida", bebida);
 			model.put("cartaId", cartaId);
@@ -401,8 +412,15 @@ public class CartaController {
 
 		// mandar actualizacion de bebida
 		@PostMapping(value = "/cartas/{cartaId}/bebida/{bebidaId}/edit")
-		public String processUpdateBebidaForm(@Valid Bebida bebida, BindingResult result,
-				@PathVariable("bebidaId") int bebidaId) {
+		public String processUpdateBebidaForm(@Valid Bebida bebida, BindingResult result, @PathVariable("cartaId") Integer cartaId,
+				@PathVariable("bebidaId") int bebidaId, @RequestParam(value = "version", required=false) Integer version, ModelMap model) {
+			Bebida bebidaToUpdate = this.BebidaService.findById(bebidaId);
+			if(bebidaToUpdate.getVersion()!=version) {
+			model.put("message","Problema de concurrencia a la hora de editar la bebida. "
+					+ "Inténtelo de nuevo más tarde.");
+			log.info("Problema de concurrencia a la hora de editar la bebida.");
+			return initUpdateBebidaForm(cartaId,bebidaId,model);
+		}
 			if (result.hasErrors()) {
 				log.error("Fallo en la actualizacion de una bebida");
 				return "bebidas/createOrUpdateBebidaForm";
@@ -429,8 +447,15 @@ public class CartaController {
 		
 		//mandar actualizacion de otro
 		@PostMapping(value = "/cartas/{cartaId}/otro/{OtrosId}/edit")
-		public String processUpdateOtrosForm(@Valid Otro otro, BindingResult result,
-				@PathVariable("OtrosId") int OtrosId, ModelMap model) {
+		public String processUpdateOtrosForm(@Valid Otro otro, BindingResult result, @PathVariable("cartaId") Integer cartaId,
+				@PathVariable("OtrosId") int OtrosId, ModelMap model, @RequestParam(value = "version", required=false) Integer version) {
+			Otro otroToUpdate = this.OtrosService.findOtrosById(OtrosId);
+			if(otroToUpdate.getVersion()!=version) {
+				model.put("message","Problema de concurrencia a la hora de editar otro producto. "
+						+ "Inténtelo de nuevo más tarde.");
+				log.info("Problema de concurrencia a la hora de editar otro producto.");
+				return initUpdateOtrosForm(cartaId,OtrosId,model);
+			}
 			if (result.hasErrors()) {
 				log.error("Fallo en la actualizacion de un otro");
 				model.put("otro", otro);
