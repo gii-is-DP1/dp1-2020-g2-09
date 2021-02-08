@@ -77,9 +77,15 @@
 </tr>
 </tbody>
 </table>
-
-<spring:url value="/reclamaciones/user" var="reclamacionUrl">
+				<sec:authorize access="hasAnyAuthority('cliente')"  > 
+					<spring:url value="/reclamaciones/user" var="reclamacionUrl">
 	                </spring:url>
    					<a href="${fn:escapeXml(reclamacionUrl)}" class="btn btn-default">Volver</a>
-
+				</sec:authorize>
+				
+				<sec:authorize access="hasAnyAuthority('administrador')"  > 
+					<spring:url value="/allReclamaciones" var="reclamacionUrl2">
+	                </spring:url>
+   					<a href="${fn:escapeXml(reclamacionUrl2)}" class="btn btn-default">Volver</a>
+				</sec:authorize>
 </petclinic:layout>

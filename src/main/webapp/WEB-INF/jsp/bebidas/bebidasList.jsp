@@ -35,15 +35,17 @@
                 <td>
                     <c:out value="${bebida.nombre}"/>
                 </td>
-                <td>
-                	<c:out value="${bebida.esCarbonatada}"/>
+               <td>
+                	<c:if test="${bebida.esCarbonatada}">
+                		<c:out value="Sí"></c:out>
+                	</c:if>
+                	<c:if test="${!bebida.esCarbonatada}">
+                		<c:out value="No"></c:out>
+                	</c:if>
              	</td>
              	<td>
              		<c:out value="${bebida.coste}"/>
              	</td>
-             	<!-- <td>
-             		<c:out value="${bebida.id}"></c:out>
-             	</td> -->
              	<td>
              		<spring:url value="/cartas/{cartaId}/bebida/{bebidaId}/edit" var="bebidaUrl">
              				<spring:param name="cartaId" value="${cartaId}"/>
