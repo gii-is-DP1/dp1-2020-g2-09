@@ -13,7 +13,6 @@ import org.springframework.validation.Validator;
 @Component
 public class AdministradorValidator implements Validator{
 
-//	private static final String REQUIRED = "Requerido";
 	
 	@Override	
 	public boolean supports(Class<?> clazz) {
@@ -33,7 +32,7 @@ public class AdministradorValidator implements Validator{
 		String contraseña = usuario.getPassword();
 
 		Pattern patternNombre = Pattern
-                .compile("^[a-zA-ZñÑ\\s]+$");
+                .compile("^[a-zA-ZñÑáéíóú\\s]+$");
 		Matcher matcherNombre = patternNombre.matcher(nombre);
 		//nombre
 		if(nombre==null) {

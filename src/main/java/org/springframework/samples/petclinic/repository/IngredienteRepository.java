@@ -13,11 +13,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IngredienteRepository extends CrudRepository<Ingrediente, Integer>{
 
-	
-	//filtrar cliente 
-//	@Query("SELECT DISTINCT cliente FROM Cliente cliente WHERE cliente.usuario LIKE :usuario%")
-//	public Collection<Cliente> findByNombreUsuario(@Param("usuario") String usuario);
-	
 	List<Ingrediente> findAll() throws DataAccessException;
 	
 	Ingrediente findIngredienteById(int ingredienteId) throws DataAccessException;

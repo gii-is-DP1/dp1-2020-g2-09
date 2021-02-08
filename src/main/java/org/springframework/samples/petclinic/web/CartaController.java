@@ -327,9 +327,7 @@ public class CartaController {
 			log.error("Fallo al crear una bebida");
 			return "bebidas/createOrUpdateBebidaForm";
 		} else {
-//			BebidaValidator bebidaValidator = new BebidaValidator();
-//			ValidationUtils.invokeValidator(bebidaValidator, bebida, result);
-			this.BebidaService.saveBebida(bebida);//el tamaño se pone a null
+			this.BebidaService.saveBebida(bebida);
 			log.info("Bebida guardada");
 			return "redirect:/cartas/{cartaId}/bebidas";
 		}
@@ -349,13 +347,11 @@ public class CartaController {
 		@PostMapping(value = "/cartas/{cartaId}/otro/new")
 		public String processCreationOtrosForm(@Valid Otro otro, BindingResult result, ModelMap model) {
 			if (result.hasErrors()) {
-					model.put("otro", otro);//importanteeee
+					model.put("otro", otro);
 					log.error("Fallo en la creacion de otro");
 				return "Otros/createOrUpdateOtrosForm";
 			}
 			else {
-//				OtrosValidator ostrosValidator = new OtrosValidator();
-//				ValidationUtils.invokeValidator(ostrosValidator, otros, result);
 				this.OtrosService.saveOtros(otro);
 				log.info("Otro guardado");
 				return "redirect:/cartas/{cartaId}/otros";
@@ -390,8 +386,6 @@ public class CartaController {
 				return "pizzas/createOrUpdatePizzaForm";
 			} else {
 				Pizza.setId(pizzaId);
-//				PizzaValidator pizzaValidator = new PizzaValidator();
-//				ValidationUtils.invokeValidator(pizzaValidator, Pizza, result);
 				this.PizzaService.savePizza(Pizza);
 				log.info("Pizza guardada");
 				return "redirect:/cartas/{cartaId}/pizzas";
@@ -426,8 +420,6 @@ public class CartaController {
 				return "bebidas/createOrUpdateBebidaForm";
 			} else {
 				bebida.setId(bebidaId);
-//				BebidaValidator bebidaValidator = new BebidaValidator();
-//				ValidationUtils.invokeValidator(bebidaValidator, bebida, result);
 				this.BebidaService.saveBebida(bebida);
 				log.info("Bebida guardada");
 				return "redirect:/cartas/{cartaId}/bebidas";
@@ -462,8 +454,6 @@ public class CartaController {
 				return "Otros/createOrUpdateOtrosForm";
 			}
 			else {
-//				OtrosValidator otrosValidator = new OtrosValidator();
-//				ValidationUtils.invokeValidator(otrosValidator, otros, result);
 				otro.setId(OtrosId);
 				this.OtrosService.saveOtros(otro);
 				log.info("Otro guardado");

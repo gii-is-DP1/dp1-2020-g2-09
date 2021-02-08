@@ -7,7 +7,6 @@ import org.springframework.validation.Validator;
 
 @Component
 public class CartaValidator implements Validator {
-//	private static final String REQUIRED = "required";
 
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -27,14 +26,7 @@ public class CartaValidator implements Validator {
 			errors.rejectValue("nombre",
 					"El nombre debe estar entre 3 y 50 caracteres",
 					"El nombre debe estar entre 3 y 50 caracteres");
-		}
-
-		// FECHA validation
-//		if (carta.getFechaCreacion() == null || carta.getFechaCreacion().isAfter(LocalDate.now())) {
-//			errors.rejectValue("fecha", 
-//					"La fecha debe ser antes de la fecha actual",
-//					"La fecha debe ser antes de la fecha actual");
-//		}		
+		}	
 		
 	}
 

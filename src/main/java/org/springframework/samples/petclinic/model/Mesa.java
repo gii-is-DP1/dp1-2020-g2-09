@@ -27,5 +27,6 @@ public class Mesa extends BaseEntity{
 	
 	@Version
 	private Integer version;
+
 	
 }

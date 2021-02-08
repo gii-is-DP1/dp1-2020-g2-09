@@ -61,12 +61,10 @@ public class BebidaController {
 	@PostMapping(value = "/bebidas/new")
 	public String processCreationForm(@Valid Bebida bebida, BindingResult result,ModelMap model) {
 		if (result.hasErrors()) {
-			model.put("bebida", bebida);//importanteeee
+			model.put("bebida", bebida);
 			log.error("Error en la creacion de una bebida");
 			return "bebidas/createOrUpdateBebidaForm";
 		} else {
-//			BebidaValidator bebidaValidator = new BebidaValidator();
-//			ValidationUtils.invokeValidator(bebidaValidator, bebida, result);
 			this.bebidaService.saveBebida(bebida);
 			log.info("Bebida guardada");
 			return "redirect:/allBebidas";
@@ -92,8 +90,6 @@ public class BebidaController {
 			return "bebidas/createOrUpdateBebidaForm";
 		} else {
 			bebida.setId(bebidaId);
-//			BebidaValidator bebidaValidator = new BebidaValidator();
-//			ValidationUtils.invokeValidator(bebidaValidator, bebida, result);
 			this.bebidaService.saveBebida(bebida);
 			log.info("Bebida actualizada");
 			return "redirect:/allBebidas";

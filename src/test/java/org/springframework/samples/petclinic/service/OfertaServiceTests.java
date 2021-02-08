@@ -21,7 +21,7 @@ import org.springframework.samples.petclinic.model.TamanoOferta;
 import org.springframework.samples.petclinic.repository.OfertaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-//@DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
+
 @ExtendWith(MockitoExtension.class)
 public class OfertaServiceTests {
 	
@@ -39,8 +39,6 @@ public class OfertaServiceTests {
 	@Transactional
 	public void shouldFindOfertaById() {
 		
-		
-		//Cargo los datos del SUT
 		Oferta o = new Oferta();
 		o.setCoste(20.0);
 		o.setFechaInicial(LocalDate.now());
@@ -54,11 +52,9 @@ public class OfertaServiceTests {
 		to.setName("GRANDE");
 		o.setTamanoOferta(to);
 		
-		//Hago la prueba
 		when(ofertaRepository.findOfertaById(anyInt())).thenReturn(o);
 		ofertaService.findOfertaById(10);
 		
-		//Testeo que se ha llamado al método indicado una vez
 		verify(ofertaRepository).findOfertaById(10);
 	}
 	

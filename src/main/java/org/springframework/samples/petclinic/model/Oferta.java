@@ -44,11 +44,6 @@ public class Oferta extends BaseEntity{
 	@NotNull
 	private LocalDate fechaInicial;
 	
-//	@ManyToMany(cascade = CascadeType.ALL)
-//	//JoinTable el nombre de la tabla que va a relacionar pedido con oferta
-//	@JoinTable(name = "ofertaPedido")
-//	private Collection<Pedido> PedidosConOferta;
-	
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "nivel_socio")
 	private NivelSocio nivelSocio;
@@ -74,24 +69,4 @@ public class Oferta extends BaseEntity{
 	@JoinTable(name = "OfertaOtro", joinColumns =@JoinColumn(name= "ofertaId" ))
 	private Collection<Otro> otrosEnOferta;
 	
-
-	
-//	public TamanoProducto getTamanoProducto() {
-//		return this.tamanoProducto;
-//	}
-//
-//	public void setTamanoProducto(TamanoProducto tamanoProducto) {
-//		this.tamanoProducto = tamanoProducto;
-//	}
-//	
-//	public NivelSocio getNivelSocio() {
-//		return this.nivelSocio;
-//	}
-//
-//	public void setNivelSocio(NivelSocio nivelSocio) {
-//		this.nivelSocio = nivelSocio;
-//	}
-//	
-
-
 }

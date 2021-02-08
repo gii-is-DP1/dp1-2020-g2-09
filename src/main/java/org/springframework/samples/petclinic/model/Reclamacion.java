@@ -16,17 +16,11 @@ import lombok.Setter;
 public class Reclamacion extends BaseEntity {
 	
 	
-//	@Column(name = "fechaReclamacion")
-//	@DateTimeFormat(pattern = "yyyy/MM/dd")
-//	@NotNull
-//	private LocalDate fechaReclamacion;
-	
 	@Column(name = "observacion")
 	@NotNull
 	private String observacion;
 	
 	@Column(name = "respuesta")
-	//@Value("Lo sentimos, perdone las molestias")
 	private String respuesta;
 	
 

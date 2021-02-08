@@ -32,7 +32,6 @@ public class ClienteServiceTestsSinMockito {
 		cliente.setTelefono(683020234);
 		cliente.setEmail("paquito@gmail.com");
 		cliente.setFechaNacimiento(LocalDate.of(2000, 12, 9));
-		//cliente.setFechaAlta(LocalDate.now());
 		User usuario = new User();
 		usuario.setUsername("PAquitoO");
 		usuario.setPassword("Tomate y papas");
@@ -49,12 +48,10 @@ public class ClienteServiceTestsSinMockito {
 	public void shouldNotInsertClienteNullNombre() {
 
 		Cliente cliente = new Cliente();
-		//cliente.setNombre("Paco");
 		cliente.setApellidos("Florentino");
 		cliente.setTelefono(683020234);
 		cliente.setEmail("paquito@gmail.com");
 		cliente.setFechaNacimiento(LocalDate.of(2000, 12, 9));
-		//cliente.setFechaAlta(LocalDate.now());
 		User usuario = new User();
 		usuario.setUsername("PAquitoO");
 		usuario.setPassword("Tomate y papas");

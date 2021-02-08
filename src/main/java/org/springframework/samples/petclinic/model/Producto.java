@@ -1,9 +1,5 @@
 package org.springframework.samples.petclinic.model;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
@@ -11,13 +7,10 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.CollectionType;
-
 import com.sun.istack.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
-
 
 @Getter
 @Setter
@@ -37,9 +30,5 @@ public class Producto extends BaseEntity {
 	
 	@Version
 	private Integer version;
-	
-	
-//	@ManyToMany (cascade = CascadeType.MERGE)
-//	@JoinTable(name = "OfertaProducto", joinColumns =@JoinColumn(name= "ofertaId" ))
-//	private Collection<Oferta> productoEnOferta;
+
 }

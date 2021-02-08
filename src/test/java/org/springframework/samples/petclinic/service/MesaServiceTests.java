@@ -55,8 +55,6 @@ public class MesaServiceTests {
 		Mesa mesa = new Mesa();
 		mesa.setCapacidad(6); 
                 
-//		when(mesaRepository.findById(anyInt())).thenReturn(mesa);
-//		mesaService.findById(9);
 		verify(mesaRepository, never()).findById(70);
 	}
 	

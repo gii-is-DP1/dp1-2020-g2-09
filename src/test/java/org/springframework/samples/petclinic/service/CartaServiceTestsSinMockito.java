@@ -31,7 +31,7 @@ public class CartaServiceTestsSinMockito {
 	
 	@Test
 	@Transactional
-	public void shouldInsertCarta() {//Son null todos los Collection<> dentro de cada Collection<> en pizza bebidas y otros, NO VALIDAR QUE NO SEAN NULL
+	public void shouldInsertCarta() {
 		TamanoProducto tamaño=new TamanoProducto();
 		tamaño.setName("Mucho");
 		
@@ -101,7 +101,7 @@ public class CartaServiceTestsSinMockito {
 	
 	@Test
 	@Transactional
-	public void shouldNotInsertCartaNullNombre() {//Son null todos los Collection<> dentro de cada Collection<> en pizza bebidas y otros, NO VALIDAR QUE NO SEAN NULL
+	public void shouldNotInsertCartaNullNombre() {
 		TamanoProducto tamaño=new TamanoProducto();
 		tamaño.setName("Mucho");
 		
@@ -146,7 +146,6 @@ public class CartaServiceTestsSinMockito {
 		otro.setIngredientes(ingredientes);
 		
 		Carta carta = new Carta();
-		//carta.setNombre("CartitaGonsi");
 		carta.setFechaCreacion(LocalDate.of(2020, 2, 2));
 		carta.setFechaFinal(LocalDate.of(2020, 4, 10));
 		

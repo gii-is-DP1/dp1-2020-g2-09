@@ -25,8 +25,6 @@ public class CocineroValidator implements Validator {
 		Cocina cocinero = (Cocina) obj;
 		String apellidos = cocinero.getApellidos();
 		String email= cocinero.getEmail();
-		//LocalDate fechaFinContrato = cocinero.getFechaFinContrato();
-		//LocalDate fechaInicioContrato = cocinero.getFechaInicioContrato();
 		LocalDate fechaNacimiento =cocinero.getFechaNacimiento();
 		String nombre = cocinero.getNombre();
 		
@@ -36,7 +34,7 @@ public class CocineroValidator implements Validator {
 		String contraseña = usuario.getPassword();
 		
 		Pattern patternNombre = Pattern
-                .compile("^[a-zA-ZñÑ\\s]+$");
+                .compile("^[a-zA-ZñÑáéíóú\\s]+$");
 		Matcher matcherNombre = patternNombre.matcher(nombre);
 		//nombre
 				if(nombre.equals(null)) {
@@ -128,20 +126,6 @@ public class CocineroValidator implements Validator {
 			errors.rejectValue("telefono", REQUIRED+" escriba un número válido",
 			REQUIRED+" escriba un número válido");
 		}
-		
-		
-		
-		//fecha de inicio de contrato
-		/* if (fechaInicioContrato.isAfter(LocalDate.now())) {
-			errors.rejectValue("fechaInicioContrato", REQUIRED, REQUIRED + "La fecha debe de ser pasada");
-		}
-		
-		//fecha de fin de contrato
-		 if (fechaFinContrato.isBefore(LocalDate.now())) {
-			errors.rejectValue("fechaFinContrato", REQUIRED, REQUIRED + "La fecha debe de ser futura o actual");
-		}else if (fechaFinContrato.isBefore(fechaInicioContrato)) {
-			errors.rejectValue("fechaFinContrato", REQUIRED, REQUIRED + "La fecha de fin de contrato debe ser posterior a la de inicio");
-		}*/
 		
 	}
 	

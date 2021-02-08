@@ -13,21 +13,11 @@ import org.springframework.stereotype.Repository;
 public interface ClienteRepository extends CrudRepository<Cliente, Integer>{
 
 	
-	//filtrar cliente 
-//	@Query("SELECT DISTINCT cliente FROM Cliente cliente WHERE cliente.usuario LIKE :usuario%")
-//	public Collection<Cliente> findByNombreUsuario(@Param("usuario") String usuario);
-	
-	//void save(Cliente cliente) throws DataAccessException;
-	
 	List<Cliente> findAll() throws DataAccessException;
 	
 	Cliente findById(int clienteId) throws DataAccessException;
 	
 	Cliente findByUser(User usuario) throws DataAccessException;
-	//void save(Cliente cliente) throws DataAccessException;
 	
-	//Para RN-1
-	@Query(value = "SELECT COUNT(*) FROM PEDIDO WHERE PEDIDOCLIENTE = ?1", nativeQuery = true)
-	Integer findNumeroDePedidosRealizados(int clienteId) throws DataAccessException;
 	
 }

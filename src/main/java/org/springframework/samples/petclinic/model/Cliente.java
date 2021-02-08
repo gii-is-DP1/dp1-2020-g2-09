@@ -31,9 +31,5 @@ public class Cliente extends Cuenta {
 	@JoinColumn(name = "nivel_socio")
 	private NivelSocio nivelSocio;
 	
-//	@OneToMany
-//	@JoinColumn(name = "pedidocliente")
-//	private Collection<Pedido> pedidos;
-	
 	
 }

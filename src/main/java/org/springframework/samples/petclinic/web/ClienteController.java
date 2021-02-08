@@ -12,7 +12,6 @@ import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Clientes;
 import org.springframework.samples.petclinic.model.NivelSocio;
 import org.springframework.samples.petclinic.model.Pedido;
-import org.springframework.samples.petclinic.model.Repartidor;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.service.ClienteService;
 import org.springframework.samples.petclinic.service.PedidoService;
@@ -30,7 +29,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import ch.qos.logback.classic.Logger;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -86,11 +84,16 @@ public class ClienteController {
 		else {
 			cliente.setFechaAlta(LocalDate.now());
 			NivelSocio nivelSocio = new NivelSocio();
-			//nivelSocio.setId(4);
 			nivelSocio.setName("No tiene nivel de socio");
 			cliente.setNivelSocio(nivelSocio);
 			
-			this.clienteService.saveCliente(cliente);
+			try {
+				this.clienteService.saveCliente(cliente);
+			}catch(Exception e) {
+				model.put("mensaje", "Nombre de usuario ya cogido.");
+				return "clientes/createOrUpdateCuentaForm";
+			}
+			
 			log.info("Creado del cliente finalizado");
 			return "redirect:/";
 		}
@@ -131,7 +134,6 @@ public class ClienteController {
 		}
 		else {
 			cliente.setId(cuentaId);
-
 		    NivelSocio nivelSocio = new NivelSocio();
 		    List<Pedido> pedidosCliente = this.pedidoService
 					.findPedidosByCliente(cliente.getId());
@@ -156,9 +158,22 @@ public class ClienteController {
 				nivelSocio.setName("ORO");
 				cliente.setNivelSocio(nivelSocio);
 			}
-			this.clienteService.saveCliente(cliente);
-			log.info("Cliente actualizado");
-			return "clientes/clienteDetails";
+			List<User> lista = this.userService.findAll();
+			Boolean duplicado = false;
+			for(int i=0; i<lista.size();i++) {
+				if(lista.get(i).getUsername().equals(cliente.getUser().getUsername())) {
+					duplicado = true;
+				}
+			}
+			if(!duplicado) {
+				this.clienteService.saveCliente(cliente);
+				log.info("Cliente actualizado");
+				return "clientes/clienteDetails";
+			}else {
+				model.put("mensaje", "El nombre de usuario ya está en uso, por favor elija otro.");
+				return "clientes/createOrUpdateCuentaForm";
+			}
+			
 		}
 	}
 	

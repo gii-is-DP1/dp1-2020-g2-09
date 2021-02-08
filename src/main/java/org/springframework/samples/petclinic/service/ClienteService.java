@@ -46,7 +46,6 @@ public class ClienteService {
 	@Transactional
 	public void saveCliente(Cliente cliente) throws DataAccessException {
 		clienteRepository.save(cliente);				
-		
 		//creating user
 		userService.saveUser(cliente.getUser());
 		//creating authorities
@@ -58,10 +57,5 @@ public class ClienteService {
 		clienteRepository.delete(cliente);	
 	}	
 	
-	//Para RN-1
-	@Transactional
-	public Integer findNumeroDePedidosRealizados(int clienteId) throws DataAccessException {
-		return clienteRepository.findNumeroDePedidosRealizados(clienteId);
-	}
 	
 }

@@ -23,9 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-//@RequestMapping("/ofertas/{ofertaId}")
-
-	public class OtrosController {
+public class OtrosController {
 	private final OtrosService OtrosService;
 
 	private final IngredienteService IngredienteService;
@@ -73,8 +71,6 @@ import lombok.extern.slf4j.Slf4j;
 			return "Otros/createOrUpdateOtrosForm";
 		}
 		else {
-//			OtrosValidator ostrosValidator = new OtrosValidator();
-//			ValidationUtils.invokeValidator(ostrosValidator, otros, result);
 			this.OtrosService.saveOtros(otros);
 			log.info("Otro guardado");
 			return "redirect:/allOtros";
@@ -99,8 +95,6 @@ import lombok.extern.slf4j.Slf4j;
 			return "Otros/createOrUpdateOtrosForm";
 		}
 		else {
-//			OtrosValidator otrosValidator = new OtrosValidator();
-//			ValidationUtils.invokeValidator(otrosValidator, otros, result);
 			otros.setId(OtrosId);
 			this.OtrosService.saveOtros(otros);
 			log.info("Otro actualizado");
@@ -116,11 +110,5 @@ import lombok.extern.slf4j.Slf4j;
 		log.info("Otro borrado");
 		return "redirect:/allOtros";
 	}
-	
-	 /*@ModelAttribute("ingredientes")
-	    public Collection<Ingrediente> populateIngrediente() {
-	    	Collection<Ingrediente> c = this.IngredienteService.findIngredientes();
-	    	return c;
-	   }*/
 	 
 }

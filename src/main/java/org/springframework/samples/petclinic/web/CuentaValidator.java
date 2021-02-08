@@ -13,9 +13,7 @@ import org.springframework.validation.Validator;
 @Component
 public class CuentaValidator implements Validator{
 
-	
-	/*@Autowired
-	private ClienteService clienteService;*/
+
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return Cuenta.class.isAssignableFrom(clazz);
@@ -34,7 +32,7 @@ public class CuentaValidator implements Validator{
 		String contraseña = usuario.getPassword();
 		
 		Pattern patternNombre = Pattern
-                .compile("^[a-zA-ZñÑ\\s]+$");
+                .compile("^[a-zA-ZñÑáéíóú\\s]+$");
 		Matcher matcherNombre = patternNombre.matcher(nombre);
 		//nombre
 				if(nombre.equals(null)) {

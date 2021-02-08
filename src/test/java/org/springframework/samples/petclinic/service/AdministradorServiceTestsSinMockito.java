@@ -54,7 +54,6 @@ public class AdministradorServiceTestsSinMockito {
 	public void shouldNotInsertAdministradorNullNombre() {
 
 		Administrador admin = new Administrador();
-		//admin.setNombre("Paco");
 		admin.setApellidos("Florentino");
 		admin.setTelefono(683020234);
 		admin.setEmail("paquito@gmail.com");

@@ -22,8 +22,6 @@ public class RepartidorValidator implements Validator{
 		Repartidor repartidor = (Repartidor) obj;
 		String apellidos = repartidor.getApellidos();
 		String email= repartidor.getEmail();
-//		LocalDate fechaFinContrato = repartidor.getFechaFinContrato();
-//		LocalDate fechaInicioContrato = repartidor.getFechaInicioContrato();
 		LocalDate fechaNacimiento =repartidor.getFechaNacimiento();
 		String nombre = repartidor.getNombre();
 		Integer telefono = repartidor.getTelefono();
@@ -32,7 +30,7 @@ public class RepartidorValidator implements Validator{
 		String contraseña = usuario.getPassword();
 		
 		Pattern patternNombre = Pattern
-                .compile("^[a-zA-ZñÑ\\s]+$");
+                .compile("^[a-zA-ZñÑáéíóú\\s]+$");
 		Matcher matcherNombre = patternNombre.matcher(nombre);
 		
 		//nombre

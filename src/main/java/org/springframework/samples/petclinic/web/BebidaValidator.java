@@ -10,7 +10,6 @@ import org.springframework.validation.Validator;
 @Component
 public class BebidaValidator implements Validator {
 
-//	private static final String REQUIRED = "requerido";
 
 	@Override
 	public void validate(Object obj, Errors errors) {

@@ -14,7 +14,6 @@ import org.springframework.validation.Validator;
 @Component
 public class ReservaValidator implements Validator {
 
-	//private static final String REQUIRED = "Requerido";
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return Reserva.class.isAssignableFrom(clazz);

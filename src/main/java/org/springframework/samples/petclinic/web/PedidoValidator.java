@@ -23,11 +23,7 @@ public class PedidoValidator implements Validator {
 		String direccion = pedido.getDireccion();
 		TipoEnvio tipoEnvio = pedido.getTipoEnvio();
 		TipoPago tipoPago = pedido.getTipoPago();
-//		pedido.setPrecio(0.0);
-//		pedido.setFechaPedido(LocalDate.now());
-		
-//		Cliente cliente = pedido.getCliente();
-//		Integer idCliente = cliente.getId();
+
 	
 		//direccion
 		if(direccion==null) {

@@ -66,8 +66,6 @@ public class IngredienteServiceTests {
 	@Transactional
 	public void shouldNotFindClienteById() {
 		
-//		when(clienteRepository.findById(anyInt())).thenReturn(cliente);
-//		clienteService.findCuentaById(7);
 		verify(ingredienteRepository, never()).findIngredienteById(777);
 		
 	}

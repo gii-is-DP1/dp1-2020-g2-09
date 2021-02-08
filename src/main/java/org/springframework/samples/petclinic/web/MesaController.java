@@ -4,7 +4,6 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Mesa;
 import org.springframework.samples.petclinic.model.Mesas;
@@ -120,11 +119,5 @@ public class MesaController {
 		log.info("Mesa eliminada correctamente.");
 		return "redirect:/allMesas";
 	}
-
-
-//	@ModelAttribute("mesa")
-//	public Mesa findMesa(@PathVariable("mesaId") int mesaId) {
-//		return this.findMesa(mesaId);
-//	}
 
 }

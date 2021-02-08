@@ -46,11 +46,6 @@ public class OtrosService {
 		OtrosRepository.añadirOtroACarta(otroId, cartaId);		
 	}
 	
-//	@Transactional(readOnly = true)
-//	public List<Otros> findByCarta(int carta) throws DataAccessException {
-//		return OtrosRepository.findByCartaDeOtros(carta);
-//	}
-	
 	@Transactional
 	public void saveOtros(Otro Otros) throws DataAccessException {
 		OtrosRepository.save(Otros);		

@@ -49,7 +49,6 @@ public class WelcomeController {
 
 		  model.put("persons", grupo);
 		  model.put("tittle", "Pizzeria Roto's");
-		 // model.put("group", "Members:");
 	    return "welcome";
 	  }
 }

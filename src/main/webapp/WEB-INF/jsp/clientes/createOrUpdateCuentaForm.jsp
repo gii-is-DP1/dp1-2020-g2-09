@@ -29,8 +29,6 @@
             <petclinic:inputField label="Email" name="email" />
             <petclinic:inputField label="Nombre Usuario" name="user.username"/>
             <petclinic:inputField label="Contraseña" name="user.password"/>
-            <!--  <input type="hidden" name = "fechaAlta" value="fechaAlta">  -->
-            <!--<petclinic:inputField label="Id" name="id" />-->
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
@@ -44,7 +42,7 @@
                 </c:choose>
             </div>
         </div>
-        
+        <c:out value="${mensaje}"></c:out>
     </form:form>
     </jsp:body>
 </petclinic:layout>

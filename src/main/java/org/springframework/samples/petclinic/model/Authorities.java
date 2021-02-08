@@ -19,7 +19,7 @@ public class Authorities extends BaseEntity{
 	@JoinColumn(name = "username")//nombre del usuario
 	User user;
 	
-	@Size(min = 3, max = 50)//si es admin, owner, etc
+	@Size(min = 3, max = 50)//si es admin, cliente, etc
 	String authority;
 	
 	

@@ -45,7 +45,6 @@ public class OtrosServiceTestsSinMockito {
 		Otro otro = new Otro();
 		otro.setCoste(10.0);
 		otro.setId(1000);
-		//otro.setNombre("Pollo con queso");
 		this.otrosService.saveOtros(otro);
 		
 		Otro otroEncontrado = this.otrosService.findOtrosById(1000);
@@ -72,7 +71,6 @@ public class OtrosServiceTestsSinMockito {
 		try{
 			Otro otro = this.otrosService.findOtrosById(990999);
 			this.otrosService.deleteOtros(otro);
-			//assertTrue(false);
 		}catch (Exception e) {
 			assertTrue(true);
 		}

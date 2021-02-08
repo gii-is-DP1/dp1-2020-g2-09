@@ -60,8 +60,6 @@ public class RepartidorServiceTests {
 	@Transactional
 	public void shouldNotFindRepartidorById() {
 		
-//		when(repartidorRepository.findRepartidorById(anyInt())).thenReturn(repartidor);
-//		repartidorService.findRepartidorById(8);
 		verify(repartidorRepository, never()).findRepartidorById(10);
 	}
 	

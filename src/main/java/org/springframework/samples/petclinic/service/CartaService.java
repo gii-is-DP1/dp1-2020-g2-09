@@ -34,9 +34,6 @@ public class CartaService {
 	public Carta findCartaByFechaCreacionYFechaFinal(LocalDate hoy) {
 		return cartaRepository.findCartaByFechaCreacionYFechaFinal(hoy);
 	}
-//	public Carta findCartaByFecha(LocalDate cartaFecha) throws DataAccessException {
-//		return cartaRepository.findCartaByFecha(cartaFecha);
-//	}
 	
 	@Transactional
 	public void saveCarta(Carta carta) throws DataAccessException {
@@ -47,20 +44,5 @@ public class CartaService {
 	public void deleteCarta(Carta carta) throws DataAccessException {
 		cartaRepository.delete(carta);		
 	}
-	/*
-	@Transactional
-	 public void añadirPizzaAPedido(int pizzaId, int pedidoId) throws DataAccessException {
-		 cartaRepository.añadirPizzaAPedido(pizzaId, pedidoId);
-	}	
-	
-	@Transactional
-	 public void añadirBebidaAPedido(int bebidaId, int pedidoId) throws DataAccessException {
-		 cartaRepository.añadirBebidaAPedido(bebidaId, pedidoId);
-	}
-	@Transactional
-	 public void añadirOtrosAPedido(int otrosId, int pedidoId) throws DataAccessException {
-		 cartaRepository.añadirOtrosAPedido(otrosId, pedidoId);	
-	}*/
-
 
 }
