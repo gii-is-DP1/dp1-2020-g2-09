@@ -59,11 +59,11 @@ INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario)
 VALUES ('Lucía','Torres Gómez','2000-03-30','614589725','luctorgom@alum.us.es', 'luctorgom1');
 
 
-
+/*cocinero util */
 INSERT INTO users(username,password,enabled) VALUES ('cocinero1','cocinero1',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (11,'cocinero1','cocinero');
 
-
+/*repartidor util*/
 INSERT INTO users(username,password,enabled) VALUES ('repartidor1','repartidor1',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (12,'repartidor1','repartidor');
 
@@ -71,8 +71,16 @@ INSERT INTO authorities(id,username,authority) VALUES (12,'repartidor1','reparti
 INSERT INTO cocineros(nombre,apellidos,fecha_nacimiento,telefono,email, fecha_inicio_contrato, usuario) 
 VALUES ('Paco','Pérez Maldonado','1998-12-29','777777777','paquitorechulon@gmail.com', '2020-10-01', 'cocinero1');
 
+/*INSERT INTO cocineros(nombre,apellidos,fecha_nacimiento,telefono,email,usuario, fecha_inicio_contrato) 
+VALUES ('Marmona','Jimenez Ronaldinha','1997-12-29','777555555','mariana@gmail.com','ejemploCocinero', '2020-09-30');*/
+
+
+/*DATETIME fecha_actual = DATETIME.NOW() -> No funciona*/
 INSERT INTO repartidores(nombre,apellidos,fecha_nacimiento,telefono,email, fecha_inicio_contrato, usuario)
 VALUES ('Minguito','Gutiérrez Ronaldo','1998-11-03','682547321','minguitoo@gmail.com', '2019-12-12', 'repartidor1');
+
+/*INSERT INTO repartidores(nombre,apellidos,fecha_nacimiento,telefono,email, fecha_inicio_contrato, usuario)
+VALUES ('Pepa','Cansado Levante','1995-09-13','985432158','cansado_levante@gmail.com', '2020-11-22', 'ejemplo1');*/
 
 
 INSERT INTO TIPO_PAGO(id, name) VALUES(2,'EFECTIVO');
@@ -237,39 +245,44 @@ INSERT INTO INGREDIENTE (fecha_caducidad, nombre, tipo, alergenos) values ('2021
 
 
 
-INSERT INTO PIZZAS(id, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (1, 20, 'PROSCIUTTO E FUNGHI', 1 ,2, null, false);
-INSERT INTO PIZZAS(id, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (2, 22, 'PROSCIUTTO', 2 ,3, null, false);
-INSERT INTO PIZZAS(id, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (3, 10, 'HAWAIANA', 2 ,1, null, false);
-INSERT INTO PIZZAS(id, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (4, 15, 'DIAVOLA', 1 ,3, null, false);
-INSERT INTO PIZZAS(id, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (5, 19, '4 STAGIONI', 1 ,1, null, false);
-INSERT INTO PIZZAS(id, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (6, 22, 'TONNATA', 2 ,3, null, false);
-INSERT INTO PIZZAS(id, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (7, 10, '4 FORMAGGI ', 2 ,1, null, false);
-INSERT INTO PIZZAS(id, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (8, 15, 'POMODORINI', 1 ,3, null, false);
-INSERT INTO PIZZAS(id, coste, nombre, tamano_producto, tipo_masa, cliente_id, personalizada) values (9, 19, 'BARBACOA', 1 ,1, null, false);
+INSERT INTO PIZZAS(id, coste, nombre, version, tamano_producto, tipo_masa, cliente_id, personalizada) values (1, 20, 'PROSCIUTTO E FUNGHI',1, 1 ,2, null, false);
+INSERT INTO PIZZAS(id, coste, nombre, version, tamano_producto, tipo_masa, cliente_id, personalizada) values (2, 22, 'PROSCIUTTO',1, 2 ,3, null, false);
+INSERT INTO PIZZAS(id, coste, nombre, version, tamano_producto, tipo_masa, cliente_id, personalizada) values (3, 10, 'HAWAIANA',1, 2 ,1, null, false);
+INSERT INTO PIZZAS(id, coste, nombre, version, tamano_producto, tipo_masa, cliente_id, personalizada) values (4, 15, 'DIAVOLA',1, 1 ,3, null, false);
+INSERT INTO PIZZAS(id, coste, nombre, version, tamano_producto, tipo_masa, cliente_id, personalizada) values (5, 19, '4 STAGIONI',1, 1 ,1, null, false);
+INSERT INTO PIZZAS(id, coste, nombre, version, tamano_producto, tipo_masa, cliente_id, personalizada) values (6, 22, 'TONNATA',1, 2 ,3, null, false);
+INSERT INTO PIZZAS(id, coste, nombre, version, tamano_producto, tipo_masa, cliente_id, personalizada) values (7, 10, '4 FORMAGGI ',1, 2 ,1, null, false);
+INSERT INTO PIZZAS(id, coste, nombre, version, tamano_producto, tipo_masa, cliente_id, personalizada) values (8, 15, 'POMODORINI',1, 1 ,3, null, false);
+INSERT INTO PIZZAS(id, coste, nombre, version, tamano_producto, tipo_masa, cliente_id, personalizada) values (9, 19, 'BARBACOA',1, 1 ,1, null, false);
 
 
-INSERT INTO OTROS(coste,nombre) values (10, 'Patatas bravas');
-INSERT INTO OTROS(coste,nombre) values (22, 'Papitas Rellenas con Carne Molida');
-INSERT INTO OTROS(coste,nombre) values (10, 'papas aliñás');
-INSERT INTO OTROS(coste,nombre) values (11, 'Gazpacho');
-INSERT INTO OTROS(coste,nombre) values (15, 'Salmorejo');
-INSERT INTO OTROS(coste,nombre) values (19, 'Pescaíto frito');
-INSERT INTO OTROS(coste,nombre) values (2, 'Aceitunas');
-INSERT INTO OTROS(coste,nombre) values (22, 'Boquerones en vinagre');
-INSERT INTO OTROS(coste,nombre) values (10, 'Tortillita de camarones');
-INSERT INTO OTROS(coste,nombre) values (15, 'Adobos de pescado');
-INSERT INTO OTROS(coste,nombre) values (19, 'Chicken Wings');
-INSERT INTO OTROS(coste,nombre) values (15, 'Bacalao deshebrado');
-INSERT INTO OTROS(coste,nombre) values (22, 'Huevos tontos');
-INSERT INTO OTROS(coste,nombre) values (11, 'Pastel de pescado');
-INSERT INTO OTROS(coste,nombre) values (15, 'Chipirones afogaos');
-INSERT INTO OTROS(coste,nombre) values (15, 'Adobos de pescado');
-INSERT INTO OTROS(coste,nombre) values (19, 'Ortiguillas');
-INSERT INTO OTROS(coste,nombre) values (2, 'Bollos preñaos');
-INSERT INTO OTROS(coste,nombre) values (2, 'Chorizo de untar');
-INSERT INTO OTROS(coste,nombre) values (10, 'Papas arrugadas');
-INSERT INTO OTROS(coste,nombre) values (15, 'Morcilla dulce');
-INSERT INTO OTROS(coste,nombre) values (9, 'Berenjenas de Almagro');
+INSERT INTO OTROS(coste,nombre,version) values (10, 'Patatas bravas',1);
+INSERT INTO OTROS(coste,nombre,version) values (22, 'Papitas Rellenas con Carne Molida',1);
+INSERT INTO OTROS(coste,nombre,version) values (10, 'papas aliñás',1);
+INSERT INTO OTROS(coste,nombre,version) values (11, 'Gazpacho',1);
+INSERT INTO OTROS(coste,nombre,version) values (15, 'Salmorejo',1);
+INSERT INTO OTROS(coste,nombre,version) values (19, 'Pescaíto frito',1);
+INSERT INTO OTROS(coste,nombre,version) values (2, 'Aceitunas',1);
+INSERT INTO OTROS(coste,nombre,version) values (22, 'Boquerones en vinagre',1);
+INSERT INTO OTROS(coste,nombre,version) values (10, 'Tortillita de camarones',1);
+INSERT INTO OTROS(coste,nombre,version) values (15, 'Adobos de pescado',1);
+INSERT INTO OTROS(coste,nombre,version) values (19, 'Chicken Wings',1);
+INSERT INTO OTROS(coste,nombre,version) values (15, 'Bacalao deshebrado',1);
+INSERT INTO OTROS(coste,nombre,version) values (22, 'Huevos tontos',1);
+INSERT INTO OTROS(coste,nombre,version) values (11, 'Pastel de pescado',1);
+INSERT INTO OTROS(coste,nombre,version) values (15, 'Chipirones afogaos',1);
+INSERT INTO OTROS(coste,nombre,version) values (15, 'Adobos de pescado',1);
+INSERT INTO OTROS(coste,nombre,version) values (19, 'Ortiguillas',1);
+INSERT INTO OTROS(coste,nombre,version) values (2, 'Bollos preñaos',1);
+INSERT INTO OTROS(coste,nombre,version) values (2, 'Chorizo de untar',1);
+INSERT INTO OTROS(coste,nombre,version) values (10, 'Papas arrugadas',1);
+INSERT INTO OTROS(coste,nombre,version) values (15, 'Morcilla dulce',1);
+INSERT INTO OTROS(coste,nombre,version) values (9, 'Berenjenas de Almagro',1);
+/*INSERT INTO OTROS values ( 1, 20, 'patatas bravas', 5);
+INSERT INTO OTROS values ( 1, 22, 'Spaghetti con salsa de tomate casera',	2);
+INSERT INTO OTROS values ( 1, 10, 'crema catalana',1);
+INSERT INTO OTROS values ( 1, 15, 'tiramisú',	4);
+INSERT INTO OTROS values ( 2, 19, 'brownie',	3);*/
 
 
 INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values (1,'Nestea',1, false ,1);
@@ -285,7 +298,7 @@ INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values
 INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values ( 1, 'Aquarius',1, true ,2);
 INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values ( 2, 'Schweppes',1, true ,1);
 
-
+/*NO ME TOQUEIS LAS FECHAS DE CARTAS*/
 INSERT INTO CARTAS(nombre, fecha_Creacion, fecha_Final) values ('CartaPrincipal', '2021-01-01', '2021-12-31');
 INSERT INTO CARTAS(nombre, fecha_Creacion, fecha_Final) values ('CartaPrueba','2022-01-01', '2022-12-31');
 
@@ -391,5 +404,4 @@ INSERT INTO OFERTA_BEBIDA (OFERTA_ID,BEBIDAS_EN_OFERTA_ID) VALUES (2,2);
 INSERT INTO OFERTA_BEBIDA (OFERTA_ID,BEBIDAS_EN_OFERTA_ID) VALUES (2,2);
 
 INSERT INTO OFERTA_OTRO (OFERTA_ID,OTROS_EN_OFERTA_ID) VALUES (2,3);
-INSERT INTO OFERTA_OTRO (OFERTA_ID,OTROS_EN_OFERTA_ID) VALUES (3,11);
- 
+INSERT INTO OFERTA_OTRO (OFERTA_ID,OTROS_EN_OFERTA_ID) VALUES (3,11); 
