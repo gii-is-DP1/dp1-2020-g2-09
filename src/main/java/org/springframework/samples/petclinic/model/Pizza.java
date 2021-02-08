@@ -20,8 +20,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "Pizzas")
 public class Pizza extends Producto {
-    
-	
+
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "tamano_producto" )
 	private TamanoProducto tamano;

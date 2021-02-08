@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.model;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Version;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
@@ -27,4 +28,7 @@ public class Producto extends BaseEntity {
 	@Max(100)
 	private Double coste;
 	
+	@Version
+	private Integer version;
+
 }

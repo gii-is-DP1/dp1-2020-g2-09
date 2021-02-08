@@ -272,18 +272,18 @@ INSERT INTO OTROS(coste,nombre) values (15, 'Morcilla dulce');
 INSERT INTO OTROS(coste,nombre) values (9, 'Berenjenas de Almagro');
 
 
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values (1,'Nestea', false ,1);
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values (1,'Fanta naranja', false ,1);
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values (1,'Fanta limon', true ,2);
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values (2,'Agua', false ,1);
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values (1,'Coca-cola', true ,2);
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values ( 1, 'Coca-cola Zero azúcar y Zero cafeína', true ,2);
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values (1, 'Coca-cola Sabor light', true ,2);
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values ( 1, 'Coca-cola Zero azúcar', true ,2);
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values ( 1, 'Sprite', true ,1);
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values ( 1, 'Powerade', false ,1);
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values ( 1, 'Aquarius', true ,2);
-INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values ( 2, 'Schweppes', true ,1);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values (1,'Nestea',1, false ,1);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values (1,'Fanta naranja',1, false ,1);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values (1,'Fanta limon',1, true ,2);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values (2,'Agua',1, false ,1);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values (1,'Coca-cola',1, true ,2);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values ( 1, 'Coca-cola Zero azúcar y Zero cafeína',1, true ,2);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values (1, 'Coca-cola Sabor light',1, true ,2);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values ( 1, 'Coca-cola Zero azúcar',1, true ,2);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values ( 1, 'Sprite',1, true ,1);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values ( 1, 'Powerade',1, false ,1);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values ( 1, 'Aquarius',1, true ,2);
+INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values ( 2, 'Schweppes',1, true ,1);
 
 
 INSERT INTO CARTAS(nombre, fecha_Creacion, fecha_Final) values ('CartaPrincipal', '2021-01-01', '2021-12-31');
