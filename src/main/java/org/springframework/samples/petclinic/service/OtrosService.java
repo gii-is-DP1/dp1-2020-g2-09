@@ -49,15 +49,7 @@ public class OtrosService {
 	@Transactional
 	public void saveOtros(Otro Otros) throws DataAccessException {
 		OtrosRepository.save(Otros);		
-	}	
-	
-	@Transactional
-	public void deleteOtros(Otro Otros) throws DataAccessException {
-		OtrosRepository.deleteComposicionIngredientes(Otros.getId());
-		OtrosRepository.deleteComposicion(Otros.getId());
-		OtrosRepository.deleteOfertaOtro(Otros.getId());
-		OtrosRepository.delete(Otros);		
-	}	
+	}		
 	
 	@Transactional
 	public void deleteOtroFromComposicionCarta(Integer otroId) throws DataAccessException {

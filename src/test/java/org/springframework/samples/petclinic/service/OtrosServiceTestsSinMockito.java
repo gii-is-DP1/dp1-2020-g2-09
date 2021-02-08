@@ -52,29 +52,6 @@ public class OtrosServiceTestsSinMockito {
 		assertNull(otroEncontrado);
 	}
 	
-	@Test
-	@Transactional
-	public void shouldDeleteOtro() {
-		
-		Otro otro = this.otrosService.findOtrosById(1);
-		
-		this.otrosService.deleteOtros(otro);
-		
-		otro = this.otrosService.findOtrosById(1);
-		assertNull(otro);
-		
-	}
-	
-	@Test
-	@Transactional
-	public void shouldNotDeleteOtro() {
-		try{
-			Otro otro = this.otrosService.findOtrosById(990999);
-			this.otrosService.deleteOtros(otro);
-		}catch (Exception e) {
-			assertTrue(true);
-		}
-	}
 	
 	@Test
 	@Transactional

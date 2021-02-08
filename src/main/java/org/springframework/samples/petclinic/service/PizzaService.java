@@ -53,18 +53,11 @@ public class PizzaService {
 		pizzaRepository.deleteComposicion(pizzaId);
 	}
 	
-	@Transactional
-	public void deletePizza(Pizza pizza) throws DataAccessException {
-		//bebidaRepository.deleteComposicion(bebida.getId());
-		pizzaRepository.deleteComposicionIngredientes(pizza.getId());
-		pizzaRepository.deleteComposicion(pizza.getId());
-		pizzaRepository.deleteOfertaPizza(pizza.getId());
-		pizzaRepository.delete(pizza);		
-	}
 	@Transactional(readOnly = true)
     public Collection<tipoMasa> findTipoMasa() throws DataAccessException {
         return pizzaRepository.findTipoMasa();
     }
+    
     @Transactional(readOnly = true)
     public Collection<TamanoProducto> findTamaño() throws DataAccessException {
         return pizzaRepository.findTamaño();

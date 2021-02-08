@@ -77,19 +77,6 @@ public class BebidaServiceTestsSinMockito {
 		assertThat(bebida.getNombre()).isEqualTo(newNombre);
 	}
 	
-	@Test
-	@Transactional
-	void shouldDeleteBebida() {
-		Bebida bebida = new Bebida();
-		bebida.setId(100);
-		
-		this.bebidaService.deleteBebida(bebida);
-		
-		bebida = this.bebidaService.findById(100);
-		
-		assertNull(bebida);
-	
-	}
 	
 	@Test
 	@Transactional

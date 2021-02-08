@@ -39,15 +39,6 @@ public class BebidaController {
 		dataBinder.setDisallowedFields("id");
 	}
 
-	@GetMapping(value = { "/allBebidas" })
-	public String showBebidasList(Map<String, Object> model) {
-		Bebidas bebidas = new Bebidas();
-		bebidas.getBebidasList().addAll(this.bebidaService.findBebidas());
-		model.put("bebidas", bebidas);
-		log.info("Mostrando bebidas");
-		return "bebidas/bebidasList";
-	}
-
 	// crear nuevo Bebida
 	@GetMapping(value = "/bebidas/new")
 	public String initCreationForm(Map<String, Object> model) {
@@ -94,15 +85,6 @@ public class BebidaController {
 			log.info("Bebida actualizada");
 			return "redirect:/allBebidas";
 		}
-	}
-
-	// borrar Bebida
-	@GetMapping(value = "/bebidas/{bebidaId}/delete")
-	public String initDeleteBebida(@PathVariable("bebidaId") int bebidaId, ModelMap model) {
-		Bebida bebida = this.bebidaService.findById(bebidaId);
-		this.bebidaService.deleteBebida(bebida);
-		log.info("Bebida borrada");
-		return "redirect:/allBebidas";
 	}
 
 

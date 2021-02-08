@@ -586,31 +586,6 @@ public class CartaControllerTests {
 			.andExpect(view().name("redirect:/cartas/{cartaId}/VerCarta"));
     }
     
-    @WithMockUser(value = "spring")
-    @Test
-    void testdeletePizza() throws Exception {
-    	mockMvc.perform(get("/cartas/{cartaId}/pizza/{pizzaId}/delete", TEST_CARTA_ID, TEST_PIZZA_ID)
-						.with(csrf()))		
-    		.andExpect(status().is3xxRedirection())
-			.andExpect(view().name("redirect:/cartas/{cartaId}/pizzas"));
-    }
-    
-    @WithMockUser(value = "spring")
-    @Test
-    void testdeleteBebida() throws Exception {
-    	mockMvc.perform(get("/cartas/{cartaId}/bebida/{bebidaId}/delete", TEST_CARTA_ID, TEST_BEBIDA_ID)
-						.with(csrf()))		
-    		.andExpect(status().is3xxRedirection())
-			.andExpect(view().name("redirect:/cartas/{cartaId}/bebidas"));
-    }
-    
-    @WithMockUser(value = "spring")
-    @Test
-    void testdeleteOtro() throws Exception {
-    	mockMvc.perform(get("/cartas/{cartaId}/otro/{OtrosId}/delete", TEST_CARTA_ID, TEST_OTROS_ID)
-						.with(csrf()))		
-    		.andExpect(status().is3xxRedirection())
-			.andExpect(view().name("redirect:/cartas/{cartaId}/otros"));
-    }
+   
     
 }

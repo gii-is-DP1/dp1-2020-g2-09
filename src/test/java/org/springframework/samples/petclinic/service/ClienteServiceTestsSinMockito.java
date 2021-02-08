@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.petclinic.model.Cliente;
-import org.springframework.samples.petclinic.model.Cuenta;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,17 +77,5 @@ public class ClienteServiceTestsSinMockito {
 		cliente = this.clienteService.findCuentaById(1);
 		assertThat(cliente.getNombre()).isEqualTo(newNombre);
 	}
-	
-	@Test
-	@Transactional
-	void shouldDeleteCliente() {
-		Cliente cliente = this.clienteService.findCuentaById(1);
-		
-		this.clienteService.deleteCliente(cliente);
-		
-		cliente = this.clienteService.findCuentaById(1);
-		
-		assertNull(cliente);
-	}
-	
+
 }

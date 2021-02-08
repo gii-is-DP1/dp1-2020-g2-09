@@ -317,14 +317,5 @@ void processUpdateCuentaFormSuccessAcumElse() throws Exception {
 		.andExpect(view().name("clientes/createOrUpdateCuentaForm"));
 	}
 	
-
-	@WithMockUser(value = "spring")
-    @Test
-	void initDeleteCuenta() throws Exception {
-		mockMvc.perform(get("/clientes/{cuentaId}/delete", TEST_CLIENTE_ID))
-		.andExpect(status().is3xxRedirection())
-		.andExpect(view().name("redirect:/allCuentas"));
-	}
-	
 	
 }

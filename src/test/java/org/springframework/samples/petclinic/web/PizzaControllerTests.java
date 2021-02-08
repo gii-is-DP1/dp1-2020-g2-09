@@ -197,17 +197,6 @@ private PizzaController pizzaController;
 		given(this.userService.findUser(TEST_user)).willReturn(op);
 	}
 
-	
-	@WithMockUser(value = "spring")
-    @Test
-	void testShowPizzasList() throws Exception {
-		mockMvc.perform(get("/allPizzas"))
-				.andExpect(status().isOk())
-				.andExpect(view().name("pizzas/pizzasList"))
-				.andExpect(model().attributeExists("Pizzas"));
-		
-	}
-
 	@WithMockUser(value = "spring")
     @Test
 	void testInitCreationFormAdmin() throws Exception {
@@ -351,17 +340,6 @@ private PizzaController pizzaController;
 				.andExpect(view().name("redirect:/allPizzas"));
 		
 	}
-	
-	@WithMockUser(value = "spring")
-    @Test
-	void testDeletePizza() throws Exception {
-		mockMvc.perform(get("/pizzas/admin/{pizzaId}/delete",TEST_PIZZA_ID))
-				.andExpect(status().is3xxRedirection())
-				.andExpect(view().name("redirect:/allPizzas"))
-				.andExpect(model().attributeDoesNotExist("pizza"));
-		
-	}
-		
 
 	@WithMockUser(value = "spring")
     @Test

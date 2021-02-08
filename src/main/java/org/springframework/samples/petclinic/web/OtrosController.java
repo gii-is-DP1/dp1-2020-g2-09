@@ -43,15 +43,6 @@ public class OtrosController {
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
 	}
-	
-	@GetMapping(value = { "/allOtros" })
-	public String showOtrosList(Map<String, Object> model) {
-		Otros otros = new Otros();
-		otros.getOtrosLista().addAll(this.OtrosService.findOtros());
-		model.put("otros", otros);
-		log.info("Mostrando los otros");
-		return "Otros/OtrosList";
-	}
 
 	//crear nuevo Otros
 	@GetMapping(value = "/Otros/new")
@@ -100,15 +91,6 @@ public class OtrosController {
 			log.info("Otro actualizado");
 			return "redirect:/allOtros";
 		}
-	}
-	
-	//borrar Otros
-	@GetMapping(value = "/Otros/{OtrosId}/delete")
-	public String initDeleteOtros(@PathVariable("OtrosId") int OtrosId, ModelMap model) {
-		Otro otro = this.OtrosService.findOtrosById(OtrosId);
-		this.OtrosService.deleteOtros(otro);
-		log.info("Otro borrado");
-		return "redirect:/allOtros";
 	}
 	 
 }
