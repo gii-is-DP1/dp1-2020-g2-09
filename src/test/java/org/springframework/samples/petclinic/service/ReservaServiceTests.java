@@ -61,8 +61,6 @@ public class ReservaServiceTests {
 	@Transactional
 	public void shouldNotFindReservaById() {
 		
-//		when(reservaRepository.findById(anyInt())).thenReturn(reserva);
-//		reservaService.findById(7);
 		verify(reservaRepository,never()).findById(777);
 		
 	}
@@ -88,7 +86,6 @@ public class ReservaServiceTests {
 		List<tipoReserva> ctr = new ArrayList<tipoReserva>();
 		ctr.add(tr1);
 		ctr.add(tr2);
-		//Collection<tipoReserva> ctr = new Collection<tipoReserva>();
 		
 		when(reservaRepository.findTipoReserva()).thenReturn(ctr);
 		reservaService.findTipoReserva();
@@ -170,31 +167,5 @@ public class ReservaServiceTests {
 	public void shouldNotfindReservasIdByMesaId() {
 		verify(reservaRepository, never()).findReservasIdByMesaId(100);
 	}
-	
-//	//No tiene sentido hacerlo con dobles creo
-//	@Test
-//	@Transactional
-//	public void shouldCalcularReservasAPartirIds() {
-//		List<Integer> listaId = new ArrayList<Integer>();
-//		listaId.add(1);
-//		
-//		tipoReserva tr=new tipoReserva();
-//		tr.setName("MERIENDA");
-//		Reserva reserva = new Reserva();
-//		reserva.setFechaReserva(LocalDate.of(2000, 12, 9));
-//		reserva.setHora(LocalTime.of(10, 20));
-//		reserva.setNumeroPersonas(5);
-//		reserva.setTipoReserva(tr);
-//		reserva.setId(1);
-//		
-//		List<Reserva> listaReservas = new ArrayList<Reserva>();
-//		listaReservas.add(reserva);
-//		
-//		when(reservaServiceMock.calcularReservasAPartirIds(listaId)).thenReturn(listaReservas);
-//		reservaService.calcularReservasAPartirIds(listaId);
-//		verify(reservaServiceMock).calcularReservasAPartirIds(listaId);
-//	}
-	
-	
 	
 }

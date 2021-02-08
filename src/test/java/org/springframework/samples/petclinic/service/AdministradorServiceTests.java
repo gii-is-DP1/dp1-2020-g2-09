@@ -44,7 +44,6 @@ public class AdministradorServiceTests {
 		admin.setTelefono(683020234);
 		admin.setEmail("paquito@gmail.com");
 		admin.setFechaNacimiento(LocalDate.of(2000, 12, 9));
-		//cliente.setFechaAlta(LocalDate.now());
 		User usuario = new User();
 		usuario.setUsername("PAquitoO");
 		usuario.setPassword("Tomate y papas");
@@ -61,8 +60,6 @@ public class AdministradorServiceTests {
 	@Transactional
 	public void shouldNotFindAdministradorById() {
 		
-//		when(administradorRepository.findAdministradorById(anyInt())).thenReturn(admin);
-//		administradorService.findAdministradorById(99);
 		verify(administradorRepository, never()).findAdministradorById(12);
 		
 	}

@@ -44,7 +44,6 @@ public class Cuenta extends BaseEntity {
 	@NotNull
 	@Min(value = 100000000)
 	@Max(value = 999999999)
-	//@Length(min = 9, max = 9)
 	private Integer telefono;
 	
 	@OneToOne(cascade = CascadeType.ALL)//crea un usuario para una sola cuenta

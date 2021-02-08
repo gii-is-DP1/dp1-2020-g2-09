@@ -72,18 +72,18 @@ public class OfertaService {
 	//Para borrar las pizzas
 	@Transactional
 	public List<Integer> numeroPizzasEnOferta(Integer pizzaId) throws DataAccessException {
-		return ofertaRepository.numeroPizzasEnOferta(pizzaId);//HACER PRUEBAS
+		return ofertaRepository.numeroPizzasEnOferta(pizzaId);
 	}
 	//Para borrar las bebidas
 	@Transactional
 	public List<Integer> numeroBebidasEnOferta(Integer bebidaId) throws DataAccessException {
-		return ofertaRepository.numeroBebidasEnOferta(bebidaId);//HACER PRUEBAS
+		return ofertaRepository.numeroBebidasEnOferta(bebidaId);
 	}
 	
 	//Para borrar los otros
 	@Transactional
 	public List<Integer> numeroOtrosEnOferta(Integer otrosId) throws DataAccessException {
-		return ofertaRepository.numeroOtrosEnOferta(otrosId);//HACER PRUEBAS
+		return ofertaRepository.numeroOtrosEnOferta(otrosId);
 	}
 	
 	//para borrar

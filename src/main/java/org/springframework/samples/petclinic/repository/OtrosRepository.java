@@ -17,8 +17,6 @@ public interface OtrosRepository extends CrudRepository<Otro, Integer>{
 	
 	Otro findOtrosById(int OtrosId) throws DataAccessException;
 	
-	//List<Otros> findByCartaDeOtros(int cartaId) throws DataAccessException;
-	
 	@Query(value = "SELECT OTROS_EN_CARTA_ID FROM COMPOSICION_CARTA_OTROS  WHERE CARTA_ID = ?1",
 			nativeQuery = true)
 	List<Integer> findIdOtroById(int cartaId) throws DataAccessException;

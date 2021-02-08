@@ -171,10 +171,7 @@ public class PedidoService {
 		return pedidoRepository.cogerPrecioOferta(ofertaId);
 	}
 	
-	
-	
 	//ASOCIAR PEDIDO ASOCIADO A UNA RECLAMACION
-	
 	@Transactional 
 	public Integer findIdPedidoByReclamacionId(int reclamacionId) {
 		return pedidoRepository.findIdPedidoByReclamacionId(reclamacionId);

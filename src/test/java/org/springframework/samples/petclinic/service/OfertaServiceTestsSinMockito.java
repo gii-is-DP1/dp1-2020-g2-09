@@ -40,7 +40,6 @@ public class OfertaServiceTestsSinMockito {
 	@Autowired
 	protected OtrosService otrosService;
 	
-	//Creo que no estamos validando bien el modelo porque me deja insertar o actualizar ofertas con datos erróneos.
 	
 	@Test
 	@Transactional
@@ -90,9 +89,7 @@ public class OfertaServiceTestsSinMockito {
 	@Transactional
 	public void shouldNotInsertOfertaWithNullTamano(){
 		Oferta oferta = new Oferta();
-		//TamanoOferta tamanoOferta = new TamanoOferta();
-		//tamanoOferta.setName("Grande");
-			
+		
 		NivelSocio nivelSocio = new NivelSocio();
 		nivelSocio.setName("Oro");
 		

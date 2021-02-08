@@ -26,11 +26,6 @@ public class Mesa extends BaseEntity{
 	private Integer capacidad;
 	
 	@Version
-	private Integer version;
-	
-//	@ManyToMany(cascade = CascadeType.ALL)
-//	@JoinTable(name = "reservaAsociada", joinColumns =@JoinColumn(name= "mesa_id"))
-//	private Collection<Reserva> reservaAsociada;
-
+	private Integer version;	
 	
 }

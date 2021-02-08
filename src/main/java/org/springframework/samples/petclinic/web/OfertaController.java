@@ -42,11 +42,8 @@ public class OfertaController {
 	private final BebidaService bebidaService;
 	private final PizzaService pizzaService;
 	private final OtrosService otrosService;
-//	@Autowired
-//	public OfertaController(OfertaService ofertaService) {
-//		this.ofertaService = ofertaService;
-//
-//	}
+
+	
 	@Autowired
 	public OfertaController(OfertaService ofertaService,OtrosService otrosService,PizzaService pizzaService,BebidaService bebidaService) {
 		this.ofertaService = ofertaService;
@@ -93,12 +90,10 @@ public class OfertaController {
 		List<Pizza> pizzas=pizzaService.findPizzas();
 		List<Bebida> bebidas=bebidaService.findBebidas();
 		List<Otro> otros=otrosService.findOtros();
-	//	List<Pizza> pizzasEnOferta=new ArrayList<Pizza>();
 		model.put("pizzas", pizzas);
 		model.put("bebidas", bebidas);
 		model.put("otros", otros);
 		model.put("oferta", oferta);
-	//model.put("pizzasEnOferta", pizzasEnOferta);
 		return "ofertas/createOrUpdateOfertaForm";
 	}
 
@@ -106,7 +101,7 @@ public class OfertaController {
 	@PostMapping(value = "/ofertas/new")
 	public String processCreationForm(@Valid Oferta oferta,BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
-			model.put("oferta", oferta);//importanteeee
+			model.put("oferta", oferta);
 			List<Pizza> pizzas=pizzaService.findPizzas();
 			List<Bebida> bebidas=bebidaService.findBebidas();
 			List<Otro> otros=otrosService.findOtros();
@@ -117,8 +112,6 @@ public class OfertaController {
 			return "ofertas/createOrUpdateOfertaForm";
 		}
 		else {
-//			OfertaValidator ofValidator = new OfertaValidator();
-//			ValidationUtils.invokeValidator(ofValidator, oferta, result);
 			this.ofertaService.saveOferta(oferta);
 			log.info("Nueva oferta creada con éxito");
 			return "redirect:/ofertas/"+oferta.getId()+"/anadirProductos";
@@ -182,15 +175,7 @@ public class OfertaController {
 			log.warn("Los productos no se pudieron añadir a la oferta");
 			return "ofertas/createOrUpdateOfertaForm";
 		}
-		else { 
-//			OfertaValidator ofValidator = new OfertaValidator();
-//			ValidationUtils.invokeValidator(ofValidator, oferta, result);
-//			List<Pizza> pizzasEnOferta=ofertaService.findPizzasEnOfertaByOfertaId(ofertaId);
-//			List<Bebida> bebidasEnOferta=ofertaService.findBebidasEnOfertaByOfertaId(ofertaId);
-//			List<Otro> otrosEnOferta=ofertaService.findOtrosEnOfertaByOfertaId(ofertaId);
-//			oferta.setPizzasEnOferta(pizzasEnOferta);
-//			oferta.setBebidasEnOferta(bebidasEnOferta);
-//			oferta.setOtrosEnOferta(otrosEnOferta);
+		else {
 			oferta.setId(ofertaId);
 			this.ofertaService.saveOferta(oferta);
 			log.info("Productos añadidos a la oferta");
@@ -233,11 +218,6 @@ public class OfertaController {
 			public String anadirPizza(ModelMap model, @PathVariable("ofertaId") int ofertaId,@PathVariable("pizzaId") int pizzaId) {
 				Pizza p=pizzaService.findPizzaById(pizzaId);
 				Oferta oferta = ofertaService.findOfertaById(ofertaId);
-				//hacer funcion que incremente el precio del pedido
-//				Double precioDeMiPedidoAntesDeAnadirPizza = pedido.getPrecio();
-//				Double cantidadASumar = (double) this.pedidoService.cogerPrecioPizza(pizzaId);
-//				Double precioDeMiPedidoNuevo = precioDeMiPedidoAntesDeAnadirPizza + cantidadASumar;
-				//oferta.setPizzasEnOferta(pizzasEnOferta);
 				model.put("oferta", oferta);
 				model.put("pizzaEnOferta",p);
 				//model.put("pizzasEnOferta", pizzasEnOferta);
@@ -250,14 +230,8 @@ public class OfertaController {
 			public String anadirBebida(ModelMap model, @PathVariable("ofertaId") int ofertaId,@PathVariable("bebidaId") int bebidaId) {
 				Bebida b=bebidaService.findById(bebidaId);
 				Oferta oferta = ofertaService.findOfertaById(ofertaId);
-				//hacer funcion que incremente el precio del pedido
-//				Double precioDeMiPedidoAntesDeAnadirPizza = pedido.getPrecio();
-//				Double cantidadASumar = (double) this.pedidoService.cogerPrecioPizza(pizzaId);
-//				Double precioDeMiPedidoNuevo = precioDeMiPedidoAntesDeAnadirPizza + cantidadASumar;
-				//oferta.setPizzasEnOferta(pizzasEnOferta);
 				model.put("oferta", oferta);
 				model.put("bebidaEnOferta",b);
-				//model.put("pizzasEnOferta", pizzasEnOferta);
 				this.ofertaService.asociarOfertaABebida(ofertaId, bebidaId);
 				log.info("Añadir una bebida");
 				return "redirect:/ofertas/{ofertaId}/anadirProductos";
@@ -267,14 +241,8 @@ public class OfertaController {
 			public String anadirOtro(ModelMap model, @PathVariable("ofertaId") int ofertaId,@PathVariable("otroId") int otroId) {
 				Otro o=otrosService.findOtrosById(otroId);
 				Oferta oferta = ofertaService.findOfertaById(ofertaId);
-				//hacer funcion que incremente el precio del pedido
-//				Double precioDeMiPedidoAntesDeAnadirPizza = pedido.getPrecio();
-//				Double cantidadASumar = (double) this.pedidoService.cogerPrecioPizza(pizzaId);
-//				Double precioDeMiPedidoNuevo = precioDeMiPedidoAntesDeAnadirPizza + cantidadASumar;
-				//oferta.setPizzasEnOferta(pizzasEnOferta);
 				model.put("oferta", oferta);
 				model.put("otroEnOferta",o);
-				//model.put("pizzasEnOferta", pizzasEnOferta);
 				this.ofertaService.asociarOfertaAOtro(ofertaId, otroId);
 				log.info("Añadir una otro");
 				return "redirect:/ofertas/{ofertaId}/anadirProductos";

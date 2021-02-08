@@ -48,11 +48,6 @@ public class ReclamacionService {
 	 public List<Integer> findPedidosConReclamaciones() throws DataAccessException {
 		return reclamacionRepository.findPedidosConReclamaciones();
 	 }
- 
-	 @Transactional 
-	 public List<Integer> findPedidosConReclamacionesDeUnCliente(int clienteId) throws DataAccessException {
-		return reclamacionRepository.findPedidosConReclamacionesDeUnCliente(clienteId);//obsoleto
-	 }
 	 
 	 public List<Integer> findPedidosConReclamacionDeCliente(int clienteId) throws DataAccessException {
 		 return this.reclamacionRepository.findPedidosConReclamacionDeCliente(clienteId);

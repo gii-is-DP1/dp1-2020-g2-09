@@ -31,7 +31,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -112,8 +111,6 @@ public class ReservaController {
 			return "reservas/createOrUpdateReservaForm";
 		}
 		else {
-//			ReservaValidator reservaValidator = new ReservaValidator();
-//			ValidationUtils.invokeValidator(reservaValidator, reserva, result);
 			Cuenta cliente = getClienteActivo();
 			
 			//Asigno el cliente que ha hecho la reservas
@@ -208,15 +205,6 @@ public class ReservaController {
 	} 
 	
 
-	
-//	//AÑADIR MESA A UNA RESERVA 
-//		@GetMapping("/reservas/{reservaId}/anadirMesaAReserva/{mesaId}")
-//		public String anadirMesa(Map<String, Object> model, @PathVariable("reservaId") int reservaId,
-//					@PathVariable("mesaId") int mesaId) {
-//			this.reservaService.anadirMesaAReserva(reservaId, mesaId);
-//			return "redirect:/allReservas";
-//		}
-
 	//iniciar actualizacion
 	@GetMapping(value = "/reservas/{reservaId}/edit")
 	public String initUpdateForm(@PathVariable("reservaId") int reservaId, ModelMap model) {
@@ -236,8 +224,6 @@ public class ReservaController {
 			return "reservas/createOrUpdateReservaForm";
 		}
 		else {
-//			ReservaValidator reservaValidator = new ReservaValidator();
-//			ValidationUtils.invokeValidator(reservaValidator, reserva, result);
 			reserva.setId(reservaId);
 			this.reservaService.saveReserva(reserva);
 			log.info("Reserva actualizada.");
@@ -254,14 +240,6 @@ public class ReservaController {
 		return "welcome";
 	}
 	
-//	//Este método creo que no se usa
-//	//buscar mesas de la reserva
-//		@GetMapping(value = "/reservas/mesas/{reservaId}")
-//		public String initReserva(@PathVariable("reservaId") int reservaId, ModelMap model) {
-//			List<Mesa> lista= mesaService.findByReserva(reservaId);
-//			model.put("mesas", lista);
-//			return "redirect:/allReservas";
-//		}
 		
 	@ModelAttribute("tipoReserva")
     public Collection<tipoReserva> populateTipoReserva() {

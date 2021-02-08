@@ -59,8 +59,6 @@ public class ClienteServiceTests {
 	@Transactional
 	public void shouldNotFindClienteById() {
 		
-//		when(clienteRepository.findById(anyInt())).thenReturn(cliente);
-//		clienteService.findCuentaById(7);
 		verify(clienteRepository, never()).findById(777);
 		
 	}
@@ -75,7 +73,6 @@ public class ClienteServiceTests {
 		cliente.setTelefono(683020234);
 		cliente.setEmail("paquito@gmail.com");
 		cliente.setFechaNacimiento(LocalDate.of(2000, 12, 9));
-		//cliente.setFechaAlta(LocalDate.now());
 		User usuario = new User();
 		usuario.setUsername("PAquitoO");
 		usuario.setPassword("Tomate y papas");
@@ -104,14 +101,6 @@ public class ClienteServiceTests {
 		verify(clienteRepository).findAll();
 	}
 	
-	@Test
-	@Transactional
-	public void shouldFindNumeroDePedidosRealizados() {
-		Cliente cliente = new Cliente();
-		cliente.setId(100);
-		when(clienteRepository.findNumeroDePedidosRealizados(anyInt())).thenReturn(10);
-		clienteService.findNumeroDePedidosRealizados(100);
-		verify(clienteRepository).findNumeroDePedidosRealizados(100);
-	}
+	
 	
 }

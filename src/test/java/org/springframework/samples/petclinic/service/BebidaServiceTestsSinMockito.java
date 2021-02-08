@@ -52,7 +52,6 @@ public class BebidaServiceTestsSinMockito {
 		TamanoProducto tamano = new TamanoProducto();
 		tamano.setName("Grande");
 		Bebida bebida = new Bebida();
-		//bebida.setNombre("Pepsi");
 		bebida.setEsCarbonatada(true);
 		bebida.setCoste(12.0);
 		bebida.setTamano(tamano);

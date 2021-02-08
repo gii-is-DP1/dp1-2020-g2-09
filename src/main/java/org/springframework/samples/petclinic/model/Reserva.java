@@ -31,7 +31,7 @@ public class Reserva extends BaseEntity {
 
 	@Column(name = "numeroPersonas")
 	@NotNull
-	@Min(0)
+	@Min(1)
 	@Max(6)
 	private Integer numeroPersonas;
 
@@ -57,7 +57,4 @@ public class Reserva extends BaseEntity {
 	@JoinColumn(name = "reservacliente")
 	private Cliente cliente;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "usuario",referencedColumnName="usuario")
-//	private Cliente cliente;
 }

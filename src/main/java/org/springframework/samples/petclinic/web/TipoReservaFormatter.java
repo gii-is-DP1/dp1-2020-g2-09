@@ -21,8 +21,6 @@ public class TipoReservaFormatter implements Formatter<tipoReserva>{
 	@Override
 	public String print(tipoReserva object, Locale locale) {
 		return object.getName();
-//				"La reserva con id "+object.getId()+ " del dia "+ object.getFechaReserva() + 
-//				" a las "+ object.getHora()+ " es de " + object.getNumeroPersonas() + "personas.";
 	}
 
 	@Override

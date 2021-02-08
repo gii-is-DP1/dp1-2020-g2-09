@@ -124,9 +124,6 @@ public class ReservaServiceTestsSinMockito {
 		Mesa m  = this.mesaService.findById(1);            
                 
 		this.reservaService.anadirMesaAReserva(r.getId(), m.getId());
-//		List<Integer> pedidosId = this.reclamacionService.findPedidosConReclamaciones();
-//		Integer indicePedido = pedidosId.indexOf(10);
-//		Integer 
 		
 		assertThat(r.getMesasEnReserva().contains(m));
 	}

@@ -21,9 +21,6 @@ private final OfertaService rs;
 	@Override
 	public String print(Oferta object, Locale locale) {
 		return String.valueOf(object.getId());
-//			"La oferta con id "+ object.getId()+ " con coste " + object.getCoste() + 
-//			" comienza el "+ object.getFechaInicial() " y acaba el " + object.getFechaFinal() 
-//		" .Tiene el nivel de socio "+ object.getNivelSocio() " y tamaño " + object.getTamanoOferta();
 	}
 
 	@Override

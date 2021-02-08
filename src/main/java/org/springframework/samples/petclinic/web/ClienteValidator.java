@@ -14,7 +14,6 @@ import org.springframework.validation.Validator;
 @Component
 public class ClienteValidator implements Validator{
 
-//	private static final String REQUIRED = "Requerido";
 	
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -33,7 +32,7 @@ public class ClienteValidator implements Validator{
 		String nombreUsuario = Usuario.getUsername();
 		
 		Pattern patternNombre = Pattern
-                .compile("^[a-zA-ZñÑ\\s]+");
+                .compile("^[a-zA-ZñÑáéíóú\\s]+");
 		Matcher matcherNombre = patternNombre.matcher(nombre);
 		//nombre
 				if(nombre.equals(null)) {
@@ -76,26 +75,13 @@ public class ClienteValidator implements Validator{
 					"La fecha de nacimiento no puede ser superior a la de hoy",
 					"La fecha de nacimiento no puede ser superior a la de hoy");
 		}
-		//fecha de alta
-//		if (fechaAlta!=LocalDate.now()) {
-//			errors.rejectValue("fechaAlta", "La fecha debe de ser pasada", "La fecha debe de ser pasada");
-//		}
 		
 		//telefono
-		
 		if(telefono==null) {
 			errors.rejectValue("telefono",
 					"Escriba un número válido",
 					"Escriba un número válido");
 		}
-//		else {
-//			String telefonoString = telefono.toString();
-//			if(telefonoString.matches("[0-9]*")) {
-//				errors.rejectValue("telefono", REQUIRED+" escriba un número válido",REQUIRED+" escriba un número válido");
-//			}else if(telefonoString.length()!=9 || telefonoString.length()<1) {
-//				errors.rejectValue("telefono", REQUIRED+" escriba un número válido",REQUIRED+" escriba un número válido");
-//			}
-//		}
 		else if(telefono<100000000 || telefono>999999999) {
 			errors.rejectValue("telefono",
 					"Escriba un número válido",

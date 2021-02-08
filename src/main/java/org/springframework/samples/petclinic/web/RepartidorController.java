@@ -67,8 +67,6 @@ public class RepartidorController {
 			return "repartidores/createOrUpdateRepartidorForm";
 		}
 		else {
-//			RepartidorValidator repValidator = new RepartidorValidator();
-//			ValidationUtils.invokeValidator(repValidator, repartidor, result);
 			repartidor.setFechaInicioContrato(LocalDate.now());
 			this.repartidorService.saveRepartidor(repartidor);
 			log.info("Guardar repartidor");
@@ -117,9 +115,6 @@ public class RepartidorController {
 				if(repartidor.getFechaInicioContrato().plusDays(31).isBefore(LocalDate.now())){
 					repartidor.setFechaFinContrato(LocalDate.now());
 				}else {
-					//mandar mensaje
-					Boolean noDarDeBaja2 = true;
-					model.put("noDarDebaja", noDarDeBaja2);
 					log.warn("No se puede dar de baja");
 					return "redirect:/NoEsPosibleDarDeBaja";
 				}

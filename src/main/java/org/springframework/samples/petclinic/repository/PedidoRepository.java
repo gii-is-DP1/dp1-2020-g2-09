@@ -26,8 +26,6 @@ public interface PedidoRepository  extends CrudRepository<Pedido, Integer> {
 			nativeQuery = true)
 	Pedido findPedidoByFecha(LocalDate hoy, int userId) throws DataAccessException;
 	
-	
-	//la siguiente creo que está mal
 	List<Pedido> findByOfertasEnPedido(int pedidoId) throws DataAccessException;
 	
 	@Query("SELECT estPed FROM EstadoPedido estPed")

@@ -59,11 +59,11 @@ INSERT INTO clientes(nombre,apellidos,fecha_nacimiento,telefono,email, usuario)
 VALUES ('Lucía','Torres Gómez','2000-03-30','614589725','luctorgom@alum.us.es', 'luctorgom1');
 
 
-/*cocinero util */
+
 INSERT INTO users(username,password,enabled) VALUES ('cocinero1','cocinero1',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (11,'cocinero1','cocinero');
 
-/*repartidor util*/
+
 INSERT INTO users(username,password,enabled) VALUES ('repartidor1','repartidor1',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (12,'repartidor1','repartidor');
 
@@ -71,16 +71,8 @@ INSERT INTO authorities(id,username,authority) VALUES (12,'repartidor1','reparti
 INSERT INTO cocineros(nombre,apellidos,fecha_nacimiento,telefono,email, fecha_inicio_contrato, usuario) 
 VALUES ('Paco','Pérez Maldonado','1998-12-29','777777777','paquitorechulon@gmail.com', '2020-10-01', 'cocinero1');
 
-/*INSERT INTO cocineros(nombre,apellidos,fecha_nacimiento,telefono,email,usuario, fecha_inicio_contrato) 
-VALUES ('Marmona','Jimenez Ronaldinha','1997-12-29','777555555','mariana@gmail.com','ejemploCocinero', '2020-09-30');*/
-
-
-/*DATETIME fecha_actual = DATETIME.NOW() -> No funciona*/
 INSERT INTO repartidores(nombre,apellidos,fecha_nacimiento,telefono,email, fecha_inicio_contrato, usuario)
 VALUES ('Minguito','Gutiérrez Ronaldo','1998-11-03','682547321','minguitoo@gmail.com', '2019-12-12', 'repartidor1');
-
-/*INSERT INTO repartidores(nombre,apellidos,fecha_nacimiento,telefono,email, fecha_inicio_contrato, usuario)
-VALUES ('Pepa','Cansado Levante','1995-09-13','985432158','cansado_levante@gmail.com', '2020-11-22', 'ejemplo1');*/
 
 
 INSERT INTO TIPO_PAGO(id, name) VALUES(2,'EFECTIVO');
@@ -278,11 +270,6 @@ INSERT INTO OTROS(coste,nombre) values (2, 'Chorizo de untar');
 INSERT INTO OTROS(coste,nombre) values (10, 'Papas arrugadas');
 INSERT INTO OTROS(coste,nombre) values (15, 'Morcilla dulce');
 INSERT INTO OTROS(coste,nombre) values (9, 'Berenjenas de Almagro');
-/*INSERT INTO OTROS values ( 1, 20, 'patatas bravas', 5);
-INSERT INTO OTROS values ( 1, 22, 'Spaghetti con salsa de tomate casera',	2);
-INSERT INTO OTROS values ( 1, 10, 'crema catalana',1);
-INSERT INTO OTROS values ( 1, 15, 'tiramisú',	4);
-INSERT INTO OTROS values ( 2, 19, 'brownie',	3);*/
 
 
 INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values (1,'Nestea', false ,1);
@@ -298,7 +285,7 @@ INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values ( 1, 'P
 INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values ( 1, 'Aquarius', true ,2);
 INSERT INTO BEBIDAS(coste,nombre,es_carbonatada, tamano_producto) values ( 2, 'Schweppes', true ,1);
 
-/*NO ME TOQUEIS LAS FECHAS DE CARTAS*/
+
 INSERT INTO CARTAS(nombre, fecha_Creacion, fecha_Final) values ('CartaPrincipal', '2021-01-01', '2021-12-31');
 INSERT INTO CARTAS(nombre, fecha_Creacion, fecha_Final) values ('CartaPrueba','2022-01-01', '2022-12-31');
 

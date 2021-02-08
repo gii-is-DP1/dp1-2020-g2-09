@@ -65,8 +65,6 @@ public class PizzaServiceTests {
 	@Test
 	void shouldNotFindPizzaById() {
 		
-//		when(pizzaRepository.findPizzaById(anyInt())).thenReturn(pizza);
-//		pizzaService.findPizzaById(8);
 		verify(pizzaRepository, never()).findPizzaById(10);
 	}
 	
@@ -81,8 +79,6 @@ public class PizzaServiceTests {
 	@Test
 	void shouldNotFindIdPizzaById() {
 		
-//		when(pizzaRepository.findIdPizzaById(anyInt())).thenReturn(new ArrayList<>());
-//		pizzaService.findIdPizzaById(9);
 		verify(pizzaRepository, never()).findIdPizzaById(200);
 	}
 	

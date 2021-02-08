@@ -37,10 +37,10 @@ public class CocineroController {
 		dataBinder.setValidator(new CocineroValidator());
 	}
 	
-	/*@InitBinder
+	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
-	}*/
+	}
 	
 	@GetMapping(value = { "/allCocineros" })
 	public String showCocineroList(Map<String, Object> model) {
@@ -69,8 +69,6 @@ public class CocineroController {
 			return "cocineros/createOrUpdateCocinaForm";
 		}
 		else {
-//			CocineroValidator cocineroValidator = new CocineroValidator();
-//			ValidationUtils.invokeValidator(cocineroValidator, cocinero, result);
 			cocina.setFechaInicioContrato(LocalDate.now());
 			this.cocineroService.saveCocinero(cocina);
 			log.info("Cocinero guardado");
@@ -100,8 +98,6 @@ public class CocineroController {
 			return "cocineros/createOrUpdateCocinaForm";
 		}
 		else {
-//			CocineroValidator cocineroValidator = new CocineroValidator();
-//			ValidationUtils.invokeValidator(cocineroValidator, cocinero, result);
 			cocinero.setId(cocineroId);
 			Cocina antiguo = this.cocineroService.findCocineroById(cocineroId);
 			cocinero.setFechaInicioContrato(antiguo.getFechaInicioContrato());
@@ -135,9 +131,6 @@ public class CocineroController {
 					.isBefore(LocalDate.now())){
 				cocinero.setFechaFinContrato(LocalDate.now());
 			}else {
-				//mandar mensaje
-//				Boolean noDarDeBaja = true;
-//				model.put("noDarDebaja", noDarDeBaja);
 				log.warn("No se puede dar de baja");
 				return "redirect:/NoEsPosibleDarDeBaja";
 			}

@@ -35,7 +35,6 @@ public class RepartidorServiceTestsSinMockito {
 		repartidor.setTelefono(683020234);
 		repartidor.setEmail("paquito@gmail.com");
 		repartidor.setFechaNacimiento(LocalDate.of(2000, 12, 9));
-		//cliente.setFechaAlta(LocalDate.now());
 		User usuario = new User();
 		usuario.setUsername("PAquitoO");
 		usuario.setPassword("Tomate y papas");
@@ -53,7 +52,6 @@ public class RepartidorServiceTestsSinMockito {
 	public void shouldNotInsertRepartidorNullNombre() {
 
 		Repartidor repartidor = new Repartidor();
-		//repartidor.setNombre("Paco");
 		repartidor.setApellidos("Florentino");
 		repartidor.setTelefono(683020234);
 		repartidor.setEmail("paquito@gmail.com");
@@ -110,21 +108,19 @@ public class RepartidorServiceTestsSinMockito {
 		assertNull(repartidorEncontrado);
 	}
 	
-//	@Test
-//	@Transactional
-//	void shouldNotUpdateRepartidor() {
-//		Repartidor repartidor = this.repartidorService.findRepartidorById(1);
-//		String oldNombre = repartidor.getNombre();
-//		String newNombre = oldNombre+"Yeah";
-//		
-//		repartidor.setNombre(newNombre);
-//		try{
-//			this.repartidorService.saveRepartidor(repartidor);
-//			//assertTrue(false);
-//		}catch (Exception e) {
-//			assertTrue(true);
-//		}
-//		//assertTrue(false);
-//	}
+	@Test
+	@Transactional
+	void shouldNotUpdateRepartidor() {
+		Repartidor repartidor = this.repartidorService.findRepartidorById(1);
+		String oldNombre = repartidor.getNombre();
+		String newNombre = oldNombre+"Yeahhhhhhhh";
+		
+		repartidor.setNombre(newNombre);
+		try{
+			this.repartidorService.saveRepartidor(repartidor);
+		}catch (Exception e) {
+			assertTrue(true);
+		}
+	}
 	
 }

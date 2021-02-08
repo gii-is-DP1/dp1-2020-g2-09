@@ -1,7 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -60,18 +59,6 @@ public class ReclamacionController {
 		dataBinder.setDisallowedFields("id");
 	}
 	
-//	@GetMapping(value = { "/allReclamaciones" })
-//	
-//	public String showReclamacionList(Map<String, Object> model) {
-//		Reclamaciones reclamaciones = new Reclamaciones();
-//		reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findPedidosConReclamaciones());
-//		//reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findReclamaciones());
-//		//List<Integer> pedidosConReclamaciones = this.reclamacionService.findPedidosConReclamaciones();
-//		//model.put("pedidosReclamaciones", pedidosConReclamaciones);
-//		model.put("reclamaciones", reclamaciones);
-//		return "reclamaciones/reclamacionesList";
-//	} 
-	
 	@GetMapping(value = { "/allReclamaciones" })
 	public String showReclamacionList(Map<String, Object> model) {
 		Reclamaciones reclamaciones = new Reclamaciones();
@@ -79,16 +66,11 @@ public class ReclamacionController {
 		for(int i=0;i<l.size();i++) {
 			reclamaciones.getReclamacionesList().add(reclamacionService.findReclamacionById(l.get(i)));
 		}
-		//reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findReclamaciones());
-		//List<Integer> pedidosConReclamaciones = this.reclamacionService.findPedidosConReclamaciones();
-		//model.put("pedidosReclamaciones", pedidosConReclamaciones);
 		model.put("reclamaciones", reclamaciones);
 		log.info("Mostrando listado de reclamaciones.");
 		return "reclamaciones/reclamacionesList";
 	}
-//	
-	//para ver las reclamaciones del cliente que ha iniciado sesión
-	//CORREGIR, MUESTRA MAL EL ID DE PEDIDO (MUESTRA EL ID DE LA RECLAMACIÓN).
+
 		@GetMapping("/reclamaciones/user")
 		public String showMisReclamaciones(Map<String, Object> model) {
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -113,27 +95,10 @@ public class ReclamacionController {
 			    }
 		    }
 		    
-		    //reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findPedidosConReclamacionesDeUnCliente(cliente.getId()));
-			model.put("reclamaciones", reclamacionesAcumuladasDeCliente);
+		    model.put("reclamaciones", reclamacionesAcumuladasDeCliente);
 			log.info("Mostrando reclamaciones de un usuario que ha iniciado sesión.");
 			return "reclamaciones/reclamacionUser";
 		} 
-		
-	//Método de Parri -> No sé para qué sirve, preguntarle.//Esto coge el id del cliente y filtra las reclamaciones para un cliente 
-		
-//	@GetMapping(value = { "/reclamaciones/{clienteId}" })
-//	public String showReclamacionListDeUnCliente(Map<String, Object> model, @PathVariable("clienteId") int clienteId) {
-//		Reclamaciones reclamaciones = new Reclamaciones();
-//		List<Integer> l =this.reclamacionService.findPedidosConReclamacionesDeUnCliente(clienteId);
-//		for(int i=0;i<l.size();i++) {
-//			reclamaciones.getReclamacionesList().add(reclamacionService.findReclamacionById(l.get(i)));
-//		}
-//		//reclamaciones.getReclamacionesList().addAll(this.reclamacionService.findReclamaciones());
-//		//List<Integer> pedidosConReclamaciones = this.reclamacionService.findPedidosConReclamaciones();
-//		//model.put("pedidosReclamaciones", pedidosConReclamaciones);
-//		model.put("reclamaciones", reclamaciones);
-//		return "reclamaciones/reclamacionesUser";
-//	}
 	
 		//Aqui tenemos que añadir la reclamación sobre un pedido seleccionado
 		@GetMapping("/pedidos/{pedidoId}/anadirReclamacion/new")

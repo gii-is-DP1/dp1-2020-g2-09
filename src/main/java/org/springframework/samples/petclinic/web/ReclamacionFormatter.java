@@ -21,9 +21,7 @@ private final ReclamacionService rs;
 	@Override
 	public String print(Reclamacion object, Locale locale) {
 		return object.getObservacion();
-//				"La reclamacion con id "+ object.getId()+ " sobre el pedido " + object.getPedido() + 
-//				" en la fecha "+ object.getFechaReclamacion()+ 
-//				" contiene la siguiente observación: "+ object.getObservacion();
+
 	}
 
 	@Override

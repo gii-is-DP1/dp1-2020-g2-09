@@ -69,19 +69,18 @@ public class PedidoController {
 	
 	private OfertaService ofertaService;
 
-	//private IngredienteService ingredienteService;
 	
 	@Autowired
 	public PedidoController(PedidoService pedidoService, UserService userService,ClienteService clienteService,
-			/*AuthoritiesService authoritiesService,*/PizzaService PizzaService,
-			OtrosService OtrosService, BebidaService BebidaService, CartaService CartaService, OfertaService ofertaService) {
+			PizzaService PizzaService, OtrosService OtrosService,
+			BebidaService BebidaService, CartaService CartaService,
+			OfertaService ofertaService) {
 		this.pedidoService = pedidoService;
 		this.userService =  userService;
 		this.clienteService= clienteService;
 		this.PizzaService = PizzaService;
 		this.OtrosService = OtrosService;
 		this.BebidaService = BebidaService;
-		//this.IngredienteService = IngredienteService;
 		this.CartaService = CartaService;
 		this.ofertaService =ofertaService;
 	}
@@ -259,10 +258,7 @@ public class PedidoController {
 			ModelMap model2,  Map<String, Object> model) {
 		LocalDate hoy = LocalDate.now();
 		Carta carta = CartaService.findCartaByFechaCreacionYFechaFinal(hoy);
-		//Pedido pedido= pedidoService.findPedidoById(pedidoId);
 		Integer cartaId = carta.getId();
-		//model2.put("cartas", carta);
-		//model2.put("pedido", pedido);
 		log.info("Mostrando cartas para añadir productos al pedido.");
 		return "redirect:/pedidos/{pedidoId}/cartas/"+cartaId+"/verCarta"; 
 	}
@@ -288,12 +284,10 @@ public class PedidoController {
 				@PathVariable("pizzaId") int pizzaId, @PathVariable("cartaId") Integer cartaId) {
 			model.put("cartaId", cartaId);
 			Pedido pedido = pedidoService.findPedidoById(pedidoId);
-			//hacer funcion que incremente el precio del pedido
 			Double precioDeMiPedidoAntesDeAnadirPizza = pedido.getPrecio();
 			Double cantidadASumar = (double) this.pedidoService.cogerPrecioPizza(pizzaId);
 			Double precioDeMiPedidoNuevo = precioDeMiPedidoAntesDeAnadirPizza + cantidadASumar;
 			pedido.setPrecio(precioDeMiPedidoNuevo);
-			//ya está incrementado el coste del pedido
 			model.put("pedido", pedido);
 			this.pedidoService.añadirPizzaAPedido(pedidoId, pizzaId);
 			log.info("Añadiendo pizza a pedido.");
@@ -306,7 +300,6 @@ public class PedidoController {
 				@PathVariable("bebidaId") int bebidaId, @PathVariable("cartaId") Integer cartaId) {
 			model.put("cartaId", cartaId);
 			Pedido pedido = pedidoService.findPedidoById(pedidoId);
-			//hacer funcion que incremente el precio del pedido
 			Double precioDeMiPedidoAntesDeAnadirPizza = pedido.getPrecio();
 			Double cantidadASumar = (double) this.pedidoService.cogerPrecioBebida(bebidaId);
 			Double precioDeMiPedidoNuevo = precioDeMiPedidoAntesDeAnadirPizza + cantidadASumar;
@@ -314,7 +307,6 @@ public class PedidoController {
 			//ya está incrementado el coste del pedido
 			model.put("pedido", pedido);
 			this.pedidoService.añadirBebidaAPedido(pedidoId, bebidaId);
-			//this.pedidoService.savePedido(pedido);
 			log.info("Añadiendo pizza a pedido.");
 			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
 		}
@@ -333,7 +325,6 @@ public class PedidoController {
 			//ya está incrementado el coste del pedido
 			model.put("pedido", pedido);
 			this.pedidoService.añadirOtrosAPedido(pedidoId, otrosId);
-			//this.pedidoService.savePedido(pedido);
 			log.info("Añadiendo otro a pedido.");
 			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
 		}
@@ -344,12 +335,10 @@ public class PedidoController {
 				@PathVariable("ofertaId") int ofertaId, @PathVariable("cartaId") Integer cartaId) {
 			model.put("cartaId", cartaId);
 			Pedido pedido = pedidoService.findPedidoById(pedidoId);
-			//hacer funcion que incremente el precio del pedido
 			Double precioDeMiPedidoAntesDeAnadirPizza = pedido.getPrecio();
 			Double cantidadASumar = (double) this.pedidoService.cogerPrecioOferta(ofertaId);
 			Double precioDeMiPedidoNuevo = precioDeMiPedidoAntesDeAnadirPizza + cantidadASumar;
 			pedido.setPrecio(precioDeMiPedidoNuevo);
-			//ya está incrementado el coste del pedido
 			model.put("pedido", pedido);
 			this.pedidoService.añadirOfertaAPedido(pedidoId, ofertaId);
 			log.info("Añadiendo oferta a pedido.");
@@ -373,13 +362,7 @@ public class PedidoController {
 		//Poner En cocina al finalizar un pedido
 		@GetMapping(value = "/pedidos/{pedidoId}/finalizarPedido")
 		public String enCocina(@PathVariable("pedidoId") int pedidoId, ModelMap model) {
-			//Pedido pedido= pedidoService.findPedidoById(pedidoId);
 			pedidoService.putEnCocina(pedidoId);
-			/*if(pedido.getTipoEnvio().getId()==1) {
-				pedido.setGastosEnvio(0.0);
-			}else {
-				pedido.setGastosEnvio(3.5);
-			}*/
 			Cliente cliente = getClienteActivo();
 			
 			//Nivel socio a determinar

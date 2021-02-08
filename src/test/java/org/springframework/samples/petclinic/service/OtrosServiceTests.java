@@ -59,8 +59,6 @@ public class OtrosServiceTests {
 	@Test
 	void shouldNotFindOtroById() {
 		
-//		when(otrosRepository.findOtrosById(anyInt())).thenReturn(otro);
-//		otrosService.findOtrosById(99);
 		verify(otrosRepository, never()).findOtrosById(99);
 	}
 	
@@ -75,8 +73,6 @@ public class OtrosServiceTests {
 	@Test
 	void shouldNotFindIdOtroById() {
 		
-//		when(otrosRepository.findIdOtroById(anyInt())).thenReturn(new ArrayList<>());
-//		otrosService.findIdOtroById(7);
 		verify(otrosRepository, never()).findIdOtroById(7);
 	}
 	
