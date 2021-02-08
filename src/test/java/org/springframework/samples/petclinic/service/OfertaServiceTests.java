@@ -6,6 +6,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -156,8 +157,31 @@ public class OfertaServiceTests {
 		
 		when(ofertaRepository.findOfertasTrueEnTiempo(hoy)).thenReturn(l);
 		ofertaService.findOfertasTrueEnTiempo(hoy);
-		verify(ofertaRepository).findOfertasTrueEnTiempo(hoy);
+		verify(ofertaRepository).findOfertasTrueEnTiempo(hoy);	
+	}
+	
+	@Test
+	@Transactional
+	public void findNotOfertasTrueEnTiempo() {
+		LocalDate hoy=LocalDate.now();
+		LocalDate fecha=LocalDate.of(2020, 11, 01);
+		Oferta o = new Oferta();
+		o.setCoste(20.0);
+		o.setFechaInicial(fecha);
+		o.setFechaFinal(fecha.plusDays(30));
 		
+		NivelSocio ns = new NivelSocio();
+		ns.setName("ORO");
+		o.setNivelSocio(ns);
+		
+		TamanoOferta to = new TamanoOferta();
+		to.setName("GRANDE");
+		o.setTamanoOferta(to);
+		
+		List<Oferta> l=new ArrayList<>();
+		l.add(o);
+		
+		verify(ofertaRepository, never()).findOfertasTrueEnTiempo(hoy);	
 	}
 	
 	@Test
