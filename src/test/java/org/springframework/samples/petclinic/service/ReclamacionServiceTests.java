@@ -177,6 +177,38 @@ public class ReclamacionServiceTests {
 	public void shouldNotFindPedidosConReclamaciones() {
 		verify(reclamacionRepository, never()).findPedidosConReclamaciones();
 	}
+	
+	@Test
+	@Transactional
+	public void shouldFindPedidosConReclamacionDeCliente() {
+		when(reclamacionRepository.findPedidosConReclamacionDeCliente(anyInt())).thenReturn(new ArrayList<>());
+		reclamacionService.findPedidosConReclamacionDeCliente(1);
+		verify(reclamacionRepository).findPedidosConReclamacionDeCliente(1);
+		
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotFindPedidosConReclamacionDeCliente() {
+		verify(reclamacionRepository, never()).findPedidosConReclamacionDeCliente(1);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldFindReclamacionesDePedidosDeCliente() {
+		when(reclamacionRepository.findReclamacionesDePedidosDeCliente(anyInt())).thenReturn(new ArrayList<>());
+		reclamacionService.findReclamacionesDePedidosDeCliente(1);
+		verify(reclamacionRepository).findReclamacionesDePedidosDeCliente(1);
+		
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotFindReclamacionesDePedidosDeCliente() {
+		verify(reclamacionRepository, never()).findReclamacionesDePedidosDeCliente(1);
+		
+	}
+	
 
 }
 

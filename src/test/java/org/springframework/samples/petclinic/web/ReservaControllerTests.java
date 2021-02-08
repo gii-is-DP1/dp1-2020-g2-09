@@ -327,7 +327,7 @@ class ReservaControllerTests {
     	.andExpect(status().isOk())
 		.andExpect(view().name("mesas/mesasDisponibles"))
 		.andExpect(model().attributeExists("miReserva"))
-		.andExpect(model().attributeExists("mesasDisponiblesSolucion"));
+		.andExpect(model().attributeExists("mesasDisponibles"));
     }
     
     @WithMockUser(value = "spring")
@@ -337,7 +337,7 @@ class ReservaControllerTests {
     	.andExpect(status().isOk())
 		.andExpect(view().name("mesas/mesasDisponibles"))
 		.andExpect(model().attributeExists("miReserva"))
-		.andExpect(model().attributeExists("mesasDisponiblesSolucion"));
+		.andExpect(model().attributeExists("mesasDisponibles"));
     }
    /* @WithMockUser(value = "spring")
     @Test

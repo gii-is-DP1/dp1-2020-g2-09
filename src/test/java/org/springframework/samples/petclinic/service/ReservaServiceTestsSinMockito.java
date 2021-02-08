@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -142,6 +143,18 @@ public class ReservaServiceTestsSinMockito {
 		assertThat(r1.getId()==1 && r2.getId() == 2);
 		
 		
+	}
+	
+	@Test
+	public void shouldUnaHoraEntreReservas() {
+		LocalTime h1 = LocalTime.now();
+		LocalTime h2 = LocalTime.now();
+		LocalTime h3 = LocalTime.of(19, 23);
+		
+		Boolean falso = this.reservaService.unaHoraEntreReservas(h1, h2);
+		Boolean verdadero = this.reservaService.unaHoraEntreReservas(h1, h3);
+		assertFalse(falso);
+		assertTrue(verdadero);
 	}
 	
 
