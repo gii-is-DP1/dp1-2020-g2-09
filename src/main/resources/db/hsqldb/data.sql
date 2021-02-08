@@ -119,6 +119,7 @@ INSERT INTO RESERVAS(id, fecha_reserva, hora_reserva, numero_personas, tipo_rese
 INSERT INTO RESERVAS(id, fecha_reserva, hora_reserva, numero_personas, tipo_reserva) VALUES(8,'2020-07-12','20:34:09',2,2);
 INSERT INTO RESERVAS(id, fecha_reserva, hora_reserva, numero_personas, tipo_reserva) VALUES(9,'2020-05-29','10:34:09',5,2);
 INSERT INTO RESERVAS(id, fecha_reserva, hora_reserva, numero_personas, tipo_reserva) VALUES(10,'2020-07-12','20:34:09',2,2);
+INSERT INTO RESERVAS(id, fecha_reserva, hora_reserva, numero_personas, tipo_reserva) VALUES (11, '2021-02-09','12:00:00',6,2);
 
 
 INSERT INTO RECLAMACIONES(observacion, respuesta)
@@ -146,6 +147,7 @@ INSERT INTO RESERVA_MESA (RESERVA_ID, MESAS_EN_RESERVA_ID) VALUES (6,6);
 INSERT INTO RESERVA_MESA (RESERVA_ID, MESAS_EN_RESERVA_ID) VALUES (8,2);
 INSERT INTO RESERVA_MESA (RESERVA_ID, MESAS_EN_RESERVA_ID) VALUES (10,8);
 INSERT INTO RESERVA_MESA (RESERVA_ID, MESAS_EN_RESERVA_ID) VALUES (7,5);
+INSERT INTO RESERVA_MESA (RESERVA_ID, MESAS_EN_RESERVA_ID) VALUES (11,1);
 
 INSERT INTO TAMANO_PRODUCTO(id, name) VALUES(1,'NORMAL');
 INSERT INTO TAMANO_PRODUCTO(id, name) VALUES(2,'GRANDE');

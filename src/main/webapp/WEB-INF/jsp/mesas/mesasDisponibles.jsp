@@ -35,14 +35,14 @@
         </tbody>
     </table>
      
-    <c:if test="${fn:length(mesasDisponiblesSolucion) != 0}"> 
+    <c:if test="${fn:length(mesasDisponibles) != 0}"> 
     <spring:url value="/reservas/{reservaId}/edit" var="editmesaUrl">
 	                        <spring:param name="reservaId" value="${reservaId}"/> 
 	                </spring:url>
 	                <a href="${fn:escapeXml(editmesaUrl)}" class="btn btn-default">Modificar reserva</a>
 	 </c:if>
 	  <c:choose>
-	  <c:when test="${fn:length(mesasDisponiblesSolucion) == 0}">
+	  <c:when test="${fn:length(mesasDisponibles) == 0}">
        <p> <strong> Lo sentimos, no hay mesas disponibles. Modifique los datos de su reserva y vuelva a intentarlo.
          En otro caso, pulse el botón cancelar reserva.</strong></p>
         <spring:url value="/reservas/{reservaId}/edit" var="editmesaUrl">
@@ -62,7 +62,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${mesasDisponiblesSolucion}" var="mesa">
+        <c:forEach items="${mesasDisponibles}" var="mesa">
             <tr>
                <td>
              		<c:out value="${mesa.id}"></c:out>

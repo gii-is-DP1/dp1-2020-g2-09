@@ -3,7 +3,7 @@ package org.springframework.samples.petclinic.web;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
+import static java.time.temporal.ChronoUnit.MINUTES;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -130,41 +130,45 @@ public class ReservaController {
 		
 		List<Mesa> mesas = this.mesaService.findMesas();
 		List<Mesa> mesasDisponibles = new ArrayList<Mesa>();
-		
+		 
 		for(Mesa m: mesas) { 
 			if(m.getCapacidad()>=numPersonas) {
 				List<Integer> reservasId = this.reservaService.findReservasIdByMesaId(m.getId());
-				
 				if(reservasId.size()==0) {
-					mesasDisponibles.add(m);
+					mesasDisponibles.add(m); 
 					
 				} else {
 					List<Reserva> reservas = this.reservaService.calcularReservasAPartirIds(reservasId);
+					List<Reserva> reservasFechaMiReserva = reservas.stream().filter(r->r.getFechaReserva().
+							equals(reserva.getFechaReserva())).collect(Collectors.toList());
 					
-					for(Reserva r: reservas) {
-						if(!(DAYS.between(reserva.getFechaReserva(), r.getFechaReserva())==0)) {
+					if(reservasFechaMiReserva.size()==0) {
+						mesasDisponibles.add(m);
+					} else if(reservasFechaMiReserva.size()==1) {
+						if(this.reservaService.unaHoraEntreReservas(reserva.getHora(), reservasFechaMiReserva.get(0).getHora())){
 							mesasDisponibles.add(m);
-							
-						} else {
-							LocalTime miHora = reserva.getHora();
-							LocalTime horaReservaComparacion = r.getHora();
-							
-							if(Math.abs(ChronoUnit.MINUTES.between(miHora, horaReservaComparacion))>60) {
-								mesasDisponibles.add(m);
-								
+					}
+					else if(reservasFechaMiReserva.size()>1) {
+						Boolean horaEntreReservas = true;
+					for(Reserva r: reservasFechaMiReserva) {
+						if(!this.reservaService.unaHoraEntreReservas(reserva.getHora(), r.getHora()) && horaEntreReservas) {
+							horaEntreReservas = false;
+						}	
 							}
+					if(horaEntreReservas)
+						mesasDisponibles.add(m);
 						}
 					}
 				}
 			}
-			
 		}
-		List<Mesa> mesasDisponiblesSolucion = mesasDisponibles.stream().map(m->m.getId()).distinct()
-				.map(m->this.mesaService.findById(m)).collect(Collectors.toList());
-		model.put("mesasDisponiblesSolucion", mesasDisponiblesSolucion);
+		model.put("mesasDisponibles", mesasDisponibles);
 		log.info("Mostrando listado de mesas disponibles para reservar.");
 		return "mesas/mesasDisponibles";
 	}
+
+	
+		
 	
 	@GetMapping(value ="/reservas/{reservaId}/verDetalles")
 	public String detallesReserva(@PathVariable("reservaId") int reservaId, ModelMap model) {

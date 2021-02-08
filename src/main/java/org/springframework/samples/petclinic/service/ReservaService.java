@@ -1,6 +1,9 @@
 package org.springframework.samples.petclinic.service;
 
 
+import static java.time.temporal.ChronoUnit.MINUTES;
+
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -78,5 +81,15 @@ public class ReservaService {
     	
     	
     }
+    
+    public Boolean unaHoraEntreReservas(LocalTime horaMiReserva, LocalTime horaReservaMesa) {
+		Boolean res = false;
+		Integer diferencia = (int) Math.abs(MINUTES.between(horaMiReserva, horaReservaMesa));
+		
+		if(diferencia>60) {
+			res = true;
+		}
+		return res;
+	}
 
 }

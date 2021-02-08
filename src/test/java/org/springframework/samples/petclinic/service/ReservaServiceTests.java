@@ -15,6 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.samples.petclinic.model.Cliente;
 import org.springframework.samples.petclinic.model.Mesa;
@@ -33,7 +34,7 @@ public class ReservaServiceTests {
 	TipoReservaRepository tipoReservaRepository;
 	@Mock
 	ReservaService reservaServiceMock;
-	
+
 	ReservaService reservaService;
 	
 	@BeforeEach
