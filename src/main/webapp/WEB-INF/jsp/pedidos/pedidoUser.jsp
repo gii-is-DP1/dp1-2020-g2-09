@@ -76,17 +76,10 @@
      	   </td>
   	  </c:otherwise>
 	</c:choose>
-             	
-             	<%-- <td>
-             		<spring:url value="/pedidos/{pedidoId}/delete" var="pedidoUrl2">
-	                        <spring:param name="pedidoId" value="${pedido.id}"/>
-	                </spring:url>
-             		<a href="${fn:escapeXml(pedidoUrl2)}" class="btn btn-default">Eliminar</a>
-             	</td> --%>    	
+ 	
     </c:if>          	
  
     <h2>Mis Pedidos</h2>
-    <%-- ESTA ES LA LISTA DE TODOS MIS PEDIDOS DE UN CLIENTE--%>
     <table id="pedidosTable" class="table table-striped">
         <thead>
         <tr>
@@ -94,7 +87,6 @@
             <th>Gastos de Envio</th>
             <th>Direccion</th>
             <th>Fecha de pedido</th>
-            <!-- <th>Estado pedido</th> -->
             <th>Tipo Envio</th>
             <th>Tipo Pago</th>
         </tr>
@@ -132,36 +124,6 @@
    					<a href=" ${fn:escapeXml(pedidoreclamacionUrl)}" class="btn btn-default">Nueva reclamacion</a>
              	</td>
              	
-             	<%-- <td>					
-             		<spring:url value="/pedidos/{pedidoId}/allCartas" var="pedidoproductoUrl">
-	                        <spring:param name="pedidoId" value="${pedido.id}"/> 
-	                </spring:url>
-   					<a href="${fn:escapeXml(pedidoproductoUrl)}" class="btn btn-default">Añadir Productos</a>
-             	</td>
-             	<td>
-             		<spring:url value="/pedidos/{pedidoId}/edit" var="pedidoUrl">
-	                        <spring:param name="pedidoId" value="${pedido.id}"/>
-	                </spring:url>
-   					<a href="${fn:escapeXml(pedidoUrl)}" class="btn btn-default">Editar</a>
-             	</td>
-             	<td>
-             		<spring:url value="/pedidos/{pedidoId}/anadirReclamacion/new" var="pedidoreclamacionUrl">
-	                        <spring:param name="pedidoId" value="${pedido.id}"/>
-	                </spring:url>
-   					<a href=" ${fn:escapeXml(pedidoreclamacionUrl)}" class="btn btn-default">Nueva reclamacion</a>
-             	</td>
-             	<td>
-             		<spring:url value="/pedidos/{pedidoId}/delete" var="pedidoUrl2">
-	                        <spring:param name="pedidoId" value="${pedido.id}"/>
-	                </spring:url>
-             		<a href="${fn:escapeXml(pedidoUrl2)}" class="btn btn-default">Eliminar</a>
-             	</td>
-             	<td>
-             		<spring:url value="/pedidos/{pedidoId}/estadoPedido" var="pizzaTracker">
-	                        <spring:param name="pedidoId" value="${pedido.id}"/>
-	                </spring:url>
-             		<a href="${fn:escapeXml(pizzaTracker)}" class="btn btn-default">Ver estado pedido</a>
-             	</td> --%>
              	
             </tr>
         </c:forEach>

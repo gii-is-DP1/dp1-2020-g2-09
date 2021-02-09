@@ -33,12 +33,7 @@
 	                </spring:url>
    					<a href="${fn:escapeXml(mesaUrl)}" class="btn btn-default">Editar</a>
              	</td>
-             	<td>
-             		<spring:url value="/mesas/{mesaId}/delete" var="mesaUrl2">
-	                        <spring:param name="mesaId" value="${mesa.id}"/>
-	                </spring:url>
-             		<a href="${fn:escapeXml(mesaUrl2)}" class="btn btn-default">Eliminar</a>
-             	</td>
+           
              	
             </tr>
         </c:forEach>

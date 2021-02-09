@@ -195,13 +195,7 @@ public class RepartidorControllerTests {
 		.andExpect(view().name("repartidores/createOrUpdateRepartidorForm"));
     }
     
-    @WithMockUser(value = "spring")
-   	@Test
-   	void initDeleteCuenta() throws Exception {
-    	mockMvc.perform(get("/repartidores/{repartidorId}/delete", TEST_REPARTIDOR_ID))
-		.andExpect(status().is3xxRedirection())
-		.andExpect(view().name("redirect:/allRepartidores"));
-    }
+
     
 	@WithMockUser(value = "spring")
     @Test

@@ -51,13 +51,6 @@
    					<a href="${fn:escapeXml(reclamacionUrl)}" class="btn btn-default">Ver detalles</a>
              	</td>
              	
-
-             	<%-- <td>
-             		<spring:url value="/reclamaciones/{reclamacionId}/delete" var="reclamacionUrl2">
-	                        <spring:param name="reclamacionId" value="${reclamacion.id}"/>
-	                </spring:url>
-             		<a href="${fn:escapeXml(reclamacionUrl2)}" class="btn btn-default">Eliminar</a>
-             	</td>  --%>
              	
             </tr>
         </c:forEach>
