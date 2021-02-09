@@ -167,6 +167,7 @@ public class PizzaController {
 	public String processUpdatePizzaForm(@Valid Pizza Pizza, BindingResult result,
 			@PathVariable("pizzaId") int pizzaId) {
 		if (result.hasErrors()) {
+			Pizza.setId(pizzaId);
 			log.warn("La pizza contenía errores");
 			return "pizzas/createOrUpdatePizzaForm";
 		} else {

@@ -57,12 +57,6 @@
    					<a href="${fn:escapeXml(repartidorUrl)}" class="btn btn-default">Editar</a>
              	</td>
              	<td>
-             		<spring:url value="/repartidores/{repartidorId}/delete" var="repartidorUrl2">
-	                        <spring:param name="repartidorId" value="${repartidor.id}"/>
-	                </spring:url>
-             		<a href="${fn:escapeXml(repartidorUrl2)}" class="btn btn-default">Eliminar</a>
-             	</td>
-             	<td>
              		<spring:url value="/repartidores/{repartidorId}/altaobaja" var="repartidorUrl3">
 	                        <spring:param name="repartidorId" value="${repartidor.id}"/>
 	                </spring:url>

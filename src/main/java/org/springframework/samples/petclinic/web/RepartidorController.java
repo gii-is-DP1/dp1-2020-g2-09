@@ -87,6 +87,7 @@ public class RepartidorController {
 	public String processUpdateCocineroForm(@Valid Repartidor repartidor, BindingResult result,
 			@PathVariable("repartidorId") int repartidorId, ModelMap model) {
 		if (result.hasErrors()) { 
+			repartidor.setId(repartidorId);
 			model.put("repartidores", repartidor);
 			log.warn("Fallo al actualizar repartidor");
 			return "repartidores/createOrUpdateRepartidorForm";
@@ -125,12 +126,4 @@ public class RepartidorController {
 			return "redirect:/allRepartidores";
 		}
 		
-		//borrar repartidor
-		@GetMapping(value = "/repartidores/{repartidorId}/delete")
-		public String initDeleteCuenta(@PathVariable("repartidorId") int repartidorId, ModelMap model) {
-			Repartidor rep = this.repartidorService.findRepartidorById(repartidorId);
-			this.repartidorService.deleteRepartidor(rep);
-			log.info("Repartidor borrado");
-			return "redirect:/allRepartidores";
-		}	
 }

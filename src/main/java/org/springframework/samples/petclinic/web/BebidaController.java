@@ -76,7 +76,8 @@ public class BebidaController {
 	public String processUpdateBebidaForm(@Valid Bebida bebida, BindingResult result,
 			@PathVariable("bebidaId") int bebidaId, @RequestParam(value = "version", required=false) Integer version) {
 		
-		if (result.hasErrors()) {
+		if (result.hasErrors()) {		
+			bebida.setId(bebidaId);
 			log.error("Error en la actualizacion de bebida");
 			return "bebidas/createOrUpdateBebidaForm";
 		} else {

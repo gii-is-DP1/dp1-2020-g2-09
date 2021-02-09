@@ -158,6 +158,7 @@ public class OfertaController {
 	@PostMapping(value = "/ofertas/{ofertaId}/edit")
 	public String processUpdatePedidoForm(@Valid Oferta oferta, BindingResult result,@PathVariable("ofertaId") int ofertaId, ModelMap model) {
 		if (result.hasErrors()) {
+			oferta.setId(ofertaId);
 			List<Pizza> pizzas=pizzaService.findPizzas();
 			List<Bebida> bebidas=bebidaService.findBebidas();
 			List<Otro> otros=otrosService.findOtros();

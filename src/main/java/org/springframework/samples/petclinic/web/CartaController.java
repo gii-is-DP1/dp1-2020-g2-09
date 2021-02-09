@@ -382,6 +382,7 @@ public class CartaController {
 			return initUpdatePizzaForm(cartaId,pizzaId,model);
 			}
 			if (result.hasErrors()) {
+				Pizza.setId(pizzaId);
 				log.error("Fallo en la actualizacion de una pizza");
 				return "pizzas/createOrUpdatePizzaForm";
 			} else {
@@ -416,6 +417,7 @@ public class CartaController {
 			return initUpdateBebidaForm(cartaId,bebidaId,model);
 		}
 			if (result.hasErrors()) {
+				bebida.setId(bebidaId);
 				log.error("Fallo en la actualizacion de una bebida");
 				return "bebidas/createOrUpdateBebidaForm";
 			} else {
@@ -449,6 +451,7 @@ public class CartaController {
 				return initUpdateOtrosForm(cartaId,OtrosId,model);
 			}
 			if (result.hasErrors()) {
+				otro.setId(OtrosId);
 				log.error("Fallo en la actualizacion de un otro");
 				model.put("otro", otro);
 				return "Otros/createOrUpdateOtrosForm";
