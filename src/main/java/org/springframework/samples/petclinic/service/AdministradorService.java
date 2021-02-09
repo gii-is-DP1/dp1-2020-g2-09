@@ -44,10 +44,5 @@ public class AdministradorService {
 		authoritiesService.saveAuthorities(administrador.getUser().getUsername(), "administrador");
 	}	
 	
-	@Transactional
-	public void deleteAdministrador(Administrador administrador) throws DataAccessException {
-		this.administradorRepository.delete(administrador);	
-	}	
-	
 	
 }

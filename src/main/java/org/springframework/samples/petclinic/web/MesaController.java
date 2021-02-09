@@ -110,14 +110,5 @@ public class MesaController {
 			return "redirect:/allMesas";
 		}
 	}
-	
-	//borrar mesa
-	@GetMapping(value = "/mesas/{mesaId}/delete")
-	public String initDeleteMesa(@PathVariable("mesaId") int mesaId, ModelMap model) {
-		Mesa mesa = this.mesaService.findById(mesaId);
-		this.mesaService.deleteMesa(mesa);
-		log.info("Mesa eliminada correctamente.");
-		return "redirect:/allMesas";
-	}
 
 }

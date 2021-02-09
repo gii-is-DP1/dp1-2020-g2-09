@@ -39,11 +39,6 @@ public class MesaService {
 	}	
 	
 	@Transactional
-	public void deleteMesa(Mesa mesa) throws DataAccessException {
-		mesaRepository.delete(mesa);		
-	}
-	
-	@Transactional
 	public Integer findIdMesaByReserva(int reservaId) throws DataAccessException {
 		return mesaRepository.findIdMesaByReserva(reservaId);
 	}
