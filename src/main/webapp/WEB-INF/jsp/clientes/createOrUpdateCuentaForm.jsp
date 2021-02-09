@@ -27,8 +27,8 @@
             <petclinic:inputField label="Fecha Nacimiento" name="fechaNacimiento"/>
             <petclinic:inputField label="Telefono" name="telefono"/>
             <petclinic:inputField label="Email" name="email" />
-            <petclinic:inputField label="Nombre Usuario" name="user.username"/>
-            <petclinic:inputField label="Contraseña" name="user.password"/>
+            <form:hidden path="user.username"/>
+            <form:hidden path="user.password" />
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
