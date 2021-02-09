@@ -54,12 +54,6 @@
    					<a href="${fn:escapeXml(cocineroUrl)}" class="btn btn-default">Editar</a>
              	</td>
              	<td>
-             		<spring:url value="/cocineros/{cocineroId}/delete" var="cocineroUrl2">
-	                        <spring:param name="cocineroId" value="${cocinero.id}"/>
-	                </spring:url>
-             		<a href="${fn:escapeXml(cocineroUrl2)}" class="btn btn-default">Eliminar</a>
-             	</td>
-             	<td>
              		<spring:url value="/cocineros/{cocineroId}/altaobaja" var="cocineroUrl3">
 	                        <spring:param name="cocineroId" value="${cocinero.id}"/>
 	                </spring:url>

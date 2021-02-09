@@ -82,6 +82,7 @@ public class OtrosController {
 	public String processUpdateOtrosForm(@Valid Otro otros, BindingResult result,
 			@PathVariable("OtrosId") int OtrosId) {
 		if (result.hasErrors()) {
+			otros.setId(OtrosId);
 			log.warn("Fallos en la actualizacion de otro");
 			return "Otros/createOrUpdateOtrosForm";
 		}

@@ -110,15 +110,6 @@ public class CocineroController {
 		}
 	}
 	
-	//borrar cocinero
-	@GetMapping(value = "/cocineros/{cocineroId}/delete")
-	public String initDeleteCuenta(@PathVariable("cocineroId") int cocineroId, ModelMap model) {
-		Cocina cocinero = this.cocineroService.findCocineroById(cocineroId);
-		this.cocineroService.deleteCocinero(cocinero);
-		log.info("Cocinero borrado");
-		return "redirect:/allCocineros";
-	}
-	
 	//Alta y baja
 	@GetMapping(value = "/cocineros/{cocineroId}/altaobaja")
 	public String darAltayBaja(@PathVariable("cocineroId") int cocineroId, ModelMap model) {

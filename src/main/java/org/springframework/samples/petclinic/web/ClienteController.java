@@ -128,6 +128,7 @@ public class ClienteController {
 	public String processUpdateCuentaForm(@Valid Cliente cliente, BindingResult result,
 			@PathVariable("cuentaId") int cuentaId, ModelMap model) {
 		if (result.hasErrors()) {
+			cliente.setId(cuentaId);
 			model.put("cliente", cliente);
 			log.warn("Fallos en el formulario de actualizacion");
 			return "clientes/createOrUpdateCuentaForm";

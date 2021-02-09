@@ -199,6 +199,11 @@ public class PedidoController {
 		    Cuenta cliente= this.clienteService.findCuentaByUser(usuario);
 			pedido.setCliente((Cliente) cliente);
 			pedido.setPrecio(0.0);
+			if(pedido.getTipoEnvio().getName().equals("DOMICILIO")) {
+				pedido.setGastosEnvio(3.5);	
+			}else {
+				pedido.setGastosEnvio(0.0);
+			}
 			pedido.setFechaPedido(LocalDate.now());
 			this.pedidoService.savePedido(pedido);
 			log.info("Pedido creado correctamente.");
@@ -219,6 +224,7 @@ public class PedidoController {
 	public String processUpdatePedidoForm(@Valid Pedido pedido, BindingResult result,
 			@PathVariable("pedidoId") int pedidoId, ModelMap model) {
 		if (result.hasErrors()) {
+			pedido.setId(pedidoId);
 			model.put("pedido", pedido);
 			log.warn("Error a la hora de actualizar un pedido.");
 			return "pedidos/createOrUpdatePedidoForm";
