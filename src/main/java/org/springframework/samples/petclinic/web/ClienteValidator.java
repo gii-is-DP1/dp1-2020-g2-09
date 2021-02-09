@@ -32,7 +32,7 @@ public class ClienteValidator implements Validator{
 		String nombreUsuario = Usuario.getUsername();
 		
 		Pattern patternNombre = Pattern
-                .compile("^[a-zA-ZñÑáéíóú\\s]+");
+                .compile("^[a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]+");
 		Matcher matcherNombre = patternNombre.matcher(nombre);
 		//nombre
 				if(nombre.equals(null)) {
