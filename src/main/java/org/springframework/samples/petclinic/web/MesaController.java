@@ -110,7 +110,5 @@ public class MesaController {
 			return "redirect:/allMesas";
 		}
 	}
-	
-
 
 }

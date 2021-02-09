@@ -104,15 +104,5 @@ public class AdministradorController {
 			return "redirect:/allAdministradores";
 		}
 	}
-	
-	//borrar admin
-	@GetMapping(value = "/administradores/{administradorId}/delete")
-	public String initDeleteCuenta(@PathVariable("administradorId") int administradorId, ModelMap model) {
-		Administrador administrador = this.administradorService.findAdministradorById(administradorId);
-		this.administradorService.deleteAdministrador(administrador);
-		log.info("Admin borrado");
-		return "redirect:/allAdministradores";
-	}
-	
-	
+
 }

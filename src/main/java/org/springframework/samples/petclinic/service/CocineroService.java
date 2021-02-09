@@ -43,9 +43,5 @@ public class CocineroService {
 		//creating authorities
 		authoritiesService.saveAuthorities(cocinero.getUser().getUsername(), "cocinero");
 	}	
-	
-	@Transactional
-	public void deleteCocinero(Cocina cocinero) throws DataAccessException {
-		cocineroRepository.delete(cocinero);		
-	}	
+		
 }

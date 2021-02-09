@@ -85,11 +85,6 @@ public class OfertaService {
 		ofertaRepository.ponerEstadoOfertaAFalse(ofertaId);
 	}
 	
-	@Transactional
-	public void deleteOferta(Oferta oferta) throws DataAccessException {
-		ofertaRepository.delete(oferta);		
-	}
-	
 	
 	@Transactional
 	public void asociarOfertaAPizza(int ofertaId,int pizzaId) throws DataAccessException {

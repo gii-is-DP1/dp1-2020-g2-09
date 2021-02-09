@@ -203,15 +203,6 @@ public class OfertaController {
 			log.info("Estado de la oferta cambiado");
 			return "redirect:/allOfertas";
 		}
-	
-	
-	@GetMapping(value = "/ofertas/{ofertasId}/delete")
-	public String initDeleteOferta(@PathVariable("ofertasId") int ofertaId, ModelMap model) {
-		Oferta oferta = this.ofertaService.findOfertaById(ofertaId);
-		this.ofertaService.deleteOferta(oferta);
-		log.info("oferta eliminada");
-		return "redirect:/allOfertas";
-	}
 
 			@GetMapping("/ofertas/{ofertaId}/anadirPizza/{pizzaId}")
 			public String anadirPizza(ModelMap model, @PathVariable("ofertaId") int ofertaId,@PathVariable("pizzaId") int pizzaId) {

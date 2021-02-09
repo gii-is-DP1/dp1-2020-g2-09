@@ -45,8 +45,4 @@ public class RepartidorService {
 		//creating authorities
 		authoritiesService.saveAuthorities(repartidor.getUser().getUsername(), "repartidor");
 	}	
-	@Transactional
-	public void deleteRepartidor(Repartidor repartidor) throws DataAccessException {
-		repartidorRepository.delete(repartidor);		
-	}	
 }

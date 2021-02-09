@@ -39,10 +39,6 @@ public class IngredienteService {
 		IngredienteRepository.save(Ingrediente);		
 	}	
 	
-	@Transactional
-	public void deleteIngrediente(Ingrediente Ingrediente) throws DataAccessException {
-		IngredienteRepository.delete(Ingrediente);		
-	}
 	@Transactional(readOnly = true)
     public Collection<Alergenos> findAlergenos() throws DataAccessException {
         return IngredienteRepository.findAlergenos();
