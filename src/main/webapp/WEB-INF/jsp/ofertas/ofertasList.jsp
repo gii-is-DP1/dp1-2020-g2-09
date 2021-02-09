@@ -46,28 +46,19 @@
              	<td>
              	<c:choose>				
 					<c:when test="${!(oferta.fechaFinal ge hoy && oferta.fechaInicial le hoy)}">
-      						<!--<c:out value="CADUCADA"></c:out>-->
       						<img src="/resources/images/expired.png" width="39px" height="27px">
       				</c:when>					 
 					<c:otherwise>
 						<c:if test="${oferta.estadoOferta == 'true'}">
       						<img src="/resources/images/check-verde.png" width="30px" height="30px">
-      						<!--<c:out value="ACTIVA"></c:out>-->
    						</c:if>       					
     					<c:if test="${oferta.estadoOferta == 'false'}">
       						<img src="/resources/images/off.png" width="35px" height="35px">
-      						<!--<c:out value="INACTIVA"></c:out>-->
    						</c:if>
     				</c:otherwise>
 				</c:choose>             		
                 </td>
-             	<td>
-             		<spring:url value="/ofertas/{ofertaId}/edit" var="ofertaUrl">
-	                        <spring:param name="ofertaId" value="${oferta.id}"/>
-	                </spring:url>
-   					<a href="${fn:escapeXml(ofertaUrl)}" class="btn btn-default">Editar</a>
-   					
-             	</td>
+
              	<td>
              		<spring:url value="/ofertas/{ofertaId}/changeState" var="ofertaUrl">
 	                        <spring:param name="ofertaId" value="${oferta.id}"/>
@@ -75,12 +66,6 @@
    					<a href="${fn:escapeXml(ofertaUrl)}" class="btn btn-default">Activar/Desactivar</a>
    					
              	</td>
-             <!--	<td>
-             		<spring:url value="/ofertas/{ofertaId}/delete" var="ofertaUrl2">
-	                        <spring:param name="ofertaId" value="${oferta.id}"/>
-	                </spring:url>
-             		<a href="${fn:escapeXml(ofertaUrl2)}" class="btn btn-default">Eliminar</a>
-             	</td> -->
              	
             </tr>
         </c:forEach>

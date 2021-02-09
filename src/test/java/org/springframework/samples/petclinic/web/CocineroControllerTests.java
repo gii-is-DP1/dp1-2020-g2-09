@@ -192,6 +192,7 @@ public class CocineroControllerTests {
 		.andExpect(view().name("cocineros/createOrUpdateCocinaForm"));
     }
     
+
    
     @WithMockUser(value = "spring")
    	@Test

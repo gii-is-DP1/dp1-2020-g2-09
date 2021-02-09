@@ -19,11 +19,6 @@
            
             <petclinic:selectField name="tipoMasa" label="Tipo de Masa" names="${tipoMasa}" size="3"/>
                   
-             <!--select label="tipoMasa" name="tipoMasa">
-			  <option value="AMERICANA">Americana</option> 
-			  <option value="FINA" selected>Fina</option>
-			  <option value="BORDESDEQUESO">Bordes de queso</option>
-			</select>-->
 			
 			<petclinic:selectField name="tamano" label="Tamaño" names="${tamanyo}" size="3"/>
                   
@@ -50,8 +45,7 @@
        		 
        		 </tbody>
              </table>
-             <!--<petclinic:inputField label="contador" name="contador"/> -->
-            <!--<petclinic:inputField label="Id" name="id"/> -->
+
             </div>
         </div>
         <div class="form-group">

@@ -40,10 +40,6 @@
 	                </spring:url>
    					<a href="${fn:escapeXml(mandarreclamacionUrl)}" class="btn btn-default">Confirmar reclamación</a>
     
-   <%--  <spring:url value="/reclamaciones/{reclamacionId}/edit" var="editreclamacionUrl">
-	                        <spring:param name="reclamacionId" value="${reclamacion.id}"/>
-	                </spring:url>
-   					<a href="${fn:escapeXml(editreclamacionUrl)}" class="btn btn-default">Modificar reclamación</a> --%>
    					
    	<spring:url value="/reclamaciones/{reclamacionId}/delete" var="deletereclamacionUrl">
 	                        <spring:param name="reclamacionId" value="${reclamacion.id}"/>

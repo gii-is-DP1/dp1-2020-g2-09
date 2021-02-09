@@ -33,18 +33,12 @@
         <div class="form-group has-feedback">
         <c:choose>
     	<c:when test="${reclamacion['new']}">
-            <%-- <petclinic:inputField label="fecha de incidencia" name="fechaReclamacion"/> --%>
             <petclinic:inputField label="observación" name="observacion"/>
-           <%-- <sec:authorize access="hasAnyAuthority('administrador')"  >   --%>
            <form:input type="hidden" path="respuesta" label="respuesta" name="respuesta"/>
-           <%-- </sec:authorize> --%>
+
              </c:when>
               <c:otherwise>
-              <!-- Revisar -->
-            <%-- <form:input type="hidden" path="fechaReclamacion" name="fechaReclamacion"/> --%>
-            <%-- <sec:authorize access="hasAnyAuthority('cliente')"  > --%>
             <form:input type="hidden" path="observacion" label="observacion" name="observacion"/>
-             <%-- </sec:authorize> --%>
               <petclinic:inputField label="respuesta" name="respuesta"/>
                </c:otherwise>
              </c:choose>

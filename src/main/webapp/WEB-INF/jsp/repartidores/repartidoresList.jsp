@@ -47,9 +47,7 @@
              	<td>
              		<c:out value="${repartidor.fechaFinContrato}"/>
              	</td>
-             	<!-- <td>
-             		<c:out value="${cuenta.id}"></c:out>
-             	</td> -->
+             	
              	<td>
              		<spring:url value="/repartidores/{repartidorId}/edit" var="repartidorUrl">
 	                        <spring:param name="repartidorId" value="${repartidor.id}"/>

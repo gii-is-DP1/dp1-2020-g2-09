@@ -131,11 +131,5 @@ public class MesaControllerTests {
 		.andExpect(status().isOk())
 		.andExpect(view().name("mesas/createOrUpdateMesaForm"));
     }
-    @WithMockUser(value = "spring")
-   	@Test
-   	void testinitDeleteMesa() throws Exception {
-   		mockMvc.perform(get("/mesas/{mesaId}/delete", TEST_MESA_ID))
-   				.andExpect(status().is3xxRedirection())
-   				.andExpect(view().name("redirect:/allMesas"));
-   	}
+
 }

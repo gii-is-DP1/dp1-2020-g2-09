@@ -9,7 +9,6 @@
     pageEncoding="ISO-8859-1"%>
 <petclinic:layout pageName="pedidos">
     <h2>Pedidos</h2>
-     <%-- ESTA ES LA LISTA DE TODOS LOS PEDIDOS PARA EL ADMINISTRADOR--%>
  	<a href="/pedidos/new" class="btn btn-default">Nuevo Pedido</a>
     <table id="pedidosTable" class="table table-striped">
         <thead>
@@ -21,9 +20,7 @@
             <th>Estado pedido</th>
             <th>Tipo Envio</th>
             <th>Tipo Pago</th>
-<%--             <sec:authorize access="hasAnyAuthority('cliente')"  > --%>
             	<th>Cliente</th>
-<%--             </sec:authorize> --%>
         </tr>
         </thead>
         <tbody>
@@ -57,10 +54,8 @@
              	</td>
              	
 				<td>
-<%--              		<sec:authorize access="hasAnyAuthority('cliente')"  > --%>
                     <c:out value="${pedido.cliente.nombre}"/>
                     <c:out value=" ${pedido.cliente.apellidos}"></c:out>
-<%--                     </sec:authorize> --%>
                 </td>
                 
              	<td>

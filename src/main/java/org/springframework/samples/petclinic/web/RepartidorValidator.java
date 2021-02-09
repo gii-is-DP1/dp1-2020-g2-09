@@ -30,7 +30,7 @@ public class RepartidorValidator implements Validator{
 		String contraseña = usuario.getPassword();
 		
 		Pattern patternNombre = Pattern
-                .compile("^[a-zA-ZñÑáéíóú\\s]+$");
+                .compile("^[a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]+$");
 		Matcher matcherNombre = patternNombre.matcher(nombre);
 		
 		//nombre

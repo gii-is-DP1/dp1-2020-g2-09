@@ -21,14 +21,12 @@
        		 <c:forEach items="${pizzas}" var="pizza">
        		 <tr>
        		 <td>${pizza.nombre}</td>
-       		<%-- <td><form:checkbox path="pizzasEnOferta" value="${pizza}"/> Añadir <br>
-       		   <form:input label="Cantidad" name="Cantidad" type="number" path="Cantidad"/></td>--%>
+
        		   <td><spring:url value="/ofertas/{ofertaId}/anadirPizza/{pizzaId}" var="ofertaPizzaUrl">
                     		<spring:param name="ofertaId" value="${oferta.id}"/>
                     		<spring:param name="pizzaId" value="${pizza.id}"/>
 	              </spring:url>
-	             <%-- <c:out value="${pizza.id}"/>
-	              <c:out value="${oferta.id}"/>--%>
+
    				<a href=" ${fn:escapeXml(ofertaPizzaUrl)}" class="btn btn-default">Ofertar Pizza</a>
    			</td>
        		 </tr>
@@ -49,8 +47,7 @@
        		 <c:forEach items="${bebidas}" var="bebida">
        		 <tr>
        		 <td>${bebida.nombre}</td>
-       		<%-- <td><form:checkbox path="bebidasEnOferta" value="${bebida}"/> Añadir
-       		  <form:input label="Cantidad" name="Cantidad" type="number" path="Cantidad"/></td>	--%> 
+
        		  <td><spring:url value="/ofertas/{ofertaId}/anadirBebida/{bebidaId}" var="ofertaBebidaUrl">
                     		<spring:param name="ofertaId" value="${oferta.id}"/>
                     		<spring:param name="bebidaId" value="${bebida.id}"/>
@@ -75,8 +72,7 @@
        		 <c:forEach items="${otros}" var="otro">
        		 <tr>
        		 <td>${otro.nombre}</td>
-       		<%--  <td><form:checkbox path="otrosEnOferta" value="${otro}"/> Añadir
-       		<form:input label="Cantidad" name="Cantidad" type="number" path="Cantidad"/></td>--%>
+
        		<td><spring:url value="/ofertas/{ofertaId}/anadirOtro/{otroId}" var="ofertaPizzaUrl">
             		 <spring:param name="ofertaId" value="${oferta.id}"/>
             		 <spring:param name="otroId" value="${otro.id}"/>
@@ -89,9 +85,7 @@
        		 
        		 </tbody>
              </table>
-            <%--  <c:forEach var="p" items="${pizzas}">
-          	<c:out value="${p.nombre}"/><br>
-         	 </c:forEach> --%>
+
    
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
