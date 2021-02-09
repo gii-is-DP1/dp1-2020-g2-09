@@ -192,13 +192,6 @@ public class CocineroControllerTests {
 		.andExpect(view().name("cocineros/createOrUpdateCocinaForm"));
     }
     
-    @WithMockUser(value = "spring")
-   	@Test
-   	void initDeleteCuenta() throws Exception {
-    	mockMvc.perform(get("/cocineros/{cocineroId}/delete", TEST_COCINA_ID))
-		.andExpect(status().is3xxRedirection())
-		.andExpect(view().name("redirect:/allCocineros"));
-    }
    
     @WithMockUser(value = "spring")
    	@Test

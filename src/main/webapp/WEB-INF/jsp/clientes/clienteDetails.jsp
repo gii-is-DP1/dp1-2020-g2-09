@@ -10,7 +10,8 @@
 
     <h2>Tu información</h2>
 
-
+	<c:out value="${mensaje}"></c:out>
+	
     <table class="table table-striped">
         <tr>
             <th>Nombre</th>
