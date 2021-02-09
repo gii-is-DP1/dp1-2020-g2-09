@@ -103,6 +103,6 @@ public class AdministradorController {
 			log.info("Admin actualizado");
 			return "redirect:/allAdministradores";
 		}
-	}
+	} 
 
 }

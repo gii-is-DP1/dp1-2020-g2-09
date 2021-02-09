@@ -154,13 +154,5 @@ public class AdministradorControllerTests {
 		.andExpect(view().name("administradores/createOrUpdateAdministradorForm"));
 	}
 	
-	@WithMockUser(value = "spring")
-    @Test
-	void initDeleteCuenta() throws Exception {
-		mockMvc.perform(get("/administradores/{administradorId}/delete", TEST_ADMIN_ID))
-		.andExpect(status().is3xxRedirection())
-		.andExpect(view().name("redirect:/allAdministradores"))
-		.andExpect(model().attributeDoesNotExist("administrador"));
-	}
 	
 }

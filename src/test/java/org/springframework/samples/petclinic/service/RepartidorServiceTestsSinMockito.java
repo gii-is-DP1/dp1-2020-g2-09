@@ -87,28 +87,6 @@ public class RepartidorServiceTestsSinMockito {
 	
 	@Test
 	@Transactional
-	void shouldDeleteRepartidor() {
-		Repartidor r = new Repartidor();
-		r.setApellidos("Apellido1 Apellido2");
-		r.setEmail("correo@alum.us.es");
-		r.setNombre("Nombre1");
-		r.setTelefono(123456789);
-		r.setId(1000);
-		User user = new User();
-		user.setUsername("jex1234");
-		user.setPassword("jex1234");
-		r.setUser(user);
-		this.repartidorService.saveRepartidor(r);
-		
-		this.repartidorService.deleteRepartidor(r);
-		
-		Repartidor repartidorEncontrado = this.repartidorService.findRepartidorById(1000);
-		
-		assertNull(repartidorEncontrado);
-	}
-	
-	@Test
-	@Transactional
 	void shouldNotUpdateRepartidor() {
 		Repartidor repartidor = this.repartidorService.findRepartidorById(1);
 		String oldNombre = repartidor.getNombre();
