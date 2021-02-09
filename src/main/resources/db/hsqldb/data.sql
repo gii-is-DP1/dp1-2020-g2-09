@@ -123,10 +123,10 @@ INSERT INTO RESERVAS(id, fecha_reserva, hora_reserva, numero_personas, tipo_rese
 
 INSERT INTO RECLAMACIONES(observacion, respuesta)
 VALUES('Había un hueso de aceituna en mi pizza. ¿Qué tipo de broma es esta?', '');
-
 INSERT INTO RECLAMACIONES(observacion, respuesta)
 VALUES('Mi pizza carbonara llevaba 1 sola unidad de champiñón.', '');
-
+INSERT INTO RECLAMACIONES(observacion, respuesta)
+VALUES('No me ha gustado el reparto a domicilio, mucha tardanza.', '');
 
 INSERT INTO MESAS VALUES(1,6,1);
 INSERT INTO MESAS VALUES(2,6,1);
