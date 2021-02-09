@@ -75,16 +75,16 @@ public class ReclamacionServiceTestsSinMockito {
 	@Test
 	@Transactional
 	void shouldDeleteReclamacion() {
-		Reclamacion reclamacion = this.reclamacionService.findReclamacionById(1);
+		Reclamacion reclamacion = this.reclamacionService.findReclamacionById(3);
 		this.reclamacionService.deleteReclamacion(reclamacion);
-		Reclamacion reclamacionEncontrada = this.reclamacionService.findReclamacionById(1);
+		Reclamacion reclamacionEncontrada = this.reclamacionService.findReclamacionById(3);
 		assertNull(reclamacionEncontrada);
 	}
 	
 	@Test
 	@Transactional
 	public void shouldInsertReclamacionAPedido() {
-		Pedido p = this.pedidoService.findPedidoById(1);
+		Pedido p = this.pedidoService.findPedidoById(3);
 		Reclamacion r = this.reclamacionService.findReclamacionById(1);      
 		this.reclamacionService.anadirReclamacionAPedido(r.getId(), p.getId());
 		assertThat(p.getReclamacion().contains(r));
