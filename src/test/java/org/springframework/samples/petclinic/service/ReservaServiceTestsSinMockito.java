@@ -150,9 +150,10 @@ public class ReservaServiceTestsSinMockito {
 		LocalTime h1 = LocalTime.now();
 		LocalTime h2 = LocalTime.now();
 		LocalTime h3 = LocalTime.of(19, 23);
+		LocalTime h4 = LocalTime.of(18, 1);
 		
 		Boolean falso = this.reservaService.unaHoraEntreReservas(h1, h2);
-		Boolean verdadero = this.reservaService.unaHoraEntreReservas(h1, h3);
+		Boolean verdadero = this.reservaService.unaHoraEntreReservas(h3, h4);
 		assertFalse(falso);
 		assertTrue(verdadero);
 	}
