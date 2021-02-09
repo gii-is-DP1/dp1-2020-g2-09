@@ -26,8 +26,6 @@ public interface PedidoRepository  extends CrudRepository<Pedido, Integer> {
 			nativeQuery = true)
 	Pedido findPedidoByFecha(LocalDate hoy, int userId) throws DataAccessException;
 	
-	List<Pedido> findByOfertasEnPedido(int pedidoId) throws DataAccessException;
-	
 	@Query("SELECT estPed FROM EstadoPedido estPed")
 	List<EstadoPedido> findEstadoPedido() throws DataAccessException;
 
@@ -37,23 +35,21 @@ public interface PedidoRepository  extends CrudRepository<Pedido, Integer> {
 	@Query("SELECT tipEnvio FROM TipoEnvio tipEnvio")
 	List<TipoEnvio> findTipoEnvio() throws DataAccessException;
 	
-	//FILTRAR PEDIDOS SEGUN SU ESTADO
 	@Query(value ="SELECT * FROM Pedido WHERE Estado_Pedido='1' or Estado_Pedido='2' or Estado_Pedido='5' ORDER BY Fecha_Pedido DESC", nativeQuery = true)
 	List<Pedido> findPedidoForCocinero() throws DataAccessException;
 	
 	@Query(value ="SELECT * FROM Pedido WHERE Tipo_Envio='2' and (Estado_Pedido='2' or Estado_Pedido='3' or Estado_Pedido='4') ORDER BY Fecha_Pedido DESC", nativeQuery = true)
 	List<Pedido> findPedidoForRepartidor() throws DataAccessException;
 	
-	//ACTUALIZAR ESTADO DE UN PEDIDO
-	@Modifying //al finalizar pedido
+	@Modifying 
 	@Query(value ="UPDATE Pedido SET Estado_Pedido='1' WHERE id=?1", nativeQuery = true)
 	void putEnCocina(int pedidoId) throws DataAccessException;
 	
-	@Modifying //cocinero
+	@Modifying 
 	@Query(value ="UPDATE Pedido SET Estado_Pedido='2' WHERE id=?1", nativeQuery = true)
 	void putPreparado(int pedidoId) throws DataAccessException;
 	
-	@Modifying //repartidor
+	@Modifying 
 	@Query(value ="UPDATE Pedido SET Estado_Pedido='3' WHERE id=?1", nativeQuery = true)
 	void putEnReparto(int pedidoId) throws DataAccessException;
 	
@@ -65,7 +61,6 @@ public interface PedidoRepository  extends CrudRepository<Pedido, Integer> {
 	@Query(value ="UPDATE Pedido SET Estado_Pedido='5' WHERE id=?1", nativeQuery = true)
 	void putRecogido(int pedidoId) throws DataAccessException;
 	
-	//INSERTAR PRODUCTOS EN PEDIDO
 	@Modifying
     @Query(value = "INSERT INTO PRODUCTO_PIZZA_PEDIDO(PEDIDO_ID, PIZZAS_EN_PEDIDO_ID) VALUES (?1, ?2)",
 			nativeQuery = true)
@@ -81,13 +76,11 @@ public interface PedidoRepository  extends CrudRepository<Pedido, Integer> {
 			nativeQuery = true)
 	void añadirOtrosAPedido(int pedidoId, int otrosId);
 	
-	//INSERTAR OFERTA EN UN PEDIDO  
 	@Modifying
     @Query(value = "INSERT INTO OFERTA_PEDIDO(PEDIDO_ID, OFERTAS_EN_PEDIDO_ID) VALUES (?1, ?2)",
 			nativeQuery = true)
 	void añadirOfertaAPedido(int pedidoId, int ofertaId);
 	
-	//ELIMINAR PRODUCTOS DE UN PEDIDO
 	@Modifying
     @Query(value = "DELETE FROM PRODUCTO_PIZZA_PEDIDO WHERE PEDIDO_ID=?1 AND PIZZAS_EN_PEDIDO_ID=?2 LIMIT 1",
 			nativeQuery = true)
@@ -108,7 +101,6 @@ public interface PedidoRepository  extends CrudRepository<Pedido, Integer> {
 			nativeQuery = true)
 	void eliminarOfertaPedido(int pedidoId, int otrosId);
 
-	//COGER PRECIOS DE PRODUCTOS
     @Query(value = "SELECT COSTE FROM PIZZAS WHERE ID = ?1",
 			nativeQuery = true)
     Double cogerPrecioPizza(int pizzaId);
@@ -125,7 +117,6 @@ public interface PedidoRepository  extends CrudRepository<Pedido, Integer> {
 			nativeQuery = true)
 	Double cogerPrecioOferta(int ofertaId);
     
-    //Coger pedido asociado a una reclamacion
     @Query(value = "SELECT PEDIDO_ID FROM PEDIDO_RECLAMACION WHERE RECLAMACION_ID = ?1", nativeQuery=true)
     Integer findIdPedidoByReclamacionId(int reclamacionId);
 }

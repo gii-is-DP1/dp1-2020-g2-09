@@ -323,7 +323,7 @@ public class CartaController {
 	@PostMapping(value = "/cartas/{cartaId}/bebida/new")
 	public String processBebidaCreationForm(@Valid Bebida bebida, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
-			model.put("bebida", bebida);//importanteeee
+			model.put("bebida", bebida);
 			log.error("Fallo al crear una bebida");
 			return "bebidas/createOrUpdateBebidaForm";
 		} else {

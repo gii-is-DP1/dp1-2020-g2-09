@@ -66,7 +66,6 @@ class OtrosControllerTests {
 		patatas.setNombre("Patatas fritas");
 		given(this.otrosService.findOtros()).willReturn(Lists.newArrayList(patatas));
 		given(this.otrosService.findOtrosById(TEST_OTROS_ID)).willReturn(new Otro());
-		//given(this.otrosService.findIdOtrosByCartaId(TEST_CARTA_ID)).willReturn(new ArrayList<Integer>());
 		
 		given(this.pedidoService.findPedidoById(TEST_PEDIDO_ID)).willReturn(new Pedido());
 		given(this.cartaService.findCartaById(TEST_CARTA_ID)).willReturn(new Carta());
@@ -103,7 +102,6 @@ class OtrosControllerTests {
 							.with(csrf())
 							.param("coste", "aaa")
 							.param("nombre", "111").param("ingredientes", "22222"))
-				//.andExpect(model().attributeHasNoErrors("oferta"))
 				.andExpect(status().isOk())
 				.andExpect(view().name("Otros/createOrUpdateOtrosForm"));
 		

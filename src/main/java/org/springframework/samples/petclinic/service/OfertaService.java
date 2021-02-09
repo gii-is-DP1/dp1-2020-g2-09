@@ -56,37 +56,30 @@ public class OfertaService {
 		ofertaRepository.save(oferta);		
 	}
 	
-	//Encontrar ofertas activas en tiempo para carta
 	@Transactional
 	public List<Oferta> findOfertasTrueEnTiempo(LocalDate hoy) throws DataAccessException {
 		return ofertaRepository.findOfertasTrueEnTiempo(hoy);
 	}
 	
-	//Encontrar ofertas de un pedido
 	@Transactional
 	public List<Integer> findOfertasEnPedidoById(int pedidoId) throws DataAccessException {
 		return ofertaRepository.findOfertasEnPedidoById(pedidoId);
 	}
 		
-	
-	//Para borrar las pizzas
 	@Transactional
 	public List<Integer> numeroPizzasEnOferta(Integer pizzaId) throws DataAccessException {
 		return ofertaRepository.numeroPizzasEnOferta(pizzaId);
 	}
-	//Para borrar las bebidas
 	@Transactional
 	public List<Integer> numeroBebidasEnOferta(Integer bebidaId) throws DataAccessException {
 		return ofertaRepository.numeroBebidasEnOferta(bebidaId);
 	}
 	
-	//Para borrar los otros
 	@Transactional
 	public List<Integer> numeroOtrosEnOferta(Integer otrosId) throws DataAccessException {
 		return ofertaRepository.numeroOtrosEnOferta(otrosId);
 	}
 	
-	//para borrar
 	@Transactional
 	public void ponerEstadoOfertaAFalse(Integer ofertaId) throws DataAccessException {
 		ofertaRepository.ponerEstadoOfertaAFalse(ofertaId);

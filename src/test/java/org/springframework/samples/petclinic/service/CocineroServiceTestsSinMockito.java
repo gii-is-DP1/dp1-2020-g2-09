@@ -85,18 +85,6 @@ public class CocineroServiceTestsSinMockito {
 		
 	}
 	
-//	@Test
-//	@Transactional
-//	void shouldNotUpdateCocineroTelefonoIncorrect() {
-//		Cocina oldCocinero = this.cocineroService.findCocineroById(1);
-//		Integer telefono = 1;
-//		oldCocinero.setTelefono(telefono);
-//		this.cocineroService.saveCocinero(oldCocinero);
-//		Cocina cocineroEncontrado = this.cocineroService.findCocineroById(oldCocinero.getId());
-//		assertFalse(cocineroEncontrado.getTelefono()==(telefono));
-//		
-//	}
-	
 	@Test
 	@Transactional
 	void shouldDeleteCocinero() {

@@ -90,7 +90,6 @@ public class AdministradorController {
 	public String processUpdateCuentaForm(@Valid Administrador administrador, BindingResult result,
 			@PathVariable("administradorId") int administradorId, ModelMap model) {
 		if (result.hasErrors()) {
-			//model.put("cuenta", administrador);
 			model.put("administrador", administrador);
 			log.warn("Fallos en la actualizacion de admin");
 			return "administradores/createOrUpdateAdministradorForm";

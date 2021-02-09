@@ -9,8 +9,6 @@
 <petclinic:layout pageName="Ingredientes">
     <h2>Ingredientes</h2>
     
-
-    
 	<script>
             $(function () {
                 $("#fechaCaducidad").datepicker({dateFormat: 'yyyy/mm/dd'});
@@ -51,12 +49,6 @@
 	                        <spring:param name="IngredienteId" value="${ingrediente.id}"/>
 	                </spring:url>
    					<a href="${fn:escapeXml(IngredienteUrl)}" class="btn btn-default">Editar</a>
-             	</td>
-             	<td>
-             		<spring:url value="/Ingredientes/{IngredienteId}/delete" var="IngredienteUrl2">
-	                       <spring:param name="IngredienteId" value="${ingrediente.id}"/>
-	                </spring:url>
-             		<a href="${fn:escapeXml(IngredienteUrl2)}" class="btn btn-default">Eliminar</a>
              	</td>
              	
             </tr>

@@ -81,11 +81,9 @@ public class ReclamacionController {
 			String userName = userDetails.getUsername();
 		    User usuario = this.userService.findUser(userName).get();
 		    Cuenta cliente = this.clienteService.findCuentaByUser(usuario);
-		    //Cogemos los pedidos con reclamaciones según el clienteId
 		    List<Integer> pedidosConReclamacion = this.reclamacionService.findPedidosConReclamacionDeCliente(cliente.getId());
 		    Reclamaciones reclamacionesAcumuladasDeCliente = new Reclamaciones();
 		    for(int i = 0; i < pedidosConReclamacion.size(); i++) {
-		    	//Cogemos las reclamaciones de los pedidos de antes
 		    	Integer pedidoId = pedidosConReclamacion.get(i);
 			    List<Integer> reclamacionDePedido = this.reclamacionService.findReclamacionesDePedidosDeCliente(pedidoId);
 			    for(int j = 0; j < reclamacionDePedido.size(); j++) {
@@ -100,7 +98,6 @@ public class ReclamacionController {
 			return "reclamaciones/reclamacionUser";
 		} 
 	
-		//Aqui tenemos que añadir la reclamación sobre un pedido seleccionado
 		@GetMapping("/pedidos/{pedidoId}/anadirReclamacion/new")
 		public String initCreationForm(Map<String, Object> model, @PathVariable("pedidoId") int pedidoId) {
 			Reclamacion reclamacion = new Reclamacion();
@@ -109,7 +106,6 @@ public class ReclamacionController {
 			return "reclamaciones/createOrUpdateReclamacionForm";
 		}
 		
-		//mandar nueva reclamacion
 		@PostMapping(value = "/pedidos/{pedidoId}/anadirReclamacion/new")
 		public String processCreationForm(@Valid Reclamacion reclamacion, BindingResult result, @PathVariable("pedidoId") int pedidoId, ModelMap model) {
 			if (result.hasErrors()) {
@@ -139,7 +135,6 @@ public class ReclamacionController {
 			Reclamacion reclamacion = this.reclamacionService.findReclamacionById(reclamacionId);
 			model.put("reclamacion", reclamacion);
 			
-			//Tomo el pedido
 			Integer pedidoId = this.pedidoService.findIdPedidoByReclamacionId(reclamacionId);
 			Pedido pedido = this.pedidoService.findPedidoById(pedidoId);
 			model.put("pedido", pedido);
@@ -151,7 +146,6 @@ public class ReclamacionController {
 			return "reclamaciones/verDetallesReclamacion";
 		}
 		
-		//iniciar actualizacion -> Administrador responde reclamación
 		@GetMapping(value = "/reclamaciones/{reclamacionId}/edit")
 		public String initUpdateForm(@PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
 			Reclamacion reclamacion = this.reclamacionService.findReclamacionById(reclamacionId);
@@ -160,7 +154,6 @@ public class ReclamacionController {
 			return "reclamaciones/createOrUpdateReclamacionForm";
 		}
 		
-		//mandar actualizacion
 		@PostMapping(value = "/reclamaciones/{reclamacionId}/edit")
 		public String processUpdateReclamacionForm(@Valid Reclamacion reclamacion, BindingResult result,
 				@PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
@@ -179,7 +172,6 @@ public class ReclamacionController {
 			}
 		}
 		
-		//borrar reclamacion
 		@GetMapping(value = "/reclamaciones/{reclamacionId}/delete")
 		public String initDeleteReclamacion(@PathVariable("reclamacionId") int reclamacionId, ModelMap model) {
 			Reclamacion reclamacion = this.reclamacionService.findReclamacionById(reclamacionId);

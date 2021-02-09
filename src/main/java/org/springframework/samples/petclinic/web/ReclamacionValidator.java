@@ -20,15 +20,12 @@ public class ReclamacionValidator implements Validator {
 		String observacion = reclamacion.getObservacion();
 		String respuesta = reclamacion.getRespuesta();
 		
-		//observacion
 		if(observacion.length()<10 || observacion.length()>1000 || observacion.equals("")) {
 			errors.rejectValue("observacion","Por favor, escriba una observación entre 10 y \"\r\n" + 
 					"					+ \"1000 caracteres", "Por favor, escriba una observación entre 10 y "
 					+ "1000 caracteres");
 		}
-		
-		//respuesta
-		
+				
 		if(respuesta.equals("") || respuesta==null){
 			errors.rejectValue("respuesta", "Complete el campo respuesta", 
 					"Complete el campo respuesta");

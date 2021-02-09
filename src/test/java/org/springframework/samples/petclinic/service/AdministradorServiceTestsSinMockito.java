@@ -36,7 +36,6 @@ public class AdministradorServiceTestsSinMockito {
 		admin.setTelefono(683020234);
 		admin.setEmail("paquito@gmail.com");
 		admin.setFechaNacimiento(LocalDate.of(2000, 12, 9));
-		//cliente.setFechaAlta(LocalDate.now());
 		User usuario = new User();
 		usuario.setUsername("PAquitoO");
 		usuario.setPassword("Tomate y papas");
@@ -86,22 +85,7 @@ public class AdministradorServiceTestsSinMockito {
 		
 	}
 	
-//	@Test
-//	@Transactional
-//	void shouldNotUpdateAdministrador() {
-//		Administrador admin = this.administradorService.findAdministradorById(1);
-//		String oldNombre = admin.getNombre();
-//		String newNombre = oldNombre+"Yeaaaah";
-//		
-//		admin.setNombre(newNombre);
-//		try{
-//			this.administradorService.saveAdministrador(admin);
-//			//assertTrue(false);
-//		}catch (Exception e) {
-//			assertTrue(true);
-//		}
-//		//assertTrue(false);
-//	}
+
 	
 	@Test
 	@Transactional

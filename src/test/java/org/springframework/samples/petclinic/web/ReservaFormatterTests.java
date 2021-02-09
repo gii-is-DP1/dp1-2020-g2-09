@@ -18,11 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.samples.petclinic.model.Reserva;
 import org.springframework.samples.petclinic.service.ReservaService;
 
-/**
- * Test class for {@link PetTypeFormatter}
- *
- * @author Colin But
- */
+
 @ExtendWith(MockitoExtension.class)
 class ReservaFormatterTests {
 
@@ -59,10 +55,7 @@ class ReservaFormatterTests {
 		});
 	}
 
-	/**
-	 * Helper method to produce some sample pet types just for test purpose
-	 * @return {@link Collection} of {@link PetType}
-	 */
+
 	private Collection<Reserva> makeReserva() {
 		Collection<Reserva> r = new ArrayList<>();
 		r.add(new Reserva() {

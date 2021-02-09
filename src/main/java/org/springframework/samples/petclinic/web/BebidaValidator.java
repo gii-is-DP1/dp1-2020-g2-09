@@ -19,7 +19,6 @@ public class BebidaValidator implements Validator {
 		TamanoProducto tamaño = bebida.getTamano();
 		Double coste = bebida.getCoste();
 		
-		// nombre validation
 		if (!StringUtils.hasLength(nombre) || nombre.length()>50 || nombre.length()<2) {
 			errors.rejectValue("nombre", "El nombre debe tener entre 2 y 50 carácteres", "El nombre  debe tener entre 2 y 50 carácteres");
 		}

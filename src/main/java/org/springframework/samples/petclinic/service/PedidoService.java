@@ -69,7 +69,6 @@ public class PedidoService {
 		return pedidoRepository.findTipoEnvio();
 	}
 	
-	//FILTRAR PEDIDOS SEGUN SU ESTADO
 	@Transactional(readOnly = true)	
 	public List<Pedido> findPedidoForCocinero() throws DataAccessException {
 		return pedidoRepository.findPedidoForCocinero();
@@ -80,7 +79,6 @@ public class PedidoService {
 		return pedidoRepository.findPedidoForRepartidor();
 	}
 	
-	//ACTUALIZAR ESTADO DE UN PEDIDO
 	@Transactional(readOnly = true)	
 	public void  putEnCocina(int pedidoId) throws DataAccessException {
 		pedidoRepository.putEnCocina(pedidoId);
@@ -106,7 +104,6 @@ public class PedidoService {
 		pedidoRepository.putRecogido(pedidoId);
 	}
 	
-	//AÑADIR PRODUCTOS A UN PEDIDO
 	@Transactional
 	public void añadirPizzaAPedido(int pedidoId, int pizzaId) throws DataAccessException {
 		pedidoRepository.añadirPizzaAPedido(pedidoId, pizzaId);
@@ -122,14 +119,12 @@ public class PedidoService {
 		pedidoRepository.añadirOtrosAPedido(pedidoId, otrosId);
 	}
 	
-	//AÑADIR OFERTA A UN PEDIDO
 	@Transactional
 	public void añadirOfertaAPedido(int pedidoId, int ofertaId) throws DataAccessException {
 		pedidoRepository.añadirOfertaAPedido(pedidoId, ofertaId);
 	}
 
 	
-	//ELIMINAR PRODUCTOS DE UN PEDIDO 
 	@Transactional
 	public void eliminarPizzaPedido(int pedidoId, int pizzaId) throws DataAccessException {
 		pedidoRepository.eliminarPizzaPedido(pedidoId, pizzaId);;
@@ -150,7 +145,6 @@ public class PedidoService {
 		pedidoRepository.eliminarOfertaPedido(pedidoId, otrosId);
 	}
 	
-	//COGER PRECIOS DE UN PRODUCTO
 	@Transactional
 	public Double cogerPrecioPizza(int pizzaId) {
 		return pedidoRepository.cogerPrecioPizza(pizzaId);
@@ -171,7 +165,6 @@ public class PedidoService {
 		return pedidoRepository.cogerPrecioOferta(ofertaId);
 	}
 	
-	//ASOCIAR PEDIDO ASOCIADO A UNA RECLAMACION
 	@Transactional 
 	public Integer findIdPedidoByReclamacionId(int reclamacionId) {
 		return pedidoRepository.findIdPedidoByReclamacionId(reclamacionId);

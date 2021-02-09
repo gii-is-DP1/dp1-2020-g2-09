@@ -64,37 +64,7 @@ public class MesaServiceTestsSinMockito {
 		assertThat(mesa.getCapacidad()).isEqualTo(newCapacidad);
 	}
 	
-//	@Test
-//	@Transactional
-//	void shouldNotUpdateMesaCapacidadHigherThanSix() {
-//		Mesa oldMesa = this.mesaService.findById(1);
-//		Integer newCapacidad = 9;
-//		oldMesa.setCapacidad(newCapacidad);
-//		
-//		try{
-//			this.mesaService.saveMesa(oldMesa);
-//			//assertTrue(false);
-//		}catch (Exception e) {
-//			assertTrue(true);
-//		}
-//		//assertTrue(false);
-//	}
-	
-//	@Test
-//	@Transactional
-//	void shouldNotUpdateMesaCapacidadLessThanZero() {
-//		Mesa oldMesa = this.mesaService.findById(1);
-//		Integer newCapacidad = -7;
-//		oldMesa.setCapacidad(newCapacidad);
-//		
-//		try{
-//			this.mesaService.saveMesa(oldMesa);
-//			//assertTrue(false);
-//		}catch (Exception e) {
-//			assertTrue(true);
-//		}
-//		//assertTrue(false);
-//	}
+
 	
 	@Test
 	@Transactional

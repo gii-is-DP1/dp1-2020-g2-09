@@ -46,7 +46,7 @@ public class Cuenta extends BaseEntity {
 	@Max(value = 999999999)
 	private Integer telefono;
 	
-	@OneToOne(cascade = CascadeType.ALL)//crea un usuario para una sola cuenta
+	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario", referencedColumnName = "username")
 	@NotNull
 	private User user;

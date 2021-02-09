@@ -139,37 +139,6 @@ public class OfertaServiceTestsSinMockito {
 	     assertThat(oferta.getCoste()).isEqualTo(costeActualizado);
 	 }
 	 
-//	 @Test
-//	 @Transactional
-//	 public void shouldNotUpdateOfertaWithCosteEqualsToZero() {
-//		 Oferta oferta = this.ofertaService.findOfertaById(1);
-//			Double newCoste = 0.0;
-//			oferta.setCoste(newCoste);
-//			try{
-//				this.ofertaService.saveOferta(oferta);
-//				//assertTrue(false);
-//			}catch (Exception e) { //El coste de una oferta no puede ser menor o igual que 0.
-//				assertTrue(true);
-//			}
-//			//assertTrue(false);
-//	 }
-	 
-//	 @Test
-//	 @Transactional
-//	 public void shouldNotUpdateOfertaWithWithFechaFinalBeforeCurrentDate() {
-//		 Oferta oferta = this.ofertaService.findOfertaById(1);
-//			LocalDate newFechaFinal = LocalDate.of(2020, 10, 25);
-//			oferta.setFechaFinal(newFechaFinal);
-//			try{
-//				this.ofertaService.saveOferta(oferta);
-//				//assertTrue(false);
-//			}catch (Exception e) { //La fecha de fin de oferta no debe ser anterior a la fecha actual.
-//				assertTrue(true);
-//			}
-//			//assertTrue(false);
-//		 
-//	 }
-	 
 	 @Test
 	 @Transactional
 	 void shouldDeleteOferta() {

@@ -105,17 +105,5 @@ public class IngredienteController {
 		}
 	}
 	
-	//borrar Ingrediente
-	@GetMapping(value = "/Ingredientes/{IngredienteId}/delete")
-	public String initDeleteIngrediente(@PathVariable("IngredienteId") int IngredienteId, ModelMap model) {
-		Ingrediente Ingrediente = this.IngredienteService.findIngredienteById(IngredienteId);
-		this.IngredienteService.deleteIngrediente(Ingrediente);
-		log.info("Borrar ingrediente");
-		return "redirect:/allIngredientes";
-	}
-	@ModelAttribute("AlergenosList")
-    public Collection<Alergenos> populateTamanoProducto() {
-        return this.IngredienteService.findAlergenos();
-    }
-	
+
 }

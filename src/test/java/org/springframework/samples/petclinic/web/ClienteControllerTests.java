@@ -156,13 +156,11 @@ public class ClienteControllerTests {
 		aux2.add(pedido4);
 		
 
-		// pedido1111.add(pedido3);
         Optional<User> op= Optional.of(usuario);
         given(this.clienteService.findCuentas()).willReturn(Lists.newArrayList(cliente));
 		given(this.clienteService.findCuentaById(TEST_CLIENTE_ID)).willReturn(cliente);
 		given(this.clienteService.findCuentaByUser(usuario)).willReturn(cliente);
 		given(this.userService.findUser(usuario.getUsername())).willReturn(op);
-		//given(this.userService.findUser(usuario.getUsername()).get()).willReturn(usuario);
 		given(this.clienteService.findCuentaByUser(usuario)).willReturn(cliente);
 		given(this.pedidoService.findPedidosByCliente(TEST_CLIENTE_ID2)).willReturn(pedido1111);
 		given(this.pedidoService.findPedidosByCliente(TEST_CLIENTE_ID3)).willReturn(aux2);

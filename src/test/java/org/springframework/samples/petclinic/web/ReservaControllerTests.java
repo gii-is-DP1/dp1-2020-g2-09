@@ -12,11 +12,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-import javax.naming.Binding;
 
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +29,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.Cliente;
-import org.springframework.samples.petclinic.model.Cuenta;
 import org.springframework.samples.petclinic.model.Mesa;
 import org.springframework.samples.petclinic.model.Reserva;
 import org.springframework.samples.petclinic.model.User;
@@ -130,7 +127,6 @@ class ReservaControllerTests {
 		
 		cliente.setUser(u1);
 		
-		//Creación de mesas y lista de mesas
 		Mesa m = new Mesa();
 		m.setCapacidad(6);
 		m.setId(TEST_MESA_ID);
@@ -144,7 +140,6 @@ class ReservaControllerTests {
 		listaMesas.add(m2);
 		listaMesas.add(m);
 		listaMesas.add(m3);
-		/////////////////////////////////////////////////
 		List<Mesa> m12= new ArrayList<Mesa>();
 		m12.add(m2);
 		r.setMesasEnReserva(listaMesas);
@@ -161,9 +156,7 @@ class ReservaControllerTests {
 		r3.setMesasEnReserva(m123);
 		m123.add(m3);
 		
-		//this.reservaService.saveReserva(r);
 		given(this.mesaService.findIdMesaByReserva(TEST_RESERVA_ID)).willReturn(TEST_MESA_ID);
-	//	given(this.reservaService.findReservas()).willReturn(Lists.newArrayList(r))
 		given(this.mesaService.findById(TEST_MESA_ID)).willReturn(m);
 		given(this.mesaService.findByReserva(TEST_RESERVA_ID)).willReturn(Lists.newArrayList(m));
 		given(this.mesaService.findMesas()).willReturn(listaMesas);
@@ -181,7 +174,7 @@ class ReservaControllerTests {
 		    public Object answer(InvocationOnMock invocation) {
 		        Object[] args = invocation.getArguments();
 		        ((Reserva)args[0]).setId(1);
-		        return null; // void method, so return null
+		        return null; 
 		    }
 		}).when(this.reservaService).saveReserva(any(Reserva.class));
 		
@@ -197,7 +190,6 @@ class ReservaControllerTests {
 				.andExpect(view().name("reservas/createOrUpdateReservaForm"));
 	}
 	
-	//Da fallo porque Spring no le da del tiron el id a la variable del controlador
 	@WithMockUser(value = "spring")
         @Test
 	void testProcessCreationFormSuccess() throws Exception {
@@ -206,7 +198,7 @@ class ReservaControllerTests {
 							.param("numeroPersonas", "6")
 							.param("tipoReserva.name", "CENA")
 							.param("fechaReserva", "2021/11/24")
-							.param("hora", "21:12"))	//el error dice que no se puede convertir de string a localtime
+							.param("hora", "21:12"))	
 				.andExpect(view().name("redirect:/reservas/1/allMesasDisponibles"));
 				
 	}
@@ -232,7 +224,6 @@ class ReservaControllerTests {
 				.andExpect(view().name("reservas/createOrUpdateReservaForm"));
 	}
     
-    //Da fallo
     @WithMockUser(value = "spring")
 	@Test
 	void testProcessUpdateFormSuccess() throws Exception {
@@ -243,8 +234,6 @@ class ReservaControllerTests {
 							.param("tipoReserva.name", "CENA")
 							.param("fechaReserva", "2021/02/12")
 							.param("hora","22:22"))
-							//.param("hora",String.valueOf(LocalTime.of(10, 12))))
-							//.param("mesasEnReserva","1"))
 				
 				.andExpect(view().name("redirect:/reservas/{reservaId}/allMesasDisponibles"));
 	}
@@ -311,15 +300,7 @@ class ReservaControllerTests {
     			.andExpect(model().attributeDoesNotExist("reserva"));
     }
     
-  /* @WithMockUser(value = "spring")
-    @Test
-    void testMesasDisponibles() throws Exception {
-    	mockMvc.perform(get("/reservas/{reservaId}/allMesasDisponibles", TEST_RESERVA_ID2))
-    	.andExpect(status().isOk())
-		.andExpect(view().name("mesas/mesasDisponibles"))
-		.andExpect(model().attributeExists("miReserva"))
-		.andExpect(model().attributeExists("mesasDisponiblesSolucion"));
-    }*/
+
     @WithMockUser(value = "spring")
     @Test
     void testMesasDisponibles() throws Exception {
@@ -339,13 +320,5 @@ class ReservaControllerTests {
 		.andExpect(model().attributeExists("miReserva"))
 		.andExpect(model().attributeExists("mesasDisponibles"));
     }
-   /* @WithMockUser(value = "spring")
-    @Test
-    void testMesasDisponiblesElse() throws Exception {
-    	mockMvc.perform(get("/reservas/{reservaId}/allMesasDisponibles", TEST_RESERVA_ID2))
-    	.andExpect(status().isOk())
-		.andExpect(view().name("mesas/mesasDisponibles"))
-		.andExpect(model().attributeExists("miReserva"))
-		.andExpect(model().attributeExists("mesasDisponiblesSolucion"));
-    }*/
+  
 }

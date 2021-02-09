@@ -39,17 +39,10 @@ import org.springframework.samples.petclinic.service.OfertaService;
 import org.springframework.samples.petclinic.service.PedidoService;
 import org.springframework.samples.petclinic.service.PizzaService;
 import org.springframework.samples.petclinic.service.UserService;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 
 
 @WebMvcTest(value = PizzaController.class,
@@ -159,15 +152,6 @@ private PizzaController pizzaController;
 		pizza1.setTamano(t);
 		pizza3.setTamano(t);
 
-		
-//		tipoMasa t2=new tipoMasa();
-//		t2.setId(66);
-//		t2.setName("extrafina");
-//		pizza1.setTipoMasa(t2);
-//		tipoMasa t3=new tipoMasa();
-//		t3.setId(66);
-//		t3.setName("fina");
-//		pizza3.setTipoMasa(t3);
 		
 		List<Pizza> pizzasCliente = new ArrayList<Pizza>();
 		pizza1.setCliente(null);
