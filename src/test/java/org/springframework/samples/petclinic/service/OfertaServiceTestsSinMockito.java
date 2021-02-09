@@ -141,27 +141,6 @@ public class OfertaServiceTestsSinMockito {
 	 
 	 @Test
 	 @Transactional
-	 void shouldDeleteOferta() {
-		 
-		 Oferta oferta = new Oferta();
-		 oferta.setId(100);
-		oferta.setCoste(12.1);
-		oferta.setFechaInicial(LocalDate.of(2020, 11, 9));
-		oferta.setFechaFinal(LocalDate.of(2020, 11, 18));
-		
-		NivelSocio ns = new NivelSocio();
-		ns.setName("PLATA");
-		oferta.setNivelSocio(ns);
-		
-		this.ofertaService.saveOferta(oferta);
-		this.ofertaService.deleteOferta(oferta);
-		
-		oferta = this.ofertaService.findOfertaById(100);
-		assertNull(oferta);
-	 }
-	 
-	 @Test
-	 @Transactional
 	 void shouldAsociarOfertaAPizza() {
 		 	Oferta o = this.ofertaService.findOfertaById(1);
 			Pizza p = this.pizzaService.findPizzaById(1);

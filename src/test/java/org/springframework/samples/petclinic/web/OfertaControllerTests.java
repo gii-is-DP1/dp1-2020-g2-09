@@ -230,14 +230,6 @@ public class OfertaControllerTests {
 				.andExpect(view().name("ofertas/createOrUpdateOfertaForm"));
 	}
     
-    @WithMockUser(value = "spring")
-    @Test
-    void testInitDeleteOferta() throws Exception {
-    	mockMvc.perform(get("/ofertas/{ofertasId}/delete", TEST_OFERTA_ID))
-    			.andExpect(status().is3xxRedirection()).andExpect(view()
-    					.name("redirect:/allOfertas"))
-    			.andExpect(model().attributeDoesNotExist("oferta"));
-    }
     
     @WithMockUser(value = "spring")
     @Test

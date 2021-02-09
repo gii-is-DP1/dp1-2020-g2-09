@@ -64,19 +64,6 @@ public class MesaServiceTestsSinMockito {
 		assertThat(mesa.getCapacidad()).isEqualTo(newCapacidad);
 	}
 	
-
-	
-	@Test
-	@Transactional
-	void shouldDeleteMesa() {
-		Mesa mesa = this.mesaService.findById(1);
-		this.mesaService.deleteMesa(mesa);
-		mesa = this.mesaService.findById(1);
-		assertNull(mesa);
-	}
-	
-	
-	
 	
 }
 

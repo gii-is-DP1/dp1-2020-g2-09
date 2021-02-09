@@ -85,28 +85,5 @@ public class CocineroServiceTestsSinMockito {
 		
 	}
 	
-	@Test
-	@Transactional
-	void shouldDeleteCocinero() {
-		Cocina cocinero = new Cocina();
-		cocinero.setApellidos("Apellido1 Apellido2");
-		cocinero.setEmail("correo@alum.us.es");
-		cocinero.setNombre("Nombre1");
-		cocinero.setTelefono(123456789);
-		cocinero.setId(1000);
-		User user = new User();
-		user.setUsername("jex1234");
-		user.setPassword("jex1234");
-		cocinero.setUser(user);
-		this.cocineroService.saveCocinero(cocinero);
-		
-		this.cocineroService.deleteCocinero(cocinero);
-		
-		Cocina cocineroEncontrado = this.cocineroService.findCocineroById(1000);
-		
-		assertNull(cocineroEncontrado);
-	}
-	
-	
 	
 }

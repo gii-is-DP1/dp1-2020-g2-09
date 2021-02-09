@@ -50,31 +50,6 @@ public class IngredienteServiceTestsSinMockito {
 		Ingrediente ingredienteEncontrado = this.ingredienteService.findIngredienteById(1000);
 		assertNull(ingredienteEncontrado);
 	}
-	
 
-	
-	@Test
-	@Transactional
-	public void shouldDeleteIngrediente() {
-			Ingrediente ingrediente = new Ingrediente();
-			ingrediente.setId(100);
-			
-			this.ingredienteService.deleteIngrediente(ingrediente);
-			Ingrediente ingredienteEncontrado = this.ingredienteService.findIngredienteById(100);
-					
-			assertNull(ingredienteEncontrado);
-		}
-	
-	@Test
-	@Transactional
-	public void shouldNotDeleteIngrediente() {
-			try{
-				Ingrediente ingrediente = this.ingredienteService.findIngredienteById(990999);
-				this.ingredienteService.deleteIngrediente(ingrediente);
-			}catch (Exception e) {
-				assertTrue(true);
-			}
-			
-		}
 	}
 		
