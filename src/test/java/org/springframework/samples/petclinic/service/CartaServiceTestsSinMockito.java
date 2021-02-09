@@ -186,22 +186,6 @@ public class CartaServiceTestsSinMockito {
 		
 	}
 	
-//	@Test
-//	@Transactional
-//	void shouldNotUpdateCarta() {
-//		Carta carta = this.cartaService.findCartaById(1);
-//		String oldNombre = carta.getNombre();
-//		String newNombre = oldNombre+"Yeaaaah";
-//		
-//		carta.setNombre(newNombre);
-//		try{
-//			this.cartaService.saveCarta(carta);
-//			//assertTrue(false);
-//		}catch (Exception e) {
-//			assertTrue(true);
-//		}
-//		//assertTrue(false);
-//	}
 	
 	@Test
 	@Transactional

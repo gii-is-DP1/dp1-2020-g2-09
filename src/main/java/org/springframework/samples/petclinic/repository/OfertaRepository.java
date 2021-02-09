@@ -30,11 +30,9 @@ public interface OfertaRepository  extends CrudRepository<Oferta, Integer> {
 	@Query("SELECT nsocio FROM NivelSocio nsocio")
 	List<NivelSocio> findNivelSocio() throws DataAccessException;
 	
-	//Encontrar ofertas activadas y en tiempo
 	@Query(value ="SELECT * FROM OFERTAS WHERE ESTADO_OFERTA=TRUE AND (CAST(FECHA_FINAL AS date) >= CAST(?1 AS date)) ",	nativeQuery = true)
 	List<Oferta> findOfertasTrueEnTiempo(LocalDate hoy) throws DataAccessException;
 	
-	//Encontrar ofertas de un pedido
 	@Query(value ="SELECT OFERTAS_EN_PEDIDO_ID FROM OFERTA_PEDIDO  WHERE PEDIDO_ID = ?1",	nativeQuery = true)
 	List<Integer> findOfertasEnPedidoById(int pedidoId) throws DataAccessException;
 
@@ -67,25 +65,21 @@ public interface OfertaRepository  extends CrudRepository<Oferta, Integer> {
 	
 	@Query(value ="SELECT * FROM OTROS WHERE OTROS.ID IN( SELECT OTROS_EN_OFERTA_ID FROM OFERTA_OTRO WHERE OFERTA_ID = ?1) ",	nativeQuery = true)
 	List<Otro> findOtrosEnOfertaByOfertaId(int ofertaId) throws DataAccessException;
-
-	//Al borrar una pizza
+	
 	@Query(value = "SELECT OFERTA_ID FROM OFERTA_PIZZA WHERE PIZZAS_EN_OFERTA_ID = ?1", nativeQuery = true)
 	List<Integer> numeroPizzasEnOferta(Integer pizzaId);
 	
-	//Al borrar una bebida
+	
 	@Query(value = "SELECT OFERTA_ID FROM OFERTA_BEBIDA WHERE BEBIDAS_EN_OFERTA_ID = ?1", nativeQuery = true)
 	List<Integer> numeroBebidasEnOferta(Integer bebidaId);
 	
-	//Al borrar un otro
 	@Query(value = "SELECT OFERTA_ID FROM OFERTA_OTRO WHERE OTROS_EN_OFERTA_ID = ?1", nativeQuery = true)
 	List<Integer> numeroOtrosEnOferta(Integer otrosId);
 	
-	//Al borrar un producto 
 	@Modifying
 	@Query(value = "UPDATE OFERTAS SET ESTADO_OFERTA = FALSE WHERE OFERTAS.ID = ?1", nativeQuery = true)
 	void ponerEstadoOfertaAFalse(Integer ofertaId);
 	
-	//filtrar ofertas Activas según el nivel de socio
 	@Query(value= "SELECT * FROM OFERTAS WHERE NIVEL_SOCIO=?1 AND ESTADO_OFERTA=TRUE", nativeQuery = true)
 	List<Oferta> ofertasNivelSocio(Integer nivelSocio);
 

@@ -1,19 +1,5 @@
 package org.springframework.samples.petclinic.web;
-/*
- * Copyright 2012-2019 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -41,11 +27,7 @@ import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-/**
- * Test class for the {@link IngredienteController}
- *
- * @author Colin But
- */
+
 @WebMvcTest(value = IngredienteController.class,
 		includeFilters = @ComponentScan.Filter(value = IngredienteFormatter.class, type = FilterType.ASSIGNABLE_TYPE),
 		excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
@@ -70,19 +52,7 @@ class IngredientesControllerTests {
 
 	@BeforeEach
 	void setup() {
-//		Reserva r = new Reserva();
-//		tipoReserva tr = new tipoReserva();
-//		tr.setName("MERIENDA");
-//		tr.setId(3);
-//		r.setId(3);
-//		r.setFechaReserva(LocalDate.of(2020, 11, 24));
-//		r.setHora(LocalTime.of(20, 34));
-//		r.setNumeroPersonas(6);
-//		r.setTipoReserva(tr);
-//		given(this.reservaService.findReservas()).willReturn(Lists.newArrayList(r));
-//		given(this.mesaService.findById(TEST_MESA_ID)).willReturn(new Mesa());
-//		given(this.reservaService.findById(TEST_RESERVA_ID)).willReturn(new Reserva());
-		
+	
 		Ingrediente ing = new Ingrediente();
 		ing.setId(20);
 		ing.setNombre("Langosta");
@@ -173,15 +143,7 @@ class IngredientesControllerTests {
 			.andExpect(status().isOk())
 			.andExpect(view().name("Ingredientes/createOrUpdateIngredienteForm"));
 	}
-	@WithMockUser(value = "spring")
-    @Test
-    void testDelete() throws Exception {
-	mockMvc.perform(get("/Ingredientes/{IngredienteId}/delete", TEST_INGREDIENTE_ID))
-	.andExpect(status().is3xxRedirection())
-	.andExpect(view().name("redirect:/allIngredientes"))
-	.andExpect(model().attributeDoesNotExist("Ingrediente"));
-	}
-	
+
     
 
 }

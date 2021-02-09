@@ -32,7 +32,6 @@ public class BebidaServiceTestsSinMockito {
 	public void shouldInsertBebida() {
 
 		TamanoProducto tamano = new TamanoProducto();
-		//tamaño.setId(99);
 		tamano.setName("Grande");
 		Bebida bebida = new Bebida();
 		bebida.setNombre("Pepsi");

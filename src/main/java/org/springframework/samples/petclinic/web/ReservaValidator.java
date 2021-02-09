@@ -33,10 +33,8 @@ public class ReservaValidator implements Validator {
 			errors.rejectValue("numeroPersonas", "Campo obligatorio", "Por favor, introduzca un número entre 1 y 6");
 		}else if(numeroPersonas<=0 || numeroPersonas >6){
 						errors.rejectValue("numeroPersonas", "El número de personas debe ser un dígito entre 1 y 6",
-								"El número de personas debe ser un dígito entre 1 y 6");
-						
+								"El número de personas debe ser un dígito entre 1 y 6");			
 			}
-		
 		
 		if (fechaReserva==null) {
 			errors.rejectValue("fechaReserva", "Campo obligatorio", "Por favor, introduzca una fecha");
@@ -64,9 +62,6 @@ public class ReservaValidator implements Validator {
 					"Campo obligatorio", 
 					"Por favor, introduzca una hora para reservar");
 			
-			//Es esto realmente una regla de negocio?
-			//Ver el tipo de reserva: si es almuerzo, permitir horas entre 12:00 y 15:00 (por ejemplo)
-			//Si es una cena, elegir entre 20:00 y 23:00
 		} else if(tipoReserva.getName()=="ALMUERZO") {
 			if((hora.getHour()<12 || hora.getHour()>15)) {
 				errors.rejectValue("hora", "Por favor, seleccione una hora entre las 12:00 y las 15:00",

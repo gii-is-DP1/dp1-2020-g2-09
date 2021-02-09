@@ -55,10 +55,6 @@ class BebidaFormatterTests {
 		});
 	}
 
-	/**
-	 * Helper method to produce some sample pet types just for test purpose
-	 * @return {@link Collection} of {@link Bebida}
-	 */
 	private Collection<Bebida> makeBebida() {
 		Collection<Bebida> b = new ArrayList<>();
 		b.add(new Bebida() {

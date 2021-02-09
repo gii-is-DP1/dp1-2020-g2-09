@@ -17,7 +17,6 @@ public class CartaValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		Carta carta = (Carta) target;
 		String name = carta.getNombre();
-		// name validation
 		if (carta.getNombre() == null) {
 			errors.rejectValue("nombre", 
 					"El nombre debe estar entre 3 y 50 caracteres",

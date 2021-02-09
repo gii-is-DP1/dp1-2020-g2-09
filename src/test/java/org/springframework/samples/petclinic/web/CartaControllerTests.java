@@ -10,7 +10,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.assertj.core.util.Lists;
@@ -128,12 +127,7 @@ public class CartaControllerTests {
 		
 		LocalDate hoy = LocalDate.now();
 		
-//		Collection<Pizza> pizzas = new ArrayList<Pizza>();
-//		pizzas.add(pizza);
-//		Collection<Bebida> bebidas = new ArrayList<Bebida>();
-//		bebidas.add(b);
-//		Collection<Otro> otros = new ArrayList<Otro>();
-//		otros.add(patatas);
+
 		List<Integer> pizzasIds = new ArrayList<Integer>();
 		pizzasIds.add(TEST_PIZZA_ID);
 		List<Integer> bebidasIds = new ArrayList<Integer>();
@@ -142,10 +136,6 @@ public class CartaControllerTests {
 		otrosIds.add(TEST_OTROS_ID);
 		List<Integer> ofertas = new ArrayList<Integer>();
 		ofertas.add(TEST_OFERTA_ID);
-		
-//		carta.setPizzasEnCarta(pizzas);
-//		carta.setBebidasEnCarta(bebidas);
-//		carta.setOtrosEnCarta(otros);
 		
 		given(this.CartaService.findCartas()).willReturn(Lists.newArrayList(carta,carta2));
 		given(this.CartaService.findCartaById(TEST_CARTA_ID)).willReturn(carta);

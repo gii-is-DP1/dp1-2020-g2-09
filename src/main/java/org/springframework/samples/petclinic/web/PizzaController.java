@@ -191,7 +191,6 @@ public class PizzaController {
 		return "pizzas/createOrUpdatePizzaFormCliente";
 	}
 
-	// mandar actualizacion
 	@PostMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/new")
 	public String processUpdatePizzaForm2(@Valid Pizza pizza, BindingResult result,
 			@PathVariable("pedidoId") int pedidoId,@PathVariable("cartaId") int cartaId) {
@@ -215,7 +214,6 @@ public class PizzaController {
 				pizza.setCoste(pizza.getCoste()+2);
 			}
 			
-			//comprobamos que el nombre de la pizza personalizada no está duplicado (RN-4)
 			Boolean duplicado = false;
 			List<Pizza> pizzasCliente = pizzaService.findPizzaByCliente(cliente);
 			for(int i=0; i<pizzasCliente.size() && !duplicado; i++) {
@@ -234,8 +232,6 @@ public class PizzaController {
 		}
 	}
 	
-	// editar pizzas de un pedido
-
 			@GetMapping(value = "/pedidos/{pedidoId}/cartas/{cartaId}/pizzas/{pizzaId}/edit")
 			public String actualizarPizza(@PathVariable("pedidoId") int pedidoId,@PathVariable("cartaId") int cartaId,
 					@PathVariable("pizzaId") int pizzaId, ModelMap model) {

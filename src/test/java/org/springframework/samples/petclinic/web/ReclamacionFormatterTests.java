@@ -33,7 +33,6 @@ public class ReclamacionFormatterTests {
 	@Test
 	void testPrint() {
 		Reclamacion reclamacion = new Reclamacion();
-		//reclamacion.setFechaReclamacion(LocalDate.of(2020, 11, 24));
 		reclamacion.setObservacion("aaaa");
 		String reclamacionObservacion = reclamacionFormatter.print(reclamacion, Locale.ENGLISH);
 		assertEquals("aaaa", reclamacionObservacion);

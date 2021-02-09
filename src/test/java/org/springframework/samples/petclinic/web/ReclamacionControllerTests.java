@@ -196,13 +196,9 @@ class ReclamacionControllerTests {
 	void testProcessCreationFormSuccess() throws Exception {
 		mockMvc.perform(post("/pedidos/{pedidoId}/anadirReclamacion/new", TEST_PEDIDO_ID)
 				.with(csrf())
-				//.param("fechaReclamacion", "2020/11/27")
 				.param("observacion", "No se que ocurre")
 				.param("respuesta", "Lo sentimos mucho, ..."))
-				//.andExpect(status().is3xxRedirection()) 
 				.andExpect(view().name("reclamaciones/confirmarReclamacion"));
-		//.andExpect(view().name("reclamaciones/reclamacionesList")); 
-	//.andExpect(view().name("reclamaciones/createOrUpdateReclamacionForm"));
 } 
 
 	@WithMockUser(value = "spring")
@@ -210,7 +206,6 @@ class ReclamacionControllerTests {
 	void testProcessCreationFormHasErrors() throws Exception {
 		mockMvc.perform(post("/pedidos/{pedidoId}/anadirReclamacion/new", TEST_PEDIDO_ID)
 							.with(csrf())
-							//.param("fechaReclamacion", "2020/12/25")
 							.param("observacion", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 							.param("respuesta", ""))	
 				.andExpect(model().attributeHasErrors("reclamacion"))
@@ -232,7 +227,6 @@ class ReclamacionControllerTests {
 	void testProcessUpdateFormSuccess() throws Exception {
 		mockMvc.perform(post("/reclamaciones/{reclamacionId}/edit", TEST_RECLAMACION_ID)
 							.with(csrf())
-							//.param("fechaReclamacion", "2020/11/24")
 							.param("observacion", "pizza muy cara")
 							.param("respuesta", "Sentimos las molestias"))
 				.andExpect(status().is3xxRedirection())
@@ -244,8 +238,6 @@ class ReclamacionControllerTests {
 	void testProcessUpdateFormHasErrors() throws Exception {
 		mockMvc.perform(post("/reclamaciones/{reclamacionId}/edit", TEST_RECLAMACION_ID)
 							.with(csrf())
-							//.param("fechaReclamacion", "2020/12/25")
-
 							.param("observacion", "otra reclamacion")
 							.param("respuesta", ""))
 				.andExpect(model().attributeHasErrors("reclamacion"))
@@ -287,11 +279,7 @@ class ReclamacionControllerTests {
     	mockMvc.perform(get("/reclamaciones/{reclamacionId}/verDetalles", TEST_RECLAMACION_ID))
     	.andExpect(status().isOk())
     	.andExpect(view().name("reclamaciones/verDetallesReclamacion"));
-    	/*.andExpect(model().attributeExists("reclamacion"))
-    	.andExpect(model().attributeExists("pedido"))
-    	.andExpect(model().attributeExists("usuario"))
-    	.andExpect(model().attributeExists("cliente"));*/
-    	//.andReturn().getRequest();
+
     }
     
     //Da fallo

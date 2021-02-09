@@ -77,15 +77,6 @@ public class OfertaController {
 	public String showOfertaList(Map<String, Object> model) {
 		Ofertas ofertas = new Ofertas();
 		ofertas.getOfertasList().addAll(this.ofertaService.findOfertas());
-//		
-//		for(int i=0; i<ofertas.getOfertasList().size();i++) {
-//			Oferta oferta = ofertas.getOfertasList().get(i);
-//			if(oferta.getFechaFinal().isBefore(LocalDate.now())) {
-//				oferta.setEstadoOferta(false);
-//				ofertas.getOfertasList().set(i, oferta);
-//			}
-//		}
-		
 		model.put("ofertas", ofertas);
 		model.put("hoy",LocalDate.now());
 		log.info("Mostrando lista de ofertas");
@@ -213,7 +204,6 @@ public class OfertaController {
 		}
 	
 	
-	//borrar oferta
 	@GetMapping(value = "/ofertas/{ofertasId}/delete")
 	public String initDeleteOferta(@PathVariable("ofertasId") int ofertaId, ModelMap model) {
 		Oferta oferta = this.ofertaService.findOfertaById(ofertaId);
@@ -222,7 +212,6 @@ public class OfertaController {
 		return "redirect:/allOfertas";
 	}
 
-	//Aqui tenemos que añadir la pizza seleccionado a un nuevo pedido
 			@GetMapping("/ofertas/{ofertaId}/anadirPizza/{pizzaId}")
 			public String anadirPizza(ModelMap model, @PathVariable("ofertaId") int ofertaId,@PathVariable("pizzaId") int pizzaId) {
 				Pizza p=pizzaService.findPizzaById(pizzaId);
@@ -234,7 +223,6 @@ public class OfertaController {
 				log.info("Añadir una pizza");
 				return "redirect:/ofertas/{ofertaId}/anadirProductos";
 			}
-			//Aqui tenemos que añadir la pizza seleccionado a un nuevo pedido
 			@GetMapping("/ofertas/{ofertaId}/anadirBebida/{bebidaId}")
 			public String anadirBebida(ModelMap model, @PathVariable("ofertaId") int ofertaId,@PathVariable("bebidaId") int bebidaId) {
 				Bebida b=bebidaService.findById(bebidaId);
@@ -245,7 +233,6 @@ public class OfertaController {
 				log.info("Añadir una bebida");
 				return "redirect:/ofertas/{ofertaId}/anadirProductos";
 			}
-			//Aqui tenemos que añadir la pizza seleccionado a un nuevo pedido
 			@GetMapping("/ofertas/{ofertaId}/anadirOtro/{otroId}")
 			public String anadirOtro(ModelMap model, @PathVariable("ofertaId") int ofertaId,@PathVariable("otroId") int otroId) {
 				Otro o=otrosService.findOtrosById(otroId);

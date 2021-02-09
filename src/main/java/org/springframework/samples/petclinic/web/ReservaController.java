@@ -46,7 +46,6 @@ public class ReservaController {
 	
 	private  ReservaService reservaService;
 
-	//@Autowired
 	private MesaService mesaService;
 	private UserService userService;
 	private ClienteService clienteService;
@@ -95,7 +94,6 @@ public class ReservaController {
 		return "reservas/reservasList";
 	}
 
-	//crear nueva reserva
 	@GetMapping(value = "/reservas/new")
 	public String initCreationForm(Map<String, Object> model) {
 		Reserva reserva = new Reserva();
@@ -112,8 +110,6 @@ public class ReservaController {
 		}
 		else {
 			Cuenta cliente = getClienteActivo();
-			
-			//Asigno el cliente que ha hecho la reservas
 			reserva.setCliente((Cliente) cliente);
 			this.reservaService.saveReserva(reserva);
 			log.info("Reserva creada correctamente.");
@@ -180,7 +176,6 @@ public class ReservaController {
 		model.put("usuario", usuario);
 		model.put("cliente", cliente);
 		
-		//Tomo la mesa asociada a la reserva
 		Integer mesaId = this.mesaService.findIdMesaByReserva(reservaId);
 		Mesa mesa = this.mesaService.findById(mesaId);
 		model.put("mesa", mesa);
@@ -196,7 +191,6 @@ public class ReservaController {
 		return "redirect:/reservas/user";
 	}
 	
-	//RESERVAS DE UN CLIENTE QUE HA INICIADO SESIÓN
 	@GetMapping("/reservas/user")
 	public String showMisReservas(Map<String, Object> model) {
 		Reservas reservas = new Reservas();
@@ -209,7 +203,6 @@ public class ReservaController {
 	} 
 	
 
-	//iniciar actualizacion
 	@GetMapping(value = "/reservas/{reservaId}/edit")
 	public String initUpdateForm(@PathVariable("reservaId") int reservaId, ModelMap model) {
 		Reserva reserva = this.reservaService.findById(reservaId);
@@ -217,7 +210,6 @@ public class ReservaController {
 		return "reservas/createOrUpdateReservaForm";
 	}
 	
-	//mandar actualizacion
 	@PostMapping(value = "/reservas/{reservaId}/edit")
 	public String processUpdateReservaForm(@Valid Reserva reserva, BindingResult result,
 			@PathVariable("reservaId") int reservaId,ModelMap model) {
@@ -235,7 +227,6 @@ public class ReservaController {
 		}
 	}
 	
-	//borrar reserva
 	@GetMapping(value = "/reservas/{reservaId}/delete")
 	public String initDeleteReserva(@PathVariable("reservaId") int reservaId, ModelMap model) {
 		Reserva reserva = this.reservaService.findById(reservaId);

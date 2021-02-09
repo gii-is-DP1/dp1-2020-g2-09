@@ -34,7 +34,6 @@ public class OfertaFormatterTests {
 	@Test
 	void testPrint() {
 		Oferta oferta = new Oferta();
-		//reclamacion.setFechaReclamacion(LocalDate.of(2020, 11, 24));
 		oferta.setId(1);
 		String id = String.valueOf(oferta.getId());
 		String ofertaId = ofertaFormatter.print(oferta, Locale.ENGLISH);

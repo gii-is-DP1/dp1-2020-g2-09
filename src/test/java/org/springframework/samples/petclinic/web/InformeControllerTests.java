@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,7 +35,6 @@ import org.springframework.samples.petclinic.model.TamanoOferta;
 import org.springframework.samples.petclinic.model.TamanoProducto;
 import org.springframework.samples.petclinic.model.TipoEnvio;
 import org.springframework.samples.petclinic.model.TipoPago;
-import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.model.tipoMasa;
 import org.springframework.samples.petclinic.service.BebidaService;
 import org.springframework.samples.petclinic.service.ClienteService;
@@ -66,9 +64,7 @@ public class InformeControllerTests {
 	private static final int TEST_PIZZA_ID = 1;
 	private static final int TEST_BEBIDA_ID = 1;
 	private static final int TEST_PEDIDO_ID = 1;
-	private static final int TEST_USER_ID = 1;
 	private static final int TEST_MESA_ID = 1;
-	private static final int TEST_INGREDIENTE_ID = 1;
 
 	@Autowired
 	private InformeController informeController;
@@ -229,9 +225,7 @@ public class InformeControllerTests {
 		}
 
 		
-		//Integer costeP=pizza1.getCoste();
 		
-		//bebida
 		TamanoProducto tamp=new TamanoProducto();
 		tamp.setId(5);
 		tamp.setName("ENORME");
@@ -246,7 +240,6 @@ public class InformeControllerTests {
 		List<Bebida> bebidasEnPedido= new ArrayList<Bebida>();
 		bebidasEnPedido.add(b);
 		
-		//Integer costeB=b.getCoste();
 		
 		pedido.setPrecio((double)0);
 		
@@ -261,7 +254,6 @@ public class InformeControllerTests {
 		
 		List<Pedido> pedidos = new ArrayList<Pedido>();
 		pedidos.add(pedido);
-		//pedidos.add(pedido2);
 	
 		given(this.pedidoService.findPedidos()).willReturn(pedidos);
 		given(this.pedidoService.findPedidoById(TEST_PEDIDO_ID)).willReturn(new Pedido());

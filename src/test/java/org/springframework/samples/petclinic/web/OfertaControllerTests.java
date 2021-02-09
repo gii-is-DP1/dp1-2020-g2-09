@@ -163,8 +163,7 @@ public class OfertaControllerTests {
 		
 		.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/ofertas/"+null+"/anadirProductos"));
-		//le pasamos un null porque en el controller se le pasa el id de la oferta que estamos haciendo 
-		//y como con el .param no podemos pasarle el id, se pasa un null
+
 
 	}
 

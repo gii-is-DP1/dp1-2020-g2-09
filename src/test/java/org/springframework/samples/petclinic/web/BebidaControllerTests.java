@@ -35,7 +35,6 @@ import org.springframework.test.web.servlet.MockMvc;
 public class BebidaControllerTests {
 	private static final int TEST_BEBIDA_ID = 1;
 
-//carta oferta pedido bebida
 	@Autowired
 	private BebidaController bebidaController;
 

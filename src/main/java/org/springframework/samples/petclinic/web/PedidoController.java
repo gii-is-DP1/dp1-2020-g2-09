@@ -121,7 +121,6 @@ public class PedidoController {
 		return "pedidos/pedidosList";
 	}
 	
-	//ver pizza tracker
 	@GetMapping(value = { "/pedidos/{pedidoId}/estadoPedido" })
 	public String irPizzaTracker(@PathVariable("pedidoId") int pedidoId, Map<String, Object> model) {
 		Pedido pedido = this.pedidoService.findPedidoById(pedidoId);
@@ -304,7 +303,6 @@ public class PedidoController {
 			Double cantidadASumar = (double) this.pedidoService.cogerPrecioBebida(bebidaId);
 			Double precioDeMiPedidoNuevo = precioDeMiPedidoAntesDeAnadirPizza + cantidadASumar;
 			pedido.setPrecio(precioDeMiPedidoNuevo);
-			//ya está incrementado el coste del pedido
 			model.put("pedido", pedido);
 			this.pedidoService.añadirBebidaAPedido(pedidoId, bebidaId);
 			log.info("Añadiendo pizza a pedido.");
@@ -317,12 +315,10 @@ public class PedidoController {
 				@PathVariable("otrosId") int otrosId, @PathVariable("cartaId") Integer cartaId) {
 			model.put("cartaId", cartaId);
 			Pedido pedido = pedidoService.findPedidoById(pedidoId);
-			//hacer funcion que incremente el precio del pedido
 			Double precioDeMiPedidoAntesDeAnadirPizza = pedido.getPrecio();
 			Double cantidadASumar = (double) this.pedidoService.cogerPrecioOtros(otrosId);
 			Double precioDeMiPedidoNuevo = precioDeMiPedidoAntesDeAnadirPizza + cantidadASumar;
 			pedido.setPrecio(precioDeMiPedidoNuevo);
-			//ya está incrementado el coste del pedido
 			model.put("pedido", pedido);
 			this.pedidoService.añadirOtrosAPedido(pedidoId, otrosId);
 			log.info("Añadiendo otro a pedido.");
@@ -364,8 +360,6 @@ public class PedidoController {
 		public String enCocina(@PathVariable("pedidoId") int pedidoId, ModelMap model) {
 			pedidoService.putEnCocina(pedidoId);
 			Cliente cliente = getClienteActivo();
-			
-			//Nivel socio a determinar
 		    NivelSocio nivelSocio = new NivelSocio();
 		    List<Pedido> pedidosCliente = this.pedidoService
 					.findPedidosByCliente(cliente.getId());
@@ -488,7 +482,6 @@ public class PedidoController {
 			return "redirect:/pedidos/{pedidoId}/cartas/{cartaId}/VerResumen";
 		}
 		
-		//Control elaboracion del pedido
 			@GetMapping(value = "/pedidos/{pedidoId}/VerPedido") 
 			public String verPedido(@PathVariable("pedidoId") Integer pedidoId, ModelMap model) {		
 				Pedido pedido= pedidoService.findPedidoById(pedidoId);
@@ -499,7 +492,6 @@ public class PedidoController {
 			}
 		
 			
-	//Recoger productos de carta	
 	private void recogerProductosCarta(Integer cartaId, ModelMap model) {
 		List<Integer> listaIdPizzas = PizzaService.findIdPizzaById(cartaId);
 		Pizzas listaPizzas = new Pizzas();
@@ -549,7 +541,6 @@ public class PedidoController {
 		}else if(num.getName().compareTo("BRONCE")==0){
 			ofertasSegunNivelSocio.addAll(ofertaService.ofertasNivelSocio(1));
 		} else {
-			//que no tenga nivel de socio entonces no se hace nada
 		}
 		for(int j=0; j<ofertasSegunNivelSocio.size();j++) {
 			Oferta oferta = ofertasSegunNivelSocio.get(j);
@@ -561,7 +552,6 @@ public class PedidoController {
 		log.info("Recogiendo productos de la carta.");
 	}
 	
-	//Recoger productos de un pedido		
 		private void recogerProductosPedido(Integer pedidoId, ModelMap model) {
 			List<Integer> listaIdPizzas = PizzaService.findPizzaPedidoById(pedidoId);
 			Pizzas listaPizzas = new Pizzas();
@@ -601,7 +591,6 @@ public class PedidoController {
 			log.info("Recogiendo productos del pedido.");
 		}
 		
-		//Coger cliente de la sesión actual
 		private Cliente getClienteActivo() {
 			UserDetails userDetails = null;
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

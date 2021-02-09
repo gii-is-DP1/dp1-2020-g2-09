@@ -64,7 +64,7 @@ public class CocineroController {
 	@PostMapping(value = "/cocineros/new")
 	public String processCreationForm(@Valid Cocina cocina, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
-			model.put("cocina", cocina);//importanteeee
+			model.put("cocina", cocina);
 			log.error("Fallo en la creacion de un cocinero");
 			return "cocineros/createOrUpdateCocinaForm";
 		}
