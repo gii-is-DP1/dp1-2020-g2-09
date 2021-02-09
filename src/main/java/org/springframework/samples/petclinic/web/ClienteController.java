@@ -118,6 +118,7 @@ public class ClienteController {
 	@GetMapping(value = "/clientes/{cuentaId}/edit")
 	public String initUpdateForm(@PathVariable("cuentaId") int cuentaId, ModelMap model) {
 		Cliente cuenta = this.clienteService.findCuentaById(cuentaId);
+		model.put("usuario", cuenta.getUser().getUsername());
 		model.put("cliente", cuenta);
 		log.info("Iniciando actualizacion");
 		return "clientes/createOrUpdateCuentaForm";
@@ -159,22 +160,9 @@ public class ClienteController {
 				nivelSocio.setName("ORO");
 				cliente.setNivelSocio(nivelSocio);
 			}
-			List<User> lista = this.userService.findAll();
-			Boolean duplicado = false;
-			for(int i=0; i<lista.size();i++) {
-				if(lista.get(i).getUsername().equals(cliente.getUser().getUsername())) {
-					duplicado = true;
-				}
-			}
-			if(!duplicado) {
-				this.clienteService.saveCliente(cliente);
-				log.info("Cliente actualizado");
-				return "clientes/clienteDetails";
-			}else {
-				model.put("mensaje", "El nombre de usuario ya está en uso, por favor elija otro.");
-				return "clientes/createOrUpdateCuentaForm";
-			}
-			
+			this.clienteService.saveCliente(cliente);
+			log.info("Cliente actualizado");
+			return "clientes/clienteDetails";
 		}
 	}
 

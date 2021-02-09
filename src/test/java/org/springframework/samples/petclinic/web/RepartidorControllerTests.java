@@ -194,9 +194,7 @@ public class RepartidorControllerTests {
 		.andExpect(status().isOk())
 		.andExpect(view().name("repartidores/createOrUpdateRepartidorForm"));
     }
-    
 
-    
 	@WithMockUser(value = "spring")
     @Test
     void testDarAltayBajaIf() throws Exception {
