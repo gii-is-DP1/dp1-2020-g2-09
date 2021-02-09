@@ -75,7 +75,6 @@ VALUES ('Paco','Pérez Maldonado','1998-12-29','777777777','paquitorechulon@gmai
 VALUES ('Marmona','Jimenez Ronaldinha','1997-12-29','777555555','mariana@gmail.com','ejemploCocinero', '2020-09-30');*/
 
 
-/*DATETIME fecha_actual = DATETIME.NOW() -> No funciona*/
 INSERT INTO repartidores(nombre,apellidos,fecha_nacimiento,telefono,email, fecha_inicio_contrato, usuario)
 VALUES ('Minguito','Gutiérrez Ronaldo','1998-11-03','682547321','minguitoo@gmail.com', '2019-12-12', 'repartidor1');
 
@@ -123,10 +122,11 @@ INSERT INTO RESERVAS(id, fecha_reserva, hora_reserva, numero_personas, tipo_rese
 
 
 INSERT INTO RECLAMACIONES(observacion, respuesta)
-VALUES('Había un hueso de aceituna en mi pizza. ¿Qué tipo de broma es esta?', 'Lo sentimos mucho');
+VALUES('Había un hueso de aceituna en mi pizza. ¿Qué tipo de broma es esta?', '');
 
 INSERT INTO RECLAMACIONES(observacion, respuesta)
 VALUES('Mi pizza carbonara llevaba 1 sola unidad de champiñón.', '');
+
 
 INSERT INTO MESAS VALUES(1,6,1);
 INSERT INTO MESAS VALUES(2,6,1);
@@ -168,17 +168,18 @@ INSERT INTO OFERTAS(NAME,ESTADO_OFERTA,TAMANO_OFERTA,COSTE,FECHA_INICIAL,NIVEL_S
 ('2 HAWAIANAS 5€ CADA UNA',false,1,10,'2020-04-05',3,'2025-04-30');
 
 INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio, pedidocliente)
-VALUES ('30','3.5','C/Ferrara, 5, 7b', '2020-11-15', 2, 1,1, '1');
+VALUES ('99.5','3.5','C/Ferrara, 5, 7b', '2020-11-15', 2, 1,1, '1');
 INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio,pedidocliente)
-VALUES ('29','3','C/Ferrara, 5, 7b', '2020-11-16',3,1,1, '1');
+VALUES ('99.5','3','C/Ferrara, 5, 7b', '2020-11-16',3,1,1, '1');
 INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio,pedidocliente)
-VALUES ('50','2.30','C/Ferrara, 5, 7b', '2020-11-18',2,1,1,'2');
+VALUES ('43','2.30','C/Ferrara, 5, 7b', '2020-11-18',2,1,1,'2');
 INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio,pedidocliente)
-VALUES ('57','2','C/Ferrara, 5, 7b', '2020-11-30',3,1,2, '3');
+VALUES ('31','2','C/Ferrara, 5, 7b', '2020-11-30',3,1,2, '3');
 INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio,pedidocliente)
-VALUES ('57','2','C/Ferrara, 5, 7b', '2020-11-30',3,1,2, '3');
+VALUES ('31','2','C/Ferrara, 5, 7b', '2020-11-30',3,1,2, '3');
 INSERT INTO pedido(precio,gastos_envio,direccion,fecha_pedido,estado_pedido, tipo_pago, tipo_envio, pedidocliente)
-VALUES ('200','3.5','C/Ferrara, 5, 7b', '2020-11-15', 2, 1,1, '2');
+VALUES ('31','3.5','C/Ferrara, 5, 7b', '2020-11-15', 2, 1,1, '2');
+
 
 INSERT INTO OFERTA_PEDIDO(PEDIDO_ID, OFERTAS_EN_PEDIDO_ID) values (1, 1);
 INSERT INTO OFERTA_PEDIDO(PEDIDO_ID, OFERTAS_EN_PEDIDO_ID) values (1, 2); 
@@ -188,9 +189,6 @@ INSERT INTO TIPO_MASA(id, name) VALUES(1,'FINA');
 INSERT INTO TIPO_MASA(id, name) VALUES(3,'GRUESA');
 INSERT INTO TIPO_MASA(id, name) VALUES(2,'RELLENA');
 
-/*INSERT INTO TAMAÑO VALUES(1,'GRANDE');
-INSERT INTO TAMAÑO VALUES(3,'PEQUEÑA');
-INSERT INTO TAMAÑO VALUES(2,'MEDIANA');*/
 
 INSERT INTO Alergenos(id,name) VALUES(1,'Crustaceos y productos a base de crustaceos');
 INSERT INTO Alergenos(id,name) VALUES(2,'Cereales que contengan gluten');
@@ -280,11 +278,6 @@ INSERT INTO OTROS(coste,nombre,version) values (2, 'Chorizo de untar',1);
 INSERT INTO OTROS(coste,nombre,version) values (10, 'Papas arrugadas',1);
 INSERT INTO OTROS(coste,nombre,version) values (15, 'Morcilla dulce',1);
 INSERT INTO OTROS(coste,nombre,version) values (9, 'Berenjenas de Almagro',1);
-/*INSERT INTO OTROS values ( 1, 20, 'patatas bravas', 5);
-INSERT INTO OTROS values ( 1, 22, 'Spaghetti con salsa de tomate casera',	2);
-INSERT INTO OTROS values ( 1, 10, 'crema catalana',1);
-INSERT INTO OTROS values ( 1, 15, 'tiramisú',	4);
-INSERT INTO OTROS values ( 2, 19, 'brownie',	3);*/
 
 
 INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values (1,'Nestea',1, false ,1);
@@ -300,7 +293,32 @@ INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values
 INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values ( 1, 'Aquarius',1, true ,2);
 INSERT INTO BEBIDAS(coste,nombre,version,es_carbonatada, tamano_producto) values ( 2, 'Schweppes',1, true ,1);
 
-/*NO ME TOQUEIS LAS FECHAS DE CARTAS*/
+
+INSERT INTO PRODUCTO_OTROS_PEDIDO(PEDIDO_ID, OTROS_EN_PEDIDO_ID) VALUES (1,3); 
+INSERT INTO PRODUCTO_OTROS_PEDIDO(PEDIDO_ID, OTROS_EN_PEDIDO_ID) VALUES (2,4); 
+INSERT INTO PRODUCTO_OTROS_PEDIDO(PEDIDO_ID, OTROS_EN_PEDIDO_ID) VALUES (3,2); 
+INSERT INTO PRODUCTO_OTROS_PEDIDO(PEDIDO_ID, OTROS_EN_PEDIDO_ID) VALUES (4,3); 
+INSERT INTO PRODUCTO_OTROS_PEDIDO(PEDIDO_ID, OTROS_EN_PEDIDO_ID) VALUES (5,7); 
+INSERT INTO PRODUCTO_OTROS_PEDIDO(PEDIDO_ID, OTROS_EN_PEDIDO_ID) VALUES (6,5); 
+
+INSERT INTO PRODUCTO_BEBIDA_PEDIDO(PEDIDO_ID, BEBIDAS_EN_PEDIDO_ID) VALUES (1,2);
+INSERT INTO PRODUCTO_BEBIDA_PEDIDO(PEDIDO_ID, BEBIDAS_EN_PEDIDO_ID) VALUES (2,3);
+INSERT INTO PRODUCTO_BEBIDA_PEDIDO(PEDIDO_ID, BEBIDAS_EN_PEDIDO_ID) VALUES (3,6);
+INSERT INTO PRODUCTO_BEBIDA_PEDIDO(PEDIDO_ID, BEBIDAS_EN_PEDIDO_ID) VALUES (4,1);
+INSERT INTO PRODUCTO_BEBIDA_PEDIDO(PEDIDO_ID, BEBIDAS_EN_PEDIDO_ID) VALUES (5,4);
+INSERT INTO PRODUCTO_BEBIDA_PEDIDO(PEDIDO_ID, BEBIDAS_EN_PEDIDO_ID) VALUES (6,7);
+
+INSERT INTO PRODUCTO_PIZZA_PEDIDO(PEDIDO_ID, PIZZAS_EN_PEDIDO_ID) VALUES (1,2);
+INSERT INTO PRODUCTO_PIZZA_PEDIDO(PEDIDO_ID, PIZZAS_EN_PEDIDO_ID) VALUES (2,6);
+INSERT INTO PRODUCTO_PIZZA_PEDIDO(PEDIDO_ID, PIZZAS_EN_PEDIDO_ID) VALUES (3,1);
+INSERT INTO PRODUCTO_PIZZA_PEDIDO(PEDIDO_ID, PIZZAS_EN_PEDIDO_ID) VALUES (4,3);
+INSERT INTO PRODUCTO_PIZZA_PEDIDO(PEDIDO_ID, PIZZAS_EN_PEDIDO_ID) VALUES (5,3);
+INSERT INTO PRODUCTO_PIZZA_PEDIDO(PEDIDO_ID, PIZZAS_EN_PEDIDO_ID) VALUES (6,4);
+
+
+INSERT INTO PEDIDO_RECLAMACION(PEDIDO_ID, RECLAMACION_ID) VALUES (1,1);
+INSERT INTO PEDIDO_RECLAMACION(PEDIDO_ID, RECLAMACION_ID) VALUES (2,2); 
+
 INSERT INTO CARTAS(nombre, fecha_Creacion, fecha_Final) values ('CartaPrincipal', '2021-01-01', '2021-12-31');
 INSERT INTO CARTAS(nombre, fecha_Creacion, fecha_Final) values ('CartaPrueba','2022-01-01', '2022-12-31');
 
