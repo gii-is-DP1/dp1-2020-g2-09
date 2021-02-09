@@ -398,7 +398,9 @@ public class PedidoController {
 			Pedido pedido=this.pedidoService.findPedidoById(pedidoId);
 			if(pedido.getTipoEnvio().getId()==1 && pedido.getEstadoPedido().getId()==2) {
 				pedidoService.putRecogido(pedidoId);
-			}else pedidoService.putPreparado(pedidoId);
+			}else if(pedido.getTipoEnvio().getId()==2 && pedido.getEstadoPedido().getId()==1) {
+				pedidoService.putPreparado(pedidoId);
+			}
 			log.info("Pedido en cocina preparado.");
 			return "redirect:/pedidos/cocinero";
 		}
