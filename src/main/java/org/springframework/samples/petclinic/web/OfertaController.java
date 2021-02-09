@@ -77,6 +77,15 @@ public class OfertaController {
 	public String showOfertaList(Map<String, Object> model) {
 		Ofertas ofertas = new Ofertas();
 		ofertas.getOfertasList().addAll(this.ofertaService.findOfertas());
+//		
+//		for(int i=0; i<ofertas.getOfertasList().size();i++) {
+//			Oferta oferta = ofertas.getOfertasList().get(i);
+//			if(oferta.getFechaFinal().isBefore(LocalDate.now())) {
+//				oferta.setEstadoOferta(false);
+//				ofertas.getOfertasList().set(i, oferta);
+//			}
+//		}
+		
 		model.put("ofertas", ofertas);
 		model.put("hoy",LocalDate.now());
 		log.info("Mostrando lista de ofertas");

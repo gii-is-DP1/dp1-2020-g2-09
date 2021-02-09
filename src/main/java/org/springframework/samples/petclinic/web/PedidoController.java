@@ -531,25 +531,31 @@ public class PedidoController {
 	
 		Cliente cliente=getClienteActivo();
 		NivelSocio num=cliente.getNivelSocio();
-		List<Oferta>  ofertas = new ArrayList<>();
+		List<Oferta>  ofertasActivas = ofertaService.findOfertasTrueEnTiempo(LocalDate.now());
+		List<Oferta>  ofertasSegunNivelSocio = new ArrayList<>();
+		List<Oferta> ofertasDefinitivas = new ArrayList<>();
 		int i;
 		
 		if(num.getName().compareTo("ORO")==0) {
 			for(i=1; i<=3; i++) {
-				ofertas.addAll(ofertaService.ofertasNivelSocio(i));
+				ofertasSegunNivelSocio.addAll(ofertaService.ofertasNivelSocio(i));
 			}
-			model.put("ofertaPedido",ofertas);
 		} else if(num.getName().compareTo("PLATA")==0){
 			for(i=1; i<=2; i++) {
-				ofertas.addAll(ofertaService.ofertasNivelSocio(i));
+				ofertasSegunNivelSocio.addAll(ofertaService.ofertasNivelSocio(i));
 			}
-			model.put("ofertaPedido",ofertas);
 		}else if(num.getName().compareTo("BRONCE")==0){
-			ofertas.addAll(ofertaService.ofertasNivelSocio(1));
-			model.put("ofertaPedido",ofertas);
+			ofertasSegunNivelSocio.addAll(ofertaService.ofertasNivelSocio(1));
 		} else {
-			
+			//que no tenga nivel de socio entonces no se hace nada
 		}
+		for(int j=0; j<ofertasSegunNivelSocio.size();j++) {
+			Oferta oferta = ofertasSegunNivelSocio.get(j);
+			if(ofertasActivas.contains(oferta)) {
+				ofertasDefinitivas.add(oferta);
+			}
+		}
+		model.put("ofertaPedido",ofertasDefinitivas);
 		log.info("Recogiendo productos de la carta.");
 	}
 	
@@ -581,7 +587,6 @@ public class PedidoController {
 				listaOtros.getOtrosLista().add(otro);
 			}
 			model.put("otros", listaOtros);
-			
 			List<Integer> listaIdOferta = ofertaService.findOfertasEnPedidoById(pedidoId);
 			Ofertas listaOferta = new Ofertas();
 			for(int i=0; i<listaIdOferta.size(); i++) {

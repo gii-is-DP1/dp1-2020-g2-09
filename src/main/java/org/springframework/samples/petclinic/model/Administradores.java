@@ -13,7 +13,7 @@ public class Administradores {
 	
 private List<Administrador> administradoresList;
 	
-	@XmlElement
+	@XmlElement 
 	public List<Administrador> getAdministradoresList() {
 		if (administradoresList == null) {
 			administradoresList = new ArrayList<>();
