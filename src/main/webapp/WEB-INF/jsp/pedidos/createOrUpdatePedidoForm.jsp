@@ -13,12 +13,8 @@
     </h2>
     <form:form modelAttribute="pedido" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
-            <%-- <petclinic:inputField label="Precio" name="precio"/> --%>
-            <%-- <petclinic:inputField label="Fecha Pedido" name="fechaPedido"/> --%>
-            <%-- <petclinic:inputField label="Gastos de Envio" name="gastosEnvio"/> --%>
             <petclinic:inputField label="Direccion" name="direccion"/>
 			<div class="control-group">
-			<%-- <petclinic:selectField name="estadoPedido" label="Estado Pedido" names="${estadoPedido}" size="4"/> --%>
 			<petclinic:selectField name="tipoPago" label="Tipo Pago" names="${tipoPago}" size="2"/>
 			<petclinic:selectField name="tipoEnvio" label="Tipo Envio" names="${tipoEnvio}" size="2"/>
             </div>

@@ -8,13 +8,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  
-   <%-- ESTA ES LA VISTA EN LA QUE UN CLIENTE ELIGE LOS PRODUCTOS DE LA CARTA Y LOS AÑADE, EL ADMINISTRADOR PUEDE AÑADIR PRODUCTOS--%>
     
 <petclinic:layout pageName="carta">
     <h2>Carta</h2>
     
     <h3>Pizzas Personalizadas</h3>
-    <!--<c:out value="${cartaId}"></c:out>-->
 	    <sec:authorize access="hasAnyAuthority('administrador')"  >
 	   			<spring:url value="/cartas/{cartaId}/pizzas" var="listaPizzas">
 		         <spring:param name="cartaId" value="${cartaId}"/> 
@@ -117,7 +115,6 @@
 	        <tbody>
 	        <c:forEach items="${ofertaPedido}" var="oferta">
 	            <tr>
-	            <!-- <input  value="${pizza.id}">  -->
 	               <td>
 	                    <c:out value="${oferta.name}"/>
 	               </td>
@@ -187,7 +184,6 @@
         <tbody>
         <c:forEach items="${pizzas.pizzasList}" var="pizza">
             <tr>
-            <!-- <input  value="${pizza.id}">  -->
                <td>
                     <c:out value="${pizza.nombre}"/>
                </td>
@@ -274,7 +270,6 @@
                 	<c:if test="${!bebida.esCarbonatada}">
                 		<c:out value="No"></c:out>
                 	</c:if>
-                	<!-- <c:out value="${bebida.esCarbonatada}"/> -->
              	</td>
              	<td>
              		<c:out value="${bebida.tamano}"></c:out>
@@ -282,9 +277,7 @@
              	<td>
              		<c:out value="${bebida.coste}"/>
              	</td>
-             	<!-- <td>
-             		<c:out value="${bebida.id}"></c:out>
-             	</td> -->  
+             
              	<td>
              		<sec:authorize access="hasAnyAuthority('cliente')"  >
                     <spring:url value="/pedidos/{pedidoId}/cartas/{cartaId}/verCarta/anadirBebida/{bebidaId}" var="pedidoBebidaUrl">

@@ -38,9 +38,7 @@
              	<td>
              		<c:out value="${administrador.email}"/>
              	</td>
-             	<!-- <td>
-             		<c:out value="${cuenta.id}"></c:out>
-             	</td> -->
+
              	<td>
              		<spring:url value="/administradores/{administradorId}/edit" var="administradorUrl">
 	                        <spring:param name="administradorId" value="${administrador.id}"/>

@@ -27,8 +27,6 @@
             <petclinic:inputField label="Email" name="email" />
             <petclinic:inputField label="Username" name="user.username"/>
             <petclinic:inputField label="Password" name="user.password"/>
-            <!-- <petclinic:inputField label="Fecha de Baja" name="fechaFinContrato"/> -->
-            <!--<petclinic:inputField label="Id" name="id" />-->
         </div>
         
         	

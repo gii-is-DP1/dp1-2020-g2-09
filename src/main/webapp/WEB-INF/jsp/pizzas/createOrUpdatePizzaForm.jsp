@@ -18,19 +18,12 @@
            
             <petclinic:selectField name="tipoMasa" label="Tipo de Masa" names="${tipoMasa}" size="3"/>
                   
-             <!--select label="tipoMasa" name="tipoMasa">
-			  <option value="AMERICANA">Americana</option> 
-			  <option value="FINA" selected>Fina</option>
-			  <option value="BORDESDEQUESO">Bordes de queso</option>
-			</select>-->
 			
 			<petclinic:selectField name="tamano" label="Tamaño" names="${tamanyo}" size="3"/>
                      
-			<!--  <label for="precio">Precio </label>	<input type="number" id="precio" name="coste">-->
 			<petclinic:input name="coste" label="Precio"/>
 			<input type="hidden" name="version" value="${pizza.version}"/>
 			
-			  <!-- <petclinic:selectField name="ingredientes" label="ingredientes" names="${ingredientes}" size="3"/> -->
              <table id="ingredientesTable" class="table table-striped">
              <thead>
        		 <tr>
@@ -50,9 +43,7 @@
        		 </tbody>
              </table>
 			
-         <!--   <petclinic:selectField name="ingredientes" label="Ingredientes (Para seleccionar más de uno debe mantener ctrl)" names="${ingredientes}" size="15"/> -->
-           
-            <!--<petclinic:inputField label="Id" name="id"/> -->
+
             </div>
         </div>
         <div class="form-group">
