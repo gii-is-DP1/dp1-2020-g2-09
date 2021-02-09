@@ -27,7 +27,6 @@
 			</select>
 			<petclinic:input name="coste" label="Precio"/>
 			<input type="hidden" name="version" value="${bebida.version}"/>
-            <!--<petclinic:inputField label="Id" name="id"/> -->
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
